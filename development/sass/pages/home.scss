@@ -1,0 +1,94 @@
+@import '../modules/_colors';
+@import '../modules/_mixins';
+/* The home page needs a different header color to match the main intro */
+#page-index {
+    #main-intro {
+        background: rgba(44, 62, 80, 0.95);
+        background-size: cover;
+        padding-bottom: 30px;
+        .inner {
+            padding-top: 30px;
+        }
+        .register {
+            margin-top: 150px;
+        }
+        p {
+            color: #fff;
+        }
+        ul {
+            li {
+                i {
+                    color: #2980b9;
+                }
+            }
+            color: #fff;
+        }
+        h1.title {
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 70px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        @media all and (max-width: 1200px) {
+            h1.title {
+                font-size: 50px;
+            }
+            .register {
+                text-align: center;
+                margin-top: 25px;
+                a {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .btn-default {
+            border: 2px solid rgba(44, 62, 80, 0.8);
+            color: rgba(44, 62, 80, 0.8);
+            .fa {
+                margin-right: 15px;
+                background: rgba(44, 62, 80, 0.8);
+                padding: 16px 18px;
+                border-radius: 32px;
+                color: #fff;
+            }
+            &:hover {
+                color: #fff;
+                background: rgba(44, 62, 80, 0.95);
+            }
+        }
+    }
+
+    .icon-set {
+        p {
+            font-size: 15px;
+            line-height: 100%;
+        }
+    }
+    #post-intro-headline {
+        background: $content-offset;
+        padding: 14px 0;
+        div {
+            font-size: 23px;
+            color: #b2b2b2;
+        }
+    }
+
+    #title-bar {
+        display:  none;
+    }
+
+    div.featured-course {
+        overflow: hidden;
+        margin-bottom: 20px;
+        img {
+            margin-bottom: 10px;
+        }
+        h3 {
+        }
+    }
+}

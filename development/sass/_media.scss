@@ -1,0 +1,77 @@
+#jump-to-checkout {display: none;}
+
+@media all and (max-width: 996px) {
+    .home-intro-icon {display: none;}
+    .public-product-description {
+        margin-top: 20px;
+        width: 480px;
+    }
+    #jump-to-checkout {
+        display: block;
+    }
+    .discover-mini .row {
+        a {
+            font-size: 12px !important;
+        }
+        div {
+            .item {
+                @include border-radius(15px);
+                width: 100px !important;
+                height: 120px !important;
+                padding-top: 22px !important;
+            }
+        }
+    }
+    #header .nav>li>a {
+        padding-left: 14px;
+        padding-right: 14px;
+        font-size: 16px;
+    }
+}
+
+@media all and (max-width: 645px) {
+    #product-intro .inner h2 {
+        font-size: 19px;
+    }
+}
+
+@media all and (max-width: 554px) {
+    .discover-mini .row {
+        a {
+            font-size: 0px !important;
+        }
+        div {
+            margin-top: 18px;
+            .item {
+                @include border-radius(15px);
+                width: 68px !important;
+                height: 68px !important;
+                padding-top: 2px !important;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 901px) {
+    #title-bar {height: 41px; }
+    #title-bar h1 {font-size: 15px;}
+    .home-header-icon {display: none;}
+}
+@media all and (max-width: 260px) {
+    #logo {
+        margin-top: 6px;
+        width: 100px;
+    }
+}
+
+/*For Dashboard*/
+@media all and (max-width: 520px) {
+    .list-group-item .course-action .action-text {
+        display: none;
+    }
+    #footer,
+    #main-intro {
+        display: none;
+    }
+
+}

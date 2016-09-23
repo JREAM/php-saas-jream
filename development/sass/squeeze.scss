@@ -1,0 +1,15 @@
+@import '_misc';
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+#header .navbar {
+    background: silver !important;
+}
+
+body {
+    font-size: 10px !important;
+    background: url('../img/bg-squeeze-all.jpg') repeat;
+}

@@ -1,0 +1,17 @@
+@import '../modules/_colors';
+@import '../modules/_mixins';
+#page-live {
+    #live-intro {
+        background: $structure url("../img/bg-live.jpg") 60% 0px;
+        background-size: cover;
+        position: relative;
+        height: 300px;
+        .inner {
+            padding-top: 30px;
+            color: $lightest;
+            h1, h2, h3 {
+                color: $lightest;
+            }
+        }
+    }
+}

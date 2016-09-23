@@ -1,0 +1,51 @@
+@import '../modules/_colors';
+@import '../modules/_mixins';
+#page-dashboard {
+    .dashboard-tabs {
+        margin-bottom: 10px;
+    }
+    .dashboard-tabs>li>a {
+        color: gray;
+        font-size: 18px !important;
+    }
+    .dashboard-image-list {
+        margin: 0 15px 15px 15px;
+        border: 1px solid silver !important;
+    }
+
+    .dashboard-product-title {
+        margin-bottom: 2px;
+        padding: 10px 10px;
+        background: $lightest;
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .dashboard-product-footer {
+        padding: 5px 10px;
+    }
+
+    .dashboard-youtube-title {
+        font-size: 14px;
+    }
+
+    .panel-heading a {
+        color: gray;
+        font-size: 22px;
+        border: none;
+        outline: none;
+        &.top {
+            border-radius: 50%;
+            text-align: center;
+            height: 35px;
+            width: 35px;
+            background: #fff;
+            &:hover {
+                color: #fff;
+                background: silver;
+            };
+        }
+    }
+}

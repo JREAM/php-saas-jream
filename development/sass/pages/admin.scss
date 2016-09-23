@@ -1,0 +1,19 @@
+@import '../modules/_colors';
+@import '../modules/_mixins';
+#page-admin {
+
+    .admin-quiz-control {
+        position: fixed;
+        top: 200px;
+        right: 9px;
+        height: auto;
+        border: 2px solid silver;
+        @include border-radius(5px);
+        button {
+            display: block;
+            width: 100%;
+        padding: 10px;
+        }
+    }
+
+}

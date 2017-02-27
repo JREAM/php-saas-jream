@@ -68,6 +68,26 @@ Then install
 
 These are components used to deploy, and manage various things. Note I use **Ubuntu 14 x64** for all servers.
 
+#### Install Capistrano Locally
+
+```
+sudo gem install bundler
+```
+
+With a `Gemfile`:
+```
+source 'https://rubygems.org'
+group :development do
+  gem "capistrano", "~> 3.7"
+end
+```
+
+
+For first time installation if no `/config/deploy.rb` exists:
+```
+bundle exec cap install
+```
+
 #### Install and run PHPUnit
 
     $ sudo apt-get install phpunit

@@ -1,96 +1,58 @@
 <?php
 
-// --------------------------------------------------------------------
-// Load Composer
-// --------------------------------------------------------------------
-$autoload_file = VENDOR_DIR . "autoload.php";
+/**
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylor@laravel.com>
+ */
 
-if (!file_exists($autoload_file)) {
-    throw new \Exception('Required: $ composer install');
-}
-require_once $autoload_file;
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels great to relax.
+|
+*/
 
-// --------------------------------------------------------------------
-// Load Environment Settings
-// @note Pass getenv(PARAM) to any file
-// --------------------------------------------------------------------
-$dotenv = new Dotenv\Dotenv(__DIR__);
-$dotenv->load();
+require __DIR__.'/../bootstrap/autoload.php';
 
-// --------------------------------------------------------------------
-// Error Reporting
-// --------------------------------------------------------------------
-error_reporting(E_ALL); // Log all errors
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
 
-// --------------------------------------------------------------------
-// Load the Config Constants for everything
-// --------------------------------------------------------------------
-require dirname(__DIR__) . '/config/constants.php';
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-// --------------------------------------------------------------------
-// Timezone
-// --------------------------------------------------------------------
-date_default_timezone_set('UTC');
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
+| the client's browser allowing them to enjoy the creative
+| and wonderful application we have prepared for them.
+|
+*/
 
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-// --------------------------------------------------------------------
-// Phalcon Bootstrap
-// --------------------------------------------------------------------
-try {
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
 
-    // --------------------------------------------------------------------
-    // Read the configuration
-    // --------------------------------------------------------------------
-    $config = include CONFIG_DIR . "config.php";
-    $api    = include CONFIG_DIR . "api.php";
+$response->send();
 
-    // --------------------------------------------------------------------
-    // Read auto-loader
-    // --------------------------------------------------------------------
-    include CONFIG_DIR . "loader.php";
-
-    // --------------------------------------------------------------------
-    // Read services
-    // --------------------------------------------------------------------
-    include CONFIG_DIR . "services.php";
-
-    // -----------------------------------
-    // Custom functions after everything has loaded
-    // -----------------------------------
-    require_once APP_DIR . 'functions.php';
-
-    // --------------------------------------------------------------------
-    // Handle the request
-    // --------------------------------------------------------------------
-    $application = new \Phalcon\Mvc\Application($di);
-    echo $application->handle()->getContent();
-
-} catch (\Exception $e) {
-
-    if (\STAGE == 'production') {
-        // Log data to getSentry
-        $di->get('sentry')->captureException($e);
-
-        // Flash a message and go back home
-        echo 'A fatal error occured, we have logged it and will look into it.';
-        exit;
-    } else {
-        echo '<pre>';
-        echo "Message: {$e->getMessage()} <br>";
-        echo "File: {$e->getFile()}<br>";
-        echo "Line: {$e->getLine()}<br>";
-        echo $e->getTraceAsString();
-        echo '</pre>';
-        exit;
-    }
-
-    if (!is_writable(CACHE_DIR)) {
-        $di->get('sentry')->captureException('Cache Dir is not writable.');
-        echo 'Cache dir is not writable.';
-        exit;
-    }
-
-
-}
-// End of File
-// --------------------------------------------------------------------
+$kernel->terminate($request, $response);

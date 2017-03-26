@@ -1,4 +1,22 @@
 <?php
+
+// --------------------------------------------------------------------
+// Load Composer
+// --------------------------------------------------------------------
+$autoload_file = VENDOR_DIR . "autoload.php";
+
+if (!file_exists($autoload_file)) {
+    throw new \Exception('Required: $ composer install');
+}
+require_once $autoload_file;
+
+// --------------------------------------------------------------------
+// Load Environment Settings
+// @note Pass getenv(PARAM) to any file
+// --------------------------------------------------------------------
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
 // --------------------------------------------------------------------
 // Error Reporting
 // --------------------------------------------------------------------
@@ -19,16 +37,6 @@ date_default_timezone_set('UTC');
 // Phalcon Bootstrap
 // --------------------------------------------------------------------
 try {
-
-    // --------------------------------------------------------------------
-    // Load Composer
-    // --------------------------------------------------------------------
-    $autoload_file = VENDOR_DIR . "autoload.php";
-
-    if (!file_exists($autoload_file)) {
-        throw new \Exception('Required: $ composer install');
-    }
-    require_once $autoload_file;
 
     // --------------------------------------------------------------------
     // Read the configuration

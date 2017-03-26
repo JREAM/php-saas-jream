@@ -255,9 +255,6 @@ $di->setShared('facebook', function() use ($api) {
     ]);
 });
 
-$di->setShared('mailchimp', function() use ($api) {
-    return new \Mailchimp($api->mailchimp->key);
-});
 
 // End of File
 // --------------------------------------------------------------------

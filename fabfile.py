@@ -13,7 +13,7 @@ Required:
 # Settings
 # ------------------------------------------------------------------------------
 STAGES = {
-    'live': {
+    'production': {
         'hosts': [
             'jesse@23.92.28.20:2327',   # jream02
         ],
@@ -49,8 +49,8 @@ def set_stage(stage_name):
 
 
 @task
-def live():
-    set_stage('live')
+def production():
+    set_stage('production')
 
 
 @task
@@ -109,7 +109,7 @@ def permissions():
 def deploy():
     """Deploy the project to remote host
     """
-    require('stage', provided_by=(live, dev,))
+    require('stage', provided_by=(production, dev,))
 
     with cd(env.path):
         permissions()

@@ -88,8 +88,8 @@ $di->setShared('view', function () use ($config) {
                 'compileAlways' => true
             ]);
 
-            // Use Cache for live site
-            if (\STAGE == 'live') {
+            // Use Cache for production site
+            if (\STAGE == 'production') {
                 $voltOptions['compileAlways'] = false;
             }
 
@@ -200,7 +200,7 @@ $di->setShared('security', function(){
 });
 
 // -----------------------------------
-// For live error logging
+// For production error logging
 // -----------------------------------
 $di->setShared('sentry', function() use ($api) {
     return new \Raven_Client($api->getSentry);
@@ -209,7 +209,7 @@ $di->setShared('sentry', function() use ($api) {
 // -----------------------------------
 // For local error logging
 // -----------------------------------
-if (\STAGE != 'live') {
+if (\STAGE != 'production') {
     // This is ONLY used locally
     $di->setShared('whoops', function() {
         $whoops = new \Whoops\Run;

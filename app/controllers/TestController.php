@@ -9,7 +9,7 @@ class TestController extends \BaseController
      */
     public function onConstruct()
     {
-        if (\STAGE == 'live' && ! $this->input->get('jesse=1') ) {
+        if (\STAGE == 'production' && ! $this->input->get('jesse=1') ) {
             return $this->redirect('index');
         }
     }

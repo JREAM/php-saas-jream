@@ -37,10 +37,9 @@ class Permission extends \Phalcon\Mvc\User\Component
         'user'       => '*',
         'devtools'   => '*',
         'test'       => '*',
-        'live'       => '*',
+        'production' => '*',
         'consulting' => '*',
         'services'   => '*',
-        'squeeze'    => '*',
         'contact'    => '*',
         'api'        => '*',
     ];
@@ -73,7 +72,7 @@ class Permission extends \Phalcon\Mvc\User\Component
         'promo'       => ['*'],
         'product'     => ['*'],
         'quiz'        => ['*'],
-        'live'        => ['*'],
+        'production'  => ['*'],
     ];
 
     // ------------------------------------------------------------------------
@@ -193,7 +192,7 @@ class Permission extends \Phalcon\Mvc\User\Component
 
     private function _handleHttps($dispatcher)
     {
-        if (\STAGE != 'live') {
+        if (\STAGE != 'production') {
             return false;
         }
 

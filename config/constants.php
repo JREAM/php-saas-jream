@@ -5,14 +5,6 @@
 // constants-overwrite.php is possible, so these items check if
 // they are not yet defined first.
 // --------------------------------------------------------------
-if (file_exists(__DIR__ . '/constants-overwrite.php')) {
-    require __DIR__ . '/constants-overwrite.php';
-}
-
-// --------------------------------------------------------------
-// Timezone
-// --------------------------------------------------------------
-defined ('DEFAULT_TIMEZONE') or define('DEFAULT_TIMEZONE', 'UTC');
 
 // --------------------------------------------------------------
 // Settings

@@ -35,7 +35,7 @@
         </script>
     {% endif %}
 
-    {% if constant('STAGE') == 'live' %}
+    {% if constant('STAGE') == 'production' %}
     <!-- Sumo -->
     <script src="//load.sumome.com/" data-sumo-site-id="ad3474636f620f4b2ebd3f9ff84c90d7f8eca861865f8d63eae28c9601403d62" async="async"></script>
     {% endif %}

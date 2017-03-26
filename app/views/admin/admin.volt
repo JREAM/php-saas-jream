@@ -29,7 +29,6 @@
                 <li><a href="{{ url('admin/transaction') }}" class="btn btn-block btn-xl btn-info">Transactions</a></li>
                 <li><a href="{{ url('admin/email') }}" class="btn btn-block btn-xl btn-warning">Email Customers</a></li>
                 <!-- <li><a href="{{ url('admin/quiz') }}" class="btn btn-block btn-xl btn-default">Quizzes</a></li> -->
-                <li><a href="{{ url('admin/live') }}" class="btn btn-block btn-xl btn-warning">Live Training</a></li>
             </ul>
 
         </div>

@@ -59,7 +59,7 @@ $(function() {
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>Card Number</label>
-                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\STAGE") != 'live' %}4242424242424242{% endif %}">
+                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\STAGE") != 'production' %}4242424242424242{% endif %}">
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@ $(function() {
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label>CVV <span class="glyphicon glyphicon glyphicon-question-sign" data-toggle="tooltip" title="3 Digits on the back of your card. (Also known as CVC, CID, or CSC)"></span></label>
-                        <input data-stripe="cvc" class="form-control" value="{% if constant("\STAGE") != 'live' %}100{% endif %}" />
+                        <input data-stripe="cvc" class="form-control" value="{% if constant("\STAGE") != 'production' %}100{% endif %}" />
                     </div>
                 </div>
             </div>

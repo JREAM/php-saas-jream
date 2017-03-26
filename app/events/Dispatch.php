@@ -61,7 +61,7 @@ class Dispatch
     // -------------------------------------------------------------
 
     /**
-     * Handle Exceptions Locally and LIve
+     * Handle Exceptions Locally and Production
      *
      * @param  object $event
      * @param  object $dispatcher
@@ -73,7 +73,7 @@ class Dispatch
     {
         error_log($exception->getMessage(), 0);
 
-        if (\STAGE == 'live')
+        if (\STAGE == 'production')
         {
             // GetSentry to log the error
             $this->di->get('sentry')->captureException($exception);

@@ -12,7 +12,7 @@ require dirname(__DIR__) . '/config/constants.php';
 // --------------------------------------------------------------------
 // Timezone
 // --------------------------------------------------------------------
-date_default_timezone_set(DEFAULT_TIMEZONE);
+date_default_timezone_set('UTC');
 
 
 // --------------------------------------------------------------------
@@ -32,7 +32,6 @@ try {
 
     // --------------------------------------------------------------------
     // Read the configuration
-    // (These files detect if an overwrite file is included for live/local)
     // --------------------------------------------------------------------
     $config = include CONFIG_DIR . "config.php";
     $api    = include CONFIG_DIR . "api.php";
@@ -60,7 +59,7 @@ try {
 
 } catch (\Exception $e) {
 
-    if (\STAGE == 'live') {
+    if (\STAGE == 'production') {
         // Log data to getSentry
         $di->get('sentry')->captureException($e);
 

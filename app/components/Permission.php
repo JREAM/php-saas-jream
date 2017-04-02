@@ -211,7 +211,7 @@ class Permission extends \Phalcon\Mvc\User\Component
 
         // Dispatch to HTTPs version
         if (in_array($dispatcher->getControllerName(), $https)
-            && !$this->request->isSecureRequest())
+            && !$this->request->isSecure())
         {
             $redirect = sprintf("Location: https://%s%s",
                 \URL,

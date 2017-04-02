@@ -68,11 +68,6 @@
                         <i class="fa fa-facebook"></i> Sign in with Facebook
                     </a>
                 </p>
-                <!-- <p>
-                    <a href="{{ googleLoginUrl }}" class="btn btn-block btn-lg btn-social btn-google-plus">
-                        <i class="fa fa-google-plus"></i> Sign in with Google+
-                    </a>
-                </p> -->
                 <p class="text-center">
                     <a href="{{ url('index/terms#facebook-privacy') }}"><small>Facebook Privacy</small></a>
                 </p>

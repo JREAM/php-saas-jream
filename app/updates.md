@@ -1,5 +1,12 @@
 _This is an overview of JREAM development. This is not a comprehensive list of every update._
 
+## 4-2-17
+- Backend: Medium amount of code refactoring
+- Upgrade: Moved to Phalcon 3
+- Upgrade: Moved to PHP7, new geo-location.
+- Bugs: Fixed isSecureRequest() to isSecure() having errors from v3 Phalcon.
+
+
 ## 7-17-16
 - UI: Adding More Icons
 - UI: Fixing UI Display to look a little better

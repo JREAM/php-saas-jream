@@ -17,6 +17,7 @@ $loader->registerNamespaces([
    "Dashboard"  => CONTROLLERS_DIR . "dashboard/",
    "Admin"      => CONTROLLERS_DIR . "admin/",
    "Services"   => CONTROLLERS_DIR . "services/",
+   "Hire"       => CONTROLLERS_DIR . "hire/",
    'Phalcon'    => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/'
 ]);
 

@@ -84,6 +84,28 @@ $router->add('/dashboard', [
 ->setName('dashboard');
 
 // --------------------------------------------------------------
+// Dashboard SubRoutes
+// --------------------------------------------------------------
+$router->add('/hire/:controller/:action/:params', [
+    'namespace'  => 'Hire',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
+
+$router->add('/hire/:controller', [
+    'namespace'  => 'Hire',
+    'controller' => 1,
+]);
+
+$router->add('/hire', [
+    'namespace'  => 'Hire',
+    'controller' => 'hire',
+])
+->setName('hire');
+
+
+// --------------------------------------------------------------
 // Admin SubRoutes
 // --------------------------------------------------------------
 $router->add('/admin/:controller/:action/:params', [

@@ -43,6 +43,7 @@ class Permission extends \Phalcon\Mvc\User\Component
         'squeeze'    => '*',
         'contact'    => '*',
         'api'        => '*',
+        'hire'       => '*',
     ];
 
     /**

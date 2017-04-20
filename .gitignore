@@ -3,6 +3,7 @@
 vendor/*
 .vagrant
 .idea
+.env
 error.log
 fabfile.pyc
 *%%.php

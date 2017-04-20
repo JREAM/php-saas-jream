@@ -1,4 +1,4 @@
-{% extends "templates/full.volt" %}
+{% extends "templates/hire.volt" %}
 
 {% block title %}
 {% endblock %}

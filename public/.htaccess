@@ -33,6 +33,11 @@ RewriteRule ^index$ http://%{HTTP_HOST}/ [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
+# Check if request is in /blog/
+#RewriteCond %{DOCUMENT_ROOT}/blog%{REQUEST_URI} -f [OR]
+#RewriteCond %{DOCUMENT_ROOT}/blog%{REQUEST_URI} -d
+#RewriteRule ^(.*)$ /blog/$1 [L]
+
 # Standard Operations
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

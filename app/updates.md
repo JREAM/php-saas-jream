@@ -1,5 +1,12 @@
 _This is an overview of JREAM development. This is not a comprehensive list of every update._
 
+## 4-22-17
+- Working on researching various frameworks for new changes
+- Preparing a new UI Design
+- Setting up a Blog, Design will come after content [https://blog.jream.com](https://blog.jream.com)
+- Working on HTTP2 for Everything
+- Looking for Large Hosting Platform for Several Projects
+
 ## 4-2-17
 - Backend: Medium amount of code refactoring
 - Upgrade: Moved to Phalcon 3

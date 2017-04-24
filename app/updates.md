@@ -1,5 +1,10 @@
 _This is an overview of JREAM development. This is not a comprehensive list of every update._
 
+## 4-23-17
+- Launched Blog, it's now in the main navigation.
+- Blog Design is not complete, writing content to help people first.
+- PS: I don't use WordPress :)
+
 ## 4-22-17
 - Working on researching various frameworks for new changes
 - Preparing a new UI Design

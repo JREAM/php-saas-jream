@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url('third-party/bootstrap-social/bootstrap-social.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url('third-party/devicons/css/devicons.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url ('third-party/flowplayer/skin/functional.css') }}" type="text/css">
-
     <!-- Built Dependencies -->
     <script src="{{ url('js/dependencies.min.js') }} "></script>
 

@@ -1,51 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-US">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="telephone=no" name="format-detection">
-
-  <!-- @TODO: REMOVE WHEN PRODUCTION READY -->
-  <meta name="robots" content="noindex, nofollow">
-
-  <title>Hire JREAM</title>
-
-  <link href="{{ url('subsections/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ url('subsections/css/override.css') }}" rel="stylesheet">
-  <!--[if lt IE 9]>
-    <script src="{{ url('subsections/js/ie-fix/html5shiv.min.js') }}'"></script>
-    <script src="{{ url('subsections/js/ie-fix/respond.min.js') }}'"></script>
-  <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#navbar">
-<div class="load"></div>
+<body id="page-{{ router.getControllerName()|lower }}{% if router.getActionName() is not '' %}-action-{{ router.getActionName()|lower }}{% endif %}">
 
-{% include "hire/sections/slider.volt" %}
+{% if router.getControllerName() == 'index' and router.getActionName() == '' %}
+    {% set is_home = true %}
+{% else %}
+    {% set is_home = false %}
+{% endif %}
 
-{% include "hire/partials/nav.volt" %}
+{% if router.getControllerName() == 'user' and (router.getActionName() == 'login' or router.getActionName() == 'register') %}
+    {% set is_login = true %}
+{% else %}
+    {% set is_login = false %}
+{% endif %}
 
-<!-- start:Main Sections -->
-{% include "hire/sections/greeting.volt" %}
-{% include "hire/sections/services.volt" %}
-{% include "hire/sections/benefits.volt" %}
-{% include "hire/sections/statistics.volt" %}
-{% include "hire/sections/portfolio.volt" %}
-{% include "hire/sections/team.volt" %}
-{% include "hire/sections/proposal.volt" %}
-{% include "hire/sections/reviews.volt" %}
-{% include "hire/sections/stages.volt" %}
-{% include "hire/sections/partners.volt" %}
-{% include "hire/sections/contacts.volt" %}
-<!-- stop:Main Sections -->
+{% block intro %}{% endblock %}
 
-{% include "hire/partials/footer.volt" %}
+<div id="title-bar">
+    <div class="container container-fluid">
+        <div class="col-md-12">
+            {% block title %}{% endblock %}
+        </div>
+    </div>
+</div>
 
+<div class="container container-fluid {% if is_home or is_login %}hide{% endif %}">
+    <div class="col-md-12">
+        {% block breadcrumb %}{% endblock %}
+    </div>
+</div>
 
+{% if is_login == false %}
+<div class="container container-fluid {% if is_home %}hide{% endif %}">
+    <div class="col-md-12">
+        {{ flash.output() }}
+    </div>
+</div>
+{% endif %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="{{ url('subsections/js/scrollspy.js') }}"></script>
-<script src="{{ url('public/subsections/js/bootstrap.min.js') }}"></script>
-<script src="{{ url('subsections/js/custom.js') }}"></script>
+{% block content %}{% endblock %}
+
 </body>
 </html>

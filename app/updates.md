@@ -1,4 +1,9 @@
-_This is an overview of JREAM development. This is not a comprehensive list of every update._
+This is an overview of JREAM development. This is not a comprehensive list of every update._
+
+## 4-29-17
+- Doing a bit of blogging with about 16 pending articles to finish.
+- Bug: Fixed, some directory permissions not +x after an ACL update. ~12 hours.
+- Progress: Working on Two new Themes, Moving JREAM to a bigger organization.
 
 ## 4-23-17
 - Launched Blog, it's now in the main navigation.

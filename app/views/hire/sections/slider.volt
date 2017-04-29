@@ -14,7 +14,7 @@
                 <div class="item"></div>
                 <div class="item"></div>
             </div>
-            <img src="{{ url('subsections/images/mouse.png') }}" alt="Scroll down" title="Scroll down" class="scroll hidden-xs" />
+            <img src="{{ url('subsections/hire/images/mouse.png') }}" alt="Scroll down" title="Scroll down" class="scroll hidden-xs" />
         </div>
     </div>
 </div>

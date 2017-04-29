@@ -3,14 +3,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="title dark">Team</h1>
-                <p class="dark">Web studio specialists monthly pass training courses and have many certificates..</p>
+                <h1 class="title dark">Development Lead</h1>
+                <p class="dark">The Lead Developer of JREAM LLC you'll be working with.</p>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="member">
-                    <img src="{{ url('subsections/images/team/team1.jpg') }}" alt="Albus Dambldor" title="Albus Dambldor" />
-                    <h2>Albus Dambldor</h2>
-                    <small>Chief Executive Officer</small>
+                    <img src="{{ url('subsections/hire/images/team/jesse.jpg') }}" alt="Jesse" title="Jesse" />
+                    <h2>Jesse Boyer</h2>
+                    <small>Owner/Senior Engineer</small>
                     <div class="social">
                         <a href="#" class="fb" title="Facebook">fb</a>
                         <a href="#" class="tw" title="Twitter">tw</a>
@@ -20,38 +20,30 @@
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="member">
-                    <img src="{{ url('subsections/images/team/team2.jpg') }}" alt="Severus Snape" title="Severus Snape" />
-                    <h2>Severus Snape</h2>
-                    <small>Project manager</small>
-                    <div class="social">
-                        <a href="#" class="fb" title="Facebook">fb</a>
-                        <a href="#" class="tw" title="Twitter">tw</a>
-                        <a href="#" class="vk" title="Vkontakte">vk</a>
-                    </div>
+                    <h2>Bio</h2>
+                    <p>
+                        Jesse has been writing software since the age of 12, beginning in HTML, to IRC and QBasic.
+                        Over 20 years have passed and though rapidly evolving web has shown many strange faces and
+                        never ceases to drastically change, one thing has been consistent for two decades:
+                    </p>
+                    <p>
+                        <b>His love and obsession to constantly improve in technology.</b>
+                    </p>
+
+                    <p>
+
+                    </p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="member">
-                    <img src="{{ url('subsections/images/team/team3.jpg') }}" alt="Germiona Granger" title="Germiona Granger" />
-                    <h2>Germiona Granger</h2>
-                    <small>Lead designer</small>
-                    <div class="social">
-                        <a href="#" class="fb" title="Facebook">fb</a>
-                        <a href="#" class="tw" title="Twitter">tw</a>
-                        <a href="#" class="vk" title="Vkontakte">vk</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="member">
-                    <img src="{{ url('subsections/images/team/team4.jpg') }}" alt="Harry Potter" title="Harry Potter" />
-                    <h2>Harry Potter</h2>
-                    <small>HTML coder</small>
-                    <div class="social">
-                        <a href="#" class="fb" title="Facebook">fb</a>
-                        <a href="#" class="tw" title="Twitter">tw</a>
-                        <a href="#" class="vk" title="Vkontakte">vk</a>
-                    </div>
+                    <h2>Local Team</h2>
+                    <p>
+                        For 90% of projects they are handled by Jesse by not over-scheduling and setting
+                        realistic client expectations. However, when the urgent demand outweighs the resources,
+                        he is a member of a local development group who will assist &mdash; many of whom are
+                        former co-workers with a great relationship.
+                    </p>
                 </div>
             </div>
         </div>

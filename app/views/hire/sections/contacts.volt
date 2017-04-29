@@ -4,7 +4,7 @@
         <div class="row">
             <h1 class="title light">Contact</h1>
             <p>
-                <img src="{{ url('subsections/images/map_pin.png') }}" alt="Location" />
+                <img src="{{ url('subsections/hire/images/map_pin.png') }}" alt="Location" />
             </p>
             <p>Sanford FL</p>
             <p>+1 407 779 1422</p>

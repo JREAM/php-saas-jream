@@ -2,8 +2,8 @@
 <div class="container greeting">
     <div class="row">
         <div class="col-md-12">
-                <h1>Full Stack Development Services</h1>
-                <small>Node, Python, PHP, DevOps, AWS/VPS, Front-End and more.</small>
+                <h1>Advanced Web Development Services</h1>
+                <small>Full Fledged Business Solutions and Ideas Now Become a Reality. </small>
         </div>
         <div class="col-md-4 col-md-offset-1 col-sm-4">
             <input type="text" placeholder="Your name" name="name" class="proposal-field"/>

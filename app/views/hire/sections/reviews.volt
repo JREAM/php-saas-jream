@@ -9,14 +9,14 @@
                         <div class="col-md-6">
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit.</p>
                             <div class="client">
-                                <img src="{{ url('subsections/images/reviews/client1.png') }}" alt="Melissa Doe" title="Melissa Doe" class="pull-left avatar" />
+                                <img src="{{ url('subsections/hire/images/reviews/client1.png') }}" alt="Melissa Doe" title="Melissa Doe" class="pull-left avatar" />
                                 <h3>Melissa Doe <span>Head of Sales Department</span></h3>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit.</p>
                             <div class="client">
-                                <img src="{{ url('subsections/images/reviews/client2.png') }}" alt="Jon Doe" title="Jon Doe" class="pull-left avatar" />
+                                <img src="{{ url('subsections/hire/images/reviews/client2.png') }}" alt="Jon Doe" title="Jon Doe" class="pull-left avatar" />
                                 <h3>Jon Doe <span>PR Manager</span></h3>
                             </div>
                         </div>
@@ -25,14 +25,14 @@
                         <div class="col-md-6">
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit.</p>
                             <div class="client">
-                                <img src="{{ url('subsections/images/reviews/client1.png') }}" alt="Melissa Doe" title="Melissa Doe" class="pull-left avatar" />
+                                <img src="{{ url('subsections/hire/images/reviews/client1.png') }}" alt="Melissa Doe" title="Melissa Doe" class="pull-left avatar" />
                                 <h3>Melissa Doe <span>Head of Sales Department</span></h3>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <p>This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit.</p>
                             <div class="client">
-                                <img src="{{ url('subsections/images/reviews/client2.png') }}" alt="Jon Doe" title="Jon Doe" class="pull-left avatar" />
+                                <img src="{{ url('subsections/hire/images/reviews/client2.png') }}" alt="Jon Doe" title="Jon Doe" class="pull-left avatar" />
                                 <h3>Jon Doe <span>PR Manager</span></h3>
                             </div>
                         </div>

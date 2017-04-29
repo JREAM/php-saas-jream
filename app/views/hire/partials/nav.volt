@@ -22,23 +22,20 @@
                             <a href="#benefits">Benefits</a>
                         </li>
                         <li>
-                            <a href="#portfolio">Portfolio</a>
-                        </li>
-                        <li>
                             <a href="#team">Team</a>
                         </li>
                         <li>
                             <a href="#price">Prices</a>
                         </li>
                         <li>
-                            <a href="#reviews">Reviews</a>
+                            <a href="#stages">Stages</a>
                         </li>
                         <li>
-                            <a href="#contacts">Contacts</a>
+                            <a href="#contact">Contact</a>
                         </li>
                     </ul>
                     <div class="navbar-right ">
-                        <p class="navbar-text hidden-sm hidden-xs">+1 407 779 1422 (Use Google #?) </p>
+                        <p class="navbar-text hidden-sm hidden-xs">hello@jream.com</p>
                     </div>
                 </nav>
             </div>

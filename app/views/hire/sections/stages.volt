@@ -5,45 +5,65 @@
             <h1 class="title dark">Stages</h1>
             <div class="col-md-4">
                 <div class="circle">
-                    <img src="{{ url('subsections/images/stages/stage1.png') }}" alt="Stage 1" title="Stage 1" />
+                    <img src="{{ url('subsections/hire/images/stages/stage1.png') }}" alt="Stage 1" title="Stage 1" />
                     <div class="bage">1</div>
                 </div>
-                <p>You leave an application, and our Manager contact you for 10 min</p>
+                <p>
+                    <b>1: Introductory Phase</b>: ~45+ minute Video/Voice/Call/or Email.
+                    All requirements are gathered, needs and wants. It's documented adn delivered
+                    after the introduction to approve or revise.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="circle">
-                    <img src="{{ url('subsections/images/stages/stage2.png') }}" alt="Stage 2" title="Stage 2" />
+                    <img src="{{ url('subsections/hire/images/stages/stage2.png') }}" alt="Stage 2" title="Stage 2" />
                     <div class="bage">2</div>
                 </div>
-                <p>We conduct a comprehensive market research of your business</p>
+                <p>
+                    <b>2: Discovery Phase</b>: Receive Proposal package w/initial scope. A mock-up visual prototype included (if applicable). The remaining contain project quote, a milestone payment system.
+                    Scope cannot be changed after this point, features can be made later with smaller quotes.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="circle">
-                    <img src="{{ url('subsections/images/stages/stage3.png') }}" alt="Stage 3" title="Stage 3" />
+                    <img src="{{ url('subsections/hire/images/stages/stage3.png') }}" alt="Stage 3" title="Stage 3" />
                     <div class="bage">3</div>
                 </div>
-                <p>Develop a site prototype and after its approval by design website design</p>
+                <p>
+                    <b>3: Development Phase</b>: Scope is micro-tasked into the project management system, you can also trackprogress.
+                    This a quieter time the majority of work is done.You may be asked to provide third-party
+                    credentials if using them.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="circle finish">
-                    <img src="{{ url('subsections/images/stages/stage6.png') }}" alt="Stage 6" title="Stage 6" />
+                    <img src="{{ url('subsections/hire/images/stages/stage6.png') }}" alt="Stage 6" title="Stage 6" />
                     <div class="bage">6</div>
                 </div>
-                <p>Run you site and track users' behavior</p>
+                <p>
+                    <b>6: Production Deployment:</b> Application will be deployed to the production server(s). Provided a
+                    set time, notified when complete. Duration takes hours to days; Days on massive projects.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="circle">
-                    <img src="{{ url('subsections/images/stages/stage5.png') }}" alt="Stage 5" title="Stage 5" />
+                    <img src="{{ url('subsections/hire/images/stages/stage5.png') }}" alt="Stage 5" title="Stage 5" />
                     <div class="bage">5</div>
                 </div>
-                <p>We carry out audit of the site, find the flaws and fix them</p>
+                <p>
+                    <b>5: DevOps/Stagin Phase</b>: I am povided server credentials and SSh/PEM key to setup server stack.
+                    Servers provisioned, code deployed through a CI runner.
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="circle">
-                    <img src="{{ url('subsections/images/stages/stage4.png') }}" alt="Stage 4" title="Stage 4" />
+                    <img src="{{ url('subsections/hire/images/stages/stage4.png') }}" alt="Stage 4" title="Stage 4" />
                     <div class="bage">4</div>
                 </div>
-                <p>If you want to set up an advertising company</p>
+                <p>
+                    <b>4: Review/Testing Phase</b>: Testing is hosted on a JREAM server. It is run through two
+                    QA's internally and then linked to you for review. Minor iterationd are expected.
+                </p>
             </div>
         </div>
     </div>

@@ -7,8 +7,10 @@
 
 // --------------------------------------------------------------
 // Settings
+// See: ../resources/apache for setup
 // --------------------------------------------------------------
-define('STAGE', 'live');
-define('URL', 'jream.com');
-define('BASE_URI', '/');
+define('STAGE', 'dev');
+define('URL', 'http://local/jream');
+define('BASE_URI', 'http://local.jream/');
 define('HTTPS', true);
+

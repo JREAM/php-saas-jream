@@ -24,6 +24,7 @@
             <p class="attribution text-right" style="margin-top: 30px">
                 <small>
                     <a href="{{ url('lab') }}">Lab</a>
+                    <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('contact') }}">Contact</a>
                     <a href="{{ url('updates') }}">Updates</a>
                     <a href="{{ url('terms') }}">Terms and Privacy</a>

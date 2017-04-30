@@ -203,7 +203,7 @@ $di->setShared('security', function(){
 // For live error logging
 // -----------------------------------
 $di->setShared('sentry', function() use ($api) {
-    return new \Raven_Client($api->getSentry);
+    return (new Raven_Client($api->getSentry))->install();
 });
 
 // -----------------------------------

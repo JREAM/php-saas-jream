@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en-US">
 <head>
@@ -44,3 +45,21 @@
 
 </body>
 </html>
+=======
+{% extends "templates/hire.volt" %}
+
+{% block title %}
+{% endblock %}
+
+{% block intro %}
+intro
+{% endblock %}
+
+{% block content %}
+<div class="spacer-20"></div>
+
+
+content
+{% endblock %}
+
+>>>>>>> 561e4ffac97385c4cdb8782734bc5d13b474b891

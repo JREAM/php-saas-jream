@@ -36,9 +36,9 @@ $constants['CONFIG_DIR'] = $constants['BASE_DIR'] . 'config/';
 // --------------------------------------------------------------
 // MVC Paths
 // --------------------------------------------------------------
-$constants['MODELS_DIR'] = $constants['BASE_DIR'] . 'models/';
-$constants['CONTROLLERS_DIR'] = $constants['BASE_DIR'] . 'controllers/';
-$constants['EVENTS_DIR'] = $constants['BASE_DIR'] . 'events/';
+$constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models/';
+$constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers/';
+$constants['EVENTS_DIR'] = $constants['APP_DIR'] . 'events/';
 
 // --------------------------------------------------------------
 // MVC Extra Paths

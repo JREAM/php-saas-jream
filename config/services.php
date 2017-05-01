@@ -36,6 +36,8 @@ $di->setShared('url', function () use ($config) {
     return $url;
 });
 
+$a = $di->get('url');
+
 // -----------------------------------
 // Custom Dispatcher (Overrides the default)
 // (Shared = Singleton)

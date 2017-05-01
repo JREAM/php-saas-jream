@@ -17,3 +17,4 @@ npm-debug.log
 .settings
 .AppleDouble
 .DS_Store
+/vendor/

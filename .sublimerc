@@ -1,8 +1,0 @@
-{
-    "folder_exclude_patterns": [
-        "app/cache/"
-        "vendor/"
-        "node_modules/"
-        "npm-debug.log"
-    ]
-}

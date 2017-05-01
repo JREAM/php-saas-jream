@@ -17,7 +17,7 @@ class Overrwrite {
             'adapter'     => 'Mysql',
             'host'        => 'localhost',
             'username'    => 'root',
-            'password'    => '',
+            'password'    => 'root',
             'dbname'      => 'jream'
         ];
 

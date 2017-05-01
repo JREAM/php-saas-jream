@@ -35,6 +35,7 @@ class UserController extends \BaseController
     public function loginAction()
     {
         if ($this->session->has('id')) {
+
             $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
         }
 

@@ -154,7 +154,7 @@ class User extends BaseModel
             'page' => basename($_SERVER['PHP_SELF']),
             'query_string' => $request->getQuery(),
             'is_ajax' => $request->isAjax(),
-            'is_ssl' => $request->isSecureRequest(),
+            'is_ssl' => $request->isSecure(),
             'server_address' => $request->getServerAddress(),
             'server_name' => $request->getServerName(),
             'http_host' => $request->getHttpHost(),

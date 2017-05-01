@@ -31,14 +31,6 @@ $config = new \Phalcon\Config([
     ]
 ]);
 
-/**
- * Overwrite the configuration for LIVE version
- */
-if (file_exists(__DIR__ . '/config-overwrite.php')) {
-    require_once __DIR__ . '/config-overwrite.php';
-}
-
-
 return $config;
 
 // End of File

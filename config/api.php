@@ -60,11 +60,4 @@ $api = new \Phalcon\Config([
 ]);
 
 
-/**
- * Overwrite the configuration for LIVE version
- */
-if (file_exists(CONFIG_DIR . 'api-overwrite.php')) {
-    require_once CONFIG_DIR . 'api-overwrite.php';
-}
-
 return $api;

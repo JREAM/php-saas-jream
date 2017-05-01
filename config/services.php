@@ -251,7 +251,7 @@ $di->setShared('facebook', function() use ($api) {
     return new \Facebook\Facebook([
         'app_id'                => $api->fb->appId,
         'app_secret'            => $api->fb->secret,
-        'default_graph_version' => 'v2.5'
+        'default_graph_version' => 'v2.9'
     ]);
 });
 

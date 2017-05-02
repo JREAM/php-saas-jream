@@ -56,11 +56,11 @@ class Overrwrite {
         // STAGE: "live", otherwise "developor" "dev" is ok.
         $constants['STAGE'] = 'develop';
 
-        // URL: "https://jream.com" or "http://local.jream" (no slash)
-        $constants['URL'] = 'http://local.jream';
+        // URL: "https://jream.com" or "projects/jream.com" (no slash)
+        $constants['URL'] = 'projects/jream.com';
 
-        // BASE_URI: "https://jream.com" or "http://local.jream/"
-        $constants['BASE_URI'] = 'http://local.jream/';
+        // BASE_URI: "https://jream.com" or "jream.com/"
+        $constants['BASE_URI'] = '/jream.com/';
 
         // HTTPS: Forces HTTPS in Phalcon, yet Apache now has it default.
         $constants['HTTPS'] = false;

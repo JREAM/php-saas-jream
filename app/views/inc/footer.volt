@@ -26,7 +26,7 @@
                     <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('product') }}">Products</a>
                     <a href="{{ url('services') }}">Services</a>
-                    
+                    <a href="http://status.jream.com">Server Status</a>
                     <a href="{{ url('lab') }}">Lab</a>
                     <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('contact') }}">Contact</a>

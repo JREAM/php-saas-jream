@@ -71,7 +71,7 @@ class Overwrite {
             $constants['URL'] = 'https://jream.com';
 
             // BASE_URI: "https://jream.com" or "jream.com/"
-            $constants['BASE_URI'] = 'htts://jream.com';
+            $constants['BASE_URI'] = 'https://jream.com/';
 
             // HTTPS: Forces HTTPS in Phalcon, yet Apache now has it default.
             $constants['HTTPS'] = true;

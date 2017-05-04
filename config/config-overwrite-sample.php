@@ -30,17 +30,22 @@ class Overrwrite {
         // Site API Overwrite
         // --------------------------------------------------------------
 
-        $api->stripe = (object) [
-            'secretKey'      => 'sk_live_ymu8cf8WJlrpxpOIDWDxmt5w',
-            'publishableKey' => 'pk_live_OuMdM8bv1YFRYUhYaUoOWRD5'
-        ];
+        if (STAGE == 'live') {
+            $api->stripe = (object) [
+                // Live Keys (For Local Dev, delete the stripe object)
+                'secretKey'      => 'sk_test_Snt2YdZDlXjfqXBEmEbp6YVn',
+                'publishableKey' => 'pk_test_WBntxU7He9EVilWQIZTqOWNn'
+            ];
 
-        $api->paypal = (object) [
-            'username'  => 'sales_api1.jream.com',
-            'password'  => 'G8DJSGCJUP25NLL3',
-            'signature' => 'AogZhlnprcyZu2GHGjV3zK0Y809OALKqtpKvhA-yQua1OtdP9zROASPF',
-            'testMode'  => false
-        ];
+            $api->paypal = (object) [
+                // Live Keys (For Local Dev, delete the paypal object)
+                'username'  => 'sales_api1.jream.com',
+                'password'  => 'G8DJSGCJUP25NLL3',
+                'signature' => 'AogZhlnprcyZu2GHGjV3zK0Y809OALKqtpKvhA-yQua1OtdP9zROASPF',
+                'testMode'  => false
+            ];
+        }
+
 
         // --------------------------------------------------------------
         // For Dev Environment (http only)
@@ -53,8 +58,8 @@ class Overrwrite {
     public static function getConstants($constants= false) {
         $constants = ($constants) ? $constants: new \Phalcon\Config();
 
-        // STAGE: "live", otherwise "developor" "dev" is ok.
-        $constants['STAGE'] = 'develop';
+        // STAGE: "live", otherwise "local" (so various items dont run) is ok.
+        $constants['STAGE'] = 'local';
 
         // URL: "https://jream.com" or "projects/jream.com" (no slash)
         $constants['URL'] = 'projects/jream.com';

@@ -1,5 +1,23 @@
 This is an overview of JREAM development. This is not a comprehensive list of every update._
 
+## 5-4-17
+- Due to Updating to `C Phalcon 3.1.1` there were several breaking changes, so I've updated every package.
+- Updated all Composer Packages to Latest
+- Bug: Contact Forms Fixed 
+- Bug: Fixed Payment Gateways
+- Bug: Fixed Sentry (Out of Date)
+- Bug: Fixed Streaming Bug (This was only Local, not Live)
+- Todo: Test Facebook Login
+- Todo: Test Viewing Video, Odd local behavior that is illogical (~3 hours already)
+- New: Added System  Status at `status.jream.com`
+- Future Plans are Beginning, it may take a few months. A few involve:
+    - Run Everything Containerized
+    - Find a Monitoring Service for Docker
+    - Find an affordable CI Runner (GitLab is slow still, Servers are very pricy)
+    - Expand JREAM into new areas (Not just Teaching)
+    - There are many more goals in mind but I don't want to spill the beans to soon,
+        everything takes time.
+
 ## 4-29-17
 - Doing a bit of blogging with about 16 pending articles to finish.
 - Bug: Fixed, some directory permissions not +x after an ACL update. ~12 hours.

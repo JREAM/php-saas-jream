@@ -232,7 +232,7 @@ class ProductController extends \BaseController
             $amount = number_format($code['price'], 2);
         }
 
-        $amount_in_cents = bcmul($amount, 100);
+        $amount_in_cents = (int) ($amount * 100);
         $revert_money_test = money_format("%i", ($amount_in_cents / 100));
 
         // Ensure the amount is valid! This is paranoid but lets be safe!
@@ -508,16 +508,16 @@ class ProductController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $this->flash->success("
-            Course addition <strong>{$product->title}</strong> was successful!
-            There was a problem sending an email to: " . $user->getEmail() . " -- yet
-            do not worry, the course is in your account."
+            Course addition: {$product->title} was successful!
+            However, there was a problem sending an email to: " . $user->getEmail() . " -
+            Don't worry! The course is in your account!"
             );
         }
         else {
             $this->flash->success("
-            Course addition <strong>{$product->title}</strong> was successful!
+            Course addition: {$product->title} was successful!
             Your should receive an email confirmation shortly to: " . $user->getEmail()
             );
 

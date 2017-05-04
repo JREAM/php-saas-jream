@@ -6,8 +6,8 @@
 
 $api = new \Phalcon\Config([
     'stripe' => [
-        'secretKey'      => 'sk_test_cAzHkn9xbY0H7yxRqVJYWDvS',
-        'publishableKey' => 'pk_test_JofRelWDtYPIUFvDAglbOIWa'
+        'secretKey'      => 'sk_test_Snt2YdZDlXjfqXBEmEbp6YVn',
+        'publishableKey' => 'pk_test_WBntxU7He9EVilWQIZTqOWNn'
     ],
     'paypal' => [
         'username'  => 'sales-facilitator_api1.jream.com',

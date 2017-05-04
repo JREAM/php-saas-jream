@@ -26,12 +26,13 @@
                     <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('product') }}">Products</a>
                     <a href="{{ url('services') }}">Services</a>
-                    
+                    <a href="http://status.jream.com">System Status</a>
+
                     <a href="{{ url('lab') }}">Lab</a>
                     <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('contact') }}">Contact</a>
                     <a href="{{ url('updates') }}">Updates</a>
-                    
+
                     <a href="{{ url('terms') }}">Terms and Privacy</a>
                     &copy;2005 -{{ date('Y') }} JREAM
                 </small>

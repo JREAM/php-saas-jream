@@ -86,10 +86,10 @@
                 <h1 class="panel-title"><i class="fa fa-code opacity-50" aria-hidden="true"></i> Source Code</h1>
             </div>
             <div class="panel-body">
-                <a href="https://bitbucket.org/jream-media">
-                    <i class="fa fa-bitbucket"></i>
+                <a href="https://github.com/jream-network">
+                    <i class="fa fa-github"></i>
                 </a>
-                <a href="https://bitbucket.org/jream-media">JREAM Media</a> on BitBucket.
+                <a href="https://github.com/jream-network">JREAM Network</a> 
             </div>
         </div>
 

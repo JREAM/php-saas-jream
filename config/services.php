@@ -149,7 +149,7 @@ $di->set('modelsMetadata', function() use ($redis) {
 // -----------------------------------
 // ORM And Front-end Caching
 // -----------------------------------
-$di->set('modelsCache', function() {
+$di->set('modelsCache', function() use ($redis ) {
 
     // Cache data for one day by default
     // It's cleared using fabfile for a deploy
@@ -180,7 +180,14 @@ $di->setShared('session', function () {
 // --------------------------------------------------------------------
 // For Flashing Data
 // --------------------------------------------------------------------
-$di->setShared('flash', function() {
+$di->setShared('flash', function($mode='session') {
+
+    $mode = strtolower(trim($mode));
+    $validModes = ['session', 'direct'];
+    if ( ! in_array($mode, $validModes ) ) {
+        throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' . implode(',', $mode));
+    }
+
     // There is a Direct, and a Session
     $flash = new \Phalcon\Flash\Session([
         'error'     => 'alert alert-danger',
@@ -211,7 +218,7 @@ $di->setShared('sentry', function() use ($api) {
 // -----------------------------------
 // For local error logging
 // -----------------------------------
-if (\STAGE != 'live') {
+if (STAGE != 'live') {
     // This is ONLY used locally
     $di->setShared('whoops', function() {
         $whoops = new \Whoops\Run;
@@ -237,9 +244,13 @@ $di->setShared('email', function(array $data) use ($di, $api) {
     $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
-    if ( ! in_array($response->_status_code, [200, 201, 202])) {
+    if ( ! in_array($response->statusCode(), [200, 201, 202])) {
         $di->get('sentry')->captureMessage(
-            sprintf("ErrorCode: %s | Body: %s", $response->_status_code, $response->_body)
+            sprintf("Headers: %s | ErrorCode: %s | Body: %s",
+                $response->headers(),
+                $response->statusCode(),
+                $response->body()
+            )
         );
     }
 

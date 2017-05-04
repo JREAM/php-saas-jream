@@ -180,7 +180,7 @@ class AccountController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $text = 'There was a problem sending the email.';
             $this->flash->error($text);
         } else {

@@ -391,7 +391,7 @@ class UserController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $this->flash->error('You have successfully registered!
                                  However, there was a problem sending
                                  your welcome email.
@@ -480,7 +480,7 @@ class UserController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = 'You have successfully registered!
                              However, there was a problem sending
                              your welcome email.';
@@ -568,7 +568,7 @@ class UserController extends \BaseController
                     ]
                 ]);
 
-                if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+                if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
                     $this->flash->error('There was a problem sending the email.');
                 }
                 else {

@@ -48,7 +48,7 @@
 
                 <li><h3>Stuck?</h3></li>
                 <li><span class="text-info fa fa-backward"></span> <b>Pause/Replay</b> as needed.</li>
-                <li><span class="text-info fa fa-bitbucket"></span> <b>Get the Code</b> from the courses repository.</li>
+                <li><span class="text-info fa fa-github"></span> <b>Get the Code</b> from the courses repository.</li>
                 <li><span class="text-info fa fa-comments"></span> <b>Ask</b> a question in the course.</li>
 
                 <li><h3>Finish Line</h3></li>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4cd973219292974c31f00edac057de72",
+    "content-hash": "fe00006879207034c1029940e2c40511",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -188,7 +188,7 @@
         },
         {
             "name": "filp/whoops",
-            "version": "dev-master",
+            "version": "2.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
@@ -245,7 +245,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2017-03-07 09:04:45"
+            "time": "2017-03-07T09:04:45+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -812,7 +812,7 @@
         },
         {
             "name": "phalcon/incubator",
-            "version": "dev-master",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/incubator.git",
@@ -874,7 +874,7 @@
                 "incubator",
                 "phalcon"
             ],
-            "time": "2017-03-28 20:49:59"
+            "time": "2017-03-28T20:49:59+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2602,10 +2602,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "phalcon/incubator": 20,
-        "filp/whoops": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

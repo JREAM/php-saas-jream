@@ -13,8 +13,8 @@ This is an overview of JREAM development. This is not a comprehensive list of ev
 - Bug: Fixed Payment Gateways
 - Bug: Fixed Sentry (Out of Date)
 - Bug: Fixed Streaming Bug (This was only Local, not Live)
-- Todo: Test Facebook Login
-- Todo: Test Viewing Video, Odd local behavior that is illogical (~3 hours already)
+- Ensure: Facebook Login Login still working with new Graph SDK
+- Ensure: Viewing Videos works correctly. Though odd local dev behavior that is not logical
 - New: Added System  Status at `status.jream.com`
 - Future Plans are Beginning, it may take a few months. A few involve:
     - Run Everything Containerized

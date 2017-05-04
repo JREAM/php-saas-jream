@@ -39,8 +39,8 @@ class Overwrite {
         if (STAGE == 'live') {
             $api->stripe = (object) [
                 // Live Keys (For Local Dev, delete the stripe object)
-                'secretKey'      => 'sk_live_l7FHndYeZhFY4CfZRQ6wAdNA',
-                'publishableKey' => 'pk_live_sUgUs6CHpbNpRCbqYaPsEgET'
+                'secretKey'      => 'sk_live_ymu8cf8WJlrpxpOIDWDxmt5w',
+                'publishableKey' => 'pk_live_OuMdM8bv1YFRYUhYaUoOWRD5'
             ];
 
             $api->paypal = (object) [

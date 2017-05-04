@@ -2,7 +2,7 @@
     <li><a href="{{ url() }}">Home</a></li>
     <li><a href="{{ url('blog') }}">Blog</a></li>
     <li><a href="{{ url('product') }}">Products</a></li>
-    <li><a href="{{ url('services') }}">Services</a></li>
+    <!--<li><a href="{{ url('services') }}">Services</a></li>-->
 </ul>
 
 <ul class="nav navbar-nav pull-right">

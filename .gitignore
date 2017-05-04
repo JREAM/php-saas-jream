@@ -3,6 +3,7 @@
 vendor/*
 .idea
 .env
+*.lock
 *.pyc
 *.log
 *.volt.php

@@ -37,7 +37,7 @@ class ProductThread extends BaseModel
 
     // --------------------------------------------------------------
 
-    public function validation()
+    public function validationX()
     {
         $this->validate(new StringLength([
             'field' => 'title',

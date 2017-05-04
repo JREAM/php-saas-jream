@@ -81,12 +81,7 @@ class BaseController extends \Phalcon\Mvc\Controller
      */
     public function redirect($append)
     {
-        $url = 'http://';
-        if ($this->request->isSecure()) {
-            $url = 'https://';
-        }
-
-        $url = $url . rtrim(\URL, '/') . '/' . ltrim($append, '/');
+        $url = rtrim(\URL, '/') . '/' . ltrim($append, '/');
 
         return $this->response->redirect($url, false);
     }

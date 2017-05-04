@@ -11,6 +11,7 @@ error_reporting(E_ALL); // Log all errors
 if ( ! file_exists(dirname(__DIR__) . '/config/config-overwrite.php' )) {
     die ("Configuration Required.");
 }
+
 // Config Overwrite Includsion
 require dirname(__DIR__) . '/config/config-overwrite.php';
 

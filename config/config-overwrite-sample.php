@@ -7,6 +7,9 @@
 
 class Overwrite {
 
+    // CHANGE:
+    //                'password' => '@@FILLME@@',
+    //                $constants['STAGE'] = 'local';
     public static function getConfig($config = false) {
         $config = ($config) ? $config : new \Phalcon\Config();
 
@@ -36,8 +39,8 @@ class Overwrite {
         if (STAGE == 'live') {
             $api->stripe = (object) [
                 // Live Keys (For Local Dev, delete the stripe object)
-                'secretKey'      => 'sk_test_Snt2YdZDlXjfqXBEmEbp6YVn',
-                'publishableKey' => 'pk_test_WBntxU7He9EVilWQIZTqOWNn'
+                'secretKey'      => 'sk_live_l7FHndYeZhFY4CfZRQ6wAdNA',
+                'publishableKey' => 'pk_live_sUgUs6CHpbNpRCbqYaPsEgET'
             ];
 
             $api->paypal = (object) [
@@ -61,9 +64,8 @@ class Overwrite {
     public static function getConstants($constants= false) {
         $constants = ($constants) ? $constants: new \Phalcon\Config();
 
-        if (STAGE == 'live') {
             // STAGE: "live", otherwise "local" (so various items dont run) is ok.
-            $constants['STAGE'] = 'live';
+            $constants['STAGE'] = 'local';
 
             // URL: "https://jream.com" or "projects/jream.com" (no slash)
             $constants['URL'] = 'https://jream.com';
@@ -76,7 +78,6 @@ class Overwrite {
 
             // DEFAULT_TIMEZONE: This should always be UTC
             $constants['DEFAULT_TIMEZONE'] = 'UTC';
-        }
 
         return $constants;
     }

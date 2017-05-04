@@ -31,7 +31,7 @@
                     <a href="{{ url('blog') }}">Blog</a>
                     <a href="{{ url('contact') }}">Contact</a>
                     <a href="{{ url('updates') }}">Updates</a>
-                    
+
                     <a href="{{ url('terms') }}">Terms and Privacy</a>
                     &copy;2005 -{{ date('Y') }} JREAM
                 </small>

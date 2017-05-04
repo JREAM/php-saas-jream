@@ -3,15 +3,11 @@
 vendor/*
 .idea
 .env
-error.log
-certbot.log
-letsencrypt.log
-fabfile.pyc
-*%%.php
+*.lock
+*.pyc
+*.log
 *.volt.php
-config/config-overwrite.php
-config/api-overwrite.php
-config/constants-overwrite.php
+*%%.php
 config/config-overwrite.php
 public/sass/.sass-cache*
 node_modules
@@ -22,3 +18,4 @@ npm-debug.log
 .settings
 .AppleDouble
 .DS_Store
+/vendor/

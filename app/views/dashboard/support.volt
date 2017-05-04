@@ -58,7 +58,7 @@
                 <div class="panel-body">
                     <p>
                         <strong>I need source code</strong>
-                        <br />Any course that contains coding will have a repository at <a href="https://bitbucket.org/jream-media" target="_blank"><i class="fa fa-bitbucket"></i> JREAM Media Bitbucket</a>.
+                        <br />Any course that contains coding will have a repository at <a href="https://github.com/jream-network" target="_blank"><i class="fa fa-github"></i> JREAM Network</a>.
                     </p>
                     <p>
                         <strong>Video or Download Missing</strong>

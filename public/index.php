@@ -7,7 +7,18 @@ error_reporting(E_ALL); // Log all errors
 // --------------------------------------------------------------------
 // Load the Config Constants for everything
 // --------------------------------------------------------------------
+
+
+// Config Overwrite Includsion
+require dirname(__DIR__) . '/config/config-overwrite.php';
+
 require dirname(__DIR__) . '/config/constants.php';
+
+// Overwrite constants
+$constants = Overwrite::getConstants($constants);
+foreach ($constants as $key => $value) {
+    defined ($key) or define($key, $value);
+}
 
 // --------------------------------------------------------------------
 // Timezone
@@ -36,6 +47,9 @@ try {
     // --------------------------------------------------------------------
     $config = include CONFIG_DIR . "config.php";
     $api    = include CONFIG_DIR . "api.php";
+
+    $config = Overwrite::getConfig($config);
+    $api = Overwrite::getApi($api);
 
     // --------------------------------------------------------------------
     // Read auto-loader

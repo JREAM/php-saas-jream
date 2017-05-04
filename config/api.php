@@ -6,8 +6,8 @@
 
 $api = new \Phalcon\Config([
     'stripe' => [
-        'secretKey'      => 'sk_test_cAzHkn9xbY0H7yxRqVJYWDvS',
-        'publishableKey' => 'pk_test_JofRelWDtYPIUFvDAglbOIWa'
+        'secretKey'      => 'sk_test_Snt2YdZDlXjfqXBEmEbp6YVn',
+        'publishableKey' => 'pk_test_WBntxU7He9EVilWQIZTqOWNn'
     ],
     'paypal' => [
         'username'  => 'sales-facilitator_api1.jream.com',
@@ -59,12 +59,5 @@ $api = new \Phalcon\Config([
     'getSentry' => 'https://62fa8a8348804a2d9baa590cbc639609:5dfff199c054404f939f977c9bc1cf81@app.getsentry.com/21558'
 ]);
 
-
-/**
- * Overwrite the configuration for LIVE version
- */
-if (file_exists(CONFIG_DIR . 'api-overwrite.php')) {
-    require_once CONFIG_DIR . 'api-overwrite.php';
-}
 
 return $api;

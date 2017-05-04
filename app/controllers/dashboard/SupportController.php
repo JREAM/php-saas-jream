@@ -94,7 +94,7 @@ class SupportController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $this->flash->error('There was a problem sending the email. We have logged the error!');
         } else {
             $this->flash->success('Your message has been submitted.');

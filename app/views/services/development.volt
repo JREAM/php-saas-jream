@@ -122,7 +122,11 @@
             {{ form.render('message', ["rows": 15]) }}
         </div>
         <div class="form-group">
+            {% if constant('STAGE') != 'local' %}
             <div class="g-recaptcha" data-sitekey="6LfHCAYTAAAAALb7zfhNEaWLklfHO-MMoIjsKlHV"></div>
+            {% else %}
+            <b>Not Showing Captcha, in LOCAL mode.</b>
+            {% endif %}
         </div>
 
         <div class="form-group">

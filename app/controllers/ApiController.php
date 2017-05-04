@@ -76,11 +76,15 @@ class ApiController extends \BaseController
         // Make sure recaptcha called and all
         // STAGE==LOCAL mode sets a value
         if (!$this->session->has('recaptcha')) {
-            $this->output(0, 'Recaptcha not tried');
+            $this->output(0, 'Recaptcha is required.');
+            return;
+
         }
 
         if (!$this->session->get('recaptcha')) {
-            $this->output(0, 'Recaptcha not valid');
+            $this->output(0, 'Recaptcha was invalid');
+            return;
+
         }
 
         $form = new \ContactForm();
@@ -92,6 +96,7 @@ class ApiController extends \BaseController
                 $errors[] = $message->getMessage();
             }
             $this->output(0, $errors);
+            return;
         }
 
         // Gather the POST stuff
@@ -116,8 +121,9 @@ class ApiController extends \BaseController
             ]
         ]);
 
-        if (! in_array($mail_result->_status_code, [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $this->output(0, 'Error sending email');
+            return;
         }
 
         // Succcess

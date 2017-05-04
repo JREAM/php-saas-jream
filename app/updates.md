@@ -3,7 +3,7 @@ This is an overview of JREAM development. This is not a comprehensive list of ev
 ## 5-4-17
 - Due to Updating to `C Phalcon 3.1.1` there were several breaking changes, so I've updated every package.
 - Working 12 to 18 hours a day is catching up with errors, I'll need a break soon (I kid you not).
-    - All the work on the blog design was lost, I'll redo it another time but better. Having some major burnout maybe.
+    - Considering a New Framework that's better setup to scale (Micro API's for everything!)
 - Bug: Figuring out why Redirects now append http or https so the URL breaks.
 - Updated all Composer Packages to Latest
 - Bug: Contact Forms Fixed 

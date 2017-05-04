@@ -4,8 +4,9 @@ This is an overview of JREAM development. This is not a comprehensive list of ev
 - Due to Updating to `C Phalcon 3.1.1` there were several breaking changes, so I've updated every package.
 - Working 12 to 18 hours a day is catching up with errors, I'll need a break soon (I kid you not).
     - Considering a New Framework that's better setup to scale (Micro API's for everything!)
-- Bug: Figuring out why Redirects now append http or https so the URL breaks.
 - Updated all Composer Packages to Latest
+- Bug: Fixed API Keys for Stripe, goodness!
+- Bug: Figuring out why Redirects now append http or https so the URL breaks.
 - Bug: Contact Forms Fixed 
 - Bug: Fixed Payment Gateways
 - Bug: Fixed Sentry (Out of Date)

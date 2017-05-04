@@ -9,6 +9,7 @@ This is an overview of JREAM development. This is not a comprehensive list of ev
 - Bug: Fixed API Keys for Stripe, goodness!
 - Bug: Figuring out why Redirects now append http or https so the URL breaks.
 - Bug: Contact Forms Fixed 
+- Bug: 404's are loading terribly slow and dead-ends, odd behavior -- Execution time lowered.
 - Bug: Fixed Payment Gateways
 - Bug: Fixed Sentry (Out of Date)
 - Bug: Fixed Streaming Bug (This was only Local, not Live)

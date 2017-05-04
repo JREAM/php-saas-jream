@@ -5,7 +5,7 @@
 // It is applied in public/index.php
 // --------------------------------------------------------------
 
-class Overrwrite {
+class Overwrite {
 
     public static function getConfig($config = false) {
         $config = ($config) ? $config : new \Phalcon\Config();
@@ -13,13 +13,16 @@ class Overrwrite {
         // --------------------------------------------------------------
         //  Overwrite Database
         // --------------------------------------------------------------
-        $config->database = (object) [
-            'adapter'     => 'Mysql',
-            'host'        => 'localhost',
-            'username'    => 'root',
-            'password'    => 'root',
-            'dbname'      => 'jream'
-        ];
+
+        if (STAGE == 'live') {
+            $config->database = (object)[
+                'adapter' => 'Mysql',
+                'host' => 'db.jream.com',
+                'username' => 'jream',
+                'password' => '@@FILLME@@',
+                'dbname' => 'jream'
+            ];
+        }
 
         return $config;
     }
@@ -58,20 +61,22 @@ class Overrwrite {
     public static function getConstants($constants= false) {
         $constants = ($constants) ? $constants: new \Phalcon\Config();
 
-        // STAGE: "live", otherwise "local" (so various items dont run) is ok.
-        $constants['STAGE'] = 'local';
+        if (STAGE == 'live') {
+            // STAGE: "live", otherwise "local" (so various items dont run) is ok.
+            $constants['STAGE'] = 'live';
 
-        // URL: "https://jream.com" or "projects/jream.com" (no slash)
-        $constants['URL'] = 'projects/jream.com';
+            // URL: "https://jream.com" or "projects/jream.com" (no slash)
+            $constants['URL'] = 'https://jream.com';
 
-        // BASE_URI: "https://jream.com" or "jream.com/"
-        $constants['BASE_URI'] = '/jream.com/';
+            // BASE_URI: "https://jream.com" or "jream.com/"
+            $constants['BASE_URI'] = 'htts://jream.com';
 
-        // HTTPS: Forces HTTPS in Phalcon, yet Apache now has it default.
-        $constants['HTTPS'] = false;
+            // HTTPS: Forces HTTPS in Phalcon, yet Apache now has it default.
+            $constants['HTTPS'] = true;
 
-        // DEFAULT_TIMEZONE: This should always be UTC
-        $constants['DEFAULT_TIMEZONE'] = 'UTC';
+            // DEFAULT_TIMEZONE: This should always be UTC
+            $constants['DEFAULT_TIMEZONE'] = 'UTC';
+        }
 
         return $constants;
     }

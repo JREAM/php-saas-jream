@@ -1,6 +1,7 @@
 This is an overview of JREAM development. This is not a comprehensive list of every update._
 
 ## 5-4-17
+- All courses dorpped $5 in price permanently due to this mess below.
 - Due to Updating to `C Phalcon 3.1.1` there were several breaking changes, so I've updated every package.
 - Working 12 to 18 hours a day is catching up with errors, I'll need a break soon (I kid you not).
     - Considering a New Framework that's better setup to scale (Micro API's for everything!)

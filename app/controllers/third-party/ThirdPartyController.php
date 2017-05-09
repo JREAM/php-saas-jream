@@ -2,7 +2,7 @@
 namespace Services;
 use \Phalcon\Tag;
 
-class ServicesController extends \BaseController
+class ThirdPartyController extends \BaseController
 {
 
     /**
@@ -30,7 +30,7 @@ class ServicesController extends \BaseController
             'token' => $this->security->getToken()
         ]);
 
-        $this->view->pick('services/services');
+        $this->view->pick('services/development');
     }
 
     // --------------------------------------------------------------

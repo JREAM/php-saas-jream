@@ -40,6 +40,7 @@ class Permission extends \Phalcon\Mvc\User\Component
         'live'       => '*',
         'consulting' => '*',
         'services'   => '*',
+        'third-party'=> '*',
         'squeeze'    => '*',
         'contact'    => '*',
         'api'        => '*',

@@ -15,7 +15,6 @@ $router->add('user/login')->setName('login');
 $router->add('user/logout')->setName('logout');
 $router->add('user/register')->setName('register');
 $router->add('user/password')->setName('password');
-$router->add('user/password')->setName('password');
 
 // --------------------------------------------------------------
 // Old Overwrites
@@ -61,6 +60,27 @@ $router->add('/services', [
     'controller' => 'services',
 ])
 ->setName('services');
+
+// --------------------------------------------------------------
+// ThirdParty SubRoutes
+// --------------------------------------------------------------
+$router->add('/third-party/:controller/:action/:params', [
+    'namespace'  => 'ThirdParty',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
+
+$router->add('/third-party/:controller', [
+    'namespace'  => 'Party',
+    'controller' => 1,
+]);
+
+$router->add('/third-party', [
+    'namespace'  => 'Party',
+    'controller' => 'services',
+])
+->setName('third-party');
 
 // --------------------------------------------------------------
 // Dashboard SubRoutes

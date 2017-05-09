@@ -32,7 +32,6 @@
 {% include "hire/sections/benefits.volt" %}
 {% include "hire/sections/statistics.volt" %}
 {% include "hire/sections/team.volt" %}
-{% include "hire/sections/proposal.volt" %}
 {% include "hire/sections/prices.volt" %}
 {% include "hire/sections/stages.volt" %}
 {% include "hire/sections/partners.volt" %}

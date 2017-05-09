@@ -2,17 +2,6 @@
     <li><a href="{{ url() }}">Home</a></li>
     <li><a href="{{ url('blog') }}">Blog</a></li>
     <li><a href="{{ url('product') }}">Products</a></li>
-    <li>
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            Third-Party <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownThirdParty">
-            <li><a href="{{ url('third-party') }}">Brief Summary</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Service Providers</a></li>
-          </ul>
-    </li>
 </ul>
 
 <ul class="nav navbar-nav pull-right">

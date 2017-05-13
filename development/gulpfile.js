@@ -5,6 +5,7 @@
 var gulp            = require("gulp"),
     sass            = require("gulp-sass"),
     concat          = require("gulp-concat"),
+    del             = require("del"),
     watch           = require("gulp-watch"),
     plumber         = require("gulp-plumber"),
     cssnano         = require("gulp-cssnano"),
@@ -26,6 +27,9 @@ var src = {
     sass: "sass/**/*.scss",
     js: "js/**/*.js",
     third_party: {
+        flowplayer: [
+            'node_modules/flowplayer/dist/**',
+        ],
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/font-awesome/css/font-awesome.min.css',
@@ -65,6 +69,11 @@ var output = {
     js: "../public/js",
     css: "../public/css",
     fonts: "../public/fonts",
+    third_party: "../public/third-party",
+    third_party_css: "../public/third-party/css",
+    third_party_js: "../public/third-party/js",
+    third_party_fonts: "../public/third-party/fonts",
+    third_party_flowplayer: "../public/third-party/flowplayer",
     html: "../app/views/**/*.volt",
     min_css: 'app.min.css',
     min_js: 'app.min.js'
@@ -129,23 +138,29 @@ gulp.task('js', function() {
 
 gulp.task('third_party', function () {
 
+    //del([output.third_party + '/**/*'], {force: true});
+
     // These are already minified
     gulp.src(src.third_party.css)
         .pipe(concat('dependencies.min.css'))
-        .pipe(gulp.dest(output.css));
+        .pipe(gulp.dest(output.third_party_css));
 
     // These are already minified
     gulp.src(src.third_party.js)
         .pipe(concat('dependencies.min.js'))
-        .pipe(gulp.dest(output.js));
+        .pipe(gulp.dest(output.third_party_js));
 
     // Copy any map files
     gulp.src(src.third_party.js_map)
-        .pipe(gulp.dest(output.js));
+        .pipe(gulp.dest(output.third_party_js));
+
+    // Copy any map files
+    gulp.src(src.third_party.flowplayer)
+        .pipe(gulp.dest(output.third_party_flowplayer));
 
     // These are plain files
     gulp.src(src.third_party.fonts)
-        .pipe(gulp.dest(output.fonts));
+        .pipe(gulp.dest(output.third_party_fonts));
 
 });
 

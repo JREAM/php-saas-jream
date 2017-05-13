@@ -7,16 +7,14 @@ var gulp            = require("gulp"),
     concat          = require("gulp-concat"),
     watch           = require("gulp-watch"),
     plumber         = require("gulp-plumber"),
-    minify_css      = require("gulp-minify-css"),
+    cssnano         = require("gulp-cssnano"),
     uglify          = require("gulp-uglify"),
     sourcemaps      = require("gulp-sourcemaps"),
     notify          = require("gulp-notify"),
-    imagemin        = require("gulp-imagemin"),
     jshint          = require("gulp-jshint"),
     gutil           = require("gulp-util"),
     postcss         = require("gulp-postcss"),
     autoprefixer    = require("autoprefixer"),
-    pngquant        = require("imagemin-pngquant"),
     browserSync     = require("browser-sync"),
     watchify        = require('watchify');
 
@@ -27,7 +25,6 @@ var gulp            = require("gulp"),
 var src = {
     sass: "sass/**/*.scss",
     js: "js/**/*.js",
-    img: "img/*",
     third_party: {
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -36,7 +33,10 @@ var src = {
         ],
         js: [
             'node_modules/jquery/dist/jquery.min.js',
-            'node_modules/bootstrap/dist/js/bootstrap.min.js'
+            'node_modules/bootstrap/dist/js/bootstrap.min.js',
+            'node_modules/vue/dist/vue.min.js',
+            'node_modules/vue-resource/dist/vue-resource.min.js',
+            'node_modules/vue-router/dist/vue-router.min.js'
         ],
         js_map: [
             'node_modules/jquery/dist/jquery.min.map'
@@ -64,8 +64,7 @@ var src = {
 var output = {
     js: "../public/js",
     css: "../public/css",
-    img: "../public/img/",
-    fonts: '../public//fonts',
+    fonts: "../public/fonts",
     html: "../app/views/**/*.volt",
     min_css: 'app.min.css',
     min_js: 'app.min.js'
@@ -86,7 +85,7 @@ var onError = function(err) {
 
 gulp.task('sass', function() {
 
-    return gulp.src([src.sass, "!sass/squeeze.scss"])
+    return gulp.src([src.sass])
         .pipe(plumber({
             errorHandler: onError
         }))
@@ -94,24 +93,9 @@ gulp.task('sass', function() {
         .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
         .pipe(concat(output.min_css))
         .pipe(gulp.dest(output.css))
-        .pipe(minify_css())
+        .pipe(cssnano())
         .pipe(sourcemaps.init())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(output.css))
-        .pipe(browserSync.reload({stream: true}));
-});
-
-gulp.task('sass_squeeze', function() {
-
-    return gulp.src(["sass/squeeze.scss", src.third_party.css[0]])
-        .pipe(plumber({
-            errorHandler: onError
-        }))
-        .pipe(sass())
-        .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
-        .pipe(concat("squeeze.min.css"))
-        .pipe(gulp.dest(output.css))
-        .pipe(minify_css())
         .pipe(gulp.dest(output.css))
         .pipe(browserSync.reload({stream: true}));
 });
@@ -135,23 +119,6 @@ gulp.task('js', function() {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(output.js))
         .pipe(browserSync.reload({stream: true}));
-
-});
-
-
-// --------------------------------------------------------------------
-// Task: Image
-// --------------------------------------------------------------------
-
-gulp.task('img', function() {
-
-    return gulp.src(src.img)
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest(output.img));
 
 });
 
@@ -194,7 +161,6 @@ gulp.task('browser', function() {
     });
     gulp.watch(src.js, ['js']);
     gulp.watch(src.sass, ['sass']);
-    gulp.watch(src.img, ['img']);
     gulp.watch(output.html).on('change', browserSync.reload);
 });
 
@@ -205,7 +171,6 @@ gulp.task('watch', function() {
     gutil.log(gutil.colors.green('Loading Gulp Watch'), '');
     gulp.watch(src.js, ['js']);
     gulp.watch(src.sass, ['sass']);
-    gulp.watch(src.img, ['img']);
     gulp.watch(output.html).on('change', browserSync.reload);
 });
 
@@ -213,4 +178,4 @@ gulp.task('watch', function() {
 // Task: Default
 // --------------------------------------------------------------------
 
-gulp.task('default', ['watch', 'sass', 'sass_squeeze', 'img', 'js']);
+gulp.task('default', ['watch', 'sass', 'js']);

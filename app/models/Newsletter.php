@@ -23,6 +23,16 @@ class Newsletter extends BaseModel
         $this->belongsTo("user_id", "User", "id");
     }
 
+
+    // --------------------------------------------------------------
+
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->token = hash('512', $this->email . random_int(1, 2500));
+        $this->save();
+    }
+
     // --------------------------------------------------------------
 
     /**

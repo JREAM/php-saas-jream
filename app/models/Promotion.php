@@ -62,7 +62,7 @@ class Promotion extends BaseModel
             "bind" => [
                 "code"       => $code,
                 "product_id" => $productId,
-                'datetime'   => date('Y-m-d H:i:s', strtotime('now')),
+                'datetime'   => getDateTime()
             ],
         ]);
 

@@ -7,7 +7,7 @@ namespace Test;
  */
 class PromotionControllerTest extends \UnitTestCase
 {
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
     }
@@ -26,18 +26,4 @@ class PromotionControllerTest extends \UnitTestCase
         $controller = new $mock();
     }
 
-    public function testTestCase()
-    {
-        $this->assertEquals(
-            "works",
-            "works",
-            "This is OK"
-        );
-
-        $this->assertEquals(
-            "works",
-            "works1",
-            "This will fail"
-        );
-    }
 }

@@ -54,7 +54,7 @@ class NewsletterController extends \BaseController
         $newsletter->subscribed = 1;
 
         // Create a simple hash token
-        $newsletter->token = hash('512', $email . mt_rand(1, 2500));
+        $newsletter->token = hash('512', $email . random_int(1, 2500));
         $newsletter->created_at = getDateTime();
         $newsletter->updated_at = getDateTime();
 
@@ -111,7 +111,7 @@ class NewsletterController extends \BaseController
         }
         else {
             $newletter->verified = 1;
-            $newletter->updated_at =
+            $newletter->updated_at = getDateTime();
         }
 
         $this->view->pick('newsletter/subscribe-verify');

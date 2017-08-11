@@ -84,7 +84,7 @@ $router->add('/admin/:controller', [
     'controller' => 1,
 ]);
 
-$router->add('/dashboard', [
+$router->add('/admin', [
     'namespace'  => 'Admin',
     'controller' => 'admin',
 ])

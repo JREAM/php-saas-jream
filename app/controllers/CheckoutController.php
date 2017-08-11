@@ -92,6 +92,7 @@ class CheckoutController extends \BaseController
         $discount = 0;
         $use_price = $product->price;
 
+        // @TODO Fix this
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
             $discount = $this->session->get('discount');
@@ -202,6 +203,7 @@ class CheckoutController extends \BaseController
         // Default Price
         $use_price = $product->price;
 
+        // @TODO Fix THis
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
             $use_price = $this->session->get('discount_price');
@@ -347,7 +349,8 @@ class CheckoutController extends \BaseController
         $userPurchase->product_id = $product->id;
         $userPurchase->transaction_id = $transaction->id;
         if ($promo_applied) {
-            $userPurchase->promotion_code = $this->promotion_code;
+            // @TODO Need to save the promotion id
+            $userPurchase->promotion_id = $this->promotion_id;
         }
         $userPurchase->save();
 

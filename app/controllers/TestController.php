@@ -17,11 +17,12 @@ class TestController extends \BaseController
 
     public function modelAction()
     {
+        \Newsletter::findFirst(['is_deleted = 0']);
         \Notification::findFirst(['is_deleted = 0']);
         \Product::findFirst(['is_deleted = 0']);
         \ProductCourse::findFirst(['is_deleted = 0']);
         \ProductCourseMeta::findFirst(['is_deleted = 0']);
-        \ProductPromo::findFirst(['is_deleted = 0']);
+        \Promotion::findFirst(['is_deleted = 0']);
         \ProductThread::findFirst(['is_deleted = 0']);
         \ProductThreadReply::findFirst(['is_deleted = 0']);
         \Transaction::findFirst(['is_deleted = 0']);

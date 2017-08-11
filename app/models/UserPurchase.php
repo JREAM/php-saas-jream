@@ -22,6 +22,7 @@ class UserPurchase extends BaseModel
         $this->belongsTo("user_id", "User", "id");
         $this->hasOne("product_id", "Product", "id");
         $this->hasOne("transaction_id", "Transaction", "id");
+        $this->hasOne("promotion_id", "Promotion", "id");
     }
 
     // --------------------------------------------------------------

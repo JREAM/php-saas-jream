@@ -1,0 +1,19 @@
+#logo-ico,
+#logo {
+  height: 40px;
+  max-height: 40px;
+  transition: all .1s ease-in-out;
+}
+
+#logo-ico:hover,
+#logo:hover {
+  opacity: 0.9;
+}
+
+
+/** Overwrite the thumbnail */
+.img-thumbnail {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}

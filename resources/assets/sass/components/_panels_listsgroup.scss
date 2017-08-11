@@ -1,0 +1,47 @@
+
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+  background: $bg-color-head-alt !important;
+  border-color: $bg-color-head-alt !important;
+}
+
+.popover-content {
+  font-size: $font-size-sm !important;
+  line-height: 130%;
+}
+
+.panel-primary > .panel-heading {
+  background: $bg-color-head-alt;
+  border: none;
+  color: $lightest;
+}
+
+.panel-primary > .panel-heading h1,
+.panel-primary > .panel-heading h2,
+.panel-primary > .panel-heading h3,
+.panel-primary > .panel-heading h4 {
+  color: $lightest;
+}
+
+.panel-primary {
+  border-color: $soft-gray !important;
+}
+
+.panel-primary > .panel-header a {
+  color: $lightest;
+}
+
+.list-group-item {
+  border: 1px solid transparent;
+  margin-bottom: 1px;
+
+  h4 {
+    color: $lightest !important;
+  }
+  .label {
+    font-size: $font-size-xs;
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+}

@@ -1,0 +1,141 @@
+/**
+ -------------------------------------------------------------------
+  Overwrite Bootstrap Variables
+ -------------------------------------------------------------------
+ */
+$icon-font-path: 'fonts/';
+
+/**
+ -------------------------------------------------------------------
+  Global Sizes
+ -------------------------------------------------------------------
+ */
+$logo-height: 100px; //left of nav, nav on right side.
+$nav-height: 180px; // right side, lays on top of hero
+
+/**
+ -------------------------------------------------------------------
+  Colors
+ -------------------------------------------------------------------
+ */
+$lightest: #fff; /* white */
+$content-text: #555; /** gray */
+$soft-gray: #ddd;
+$mute-gray: #ccc;
+$dim: #879fad;
+
+$danger: #d9534f;
+
+/**
+ -------------------------------------------------------------------
+  Buttons
+ -------------------------------------------------------------------
+ */
+$btn-header-font-color: #fff;
+$btn-header-font-color-hover: #fff;
+$btn-header-bg-primary: #242424;
+$btn-header-bg-primary-hover: #202020;
+
+$btn-font-stack: 'Montserrat', sans-serif;
+$btn-bg-primary: #80c51d;
+$btn-bg-primary-hover: #8fde21;
+
+$btn-font-size: 14px;
+$btn-bg-color: #80c51d;
+$btn-color: #fff;
+
+/**
+ -------------------------------------------------------------------
+  Backgrounds
+ -------------------------------------------------------------------
+ */
+$bg-color: #f4f4f4;
+$bg-color-alt: #ecf0f1; /** clouds */
+$bg-color-alt-2: #f2f2f2;
+
+$bg-color-head: #2c3e50; /* midnight blue */
+$bg-color-head-alt: #34495e; /** wet asphalt */
+
+$primary: #212121; /** belize hole */
+$primary-hover: #3498db; /** peter river */
+
+/**
+ -------------------------------------------------------------------
+  Fonts Defaults
+ -------------------------------------------------------------------
+ */
+$font-size: 2.0em !important;
+$font-stack: 'Titillium Web', Helvetica, Arial, "Lucida Grande", sans-serif !important;
+
+$font-line-height: 1.8em !important;
+
+$font-size-xl3: 72px;
+$font-size-xl2: 60px;
+$font-size-xl: 48px;
+$font-size-lg: 40px;
+$font-size-md2: 24px; // regular
+$font-size-md: 19px; // regular
+$font-size-default: 16px;
+$font-size-sm: 12px;
+$font-size-xs: 10px;
+$font-size-xxs: 8px;
+
+/**
+ -------------------------------------------------------------------
+  Hero Settings
+ -------------------------------------------------------------------
+ */
+$hero-bg-color: #242424;
+$hero-font-color: #fff;
+$hero-font: 72px 'Monserrat, serif' bolder;
+$hero-sub-font: 24px;
+$hero-sub-font-color: #fff;
+$hero-height-full: 765px;
+$hero-height-md: 350px;
+$hero-height-sm: 150px;
+
+$title-bar-bg-color: #242424;
+$title-bar-border-top: 2px solid #313131;
+$nav-bg-border-bottom: 2px solid #313131;
+/**
+ -------------------------------------------------------------------
+  Footer Settings
+ -------------------------------------------------------------------
+ */
+$footer-font-size: 14px; // bold
+$footer-bg-color: #242424;
+$footer-font-color: #b2b2b2;
+$footer-font: 14px bold;
+
+$highlight: #80c51d;
+
+/**
+ -------------------------------------------------------------------
+  Nav Settings
+ -------------------------------------------------------------------
+ */
+$nav-font: 20px;
+$nav-color: #fff;
+$nav-hover: #80c51d;
+$nav-bg-color: #242424;
+$nav-bg-color-transparent: rgba(36, 36, 36, .0); // Hero image should show through this
+
+$hr-color: #e7e7e7;
+
+$font-blocks: 40px 'Montserrat, serif' bolder;
+
+$body-font: 18px 'Montserrat, serif';
+$body-font-color: #878787;
+
+/**
+ -------------------------------------------------------------------
+  Title Settings
+ -------------------------------------------------------------------
+ */
+$title-text-color: #242424;
+$title-subtext-color: #656565;
+$title-text-alt-color: #80c51d;
+
+$block-bg: #fff;
+$block-bg-alt: #f5f5f5;
+$block-bg-alt-color: #b2b2b2;

@@ -1,0 +1,47 @@
+#page-product,
+#page-product-action-view {
+  #hero {
+    background: $hero-bg-color url('../../images/bg/hero-laptop.jpg') no-repeat;
+    height: $hero-height-md;
+  }
+
+  a.full-product {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .public-product-title {
+    font-weight: 600;
+    margin: 0;
+    a {
+      color: inherit;
+    }
+    a:hover {
+      color: $primary-hover;
+    }
+  }
+
+  .container-product-row {
+    background: $bg-color-alt;
+    border: 1px solid transparent;
+    margin-bottom: 40px !important;
+    padding: 20px 20px;
+    position: relative; /** To contain ribbons */
+    &:hover {
+      border: 1px solid transparent;
+    }
+  }
+
+  .container-product-row.purchased {
+    /*background: #ECF0EB !important;*/
+  }
+
+  .container-product-user-has {
+    opacity: 0.7;
+    h3 {
+      opacity: 0.7;
+    }
+  }
+
+}

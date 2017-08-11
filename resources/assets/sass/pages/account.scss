@@ -1,0 +1,24 @@
+#page-account {
+  #hero {
+    height: $hero-height-sm;
+    background: $hero-bg-color url('../../images/bg/hero-collab.jpg') no-repeat;
+  }
+
+  .purchase-history {
+    table {
+      font-size: $font-size-sm !important;
+    }
+  }
+}
+
+#page-account-action-delete {
+  #hero {
+    height: $hero-height-sm;
+    background: $hero-bg-color url('../../images/bg/hero-collab.jpg') no-repeat;
+  }
+
+  .txt-delete-confirm {
+    color: $danger;
+    padding: 3px 10px 3px 0;
+  }
+}

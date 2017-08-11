@@ -1,0 +1,21 @@
+{
+  // npm install -g eslint
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "amd": true,
+    "browser": true,
+    "jquery": true,
+    "node": true,
+    "phantomjs": true
+  },
+  "rules": {
+    "indent": ["error", 2]
+  },
+  "extends": "eslint"
+}

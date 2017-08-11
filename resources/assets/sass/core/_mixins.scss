@@ -1,0 +1,31 @@
+@mixin box-shadow($rule) {
+  box-shadow: $rule;
+}
+
+@mixin border-radius($rule) {
+  border-radius: $rule;
+}
+
+@mixin transition($rule) {
+  transition: $rule;
+}
+
+/**
+* scale(x)
+* rotate(x)
+* skew(x, y)
+* translate(x, y)
+* translate3d(x, y)
+*/
+@mixin transform($rule) {
+  transform: $rule;
+}
+
+@mixin animation($rule) {
+  animation: $rule;
+}
+
+@mixin filter($rule) {
+  filter: $rule;
+}
+

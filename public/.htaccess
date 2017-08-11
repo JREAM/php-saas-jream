@@ -1,0 +1,49 @@
+# -----------------------------------
+# Add Stream Types
+# -----------------------------------
+AddType video/webm            .webm
+AddType video/mp4             .mp4
+AddType video/ogg             .ogv
+AddType application/x-mpegurl .m3u8
+
+# hls transport stream segments:
+AddType video/mp2t            .ts
+
+# -----------------------------------
+# Add Font Types
+# -----------------------------------
+AddType application/vnd.ms-fontobject    .eot
+AddType application/x-font-opentype      .otf
+AddType image/svg+xml                    .svg
+AddType application/x-font-ttf           .ttf
+AddType application/font-woff            .woff
+
+# -----------------------------------
+# Set the Rewrite Rules
+# -----------------------------------
+RewriteEngine On
+
+# Prevent Trailing slash from loading wrong route
+RewriteRule ^(.*)/$ http://%{HTTP_HOST}/$1 [QSA,L]
+
+# Dump that naked index!
+RewriteRule ^index$ http://%{HTTP_HOST} [R=301,L]
+
+# Remove WWW
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+
+# Check if request is in /blog/
+#RewriteCond %{DOCUMENT_ROOT}/blog%{REQUEST_URI} -f [OR]
+#RewriteCond %{DOCUMENT_ROOT}/blog%{REQUEST_URI} -d
+#RewriteRule ^(.*)$ /blog/$1 [L]
+
+RewriteRule ^(blog)($|/) - [L]
+
+# Fix trailing slashes, why it happen?
+RewriteRule ^(.*)/$ $1 [R=301,L]
+
+# Standard Operations
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]

@@ -1,0 +1,34 @@
+.flowplayer {
+  background-size: cover !important;
+  height: 720px !important;
+  z-index: 50;
+}
+
+.flowplayer .fp-color {
+  background-color: $highlight;
+}
+
+
+a.toggle-lights {
+  /** Only way to override is by a direct call here */
+  position: relative;
+  z-index: 50 !important;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7); /*dim the background*/
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+}
+
+.fadeover {
+  opacity: 0.85;
+  &:hover {
+    opacity: 1;
+    @include transition(opacity 1000ms ease-out);
+  }
+}

@@ -1,0 +1,42 @@
+#page-course-action-index {
+
+  #hero {
+    height: $hero-height-sm;
+    background: $hero-bg-color url('../../images/bg/hero-collab.jpg') no-repeat;
+  }
+
+  .course-complete {
+    background: #eaeaea;
+    color: #b7b7b7;
+
+  a.course-list {
+      color: silver;
+    }
+  }
+
+  a.course-action {
+    font-size: $font-size-sm;
+  }
+  .action-text {
+    font-size: $font-size-sm;
+    font-weight: normal;
+  }
+}
+
+// Dashboard Area
+#page-course-action-view {
+  #hero {
+    height: $hero-height-sm;
+    background: $hero-bg-color url('../../images/bg/hero-collab.jpg') no-repeat;
+  }
+
+  .above-video-buttons {
+    margin-bottom: 5px;
+  }
+
+  .course-view-buttons {
+    .btn {
+      font-size: $font-size-md2;
+    }
+  }
+}

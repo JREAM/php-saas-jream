@@ -1,0 +1,31 @@
+#page-login,
+#page-user-action-login,
+#page-user-action-password,
+#page-user-action-passwordcreate,
+#page-user-action-register {
+  #hero {
+    background: $hero-bg-color url('../../images/bg/hero-book-pages.jpg') no-repeat;
+    bottom: 0;
+    height: $hero-height-md;
+    height: 100% !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+
+    .inner {
+      padding-top: 150px;
+    }
+  }
+
+  .jream-icon-login {
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  #title-bar {
+    display: none;
+  }
+
+}

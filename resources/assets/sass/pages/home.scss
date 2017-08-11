@@ -1,0 +1,96 @@
+/* The home page needs a different header color to match the main intro */
+#page-index {
+  #hero {
+    background-size: cover;
+    background: $hero-bg-color url('../../images/bg/hero-laptop.jpg') no-repeat;
+    height: $hero-height-full !important;
+
+    .inner {
+      text-align: left !important;
+      padding-bottom: -200px;
+      padding-top: 200px;
+    }
+
+    .register { // part with da button
+      margin-top: 150px;
+    }
+
+    p {
+      color: $lightest;
+    }
+
+    ul {
+      color: $lightest;
+      li {
+        i {
+          color: $highlight;
+        }
+      }
+    }
+
+    h1.title,
+    h2.subtitle {
+      color: $lightest;
+      display: inline-block;
+      font-family: $font-stack;
+      font-size: $font-size-xl3;
+      margin: 0;
+      padding-left: 10px;
+    }
+
+    h2.subtitle {
+      font-size: $font-size-xl2;
+      color: $highlight;
+      margin-bottom: 20px;
+    }
+
+    @media all and (max-width: 1200px) {
+      h1.title {
+        font-size: $font-size-xl;
+      }
+      .register {
+        text-align: center;
+        margin-top: 25px;
+        a {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .btn-default {
+      border: 2px solid rgba(44, 62, 80, 0.8);
+      color: rgba(44, 62, 80, 0.8);
+      .fa {
+        background: rgba(44, 62, 80, 0.8);
+        border-radius: 32px;
+        color: #fff;
+        margin-right: 15px;
+        padding: 16px 18px;
+      }
+      &:hover {
+        background: rgba(44, 62, 80, 0.95);
+        color: #fff;
+      }
+    }
+  }
+
+  .icon-set {
+    [class*="et-"] {
+      font-size: $font-size-xl3 !important;
+    }
+    p {
+      font-size: $font-size-default;
+      line-height: 100%;
+    }
+  }
+
+  div.featured-course {
+    margin-bottom: 20px;
+    overflow: hidden;
+    img {
+      margin-bottom: 10px;
+    }
+    h3 {
+    }
+  }
+}

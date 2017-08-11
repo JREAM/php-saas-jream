@@ -1,0 +1,58 @@
+#page-dashboard {
+
+  #hero {
+    height: $hero-height-sm;
+    background: $hero-bg-color url('../../images/bg/hero-collab.jpg') no-repeat;
+  }
+
+  .dashboard-tabs {
+    margin-bottom: 10px;
+  }
+  .dashboard-tabs > li > a {
+    color: gray;
+    font-size: $font-size-default !important;
+  }
+  .dashboard-image-list {
+    border: 1px solid silver !important;
+    margin: 0 15px 15px 15px;
+  }
+
+  .dashboard-product-title {
+    background: $lightest;
+    margin-bottom: 2px;
+    padding: 10px 10px;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .dashboard-product-footer {
+    padding: 5px 10px;
+  }
+
+  .dashboard-youtube-title {
+    font-size: $font-size-default;
+  }
+
+  .panel-heading a {
+    border: none;
+    color: gray;
+    font-size: $font-size-md2;
+    outline: none;
+
+    &.top {
+      background: #fff;
+      border-radius: 50%;
+      height: 35px;
+      text-align: center;
+      width: 35px;
+
+      &:hover {
+        background: silver;
+        color: $lightest;
+      }
+    }
+
+  }
+}

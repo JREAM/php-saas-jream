@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+@import 'variables';
+
+// Third Party: Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Core Items
+@import 'core/mixins';
+@import 'core/media';
+
+// Components
+@import 'effects/animate';
+@import 'components/images';
+@import 'components/modal';
+@import 'components/nav';
+@import 'components/buttons'; // The order is important
+@import 'components/panels_listsgroup';
+@import 'components/ribbons';
+@import 'components/typography';
+@import 'components/utils';
+@import 'components/video-player';
+
+// Main Layout Structure
+@import 'layout';
+
+//Pages
+@import 'pages/account';
+@import 'pages/course';
+@import 'pages/dashboard';
+@import 'pages/devtools';
+@import 'pages/home';
+@import 'pages/lab';
+@import 'pages/login';
+@import 'pages/product';
+@import 'pages/promotion';
+@import 'pages/questions';
+@import 'pages/support';
+@import 'pages/terms';
+@import 'pages/promotion';
+
+// This may overwrite settings after scroll
+@import 'effects/scrolling';

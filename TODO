@@ -1,0 +1,19 @@
+-- Todo
+
+- make sure the user registration works with proper inserting to newsletter table.
+- test outgoing emails SES..
+- need to flag if an email was sent.
+- make site look nicer
+- sort scss
+- make sure coupons work.
+- player runs html5, then fallback to flash,
+    they can download videos if wanted but oh well.
+
+- unit tests // later
+- test payments
+- test on dev site
+
+// newsletter less improtant
+- test newsletter
+- test newsletter verify
+- sort js

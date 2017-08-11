@@ -1,0 +1,122 @@
+.navbar {
+  background: $nav-bg-color-transparent;
+  max-height: 75px;
+  transition: all .1s ease-in-out;
+  transition: max-height .1s ease-in-out;
+  z-index: 10;
+}
+
+.navbar-collapse {
+  //background: $nav-bg-color;
+}
+
+.icon-bar {
+  background: $lightest;
+}
+
+.nav > li a {
+  transition: all 0.05s ease-in-out;
+}
+.nav > li > a:hover,
+.nav > li > a:focus,
+.nav > li > a:active {
+  background: transparent;
+  border-bottom: 1px solid $nav-hover;
+  color: $nav-hover !important;
+}
+
+.navbar-inner .container-fluid {
+  background: $nav-bg-color !important;
+}
+.dropdown-menu {
+  background: $nav-bg-color;
+  color: $nav-color;
+  font-size: $nav-font;
+  width: 200px;
+  .divider {
+    background: $nav-bg-color;
+  }
+  .glyphicon {
+    margin-right: 10px;
+  }
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background: $nav-bg-color !important;
+  color: $nav-hover !important;
+}
+.dropdown-menu > li > a {
+  color: $nav-color !important;
+  padding: 10px 0 10px 10px !important;
+}
+
+/** Overwrite login/user button */
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus
+{
+  background: $nav-bg-color !important;
+  border: 0px solid $nav-color !important;
+  color: $nav-hover !important;
+  outline: none;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: inherit;
+  color: $nav-color !important;
+}
+
+
+.navbar .container {
+  min-height: 75px;
+}
+
+.navbar {
+  border-radius: 0;
+  border-width: 0;
+  margin-bottom: 0;
+  z-index: 9;
+}
+
+.navbar-collapse {
+  margin-top: 12px;
+}
+
+.navbar-toggle {
+  margin-top: 20px;
+}
+
+.navbar-nav > li > a {
+  color: $lightest;
+  font-family: $font-stack;
+  font-size: $nav-font;
+  padding: 15px 26px;
+}
+
+/* Question Tabs*/
+// .nav-tabs > li.active > a,
+// .nav-tabs > li.active > a:hover,
+// .nav-tabs > li.active > a:focus {
+//   background: $lightest;
+// }
+//
+
+.nav {
+  .btn-primary {
+    color: $btn-header-font-color;
+    background-color: $btn-header-bg-primary;
+    border: none;
+    color: $lightest;
+    font-weight: bolder;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active // This is purposely a class
+    {
+      color: $btn-header-font-color-hover !important;
+      background: $btn-header-bg-primary-hover !important;
+      border: none;
+    }
+  }
+}

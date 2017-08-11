@@ -1,0 +1,176 @@
+/**
+ * Note: For PAGE @overwrite(s) go to the bottom of the FILE
+ * This will allow it to be the last overwrite.
+ */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: $bg-color !important;
+  margin-bottom: 210px; /** Footer Height + 50 for spacing */
+
+  ul.list-indent > li {
+    margin-left: 10px;
+  }
+
+  ul.list-indent > li > li {
+    margin-left: 10px;
+  }
+}
+
+
+a {
+  .course-list {
+    color: gray;
+  }
+}
+
+#logo:hover {
+  opacity: 0.9;
+}
+
+#system-info {
+  background: #ffffcc;
+  bottom: 0%;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+
+  .info-timestamp {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    float: left;
+    font-size: $font-size-xs;
+    left: 0;
+    padding: 2px 5px;
+    position: absolute;
+  }
+}
+
+#hero {
+  background-color: $hero-bg-color;
+  background-size: cover !important;
+  color: $hero-font-color !important;
+  height: $hero-height-md;
+  position: relative;
+
+  .inner {
+    padding-bottom: -150px;
+    padding-top: 150px;
+    text-align: center;
+    h2 {
+      color: $lightest;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  h1, h2, h3 {
+    color: $hero-font-color;
+  }
+}
+
+#header {
+  width: 100%;
+  z-index: 100;
+}
+
+#title-bar {
+  background: $title-bar-bg-color;
+  border-top: $title-bar-border-top;
+  padding: 15px 0;
+  transition: all .4s ease-in-out;
+  width: 100%;
+  z-index: 3;
+
+  span.title {
+    color: $hero-font-color;
+    display: inline-block;
+    font-family: $font-stack;
+    font-size: 18px;
+    transition: all .3s ease-in-out;
+    a {
+      color: #13547b;
+      text-decoration: underline;
+    }
+  }
+}
+
+
+
+#footer {
+  background: $footer-bg-color;
+  border-top: $title-bar-border-top;
+  bottom: 0;
+  color: $footer-font-color;
+  height: 205px; /** Aligns with body offset */
+  padding-top: 20px;
+  position: absolute;
+  width: 100%;
+
+  .footer-links {
+    padding-top: 25px !important;
+    input {
+      // background: $footer-font-color;
+    }
+    a {
+      color: $footer-font-color !important;
+      margin-right: 1px;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        color: $highlight !important;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .social-icons {
+    a {
+      color: $footer-font-color !important;
+      display: inline-block;
+      margin-right: 0px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.2s ease-in-out;
+      width: 60px;
+
+      &:hover {
+        color: $lightest !important;
+        background: $highlight;
+      }
+    }
+  }
+}
+
+.call-to-action {
+  background-size: cover;
+  background: $bg-color-head;
+  color: $content-text;
+  margin-top: 25px;
+  h3 {
+    color: $lightest;
+    font-size: $font-size-lg;
+  }
+  p {
+    color: $lightest;
+    font-size: $font-size-default;
+    margin-bottom: 2px;
+    text-align: center;
+  }
+  div:first-child {
+    margin-bottom: 20px;
+  }
+}
+
+.payment-icons {
+  padding: 5px 0 10px 0;
+}
+
+div.error-validation {
+  color: #b94a48;
+  font-size: $font-size-xs;
+  line-height: 10px;
+}

@@ -1,0 +1,83 @@
+.btn-dark {
+
+}
+
+.btn {
+  font-family: $btn-font-stack;
+  transition: all .3s ease-in-out;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/** Btn */
+.btn-xl {
+  padding: 20px 22px;
+  font-size: $font-size-md;
+}
+
+.btn:hover {
+  @include transition(background 200ms ease-out);
+}
+
+.btn-primary:disabled, .btn-primary:active, .btn-primary:focus {
+  background: #d6d6d6 !important;
+}
+
+.btn-default {
+  border: 1px solid $lightest;
+}
+
+.btn-info {
+  background: #61a055;
+  border-color: #269abc;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:active, .open .dropdown-toggle.btn-info {
+  background: #71ad65;
+}
+
+// .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+//   background: $btn-bg-primary-hover;
+//   color: $lightest;
+// }
+
+
+#goto-top {
+  background: $primary;
+  border-radius: 50%;
+  bottom: 10px;
+  color: $lightest;
+  cursor: pointer;
+  height: 35px;
+  opacity: 1;
+  position: fixed;
+  right: 15px;
+  text-align: center;
+  transition: all .3s ease-in-out;
+  width: 35px;
+  z-index: 100;
+
+  &:hover {
+    background: $primary-hover;
+  }
+}
+
+.social-share {
+  display: inline-block;
+  float: right;
+  position: absolute;
+  right: 12px;
+  top: 0;
+}
+
+a.btn-facebook,
+.btn-facebook {
+  color: $lightest !important;
+  background: #3B5998 !important;
+  &:hover,
+  &:active {
+    color: $lightest;
+  }
+}
+

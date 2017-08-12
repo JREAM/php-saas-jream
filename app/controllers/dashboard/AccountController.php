@@ -16,7 +16,7 @@ class AccountController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Account');
+        Tag::setTitle('Account | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

@@ -13,7 +13,17 @@
 
 /** Overwrite the thumbnail */
 .img-thumbnail {
-  border: none;
-  border-radius: 0;
-  background: transparent;
+  border: 10px solid $soft-gray;
+  // border: none;
+  border-radius: 1px;
+  background: $soft-gray;
+
+  &:hover {
+    border-color: $highlight;
+    background: $highlight;
+  }
+}
+
+.img-thumbnail-lg {
+
 }

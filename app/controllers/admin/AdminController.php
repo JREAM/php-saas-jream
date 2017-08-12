@@ -13,7 +13,7 @@ class AdminController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Admin');
+        Tag::setTitle('Admin | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------
@@ -51,10 +51,10 @@ class AdminController extends \BaseController
 
     private function _insertNewsletterSubscribers($user, $email)
     {
-        $newsletter = new Newsletter;
-        $newsletter->user_id = $user->id;
-        $newsletter->email = $email;
-        $newsletter->save();
+        $newsletterSubscription = new \NewsletterSubscription;
+        $newsletterSubscription->user_id = $user->id;
+        $newsletterSubscription->email = $email;
+        $newsletterSubscription->save();
     }
 
     // --------------------------------------------------------------
@@ -66,8 +66,13 @@ class AdminController extends \BaseController
             'title'         => $title,
             'content'       => $content,
             'links'         => $links,
-            'unsubscribe'   => 'unsubsribe'
+            'unsubscribe'   => 'unsubscribe'
         ]);
+
+        // Newsletter to use for content
+        $newsletter = \Newsletter:findById(1);
+        $newsletter->subject;
+        $newsletter->body;
 
         // Parse any markdown code to HTML
         $parsedown = new \Parsedown();
@@ -84,6 +89,13 @@ class AdminController extends \BaseController
                 'content'    => $content,
             ],
         ]);
+
+        $newsletterResult = new \NewsletterResult();
+        $newsletterResult->newsletter_id = getDateTime();
+        $newsletterResult->created_at = getDateTime();
+        $newsletterResult->is_sent = 1;
+        $newsletterResult->result = $mail_result;
+        $newsletterResult->save();
 
     }
 

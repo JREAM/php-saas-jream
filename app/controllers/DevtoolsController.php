@@ -51,7 +51,7 @@ class DevtoolsController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('DevTools');
+        Tag::setTitle('DevTools | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------
@@ -61,7 +61,6 @@ class DevtoolsController extends \BaseController
      */
     public function indexAction()
     {
-        Tag::setTitle('DevTools');
         $this->view->pick('devtools/devtools');
     }
 
@@ -73,7 +72,7 @@ class DevtoolsController extends \BaseController
             'methods' => $this->types['encode'],
         ]);
 
-        Tag::setTitle('DevTools | Encode');
+        Tag::setTitle('DevTools | Encode | ' . $this->di['config']['title']);
         $this->view->pick('devtools/encode');
     }
 
@@ -101,7 +100,7 @@ class DevtoolsController extends \BaseController
             'methods' => $this->types['encrypt'],
         ]);
 
-        Tag::setTitle('DevTools | Encrypt');
+        Tag::setTitle('DevTools | Encrypt | ' . $this->di['config']['title']);
         $this->view->pick('devtools/encrypt');
     }
 
@@ -135,7 +134,7 @@ class DevtoolsController extends \BaseController
             'methods' => $this->types['encrypt'],
         ]);
 
-        Tag::setTitle('DevTools - Strings');
+        Tag::setTitle('DevTools - Strings | ' . $this->di['config']['title']);
         $this->view->pick('devtools/strings');
     }
 
@@ -163,7 +162,7 @@ class DevtoolsController extends \BaseController
             'methods' => $this->types['fakedata'],
         ]);
 
-        Tag::setTitle('DevTools | Fake Data Generator');
+        Tag::setTitle('DevTools | Fake Data Generator | ' . $this->di['config']['title']);
         $this->view->pick('devtools/fakedata');
     }
 
@@ -190,7 +189,7 @@ class DevtoolsController extends \BaseController
         $this->view->setVars([
         ]);
 
-        Tag::setTitle('DevTools | UTF 8 Characters');
+        Tag::setTitle('DevTools | UTF 8 Characters | ' . $this->di['config']['title']);
         $this->view->pick('devtools/utf8chars');
     }
 

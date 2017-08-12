@@ -13,7 +13,7 @@ class NotificationController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Notifications');
+        Tag::setTitle('Notifications | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

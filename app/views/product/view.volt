@@ -35,7 +35,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="relative">
-            <img class="img-thumbnail {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}" src="{{ product.img_lg }}" alt="{{ product.title }}" />
+            <img class="img-thumbnail-lg {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}" src="{{ product.img_lg }}" alt="{{ product.title }}" />
         </div>
 
         <div class="margin-10-left margin-10-top">
@@ -119,9 +119,7 @@
     {% endif %}
 
     {% if product.price != 0 %}
-
         {% include "partials/section/payment/requirements.volt" %}
-
     {% endif %}
 {% endif %}
 
@@ -138,8 +136,16 @@
             <strong>Create an Account</strong>
         </div>
         <div class="panel-body text-center">
-            <a href="{{ url('user/register') }}"><img src="{{ url('images/buttons/jream-login.png') }}" class="fadeover" alt="JREAM Login"></a>
-            <a href="{{ fbLoginUrl }}"><img src="{{ url('images/buttons/facebook-login.png') }}" class="fadeover" alt="Facebook Login" /></a>
+            <p class="text-center">
+                <a href="{{ url('user/register') }}" class="btn btn-block btn-lg btn-social btn-jream">
+                    <img src="{{ config.url_static }}img/logo/icon-sm.svg" alt="JREAM"> Sign in with JREAM
+                </a>
+            </p>
+            <p class="text-center">
+                <a href="{{ fbLoginUrl }}" class="btn btn-block btn-lg btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                </a>
+            </p>
         </div>
     </div>
     {% endif %}
@@ -148,13 +154,8 @@
             <a class="btn btn-xl btn-primary" href="{{ url('dashboard/course/index') }}/{{ product.id }}"><i class="fa fa-arrow-right"></i> Go to Course</a>
         </div>
     {% else %}
-        {% if product.status == constant('\Product::STATUS_PLANNED') %}
-            <p>
-            This course cannot yet be purchased. Curriculum is still being planned.
-            </p>
-        {% elseif product.price != 0 %}
+        {% if product.price != 0 %}
             {% include "partials/section/payment/checkout.volt" %}
-
         {% elseif user %}
             <h2>Free Course</h2>
             <a class="btn btn-primary btn-lg" href="{{ url('product/dofreecourse') }}/{{ product.id }}">Add Free Course</a>

@@ -21,7 +21,7 @@ class CourseController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle($this->sectionTitle);
+        Tag::setTitle($this->sectionTitle . ' | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------
@@ -121,7 +121,7 @@ class CourseController extends \BaseController
         $courseName = formatName($productCourse->name);
         $courseDescription = $productCourse->description;
         $productName = $productCourse->getProduct()->title;
-        Tag::setTitle($this->sectionTitle . ' | ' . $courseName . ' > ' . $productName);
+        Tag::setTitle($this->sectionTitle . ' | ' . $courseName . ' > ' . $productName . ' | ' . $this->di['config']['title']);
 
         $rtmpSignedUrl = $this->component->helper->generateStreamUrl(
             $productCourse->getProduct()->path,

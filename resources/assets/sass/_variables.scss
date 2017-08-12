@@ -3,7 +3,7 @@
   Overwrite Bootstrap Variables
  -------------------------------------------------------------------
  */
-$icon-font-path: 'fonts/';
+$icon-font-path: '../fonts/';
 
 /**
  -------------------------------------------------------------------
@@ -39,6 +39,9 @@ $btn-header-bg-primary-hover: #202020;
 $btn-font-stack: 'Montserrat', sans-serif;
 $btn-bg-primary: #80c51d;
 $btn-bg-primary-hover: #8fde21;
+
+$btn-bg-dark: #272727;
+$btn-bg-dark-hover: #303030;
 
 $btn-font-size: 14px;
 $btn-bg-color: #80c51d;
@@ -139,3 +142,19 @@ $title-text-alt-color: #80c51d;
 $block-bg: #fff;
 $block-bg-alt: #f5f5f5;
 $block-bg-alt-color: #b2b2b2;
+
+
+/**
+ -------------------------------------------------------------------
+  Panel Settings
+ -------------------------------------------------------------------
+ */
+
+
+/**
+ -------------------------------------------------------------------
+  Ribbons
+ -------------------------------------------------------------------
+ */
+ $ribbon-border-color: #79A70A;
+ $ribbon-free-border-color: green;

@@ -1,8 +1,10 @@
 -- Todo
 
+- make sure is_free is listing correctly.
 - make sure the user registration works with proper inserting to newsletter table.
 - test outgoing emails SES..
 - need to flag if an email was sent.
+
 - make site look nicer
 - sort scss
 - make sure coupons work.

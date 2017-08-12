@@ -14,7 +14,7 @@ class ContactController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Learn to Code');
+        Tag::setTitle('Contact | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------
@@ -40,7 +40,7 @@ class ContactController extends \BaseController
      */
     public function thanksAction()
     {
-        Tag::setTitle('Email Sent');
+        Tag::setTitle('Contact Email Sent | ' . $this->di['config']['title']);
         $this->view->pick('contact/thanks');
     }
 

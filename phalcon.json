@@ -1,0 +1,16 @@
+{
+  "migration" : {
+    "migrations": "migrations",
+    "config": "config/db-devtools.php"
+  },
+  "controller" : {
+    "namespace": "",
+    "directory": "app/controllers",
+    "base-class": "BaseController"
+  },
+  "model" : {
+    "namespace": "",
+    "directory": "app/models",
+    "base-class": "BaseModel"
+  }
+}

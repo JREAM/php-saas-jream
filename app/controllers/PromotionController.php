@@ -11,7 +11,7 @@ class PromotionController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Promotions');
+        Tag::setTitle('Promotions | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

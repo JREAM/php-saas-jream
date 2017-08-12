@@ -18,7 +18,7 @@ class CheckoutController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Checkout');
+        Tag::setTitle('Checkout | ' . $this->di['config']['title']);
 
         // Stripe
         \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );

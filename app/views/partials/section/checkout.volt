@@ -1,3 +1,4 @@
+{% if user %}
 <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
 <script>
 // @TODO Not sure why this wont load elsewhere
@@ -123,6 +124,8 @@ $(function() {
 
     </div>
 </div>
+
+{% endif %}
 
 <ul class="text-right" style="list-style-type: none;">
     <li><a href="#course-content">Course Content</a></li>

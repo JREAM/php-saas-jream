@@ -40,7 +40,7 @@ class UserController extends \BaseController
             $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
         }
 
-        Tag::setTitle('Login');
+        Tag::setTitle('Login | ' . $this->di['config']['title']);
 
         $this->view->setVars([
             'form'       => new \LoginForm(),
@@ -309,7 +309,7 @@ class UserController extends \BaseController
             return $this->response->redirect('dashboard');
         }
 
-        Tag::setTitle('Register');
+        Tag::setTitle('Register | ' . $this->di['config']['title']);
 
         // ---------------------------
         // Facebook Login
@@ -556,7 +556,7 @@ class UserController extends \BaseController
      */
     public function passwordAction()
     {
-        Tag::setTitle('Forgot Password');
+        Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
         $this->view->setVars([
             'form'     => new \ForgotPasswordForm(),
             'tokenKey' => $this->security->getTokenKey(),
@@ -652,7 +652,7 @@ class UserController extends \BaseController
             return $this->redirect(self::PASSWORD_REDIRECT_SUCCESS);
         }
 
-        Tag::setTitle('Create New Password');
+        Tag::setTitle('Create New Password | ' . $this->di['config']['title']);
         $this->view->setVars([
             'reset_key' => $resetKey,
         ]);

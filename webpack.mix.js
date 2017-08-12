@@ -61,7 +61,7 @@ mix.js("node_modules/waypoints/lib/jquery.waypoints.min.js", "public/vendor/jque
 // -----------------------------------------------------------------------
 
 // Bootstrap Fonts Added (There is a variable in the app.scss to set the path)
-mix.copyDirectory("node_modules/bootstrap-sass/assets/fonts", "public/fonts", false);
+mix.copyDirectory("node_modules/bootstrap-sass/assets/fonts/bootstrap", "public/fonts", false);
 
 // Font Awesome
 mix.copyDirectory("node_modules/font-awesome/fonts", "public/fonts", false);

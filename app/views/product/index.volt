@@ -37,6 +37,8 @@
     <div class="container container-fluid container-product-row {% if product.hasPurchased() %}purchased{% endif %}">
         {% if product.hasPurchased() %}
             <div class="ribbon"><span>Purchased</span></div>
+        {% elseif product.is_free == 1 %}
+            <div class="ribbon free"><span>Free</span></div>
         {% endif %}
         <div class="row">
             <div class="col-sm-6">
@@ -85,7 +87,7 @@
 
                 {% if product.hasPurchased() %}
                     <a class="full-product" href="{{ url('dashboard/course/index') }}/{{ product.id }}"><i class="fa fa-arrow-right"></i> Go to My Course</a>
-                {% else %}
+                {% elseif product.is_free %}
                     <a class="full-product" href="{{ url('product/view/') }}{{ product.slug}}"><i class="fa fa-arrow-right"></i> View Course</a>
                 {% endif %}
             </div>

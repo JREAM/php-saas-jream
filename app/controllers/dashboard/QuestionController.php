@@ -19,7 +19,7 @@ class QuestionController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Questions');
+        Tag::setTitle('Questions | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

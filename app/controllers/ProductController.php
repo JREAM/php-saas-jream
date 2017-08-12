@@ -19,7 +19,7 @@ class ProductController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Products');
+        Tag::setTitle('Products | ' . $this->di['config']['title']);
 
         // Stripe
         \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
@@ -61,7 +61,7 @@ class ProductController extends \BaseController
     public function viewAction($slug)
     {
         $product = \Product::findFirstBySlug($slug);
-        Tag::setTitle($product->title);
+        Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
         if (!$product) {
             return $this->redirect('product');

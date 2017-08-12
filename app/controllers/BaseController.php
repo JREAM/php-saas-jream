@@ -27,8 +27,8 @@ class BaseController extends \Phalcon\Mvc\Controller
     }
 
     public function onConstruct() {
-        Tag::setTitleSeparator(' / ');
-        Tag::appendTitle($this->di['config']['title']);
+        // Tag::setTitleSeparator(' / ');
+        // Tag::appendTitle($this->di['config']['title']);
 
     }
 

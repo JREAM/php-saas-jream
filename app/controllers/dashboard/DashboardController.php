@@ -13,7 +13,7 @@ class DashboardController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Dashboard');
+        Tag::setTitle('Dashboard | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

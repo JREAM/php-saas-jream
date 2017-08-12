@@ -21,15 +21,23 @@ body {
   }
 }
 
-a .container {
-  color: $primary !important;
-  .course-list {
-    color: gray;
+a {
+  .container {
+    color: $primary !important;
+
+    .course-list {
+      color: gray;
+    }
+
+    &:hover {
+    color: $primary-hover !important;
+    }
   }
 }
 
-a:hover .container {
-  color: $primary-hover !important;
+p,
+.alert {
+  font-family: $font-stack;
 }
 
 h1, h2, h3 {

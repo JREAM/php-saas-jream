@@ -23,7 +23,7 @@ class SupportController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Support');
+        Tag::setTitle('Support | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

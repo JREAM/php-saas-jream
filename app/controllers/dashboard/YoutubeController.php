@@ -19,7 +19,7 @@ class YoutubeController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Youtube Videos');
+        Tag::setTitle('Youtube Videos | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

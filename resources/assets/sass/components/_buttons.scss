@@ -76,8 +76,26 @@ a.btn-facebook,
   color: $lightest !important;
   background: #3B5998 !important;
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     color: $lightest;
+  }
+}
+
+a.btn-jream,
+.btn-jream {
+  color: $lightest;
+  background: $btn-bg-dark;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $lightest;
+    background: $btn-bg-dark-hover;
+  }
+
+  img {
+    height: 24px;
   }
 }
 

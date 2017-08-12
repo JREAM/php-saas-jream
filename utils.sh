@@ -16,6 +16,7 @@ while true; do
     ----        --------------------------------
     rmcache     Removes Cache
     rmcachet    Remove Cache every 5 seconds (Infinite)
+    devtools    N/A: Setup Phalcon Devtools to /opt/phalcon-tools
     q           Quit (or CTRL + C)
 command_list
 

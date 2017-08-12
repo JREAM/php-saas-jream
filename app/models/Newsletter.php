@@ -20,7 +20,6 @@ class Newsletter extends BaseModel
 
         $this->setSource(self::SOURCE);
         // Some won't have accounts, but if they do associate them with the newsletter.
-        $this->belongsTo("user_id", "User", "id");
     }
 
 

@@ -1,3 +1,6 @@
+.form-group {
+  font-family: $font-stack;
+}
 
 .list-group-item.active,
 .list-group-item.active:hover,
@@ -11,25 +14,39 @@
   line-height: 130%;
 }
 
+.input-group-lg>.form-control, .input-group-lg>.input-group-addon, .input-group-lg>.input-group-btn>.btn, .input-lg
 .panel-primary > .panel-heading {
   background: $bg-color-head-alt;
   border: none;
   color: $lightest;
 }
 
-.panel-primary > .panel-heading h1,
-.panel-primary > .panel-heading h2,
-.panel-primary > .panel-heading h3,
-.panel-primary > .panel-heading h4 {
-  color: $lightest;
-}
-
 .panel-primary {
   border-color: $soft-gray !important;
-}
+  .panel-heading {
+    border-color: $soft-gray !important;
+    background-color: $panel-header-bg-color;
+    color: $panel-header-font-color;
+    font-size: $font-size-md2;
 
-.panel-primary > .panel-header a {
-  color: $lightest;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-stack;
+      font-size: $font-size-md2;
+      color: $lightest;
+
+      i {
+        margin-right: 10px;
+      }
+    }
+    a {
+      color: $lightest;
+    }
+  }
 }
 
 .list-group-item {
@@ -39,8 +56,9 @@
   h4 {
     color: $lightest !important;
   }
+
   .label {
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     margin-left: 2px;
     margin-top: 5px;
   }

@@ -15,7 +15,7 @@ class NewsletterController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Newsletter');
+        Tag::setTitle('Newsletter | ' . $this->di['config']['title']);
     }
 
     // --------------------------------------------------------------

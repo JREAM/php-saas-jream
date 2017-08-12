@@ -9,11 +9,11 @@
   z-index: 1;
   span {
     -webkit-transform: rotate(-45deg);
-    background: #79A70A;
+    background: $ribbon-border-color;
     box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
     color: #FFF;
     display: block;
-    font-size: $font-size-xs;
+    font-size: $font-size-sm;
     font-weight: bold;
     left: -21px;
     line-height: 20px;
@@ -22,13 +22,13 @@
     text-transform: uppercase;
     top: 19px;
     transform: rotate(-45deg);
-    width: 100px;
+    width: 120px;
   }
   span::before {
     border-bottom: 3px solid transparent;
-    border-left: 3px solid #79A70A;
+    border-left: 3px solid $ribbon-border-color;
     border-right: 3px solid transparent;
-    border-top: 3px solid #79A70A;
+    border-top: 3px solid $ribbon-border-color;
     content: "";
     left: 0px;
     position: absolute;
@@ -38,8 +38,8 @@
   span::after {
     border-bottom: 3px solid transparent;
     border-left: 3px solid transparent;
-    border-right: 3px solid #79A70A;
-    border-top: 3px solid #79A70A;
+    border-right: 3px solid $ribbon-border-color;
+    border-top: 3px solid $ribbon-border-color;
     content: "";
     position: absolute;
     right: 0px;

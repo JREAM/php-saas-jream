@@ -86,6 +86,7 @@ $di->setShared('api', function () use ($api) {
     return $api;
 });
 
+
 /**
  * ==============================================================
  * Apply the Router
@@ -348,11 +349,11 @@ $di->setShared('facebook', function () use ($api) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google', function() use ($api) {
+$di->setShared('google_auth', function() use ($api) {
 
-    $scope = $api->google->scope;
-
-    $middleware = Google\Auth\ApplicationDefaultCredentials::getMiddleware($scope);
+    $middleware = Google\Auth\ApplicationDefaultCredentials::getMiddleware(
+        $api->google->scope
+    );
 
     $stack = GuzzleHttp\HandlerStack::create();
     $stack->push($middleware);
@@ -368,6 +369,35 @@ $di->setShared('google', function() use ($api) {
 
 /**
  * ==============================================================
+ * API: Stripe
+ * =============================================================
+ */
+\Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
+
+/**
+ * ==============================================================
+ * API: Paypal
+ * =============================================================
+ */
+$di->setShared('paypal', function() {
+    // Paypal Express
+    // @source  https://omnipay.thephpleague.com/gateways/configuring/
+    $paypal = \Omnipay\Omnipay::create('PayPal_Express');
+    $paypal->setUsername( getenv('PAYPAL_USERNAME') );
+    $paypal->setPassword( getenv('PAYPAL_PASSWORD') );
+    $paypal->setSignature( getenv('PAYPAL_SIGNATURE') );
+
+    if ( getenv('PAYPAL_TESTMODE') ) {
+        $paypal->setTestMode(true);
+    }
+
+    return $paypal;
+});
+
+
+
+/**
+ * ==============================================================
  * API: MailChimp
  * Only Used to Subscribe (Should Change Someday)
  * =============================================================
@@ -376,6 +406,11 @@ $di->setShared('mailchimp', function() use ($api) {
     return new \Mailchimp( getenv('MAILCHIMP_KEY') );
 });
 
+
+// Set a default dependency injection container
+// to be obtained into static methods
+//\Phalcon\Di::setDefault($di);
+//\Phalcon\Di::getDefault();
 
 // End of File
 // --------------------------------------------------------------------

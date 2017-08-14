@@ -16,6 +16,7 @@ while true; do
     ----        --------------------------------
     rmcache     Removes Cache
     rmcachet    Remove Cache every 5 seconds (Infinite)
+    testdb      Creates a Test Database (jream_unit_test)
     devtools    N/A: Setup Phalcon Devtools to /opt/phalcon-tools
     q           Quit (or CTRL + C)
 command_list
@@ -59,7 +60,20 @@ read -p "Type a Command: " cmd
             echo "====================================================================="
             echo ""
             ;;
-
+        testdb)
+          echo "( + ) Dumping 'jream' database to SQL [/tmp/jream.sql]"
+          mysqldump -u root -proot jream > /tmp/jream.sql
+          echo "( + ) Recreating 'jream_unit_test' database"
+          mysqladmin drop -u root -proot jream_unit_test
+          mysqladmin create -u root -proot jream_unit_test
+          echo "( + ) Recreating 'jream_unit_test' database"
+          mysql -u root -proot jream_unit_test < /tmp/jream.sql
+          echo "( + ) Removing [/tmp/jream.sql] file"
+          rm /tmp/jream.sql
+          echo ""
+          echo "====================================================================="
+          echo ""
+          ;;
         q)
             exit 1
             ;;

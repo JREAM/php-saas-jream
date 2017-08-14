@@ -124,7 +124,15 @@ try {
      * =============================================================
      */
     $application = new \Phalcon\Mvc\Application($di);
-    echo $application->handle()->getContent();
+
+    /**
+     * ==============================================================
+     * Place the following for the main site
+     * (It's not here so we can use it in Testing and Displaying:
+     *
+     * echo $application->handle()->getContent();
+     * =============================================================
+     */
 
 } catch (\Exception $e) {
 

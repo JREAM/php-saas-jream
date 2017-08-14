@@ -85,7 +85,7 @@ class NewsletterController extends \BaseController
             ]);
 
             $this->output(0, "Something went wrong. There was an error saving, the error has been traced and will be look into.");
-            $this->redirect(self::SUBSCRIBE_REDIRECT_FAILURE);
+            return $this->redirect(self::SUBSCRIBE_REDIRECT_FAILURE);
         }
 
         $this->output(1, "Thank you! You've been subscribed to the JREAM Newsletter.

@@ -7,6 +7,8 @@ class AccountController extends \BaseController
 
     const REDIRECT_SUCCESS = "dashboard/account";
     const REDIRECT_FAILURE = "dashboard/account";
+    const REDIRECT_DELETE = "dashboard/account/delete";
+    const REDIRECT_LOGOUT = "user/logout";
 
     // --------------------------------------------------------------
 
@@ -70,14 +72,14 @@ class AccountController extends \BaseController
 
         if ($understand != 'on') {
             $this->flash->error("You must check off the box for understanding your account removal.");
-            return $this->redirect("dashboard/account/delete");
+            return $this->redirect(self::REDIRECT_DELETE);
         }
 
         $user = \User::findFirstById($this->session->get('id'));
 
         if (strtolower($confirm) != 'delete ' . strtolower($user->getAlias())) {
             $this->flash->error("To remove your account you must enter the confirmation text.");
-            return $this->redirect("dashboard/account/delete");
+            return $this->redirect(self::REDIRECT_DELETE);
         }
 
         $user->is_deleted = 1;
@@ -86,13 +88,13 @@ class AccountController extends \BaseController
 
         if (!$result) {
             $this->flash->error("There was a problem processing your request.");
-            return $this->redirect("dashboard/account/delete");
+            return $this->redirect(self::REDIRECT_DELETE);
         }
 
         // Hpw do i want to delete this?
 
         $this->flash->success("Sorry to see you go!");
-        return $this->redirect("user/logout");
+        return $this->redirect(self::REDIRECT_LOGOUT);
     }
 
     // --------------------------------------------------------------
@@ -108,7 +110,7 @@ class AccountController extends \BaseController
         $timezone = $this->request->getPost('timezone');
         if (!in_array($timezone, \DateTimeZone::listIdentifiers())) {
             $this->flash->error('Invalid Timezone');
-            $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $user = \User::findFirstById($this->session->get('id'));
@@ -119,8 +121,7 @@ class AccountController extends \BaseController
         $this->session->set('timezone', $timezone);
 
         $this->flash->success("Timezone updated");
-        return $this->redirect("dashboard/account");
-
+        return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
     // --------------------------------------------------------------
@@ -138,18 +139,18 @@ class AccountController extends \BaseController
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->flash->error('You must provide a valid email.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         if ($email != $confirm_email) {
             $this->flash->error('Your emails do not match.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $emailExists = \User::findFirstByEmail($email);
         if ($emailExists) {
             $this->flash->error('This email is in use.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $user = \User::findFirstById($this->session->get('id'));
@@ -165,8 +166,7 @@ class AccountController extends \BaseController
 
         if (!$content) {
             $this->flash->error('An internal error occured, we have been notified about it.');
-            $this->redirect('dashboard/account');
-            exit;
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $mail_result = $this->di->get('email', [
@@ -190,7 +190,7 @@ class AccountController extends \BaseController
             $this->flash->success($text);
         }
 
-        return $this->redirect("dashboard/account");
+        return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
     // --------------------------------------------------------------
@@ -209,18 +209,18 @@ class AccountController extends \BaseController
 
         if ($password != $confirm_password) {
             $this->flash->error('Your passwords do not match.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         if (strlen($password) < 4 || strlen($password) > 128) {
             $this->flash->error('Your password must be 4-128 characters.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $user = \User::findFirstById($this->session->get('id'));
         if (!$this->security->checkHash($current_password, $user->password)) {
             $this->flash->error('Your current password is incorrect.');
-            return $this->redirect("dashboard/account");
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $user = \User::findFirstById($this->session->get('id'));
@@ -229,11 +229,11 @@ class AccountController extends \BaseController
 
         if ($user->getMessages()) {
             $this->flash->error($user->getMessagesList());
-            return $this->redirect('dashboard/account');
+            return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
         $this->flash->success('Your password has been changed.');
-        return $this->redirect("dashboard/account");
+        return $this->redirect(self::REDIRECT_SUCCESS);
 
     }
 
@@ -256,7 +256,7 @@ class AccountController extends \BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $this->flash->error($setting->getMessagesString());
+        $this->flash->error($user->getMessagesString());
         return $this->redirect(self::REDIRECT_FAILURE);
     }
 

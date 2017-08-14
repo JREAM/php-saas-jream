@@ -21,13 +21,20 @@ $loader->registerNamespaces([
    'Phalcon'    => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/'
 ]);
 
-$loader->registerDirs([
+$registerDirs = [
     CONFIG_DIR,
     CONTROLLERS_DIR,
     FORMS_DIR,
     EVENTS_DIR,
     MODELS_DIR,
-]);
+];
+
+// When running unit tests, the SAPI CLI should autoload the tests folder.
+if (\PHP_SAPI == 'cli') {
+    $registerDirs[] = TESTS_DIR;
+}
+
+$loader->registerDirs($registerDirs);
 
 $loader->register();
 

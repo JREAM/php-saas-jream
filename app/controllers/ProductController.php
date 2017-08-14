@@ -5,6 +5,7 @@ use \Phalcon\Tag,
 
 class ProductController extends \BaseController
 {
+    const REDIRECT_MAIN = 'product';
     const REDIRECT_SUCCESS = 'dashboard/course/index/';
     const REDIRECT_FAILURE = 'product/view/';
     const REDIRECT_FAILURE_UNAVAILABLE = 'product/view/';
@@ -25,14 +26,7 @@ class ProductController extends \BaseController
         \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
 
         // Paypal Express
-        $this->paypal_gateway = Omnipay::create('PayPal_Express');
-        $this->paypal_gateway->setUsername( getenv('PAYPAL_USERNAME') );
-        $this->paypal_gateway->setPassword( getenv('PAYPAL_PASSWORD') );
-        $this->paypal_gateway->setSignature( getenv('PAYPAL_SIGNATURE') );
-
-        if ( getenv('PAYPAL_TESTMODE') ) {
-            $this->paypal_gateway->setTestMode(true);
-        }
+        $this->paypal = $this->di->get('paypal');
     }
 
     // --------------------------------------------------------------
@@ -64,7 +58,7 @@ class ProductController extends \BaseController
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
         if (!$product) {
-            return $this->redirect('product');
+            return $this->redirect(self::REDIRECT_MAIN );
         }
 
         $discount = null;
@@ -242,7 +236,7 @@ class ProductController extends \BaseController
         if (!$product || !$productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
-            return $this->redirect('product');
+            return $this->redirect(self::REDIRECT_MAIN );
         }
 
         if ($productCourse->free_preview == 1) {
@@ -484,7 +478,7 @@ class ProductController extends \BaseController
             $amount = number_format($code['price'], 2);
         }
 
-        $response = $this->paypal_gateway->purchase([
+        $response = $this->paypal->purchase([
             'cancelUrl'   => getBaseUrl('dashboard'),
             'returnUrl'   => getBaseUrl('product/dopaypalconfirm/' . $product->id),
             'amount'      => $amount,
@@ -526,7 +520,7 @@ class ProductController extends \BaseController
         }
 
         try {
-            $response = $this->paypal_gateway->completePurchase([
+            $response = $this->paypal->completePurchase([
                 'amount'   => $amount,
                 'currency' => 'USD',
             ])->send();

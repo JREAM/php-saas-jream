@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\Models;
+namespace Test\Controllers;
 
 /**
  * Class UnitTest
  */
-class PromotionTest extends \UnitTestCase
+class UserControllerTest extends \UnitTestCase
 {
     public function setUp()
     {

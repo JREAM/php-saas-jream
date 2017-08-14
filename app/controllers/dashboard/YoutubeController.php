@@ -27,7 +27,7 @@ class YoutubeController extends \BaseController
     /**
      * @param integer $youtubeId
      *
-     * @return void
+     * @return mixed
      */
     public function indexAction($youtubeId = false)
     {
@@ -35,7 +35,6 @@ class YoutubeController extends \BaseController
 
         if (!$youtubeId) {
             $this->flash->error('There is no record of this item.');
-
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 

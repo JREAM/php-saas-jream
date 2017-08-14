@@ -6,6 +6,7 @@ class UserController extends \BaseController
 {
     const LOGIN_REDIRECT_SUCCESS = 'dashboard';
     const LOGIN_REDIRECT_FAILURE = 'user/login';
+    const REDIRECT_LOGIN = 'user/login';
 
     const AUTH_REDIRECT_GOOGLE = 'user/dogooglelogin';
 
@@ -24,6 +25,7 @@ class UserController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
+        $this->google_auth = $this->di->get('google_auth');
     }
 
     // --------------------------------------------------------------
@@ -37,7 +39,7 @@ class UserController extends \BaseController
     {
         if ($this->session->has('id')) {
 
-            $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
+            return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
         }
 
         Tag::setTitle('Login | ' . $this->di['config']['title']);
@@ -45,6 +47,7 @@ class UserController extends \BaseController
         $this->view->setVars([
             'form'       => new \LoginForm(),
             'fbLoginUrl' => $this->_getFacebookLoginUrl(),
+            'googleLogin' => $this->google_auth->createAuthUrl(),
             'tokenKey'   => $this->security->getTokenKey(),
             'token'      => $this->security->getToken(),
         ]);
@@ -57,7 +60,7 @@ class UserController extends \BaseController
     /**
      * Handles Login
      *
-     * @return void
+     * @return mixed
      */
     public function doLoginAction()
     {
@@ -70,7 +73,6 @@ class UserController extends \BaseController
 
         if (!$email || !$password) {
             $this->flash->error('email and password field(s) are required.');
-
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -78,14 +80,12 @@ class UserController extends \BaseController
         if ($user) {
             if ($user->is_deleted == 1) {
                 $this->flash->error('This user has been permanently removed.');
-
                 return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
             }
             // Prevent Spam logins
             if ($user->login_attempt >= 5) {
                 if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
                     $this->flash->error('Too many login attempts. Timed out for 10 minutes.');
-
                     return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
                 }
                 // Clear the login attempts if time has expired
@@ -98,7 +98,6 @@ class UserController extends \BaseController
                 if ($user->isBanned()) {
                     $this->flash->error('Sorry, your account has been locked due to suspicious activity.
                                 For support, contact <strong>hello@jream.com</strong>.');
-
                     return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
                 }
 
@@ -125,6 +124,20 @@ class UserController extends \BaseController
      * Displays Facebook Login
      *
      * @return void
+     */
+    public function doGoogleLoginAction()
+    {
+//        $auth_url = $google_auth->createAuthUrl();
+//        $google_auth->setRedirectUri();
+
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Displays Facebook Login
+     *
+     * @return mixed
      */
     public function doFacebookLoginAction()
     {
@@ -169,12 +182,10 @@ class UserController extends \BaseController
         } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             error_log('Facebook Graph returned an error: ' . $helper->getMessage(), 0);
             $this->flash->error('Facebook Graph returned an error: ' . $e->getMessage());
-
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
             $this->flash->error('Facebook SDK returned an error: ' . $e->getMessage());
-
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -206,7 +217,6 @@ class UserController extends \BaseController
             if ($user->getMessages()) {
                 error_log('There was an error connecting your facebook user.', 0);
                 $this->flash->error('There was an error connecting your facebook user.');
-
                 return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
             }
 
@@ -244,24 +254,12 @@ class UserController extends \BaseController
 
     // --------------------------------------------------------------
 
-    public function doGoogleLoginAction()
-    {
-        $client = $this->di->get('google');
-        $response = $client->get('https://www.googleapis.com/auth/userinfo.email');
-        print_r((string)$response->getBody());
-        $response = $client->get('https://www.googleapis.com/auth/userinfo.profile');
-        print_r((string)$response->getBody());
-
-    }
-
-    // --------------------------------------------------------------
-
     /**
      * Handles Confirm Email Change
      *
      * @param string $resetKey
      *
-     * @return void
+     * @return mixed
      */
     public function doConfirmEmailChangeAction($resetKey)
     {
@@ -275,7 +273,6 @@ class UserController extends \BaseController
 
         if (!$user) {
             $this->flash->error('Invalid key, or time has expired.');
-
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -301,12 +298,13 @@ class UserController extends \BaseController
     /**
      * Displays Register
      *
-     * @return void
+     * @return mixed
      */
     public function registerAction()
     {
         if ($this->session->has('id')) {
-            return $this->response->redirect('dashboard');
+            $this->response->redirect('dashboard');
+            return false;
         }
 
         Tag::setTitle('Register | ' . $this->di['config']['title']);
@@ -315,7 +313,6 @@ class UserController extends \BaseController
         // Facebook Login
         // ---------------------------
         $fbLoginUrl = $this->_getFacebookLoginUrl();
-
 
         // ---------------------------
         // End Facebook
@@ -334,7 +331,7 @@ class UserController extends \BaseController
     /**
      * Handles Register
      *
-     * @return void
+     * @return mixed
      */
     public function doRegisterAction()
     {
@@ -356,37 +353,31 @@ class UserController extends \BaseController
 
         if ($password != $confirm_password) {
             $this->flash->error('Your passwords do not match.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (strlen($alias) < 4 || !ctype_alpha($alias)) {
             $this->flash->error('Alias must be atleast 4 characters and only alphabetical.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (strlen($password) < 4 || strlen($password) > 128) {
             $this->flash->error('Your password must be 4-128 characters.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (\User::findFirstByAlias($alias)) {
             $this->flash->error('Your alias cannot be used.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (\User::findFirstByEmail($email)) {
             $this->flash->error('This email is already in use.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (!Swift_Validate::email($email)) {
             $this->flash->error('Your email is invalid.');
-
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
@@ -443,7 +434,7 @@ class UserController extends \BaseController
     /**
      * Handles Register as AJAX)
      *
-     * @return void
+     * @return mixed
      */
     private function _doRegisterAjax()
     {
@@ -484,8 +475,7 @@ class UserController extends \BaseController
 
         if (!empty($error)) {
             $this->output(0, $error);
-
-            return;
+            return false;
         }
 
         $user = new \User();
@@ -499,8 +489,7 @@ class UserController extends \BaseController
         if (!$result) {
             $error[] = $user->getMessagesList();
             $this->output(0, $error);
-
-            return;
+            return false;
         }
 
         $mail_result = $this->di->get('email', [
@@ -569,7 +558,7 @@ class UserController extends \BaseController
     /**
      * Handles Password Reset
      *
-     * @return void
+     * @return mixed
      */
     public function doPasswordResetAction()
     {
@@ -580,7 +569,7 @@ class UserController extends \BaseController
         $user = User::findFirstByEmail($email);
 
         if ($user) {
-            $user->password_reset_key = hash('sha512', time() * rand(1, 9999));
+            $user->password_reset_key = hash('sha512', time() * random_int(1, 9999));
             $user->password_reset_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
             $user->update();
 
@@ -634,7 +623,7 @@ class UserController extends \BaseController
      *
      * @param  $resetKey  Generated key to confirm the user is asking for a reset
      *
-     * @return void
+     * @return mixed
      */
     public function passwordCreateAction($resetKey)
     {
@@ -656,6 +645,7 @@ class UserController extends \BaseController
         $this->view->setVars([
             'reset_key' => $resetKey,
         ]);
+
         $this->view->pick('user/password-create');
     }
 
@@ -664,7 +654,7 @@ class UserController extends \BaseController
     /**
      * Handles Password Create
      *
-     * @return void
+     * @return mixed
      */
     public function doPasswordCreateAction()
     {
@@ -695,7 +685,6 @@ class UserController extends \BaseController
 
         if ($password != $confirm_password) {
             $this->flash->error('Your passwords do not match.');
-
             return $this->redirect(self::PASSWORD_REDIRECT_FAILURE_PASSWD . "$resetKey");
         }
 
@@ -706,7 +695,6 @@ class UserController extends \BaseController
 
         if ($user->getMessages() == false) {
             $this->flash->success('Your password has changed, please login.');
-
             return $this->redirect(self::PASSWORD_REDIRECT_SUCCESS);
         }
 
@@ -720,13 +708,12 @@ class UserController extends \BaseController
     /**
      * Handles Logout
      *
-     * @return void
+     * @return mixed
      */
     public function logoutAction()
     {
         $this->destroySession();
-
-        return $this->redirect('user/login');
+        return $this->redirect(self::REDIRECT_LOGIN);
     }
 
     // --------------------------------------------------------------

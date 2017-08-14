@@ -29,7 +29,7 @@ class CourseController extends \BaseController
     /**
      * @param integer $productId
      *
-     * @return void
+     * @return mixed
      */
     public function indexAction($productId = false)
     {
@@ -37,7 +37,6 @@ class CourseController extends \BaseController
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
-
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
@@ -69,7 +68,7 @@ class CourseController extends \BaseController
      * @param integer $productId
      * @param integer $contentId
      *
-     * @return void
+     * @return mixed
      */
     public function viewAction($productId, $contentId)
     {
@@ -77,7 +76,6 @@ class CourseController extends \BaseController
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
-
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
@@ -169,7 +167,7 @@ class CourseController extends \BaseController
     // --------------------------------------------------------------
 
     /**
-     * @return void
+     * @return mixed
      */
     public function actionAction()
     {
@@ -203,8 +201,10 @@ class CourseController extends \BaseController
 
         if ($userAction->getMessages() == false) {
             $this->output(1, ['value' => $value]);
+            return true;
         } else {
             $this->output(0, $userAction->getMessagesString());
+            return false;
         }
 
     }

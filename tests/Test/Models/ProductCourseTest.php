@@ -5,7 +5,7 @@ namespace Test\Models;
 /**
  * Class UnitTest
  */
-class PromotionTest extends \UnitTestCase
+class ProductCourseTest extends \UnitTestCase
 {
     public function setUp()
     {
@@ -14,8 +14,8 @@ class PromotionTest extends \UnitTestCase
 
     public function testModel()
     {
-        $promotion = new \Promotion();
-        $this->assertTrue( is_object($promotion) );
+        $model = new \ProductCourse();
+        $this->assertTrue( is_object($model) );
     }
 
 }

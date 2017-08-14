@@ -24,14 +24,7 @@ class CheckoutController extends \BaseController
         \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
 
         // Paypal Express
-        $this->paypal_gateway = Omnipay::create('PayPal_Express');
-        $this->paypal_gateway->setUsername( getenv('PAYPAL_USERNAME') );
-        $this->paypal_gateway->setPassword( getenv('PAYPAL_PASSWORD') );
-        $this->paypal_gateway->setSignature( getenv('PAYPAL_SIGNATURE') );
-
-        if ( getenv('PAYPAL_TESTMODE') ) {
-            $this->paypal_gateway->setTestMode(true);
-        }
+        $this->paypal = $this->di->get('paypal');
     }
 
     // --------------------------------------------------------------
@@ -98,7 +91,7 @@ class CheckoutController extends \BaseController
             $discount = $this->session->get('discount');
             $use_price = $this->session->get('discount_price');
         }
-
+        $amount_after_discount = 0;
         $amount = number_format($use_price, 2);
 
         // If a coupon is applied
@@ -217,7 +210,7 @@ class CheckoutController extends \BaseController
             $amount = number_format($code['price'], 2);
         }
 
-        $response = $this->paypal_gateway->purchase([
+        $response = $this->paypal->purchase([
             'cancelUrl'   => getBaseUrl('dashboard'),
             'returnUrl'   => getBaseUrl('product/dopaypalconfirm/' . $product->id),
             'amount'      => $amount,
@@ -259,7 +252,7 @@ class CheckoutController extends \BaseController
         }
 
         try {
-            $response = $this->paypal_gateway->completePurchase([
+            $response = $this->paypal->completePurchase([
                 'amount'   => $amount,
                 'currency' => 'USD',
             ])->send();

@@ -40,22 +40,20 @@ class ApiController extends \BaseController
     /**
      * Googles ReCaptcha Verification
      *
-     * @return JSON
+     * @return mixed (JSON)
      */
     public function recaptchaAction()
     {
         if ($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
             $this->output(1, 'Recaptcha already approved');
-
-            return;
+            return false;
         }
 
 
         if (\STAGE == 'local') {
             $this->session->set('recaptcha', 1);
             $this->output(1, 'Local Development Auto-Pass');
-
-            return;
+            return false;
         }
 
         // Verify Recaptcha
@@ -75,18 +73,23 @@ class ApiController extends \BaseController
         $response = json_decode(curl_exec($ch));
         curl_close($ch);
 
-        $result = (bool)$response->success;
+        $result = (bool) $response->success;
 
         // Set a session so they don't try to work-around it..
         $this->session->set('recaptcha', $result);
         $this->output($result, 'Invalid Recaptcha');
+        return false;
     }
 
     // --------------------------------------------------------------
 
+    /**
+     * @param bool $product_id
+     *
+     * @return mixed
+     */
     public function checkPromotionAction($product_id = false)
     {
-
         if (! $promotion_code) {
             return false;
         }
@@ -141,7 +144,7 @@ class ApiController extends \BaseController
     /**
      * Return some JSON stuff
      *
-     * @return string JSON
+     * @return mixed (JSON)
      */
     public function contactAction()
     {
@@ -149,16 +152,12 @@ class ApiController extends \BaseController
         // STAGE==LOCAL mode sets a value
         if (!$this->session->has('recaptcha')) {
             $this->output(0, 'Recaptcha is required.');
-
             return false;
-
         }
 
         if (!$this->session->get('recaptcha')) {
             $this->output(0, 'Recaptcha was invalid');
-
             return false;
-
         }
 
         $form = new \ContactForm();
@@ -170,7 +169,6 @@ class ApiController extends \BaseController
                 $errors[] = $message->getMessage();
             }
             $this->output(0, $errors);
-
             return false;
         }
 
@@ -198,13 +196,13 @@ class ApiController extends \BaseController
 
         if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             $this->output(0, 'Error sending email');
-
             return false;
         }
 
         // Succcess
         $this->session->set('recaptcha', 0);
         $this->output(1, 'Email Sent');
+        return true;
     }
 
     // --------------------------------------------------------------

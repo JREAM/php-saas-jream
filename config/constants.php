@@ -24,12 +24,14 @@ $constants = [];
 // --------------------------------------------------------------
 // Timezone: This should always be UTC
 // --------------------------------------------------------------
-$constants['DEFAULT_TIMEZONE'] = 'UTC';
+$constants['DEFAULT_TIMEZONE'] = getenv('DEFAULT_TIMEZONE');
 
 $constants['STAGE'] = getenv('STAGE');
 $constants['URL'] = getenv('URL');
 $constants['BASE_URI'] = getenv('BASE_URI');
 $constants['HTTPS'] = getenv('HTTPS');
+
+$constants['ERROR_REPORTING'] = getenv('ERROR_REPORTING');
 
 // --------------------------------------------------------------
 // Absolute Paths: Used in services.php
@@ -46,6 +48,7 @@ $constants['APP_DIR'] = $constants['BASE_DIR'] . 'app/';
 $constants['CACHE_DIR'] = $constants['BASE_DIR'] . 'cache/';
 $constants['VENDOR_DIR'] = $constants['BASE_DIR'] . 'vendor/';
 $constants['CONFIG_DIR'] = $constants['BASE_DIR'] . 'config/';
+$constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
 
 
 /**

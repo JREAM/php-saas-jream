@@ -32,14 +32,16 @@ $config = new \Phalcon\Config([
         'dbname'   => getenv('DB_DATABASE')
     ],
     'application' => [
-        'controllersDir' => APP_DIR . 'controllers/',
-        'modelsDir'      => APP_DIR . 'models/',
-        'viewsDir'       => APP_DIR . 'views/',
-        'pluginsDir'     => APP_DIR . 'plugins/',
-        'libraryDir'     => APP_DIR . 'library/',
+        'controllersDir' => CONTROLLERS_DIR,
+        'modelsDir'      => MODELS_DIR,
+        'migrationsDir'  => MIGRATIONS_DIR,
+        'viewsDir'       => VIEWS_DIR,
+        'pluginsDir'     => PLUGINS_DIR,
+        'libraryDir'     => LIBRARY_DIR,
+        'cacheDir'       => CACHE_DIR,
+        'baseUri'        => dirname(__DIR__),
     ]
 ]);
-
 
 return $config;
 

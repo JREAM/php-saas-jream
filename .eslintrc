@@ -15,7 +15,7 @@
     "phantomjs": true
   },
   "rules": {
-    "indent": ["error", 2]
+    "indent": ["warn", 2]
   },
   "extends": "eslint"
 }

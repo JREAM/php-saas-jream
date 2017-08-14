@@ -15,6 +15,14 @@
 </div>
 {% endblock %}
 
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li><a href="{{ url() }}">Home</a></li>
+    <li class="active">Terms and Privacy</li>
+</ol>
+{% endblock %}
+
+
 {% block content %}
 
 <div class="container container-fluid">

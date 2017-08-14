@@ -1,9 +1,13 @@
 .navbar {
-  background: $nav-bg-color-transparent;
+  background: $nav-bg-color;
   max-height: 75px;
   transition: all .1s ease-in-out;
   transition: max-height .1s ease-in-out;
   z-index: 10;
+}
+
+.navbar + .navbar-transparent {
+  background: $nav-bg-color-transparent;
 }
 
 .navbar-collapse {

@@ -119,8 +119,7 @@ class QuestionController extends \BaseController
         formDataClear();
 
         $this->output(1, ['redirect' => getBaseUrl(self::REDIRECT_SUCCESS . $productId)]);
-
-        return;
+        return true;
     }
 
     // --------------------------------------------------------------

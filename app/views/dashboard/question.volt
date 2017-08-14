@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block hero %}
-<div id="hero">
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-xs-12 inner">
-            </div>
-        </div>
-    </div>
-</div>
+{#<div id="hero">#}
+    {#<div class="container container-fluid">#}
+        {#<div class="row">#}
+            {#<div class="col-xs-12 inner">#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -26,7 +26,7 @@
 {% block content %}
 <div class="container container-fluid">
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
     <h2>Questions</h2>
     {% if threads|length == 0 %}
     <p>
@@ -96,12 +96,12 @@
     {% endif %}
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h2>Ask</h2>
         <div id="ask-error"></div>
         <form id="ask" method="post" action="{{ url('dashboard/question/do') }}/{{ product.id }}">
             <div class="form-group">
-                <input type="text" name="title" class="form-control" value="<?=formData('title')?>" placeholder="Title">
+                <input type="text" name="title" class="form-control input-lg" value="<?=formData('title')?>" placeholder="Title">
             </div>
             <div class="form-group">
                 <ul class="nav nav-tabs">
@@ -110,7 +110,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="question">
-                        <textarea name="content" class="form-control" rows="5"><?=formData('content')?></textarea>
+                        <textarea name="content" class="form-control" rows="12" placeholder="Markdown Tips: Use `ticks` for code, use ```three ticks for multiline code```, **for bold**, [Link Text](http://url) etc."><?=formData('content')?></textarea>
                     </div>
                     <div class="tab-pane fade" id="preview">
                         <div class="question-preview"></div>
@@ -174,7 +174,7 @@ $(function() {
     });
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var type = $(e.target).data('type')
+        var type = $(e.target).data('type');
         if (type != 'preview') return;
 
         var postData = {

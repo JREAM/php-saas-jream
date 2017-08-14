@@ -271,15 +271,22 @@ class ProductController extends \BaseController
     public function doStripeAction($productId)
     {
         $this->view->disable();
+        $this->component->helper->csrf(self::REDIRECT_MAIN);
+
+        // @TODO Future stuff to reduce code
+//        $product = new \Product();
+//        $result = $product->doPurchase($productId);
+//        if ($result->code === 0) {
+//            $this->flash->error($result->error);
+//            return $this->redirect(REDIRECT_MAIN);
+//        }
+
         $product = \Product::findFirstById($productId);
         if (!$product) {
-            $this->flash->error('No product was found with the Id:' . $productId);
+            $this->flash->error('No product was found with the Id: %s', $productId);
 
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->redirect(self::REDIRECT_MAIN);
         }
-
-        $this->component->helper->csrf(self::REDIRECT_FAILURE . $product->slug);
-
 
         if ($product->hasPurchased() == true) {
             $this->flash->error('You have already purchased this');

@@ -1,7 +1,7 @@
 <div class="overlay hide"></div>
 <div id="top"></div>
 <div id="header">
-    <div class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">

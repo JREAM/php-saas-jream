@@ -41,19 +41,17 @@ class Promotion extends BaseModel
      * @param string    $code
      * @param int|array $productId
      *
-     * @return bool|\Phalcon\Mvc\Model
+     * @return bool|object|\Phalcon\Mvc\Model
      */
     public function check(string $code, $productId)
     {
-
         if (!is_array($productId)) {
             $productId = [$productId];
         }
 
         $productId = implode(',', $productId);
 
-
-        $promo = \Promotion::findFirst([
+        $result = \Promotion::findFirst([
             "code = :code:
             AND product_id IN (:product_id:)
             AND deleted_at = 0
@@ -66,12 +64,89 @@ class Promotion extends BaseModel
             ],
         ]);
 
-
-        if (!$promo) {
-            return false;
+        if (!$result) {
+            return (object) [
+                'code' => 0,
+                'data' => null,
+                'success' => '',
+                'error' => 'Invalid Promotion Code.'
+            ];
         }
 
-        return $promo;
+        // The USER ID (If Set) Is checked when the Cookie is created, it won't get to this
+        // point, or shouldn't -- but I'll double protect anyways.
+        if ($result->user_id && $this->session->get('id') != $result->user_id) {
+            return (object) [
+                'code' => 0,
+                'data' => null,
+                'success' => '',
+                'error' => 'This promotion is for an individual only, it does not appear to be you. If so, ensure you are logged in!'
+            ];
+        }
+
+        // If ProductID is set, ensure they are applying correctly
+        if ($result->product_id && $productId != $result->product_id) {
+            $other_product = \Product::getById($result->product_id);
+            return (object) [
+                'code' => 0,
+                'data' => null,
+                'success' => '',
+                'error' => sprintf('This promotion is only for: %s', $other_product->title)
+            ];
+        }
+
+        // Make sure to check this DURING the checkout
+        if ($result->expires_at > getDateTime()) {
+            return (object) [
+                'code' => 0,
+                'data' => null,
+                'success' => '',
+                'error' => sprintf('Sorry, this promotion expired on: %s', $result->expires_at)
+            ];
+        }
+
+        // Make sure to check this DURING the checkout
+        if ($result->deleted_at) {
+            return (object) [
+                'code' => 0,
+                'data' => null,
+                'success' => '',
+                'error' => sprintf('Sorry, this promotion was deleted on: %s ', $result->deleted_at)
+            ];
+        }
+
+        // Only one of these apply
+        if ($result->percent_off)
+        {
+            $method = 'percent_off';
+            $success = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
+                number_format($product->price - ($product->price * $result->percent_off), 2),
+                $result->percent_off,
+                $result->code
+            );
+            $promotional_price = number_format($product->price - ($product->price * $result->percent_off), 2);
+        }
+        elseif ($result->price)
+        {
+            $method = 'price';
+            $success = sprintf("Price marked down from %s to %s using promotional code %s.",
+                number_format($product->price, 2),
+                number_format($result['price'], 2),
+                $result->code
+            );
+
+            $promotional_price = $result->price;
+        }
+
+        return (object) [
+            'code' => 1,
+            'data' => (object) [
+                'method' => $method,
+                'promotional_price' => $promotional_price
+            ],
+            'success' => $success,
+            'error' => ''
+        ];
     }
 
     // --------------------------------------------------------------

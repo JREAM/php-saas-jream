@@ -14,13 +14,10 @@
  */
 function getBaseUrl($append = false)
 {
-    // Get the last created DI
-    $di = Phalcon\Di::getDefault();
-    $config = $di->get('config');
-
+    $base_url = preg_replace('/(^https?)+(:\/{2})/i', '', URL);
     $url = \HTTPS ? 'https://' : 'http://';
 
-    return $url . rtrim(URL, '/') . '/' . ltrim($append);
+    return $url . rtrim($base_url, '/') . '/' . ltrim($append);
 }
 
 // --------------------------------------------------------------

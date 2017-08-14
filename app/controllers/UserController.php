@@ -25,7 +25,7 @@ class UserController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
-        $this->google_auth = $this->di->get('google_auth');
+//        $this->google_auth = $this->di->get('google_auth');
     }
 
     // --------------------------------------------------------------
@@ -47,7 +47,7 @@ class UserController extends \BaseController
         $this->view->setVars([
             'form'       => new \LoginForm(),
             'fbLoginUrl' => $this->_getFacebookLoginUrl(),
-            'googleLogin' => $this->google_auth->createAuthUrl(),
+//            'googleLogin' => $this->google_auth->createAuthUrl(),
             'tokenKey'   => $this->security->getTokenKey(),
             'token'      => $this->security->getToken(),
         ]);

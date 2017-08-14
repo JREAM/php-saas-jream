@@ -14,7 +14,7 @@ class DashboardControllerTest extends \UnitTestCase
 
     public function testController()
     {
-        $this->assertTrue(1);
+        $this->assertTrue(true);
     }
 
 }

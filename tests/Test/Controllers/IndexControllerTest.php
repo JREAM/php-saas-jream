@@ -12,10 +12,9 @@ class IndexControllerTest extends \UnitTestCase
         parent::setUp();
     }
 
-    public function testModel()
+    public function testController()
     {
-        $model = new \ProductCourse();
-        $this->assertTrue( is_object($model) );
+        $this->assertTrue(true);
     }
 
 }

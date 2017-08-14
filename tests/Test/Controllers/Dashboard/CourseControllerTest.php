@@ -12,9 +12,9 @@ class CourseControllerTest extends \UnitTestCase
         parent::setUp();
     }
 
-    public function testController()
+public function testController()
     {
-        $this->assertTrue(1);
+        $this->assertTrue(true);
     }
 
 }

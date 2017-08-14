@@ -12,10 +12,9 @@ class CheckoutControllerTest extends \UnitTestCase
         parent::setUp();
     }
 
-    public function testModel()
+    public function testController()
     {
-        $model = new \NewsletterSubscriptions();
-        $this->assertTrue( is_object($model) );
+        $this->assertTrue(true);
     }
 
 }

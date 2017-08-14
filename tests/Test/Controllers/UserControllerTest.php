@@ -12,10 +12,9 @@ class UserControllerTest extends \UnitTestCase
         parent::setUp();
     }
 
-    public function testModel()
+    public function testController()
     {
-        $promotion = new \Promotion();
-        $this->assertTrue( is_object($promotion) );
+        $this->assertTrue(true);
     }
 
 }

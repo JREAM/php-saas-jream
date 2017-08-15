@@ -4,24 +4,22 @@
 <span class="title">Login</span>
 {% endblock %}
 
-{% block hero %}
-<div id="hero">
-
-    <div class="container container-fluid inner">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                {{ flash.output() }}
-            </div>
+{% block content %}
+<div id="full" class="container container-fluid inner">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {{ flash.output() }}
         </div>
-        <div class="row">
+    </div>
+    <div class="row">
         <div class="col-md-4 col-md-offset-2">
-            <form class="form-login" method="post" action="{{ url('user/doLogin') }}">
-                <div class="panel panel-primary">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <img class="jream-icon-login" src="{{ config.url_static }}img/jream-ico-24.png">
+                    <img class="jream-icon-login" src="{{ config.url_static }}img/logo/icon-sm.svg">
                     <h4>Login</h4>
                 </div>
                 <div class="panel-body">
+                    <form class="form-login" method="post" action="{{ url('user/doLogin') }}">
 
                     <div class="form-group">
                         {{ form.render('email') }}
@@ -41,34 +39,28 @@
                         <a href="{{ url('user/password')}}">Forgot Password</a>
                     </p>
 
+                    </form>
                 </div>
-                </div>
-            </form>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4><i class="fa fa-facebook-official opacity-50" aria-hidden="true"></i> Social Login</h4>
+                <div class="panel-heading">
+                    <h4><i class="fa fa-facebook-official opacity-50" aria-hidden="true"></i> Social Login</h4>
+                </div>
+                <div class="panel-body">
+                    <p class="text-center">
+                        <a href="{{ fbLoginUrl }}" class="btn btn-block btn-lg btn-social btn-facebook">
+                            <i class="fa fa-facebook"></i> Sign in with Facebook
+                        </a>
+                    </p>
+                    <p class="text-center">
+                        <a href="{{ url('index/terms#facebook-privacy') }}"><small>Facebook Privacy</small></a>
+                    </p>
+                </div>
             </div>
-            <div class="panel-body">
-                <p class="text-center">
-                    <a href="{{ fbLoginUrl }}" class="btn btn-block btn-lg btn-social btn-facebook">
-                        <i class="fa fa-facebook"></i> Sign in with Facebook
-                    </a>
-                </p>
-                <p class="text-center">
-                    <a href="{{ url('index/terms#facebook-privacy') }}"><small>Facebook Privacy</small></a>
-                </p>
-            </div>
-            </div>
-
-        </div>
         </div>
     </div>
 </div>
 
-<div class="spacer-80"></div>
-{% endblock %}
-
-{% block content %}
 {% endblock %}

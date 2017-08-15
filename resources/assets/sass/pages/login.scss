@@ -3,23 +3,15 @@
 #page-user-action-password,
 #page-user-action-passwordcreate,
 #page-user-action-register {
-  #hero {
-    background: $hero-bg-color url('../../images/bg/hero-book-pages.jpg') no-repeat;
-    bottom: 0;
-    height: $hero-height-md;
-    height: 100% !important;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-
-    .inner {
-      padding-top: 150px;
-    }
+  background: $hero-bg-color url('../../images/bg/hero-book-pages.jpg') no-repeat !important;
+  #full {
+    margin: 80px auto;
   }
 
   .jream-icon-login {
     float: left;
+    width: 24px;
+    height: 24px;
     margin-top: 10px;
     margin-right: 10px;
   }

@@ -4,16 +4,14 @@
     <h1>Forgot Password</h1>
 {% endblock %}
 
-{% block hero %}
-<div id="hero">
-
-    <div class="container container-fluid inner">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                {{ flash.output() }}
-            </div>
+{% block content %}
+<div id="full" class="container container-fluid inner">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {{ flash.output() }}
         </div>
-        <div class="row">
+    </div>
+    <div class="row">
         <div class="col-md-4 col-md-offset-2">
             <form id="form-password-reset" class="form-signin" method="post" action="{{ url('user/doPasswordReset') }}">
                 <div class="panel panel-primary">
@@ -37,8 +35,8 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-4">
-            <h2> Recovery is Easy!</h2>
+        <div class="col-md-4 light-text">
+            <h2 class="margin-0-top">Recovery is Easy!</h2>
             <p>
                 Provide your email and you will receive a link to reset your password.
                 For your security, your reset link be valid for 10 minutes.
@@ -53,9 +51,5 @@
 
     </div>
 </div>
-
-<div class="spacer-80"></div>
 {% endblock %}
 
-
-{% block content %}{% endblock %}

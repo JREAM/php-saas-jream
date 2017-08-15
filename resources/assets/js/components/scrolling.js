@@ -10,7 +10,11 @@ function skipPage() {
     "page-account",
     "page-account-action-delete",
     "page-question-action-index",
-    "page-course-action-index"
+    "page-course-action-index",
+    "page-user-action-login",
+    "page-user-action-register",
+    "page-user-action-password",
+    "page-user-action-passwordCreate"
   ];
   const pageId = $("body").prop("id");
 

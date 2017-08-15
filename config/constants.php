@@ -56,6 +56,7 @@ $constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
  * MVC Paths
  * =============================================================
  */
+$constants['VIEWS_DIR'] = $constants['APP_DIR'] . 'views/';
 $constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models/';
 $constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers/';
 $constants['EVENTS_DIR'] = $constants['APP_DIR'] . 'events/';

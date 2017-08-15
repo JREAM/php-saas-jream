@@ -59,6 +59,7 @@ $constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
 $constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models/';
 $constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers/';
 $constants['EVENTS_DIR'] = $constants['APP_DIR'] . 'events/';
+$constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins/';
 
 
 /**
@@ -68,6 +69,8 @@ $constants['EVENTS_DIR'] = $constants['APP_DIR'] . 'events/';
  */
 $constants['COMPONENTS_DIR'] = $constants['APP_DIR'] . 'components/';
 $constants['FORMS_DIR'] = $constants['APP_DIR'] . 'forms/';
+$constants['LIBRARY_DIR'] = $constants['APP_DIR'] . 'library/';
+$constants['MIGRATIONS_DIR'] = $constants['BASE_DIR'] . 'migrations/';
 
 
 /**

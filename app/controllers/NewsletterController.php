@@ -119,15 +119,6 @@ class NewsletterController extends \BaseController
 
     // --------------------------------------------------------------
 
-    public function afterCreate()
-    {
-        $this->created_at = getDateTime();
-        $this->token = $this->getDi()->getShared('security')->hash(random_int(1000, 50000));
-        $this->save();
-    }
-
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */

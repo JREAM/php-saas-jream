@@ -1,7 +1,7 @@
 <?php
 
-use \Phalcon\Mvc\Model\Behavior\SoftDelete,
-    \Phalcon\Mvc\Model\Validator;
+use \Phalcon\Mvc\Model\Behavior\SoftDelete;
+use \Phalcon\Mvc\Model\Validator;
 
 class User extends BaseModel
 {
@@ -75,16 +75,20 @@ class User extends BaseModel
 
         // Only do this locally!
         if (\STAGE == 'local') {
-            if (!$this->email && !$this->facebook_email) {
+            if (!$this->email && !$this->facebook_email && !$this->google_email) {
                 return '&lt;&lt;no email&gt;&gt;';
             }
         }
 
-        if (!$this->email) {
+        if ($this->email) {
+            return $this->email;
+        } else if ($this->facebook_email) {
             return $this->facebook_email;
+        } else if ($this->google_email) {
+            $this->google_email;
         }
 
-        return $this->email;
+        return false;
     }
 
     // --------------------------------------------------------------
@@ -102,11 +106,15 @@ class User extends BaseModel
             $id = $this->session->get('id');
         }
 
-        if (!$this->alias) {
+        if ($this->alias) {
+            return $this->alias;
+        } else if ($this->facebook_alias) {
             return $this->facebook_alias;
+        } else if ($this->google_alias) {
+            return $this->google_alias;
         }
 
-        return $this->alias;
+        return false;
     }
 
     // --------------------------------------------------------------
@@ -128,14 +136,17 @@ class User extends BaseModel
         if ($this->facebook_id) {
             $size = ($size) ? "width=$size" : false;
 
-            return sprintf("<img $size src='https://graph.facebook.com/%s/picture?type=small' alt='facebook' />",
-                $this->facebook_id);
+            return sprintf(
+                "<img $size src='https://graph.facebook.com/%s/picture?type=small' alt='facebook' />",
+                $this->facebook_id
+            );
         }
 
         $email = ($this) ? $this->email : 'none@none.com';
         $default = "";
         $size = ($size) ? $size : 40;
-        $url = sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s',
+        $url = sprintf(
+            'https://www.gravatar.com/avatar/%s?d=%s&s=%s',
             md5(strtolower(trim($email))),
             urlencode($default),
             $size
@@ -187,6 +198,8 @@ class User extends BaseModel
 
         return $referrer->save();
     }
+
+    // --------------------------------------------------------------
 
 }
 

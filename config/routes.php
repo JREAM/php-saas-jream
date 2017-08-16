@@ -1,12 +1,14 @@
 <?php
 
+use Phalcon\Mvc\Router;
+use Phalcon\Mvc\Router\Group;
+
 /**
  * ==============================================================
  * Website Routes
  * =============================================================
  */
-
-$router = new Phalcon\Mvc\Router();
+$router = new Router();
 $router->removeExtraSlashes(true);
 $router->setDefaultController('index');
 
@@ -35,14 +37,20 @@ $router->add('newsletter/unsubscribe')->setName('newsletter_unsubscribe');
  * Index Based Routes
  * =============================================================
  */
-$router ->add('/lab', ['controller' => 'index', 'action' => 'lab'])
-        ->setName('lab');
+$router ->add('/lab', [
+    'controller' => 'index',
+    'action'     => 'lab'
+])->setName('lab');
 
-$router ->add('/terms', ['controller' => 'index', 'action' => 'terms'])
-        ->setName('terms');
+$router ->add('/terms', [
+    'controller' => 'index',
+    'action'     => 'terms'
+])->setName('terms');
 
-$router ->add('/updates', ['controller' => 'index', 'action' => 'updates'])
-        ->setName('updates');
+$router ->add('/updates', [
+    'controller' => 'index',
+    'action'     => 'updates'
+])->setName('updates');
 
 /**
  * ==============================================================
@@ -66,6 +74,24 @@ $router->add('/dashboard', [
     'controller' => 'dashboard',
 ])
 ->setName('dashboard');
+
+
+/**
+ * ==============================================================
+ * API Routes
+ * =============================================================
+ */
+$router->add('/api/v1/:controller/:action/:params', [
+    'namespace'  => 'Api',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
+
+$router->add('/api/v1/:controller/', [
+    'namespace'  => 'Api',
+    'controller' => 1,
+]);
 
 /**
  * ==============================================================

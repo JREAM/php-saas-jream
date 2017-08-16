@@ -59,7 +59,7 @@ $constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
 $constants['VIEWS_DIR'] = $constants['APP_DIR'] . 'views/';
 $constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models/';
 $constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers/';
-$constants['EVENTS_DIR'] = $constants['APP_DIR'] . 'events/';
+$constants['MIDDLEWARE_DIR'] = $constants['APP_DIR'] . 'middleware/';
 $constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins/';
 
 

@@ -27,9 +27,9 @@ class BaseController extends \Phalcon\Mvc\Controller
     }
 
     public function onConstruct() {
+        // This has a bug duplicating the title
         // Tag::setTitleSeparator(' / ');
         // Tag::appendTitle($this->di['config']['title']);
-
     }
 
     // --------------------------------------------------------------
@@ -109,7 +109,7 @@ class BaseController extends \Phalcon\Mvc\Controller
      * JSON Output
      *
      * @param  boolean $result
-     * @param  array|object|string $data (Opyional)
+     * @param  array|object|string $data (Optional)
      *
      * @return string
      */

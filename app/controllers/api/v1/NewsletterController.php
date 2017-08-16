@@ -1,9 +1,9 @@
 <?php
-namespace Api;
+namespace Api\V1;
 
 use \Phalcon\Tag;
 
-class ApiV1Controller extends \BaseController
+class AuthController extends ApiBaseController
 {
 
     /**
@@ -16,8 +16,20 @@ class ApiV1Controller extends \BaseController
 
     // --------------------------------------------------------------
 
-    // --------------------------------------------------------------
+    public function subscribeAction()
+    {
 
+    }
+
+    public function unsubscribeAction()
+    {
+
+    }
+
+    public function verifyAction()
+    {
+
+    }
 }
 
 // End of File

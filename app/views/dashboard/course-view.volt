@@ -100,6 +100,17 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+
+        <p>
+            If your browser does not support HTML5 HLS Streaming we use Flash as a fallback. This is required to serve
+            RTMP (Real-Time Media Protocol) streaming video content.
+        </p>
+        <a href="https://get.adobe.com/flashplayer/"><img src="{{ url('icons/get-flash.png') }}" alt="Get Adobe Flash Player"></a>
+    </div>
+</div>
+
 </div>
 
 <div class="spacer-80"></div>

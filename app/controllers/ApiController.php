@@ -164,6 +164,14 @@ class ApiController extends \BaseController
         }
     }
 
+    // --------------------------------------------------------------
+
+    public function fakeAction()
+    {
+        echo json_encode('Fake Output for Testing');
+        exit;
+    }
+
 }
 
 // End of File

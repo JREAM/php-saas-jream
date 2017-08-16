@@ -8,5 +8,11 @@
 actor: FunctionalTester
 modules:
     enabled:
-        # add a framework module here
+        - Phalcon:
+            bootstrap: 'config/functional-bootstrap.php'
+             cleanup: true
+             savepoints: true
         - \Helper\Functional
+        - WebDriver:
+            url: http://jream.local
+            browser: phantomjs

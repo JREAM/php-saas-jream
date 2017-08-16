@@ -82,14 +82,14 @@ $router->add('/dashboard', [
  * =============================================================
  */
 $router->add('/api/v1/:controller/:action/:params', [
-    'namespace'  => 'Api',
+    'namespace'  => 'Api\V1',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
 $router->add('/api/v1/:controller/', [
-    'namespace'  => 'Api',
+    'namespace'  => 'Api\V1',
     'controller' => 1,
 ]);
 

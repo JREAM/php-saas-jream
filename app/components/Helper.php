@@ -45,6 +45,7 @@ class Helper extends \Phalcon\Mvc\User\Component
 
     // --------------------------------------------------------------
 
+
     /**
      * Validate CSRF Tokens
      *
@@ -52,19 +53,28 @@ class Helper extends \Phalcon\Mvc\User\Component
      *
      * @return boolean
      */
-    public function csrf($redirectOnFailure = false)
+    public function csrf($redirectOnFailure = false, $isAjax = false)
     {
-        if ($this->security->checkToken() == false) {
-            $this->flash->error('Invalid CSRF Token.');
+        if ($this->security->checkToken() == false)
+        {
+            // Only show a flash if its not an ajax call, otherwise use the boolean result.
+            if (!$isAjax)
+            {
+                $this->flash->error('Invalid CSRF Token.');
 
-            if ($redirectOnFailure) {
-                header('location: ' . getBaseUrl($redirectOnFailure));
-                exit;
+                // Only redirect when supplied
+                if ($redirectOnFailure)
+                {
+                    header('location: ' . getBaseUrl($redirectOnFailure));
+                    exit;
+                }
             }
 
+            // Very Important for AJAX calls
             return false;
         }
 
+        // Very Important for AJAX calls
         return true;
     }
 

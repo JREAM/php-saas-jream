@@ -77,6 +77,8 @@
 
         <div class="clear spacer-40"></div>
 
+        <br>
+
         <a id="jump-to-checkout" href="#checkout-area"><i class="fa fa-arrow-circle-down"></i> Jump to Checkout Area</a>
 
         <h2>{{ product.title }} Overview</h2>

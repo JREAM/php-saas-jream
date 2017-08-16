@@ -8,24 +8,23 @@
 $loader = new \Phalcon\Loader();
 
 $loader->registerClasses([
-    'Component\Permission'  => COMPONENTS_DIR . 'Permission.php',
-    'Component\Helper'      => COMPONENTS_DIR . 'Helper.php',
-    'Component\Email'       => COMPONENTS_DIR . 'Email.php',
-    'Component\Cookies'     => COMPONENTS_DIR . 'Cookies.php',
-    'Event\Database'        => EVENTS_DIR . 'Database.php',
-    'Event\Dispatch'        => EVENTS_DIR . 'Dispatch.php',
-]);
-
-$loader->registerNamespaces([
-   "Dashboard"  => CONTROLLERS_DIR . "dashboard/",
-   'Phalcon'    => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/'
+    'Component\Permission' => COMPONENTS_DIR . 'Permission.php',
+    'Component\Helper'     => COMPONENTS_DIR . 'Helper.php',
+    'Component\Email'      => COMPONENTS_DIR . 'Email.php',
+    'Component\Cookies'    => COMPONENTS_DIR . 'Cookies.php',
+    'Middleware\Database'  => MIDDLEWARE_DIR . 'Database.php',
+    'Middleware\Dispatch'  => MIDDLEWARE_DIR . 'Dispatch.php',
+    'Middleware\Ajax'      => MIDDLEWARE_DIR . 'Ajax.php',
+    "Dashboard"            => CONTROLLERS_DIR . "dashboard/",
+    "Api\V1"               => CONTROLLERS_DIR . "api/v1",
+    'Phalcon'              => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/',
 ]);
 
 $registerDirs = [
     CONFIG_DIR,
     CONTROLLERS_DIR,
     FORMS_DIR,
-    EVENTS_DIR,
+    MIDDLEWARE_DIR,
     MODELS_DIR,
 ];
 

@@ -1,9 +1,9 @@
 <?php
-namespace Api;
+namespace Api;namespace Api\V1;
 
 use \Phalcon\Tag;
 
-class ApiV1Controller extends \BaseController
+class AuthController extends ApiBaseController
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Event;
+namespace Middleware;
 
 class Database
 {

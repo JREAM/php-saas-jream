@@ -17,6 +17,10 @@
 {% endblock %}
 
 {% block breadcrumb %}
+
+
+<a href="https://get.adobe.com/flashplayer/"><img src="{{ url('icons/get-flash.png') }}" alt="Get Adobe Flash Player"></a>
+
 <ol class="breadcrumb">
     <li><a href="{{ url() }}">Home</a></li>
     <li><a href="{{ url('product') }}">Products</a></li>

@@ -1,19 +1,10 @@
+# JREAM 7.0 
+This is the website of JREAM LLC for streaming media and training courses SASS.
 
-##Fix Webpack SASS:
+##TODO
 
-So the easiest fix for now is to downgrade to npm@5.1.0 using
-```
-npm i -g npm@5.1.0
-```
-Then cleanup and reinstall dependencies:
-```
-npm cache clean -f
-rm -rf node_modules/ package-lock.json
-npm i
-```
-
-##TODO:
-
+- Middleware CSRF Token.
+- HLS with HTML5 through RMTP.
 - Check Promotion for Expiration, ONLY IF THEY APPLY IT
 - Make URL so promotion can trigger in a cookie and stay alive.
 - Test out the pricing with the percentages!
@@ -27,105 +18,12 @@ npm i
 
 
 # JREAM
-(C) 2016 JREAM LLC.
+(C) 2017 JREAM LLC.
 
 JREAM (Jesus Rules Everything Around Me) is a website for streaming videos I've made over the years.
 The system is built to serve people content on the fly after they purchase a product. Reliablity
 is important since JREAM LLC provides a serve. To solve this, AWS is utilized for fall-back servers, Redundant Storage, Geolocalized CDN, and Multi A-Z DB.
 
-## Technologies
-
-Below are some of the technologies used to build this web application:
-
-- MySQL InnoDb (RDS)
-- AWS: RDS, S3, Route453, and CloudFront for RTMP Streaming
-- PHP 5.5+
-- Phalcon Framework 2.x
-- BS3/SASS/CSS/jQuery
-- Git 2.x
-- Python 2.7 with PIP: Fabric (For Deployment)
-- NodeJS: bower, gulp
-
-### Installation
-First update
-
-    sudo apt-get update
-
-Then install
-
-    sudo apt-get install\
-    apache2\
-    libapache2-mod-php5\
-    redis-server\
-    php5\
-    php5-dev\
-    memcached\
-    redis-server\
-    php5-redis\
-    python\
-    python-dev\
-    python-pip\
-    openssl\
-    mysql-server\
-    git\
-    vim\
-    htop
-
-1: (Optional) Install the Phalcon Vagrant Playground I wrote for Open Source. Instructions are on the readme here: [https://github.com/phalcon/vagrant](https://github.com/phalcon/vagrant)
-
-2: Install composer locally or SSH into the vagrant box. [https://getcomposer.org/download/](https://getcomposer.org/download/).
-
-    $ composer install
-
-3: Dump `schema.sql` into a new database titled `jream`.
-
-4: Make sure `application/cache` is writable via the server (below)
-
-5: Install Node + NPMs:
-
-    $ sudo npm install -g bower gulp
-
-    # Install Gulp Dependencies (In the development/package.json folder):
-    $ npm install
-
-    # Usage:
-    $ gulp watch    # Compile on-change
-    $ gulp          # Compile once
-
-### Other Development Components
-
-These are components used to deploy, and manage various things. Note I use **Ubuntu 14 x64** for all servers.
-
-#### Install Capistrano Locally
-
-```
-sudo gem install bundler
-```
-
-With a `Gemfile`:
-```
-source 'https://rubygems.org'
-group :development do
-  gem "capistrano", "~> 3.7"
-end
-```
-
-
-For first time installation if no `/config/deploy.rb` exists:
-```
-bundle exec cap install
-```
-
-#### Install and run PHPUnit
-
-    $ sudo apt-get install phpunit
-    $ cd tests
-    $ phpunit
-
-#### Install Pip & Fabric
-
-    $ sudo apt-get install python-pip
-    $ pip install fabric
 
 #### Using Codeception
 From the root folder (Where you can see `/vendor/`) run:
@@ -245,3 +143,17 @@ If the servers go haywire these things must be done:
 - Check the DNS in AWS, Check for Health Checking
 - Make sure composer is updated
 - Check /var/logs/apache2/error.log
+
+
+##Fix for Webpack SASS
+
+So the easiest fix for now is to downgrade to npm@5.1.0 using
+```
+npm i -g npm@5.1.0
+```
+Then cleanup and reinstall dependencies:
+```
+npm cache clean -f
+rm -rf node_modules/ package-lock.json
+npm i
+```

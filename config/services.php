@@ -75,7 +75,7 @@ $di->setShared('flash', function($mode = 'session') {
 
 /**
  * ==============================================================
- * Make Config and Api Accessible where we have DI
+ * Make Config and api Accessible where we have DI
  * =============================================================
  */
 $di->setShared('config', function() use ($config) {
@@ -118,8 +118,10 @@ $di->setShared('url', function () use ($config) {
 $di->setShared('dispatcher', function() use ($di) {
 
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('dispatch', new Event\Dispatch());
-    $eventsManager->attach('dispatch', new Component\Permission());
+    // Database Middleware is under the DB DI Definition
+    $eventsManager->attach('ajax', new Middleware\Ajax());
+    $eventsManager->attach('dispatch', new Middleware\Dispatch());
+    $eventsManager->attach('permission', new Component\Permission());
 
     // -----------------------------------
     // Return the new dispatcher with the
@@ -183,7 +185,7 @@ $di->setShared('view', function () use ($config) {
         '.phtml' => '\Phalcon\Mvc\View\Engine\Php'
     ]);
 
-    // Used for global variables (See: events/afterExecuteRoute)
+    // Used for global variables (See: middleware/afterExecuteRoute)
     $view->system = new \stdClass();
 
     return $view;
@@ -197,7 +199,7 @@ $di->setShared('view', function () use ($config) {
  */
 $di->set('db', function () use ($di, $config) {
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('db', new Event\Database());
+    $eventsManager->attach('db', new Middleware\Database());
 
     $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
     $database->setEventsManager($eventsManager);

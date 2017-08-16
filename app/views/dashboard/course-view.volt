@@ -25,28 +25,31 @@
 
 {% block breadcrumb %}
 <div class="container container-fluid">
-<div class="col-md-6">
-    <ol class="breadcrumb">
-        <li><a href="{{ url('dashboard') }}">Dashboard</a></li>
-        <li><a href="{{ url('dashboard/course/index') }}/{{ productId }}">{{ productName }}</a></li>
-        <li class="active">{{ courseName }}</li>
-    </ol>
-</div>
-<div class="col-md-6 text-right pull-right">
-    {% if prev %}
-        <a class="btn" href="{{ url('dashboard/course/view') }}/{{ productId }}/{{ prev.id }}"><span class="glyphicon glyphicon-chevron-left"></span> {{ prev.name }}</a>
-    {% endif %}
-    {% if next %}
-        <a class="btn" href="{{ url('dashboard/course/view') }}/{{ productId }}/{{ next.id }}">{{ next.name }} <span class="glyphicon glyphicon-chevron-right"></span></a>
-    {% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        <ol class="breadcrumb">
+            <li><a href="{{ url('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url('dashboard/course/index') }}/{{ productId }}">{{ productName }}</a></li>
+            <li class="active">{{ courseName }}</li>
+        </ol>
+    </div>
+    <div class="col-md-6 text-right pull-right">
+        {% if prev %}
+            <a class="btn" href="{{ url('dashboard/course/view') }}/{{ productId }}/{{ prev.id }}"><span class="glyphicon glyphicon-chevron-left"></span> {{ prev.name }}</a>
+        {% endif %}
+        {% if next %}
+            <a class="btn" href="{{ url('dashboard/course/view') }}/{{ productId }}/{{ next.id }}">{{ next.name }} <span class="glyphicon glyphicon-chevron-right"></span></a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="row above-video-buttons">
-    <div class="col-md-4 course-view-buttons">
-        <a data-value="0" class="course-mark course-action margin-bottom btn btn-large btn-success" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok"></span> Completed</a>
-        <a data-value="1" class="course-unmark course-action margin-bottom btn btn-large btn-default" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok-sign"></span> Mark Complete</a>
+    <div class="col-md-6 course-view-buttons">
+        <a data-value="0" class="course-mark course-action margin-bottom btn btn-success" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok"></span> Completed</a>
+        <a data-value="1" class="course-unmark course-action margin-bottom btn btn-default" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok-sign"></span> Mark Complete</a>
         <a class="margin-bottom btn btn-info toggle-lights"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Toggle Lights</a>
     </div>
     <div class="col-md-2">

@@ -1,9 +1,15 @@
 @charset "utf-8";
 
-@import 'variables';
+/**
+ -------------------------------------------------------------------
+  Overwrite Bootstrap Variables
+ -------------------------------------------------------------------
+ */
+$icon-font-path: '../fonts/';
 
 // Third Party: Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import 'variables';
 
 // Core Items
 @import 'core/mixins';
@@ -12,6 +18,7 @@
 // Components
 @import 'effects/animate';
 @import 'components/images';
+@import 'components/forms';
 @import 'components/modal';
 @import 'components/nav';
 @import 'components/buttons'; // The order is important

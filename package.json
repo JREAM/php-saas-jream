@@ -19,6 +19,7 @@
     "babel-preset-env": "^1.6.0",
     "bootstrap": "3.3.7",
     "bootstrap-sass": "^3.3.7",
+    "bootstrap-validator": "^0.11.9",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.4",
     "cssnano": "^3.10.0",
@@ -56,10 +57,10 @@
     "webpack-livereload-plugin": "^0.11.0"
   },
   "dependencies": {
-    "babel-preset-es2015": "^6.24",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
-    "es2015": "^0",
+    "es2015": "0.0.0",
     "es2016": "0.0.0",
     "es2017": "0.0.0",
     "stable": "^0.1.6"

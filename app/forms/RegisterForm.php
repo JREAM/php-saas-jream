@@ -43,10 +43,17 @@ class RegisterForm extends \Phalcon\Forms\Form
             'class'       => 'form-control input-lg',
         ]);
 
+//        $newsletterSubscribe = new Element\Check('newsletter_subscribe', [
+//            'value'       => 1,
+//            'class'       => '',
+//        ]);
+//        $newsletterSubscribe->setLabel('Subscribe to Newsletter');
+
         $this->add($alias);
         $this->add($email);
         $this->add($password);
         $this->add($confirmPassword);
+//        $this->add($newsletterSubscribe);
 
         $this->add(new Element\Submit('submit', [
             'value' => 'Register',

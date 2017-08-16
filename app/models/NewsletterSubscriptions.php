@@ -23,6 +23,22 @@ class NewsletterSubscriptions extends BaseModel
         // $this->belongsTo("user_id", "User", "id");
     }
 
+    // --------------------------------------------------------------
+
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->token = $this->getDi()->getShared('security')->hash(random_int(1000, 50000));
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterUpdate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
 
     // --------------------------------------------------------------
 

@@ -7,6 +7,7 @@ function skipPage() {
     "page-product-action-preview",
     "page-course-action-view",
     "page-dashboard",
+    "page-contact",
     "page-account",
     "page-account-action-delete",
     "page-question-action-index",

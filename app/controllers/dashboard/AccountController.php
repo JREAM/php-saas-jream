@@ -225,6 +225,8 @@ class AccountController extends \BaseController
 
         $user = \User::findFirstById($this->session->get('id'));
         $user->password = $this->security->hash($password);
+        // Update Salt
+        $user->password_salt = $this->security->hash(random_int(5000, 100000));
         $user->save();
 
         if ($user->getMessages()) {
@@ -248,6 +250,7 @@ class AccountController extends \BaseController
 
         $user->email_notifications = (int) $this->request->getPost('email_notifications');
         $user->system_notifications = (int) $this->request->getPost('system_notifications');
+        $user->newsletter_subscribe = (int) (bool) $this->request->getPost('newsletter_subscribe');
 
         $result = $user->save();
 

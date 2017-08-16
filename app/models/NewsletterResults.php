@@ -23,7 +23,6 @@ class NewsletterResults extends BaseModel
         // $this->belongsTo("user_id", "User", "id");
     }
 
-
     // --------------------------------------------------------------
 
     /**
@@ -34,6 +33,22 @@ class NewsletterResults extends BaseModel
     public function getSource()
     {
         return self::SOURCE;
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterUpdate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
     }
 
     // --------------------------------------------------------------

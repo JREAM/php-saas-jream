@@ -39,6 +39,22 @@ class UserPurchase extends BaseModel
 
     // --------------------------------------------------------------
 
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterUpdate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
 }
 
 // End of File

@@ -25,7 +25,7 @@
 {% block content %}
 <div class="container container-fluid">
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="list-group">
             <div class="list-group-item active">
                 <h4><span class="glyphicon glyphicon-user opacity-50"></span> Profile</h4>
@@ -73,11 +73,11 @@
         {% include "partials/section/purchase-history.volt" %}
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
 
         {% if !session.has('fb_user_id') %}
         <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><span class="glyphicon glyphicon-envelope opacity-50" aria-hidden="true"></span> Change Email</h4></div>
                 <div class="panel-body">
@@ -102,7 +102,7 @@
         </div>
         </div>
         <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-key opacity-50" aria-hidden="true"></i> Change Password</h4></div>
                 <div class="panel-body">
@@ -128,7 +128,7 @@
         {% endif %}
 
         <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-cog opacity-50" aria-hidden="true"></i> Email Settings</h4></div>
                 <div class="panel-body">
@@ -148,6 +148,13 @@
                                 </select>
                         </div>
                         <div class="form-group">
+                            <label class="control-label">Newsletter/Promotions</label>
+                                <select class="form-control" name="newsletter_subscribe">
+                                    <option value="1">Yes, Receive</option>
+                                    <option value="0" {% if user.newsletter_subscribe == 0 %}selected="selected"{% endif %}>No Thanks</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
                             <input class="disable-click btn btn-lg btn-primary pull-right" type="submit" value="Update">
                         </div>
                         <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
@@ -160,7 +167,7 @@
 
 
         <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <a href="{{ url('dashboard/account/delete') }}" class="pull-right"><small>Delete My Account</small></a>
         </div>
         </div>

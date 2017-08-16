@@ -54,7 +54,7 @@ class NewsletterController extends \BaseController
         $newsletter->subscribed = 1;
 
         // Create a simple hash token
-        $newsletter->token = hash('512', $email . random_int(1, 2500));
+        $newsletter->token = $this->security->hash($email . random_int(1, 2500));
         $newsletter->created_at = getDateTime();
         $newsletter->updated_at = getDateTime();
 
@@ -115,6 +115,15 @@ class NewsletterController extends \BaseController
         }
 
         $this->view->pick('newsletter/subscribe-verify');
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->token = $this->getDi()->getShared('security')->hash(random_int(1000, 50000));
+        $this->save();
     }
 
     // --------------------------------------------------------------

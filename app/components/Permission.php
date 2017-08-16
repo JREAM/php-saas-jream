@@ -23,6 +23,7 @@ class Permission extends \Phalcon\Mvc\User\Component
     const GUEST = 'guest';
     const USER = 'user';
     const ADMIN = 'admin';
+    const BOT = 'bot'; // (For Testing Acceptance/Functional)
 
     // -------------------------------------------------------------
 
@@ -130,6 +131,7 @@ class Permission extends \Phalcon\Mvc\User\Component
                 self::GUEST => new Acl\Role(self::GUEST),
                 self::USER  => new Acl\Role(self::USER),
                 self::ADMIN => new Acl\Role(self::ADMIN),
+                self::BOT   => new Acl\Role(self::BOT),
             ];
 
             // Place all the roles inside the ACL Object
@@ -159,11 +161,12 @@ class Permission extends \Phalcon\Mvc\User\Component
                 }
             }
 
-            // Allow User & Admin to access the User Resources
+            // Allow User & Admin & Bot to access the User Resources
             foreach ($this->_userResources as $resource => $actions) {
                 foreach ($actions as $action) {
                     $acl->allow(self::USER, $resource, $action);
                     $acl->allow(self::ADMIN, $resource, $action);
+                    $acl->allow(self::BOT, $resource, $action);
                 }
             }
 

@@ -5,14 +5,6 @@
 {% endblock %}
 
 {% block hero %}
-<div id="hero">
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-xs-12 inner">
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block breadcrumb %}

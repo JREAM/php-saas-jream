@@ -25,6 +25,7 @@ require("./pages/dashboard");
 require("./pages/devtools");
 require("./pages/product");
 require("./pages/promotion");
+require("./pages/register");
 
 /**
  * =======================================================================

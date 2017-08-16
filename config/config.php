@@ -14,7 +14,7 @@
 
 $config = new \Phalcon\Config([
     'title' => getenv('SITE_TITLE'),
-    'hash'  => 'jream', // Do not change this
+    'session_hash'  => 'D0__2&$whatLORD$As4Sayy_)s5<E1+WilBeWe1lll2#', // Do not change this
     'cookie_hash' => '#_can$iSAY>let*US*EN~cryp_T-theCookieS!',
     'url_static' => 'https://d2qmoq5vnrtrov.cloudfront.net/',
     'email' => [

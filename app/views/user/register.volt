@@ -39,6 +39,10 @@
                             {{ form.render('confirm_password') }}
                         </div>
 
+                        <div class="form-group">
+                            <div class="form-results"></div>
+                        </div>
+
                         {{ form.render('submit') }}
 
                         <hr />

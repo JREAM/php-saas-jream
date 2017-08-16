@@ -73,8 +73,8 @@ class ProductController extends \BaseController
 
                 // this sets the price discount
                 // Security
-                $this->session->set('hash', $this->security->hash(
-                    $this->config->hash,
+                $this->session->set('session_hash', $this->security->hash(
+                    $this->config->session_hash,
                     $this->session->getId()
                 ));
 

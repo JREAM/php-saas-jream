@@ -51,7 +51,8 @@
 
 <!-- Dependencies -->
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
-<script src="{{ url('vendor/moment.min.js') }} "></script>
+{#<script src="{{ url('vendor/validator.min.js') }} "></script>#}
+{#<script src="{{ url('vendor/moment.min.js') }} "></script>#}
 <script src="{{ url('vendor/jquery.waypoints.min.js') }} "></script>
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 

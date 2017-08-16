@@ -22,16 +22,6 @@ class Newsletter extends BaseModel
         // Some won't have accounts, but if they do associate them with the newsletter.
     }
 
-
-    // --------------------------------------------------------------
-
-    public function afterCreate()
-    {
-        $this->created_at = getDateTime();
-        $this->token = hash('512', $this->email . random_int(1, 2500));
-        $this->save();
-    }
-
     // --------------------------------------------------------------
 
     /**
@@ -45,6 +35,23 @@ class Newsletter extends BaseModel
     }
 
     // --------------------------------------------------------------
+
+    public function afterCreate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
+    public function afterUpdate()
+    {
+        $this->created_at = getDateTime();
+        $this->save();
+    }
+
+    // --------------------------------------------------------------
+
 
 }
 

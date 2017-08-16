@@ -73,6 +73,7 @@ class UserController extends \BaseController
 
         if (!$email || !$password) {
             $this->flash->error('email and password field(s) are required.');
+
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -80,12 +81,14 @@ class UserController extends \BaseController
         if ($user) {
             if ($user->is_deleted == 1) {
                 $this->flash->error('This user has been permanently removed.');
+
                 return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
             }
             // Prevent Spam logins
             if ($user->login_attempt >= 5) {
                 if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
                     $this->flash->error('Too many login attempts. Timed out for 10 minutes.');
+
                     return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
                 }
                 // Clear the login attempts if time has expired
@@ -98,6 +101,7 @@ class UserController extends \BaseController
                 if ($user->isBanned()) {
                     $this->flash->error('Sorry, your account has been locked due to suspicious activity.
                                 For support, contact <strong>hello@jream.com</strong>.');
+
                     return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
                 }
 
@@ -182,10 +186,12 @@ class UserController extends \BaseController
         } catch (\Facebook\Exceptions\FacebookResponseException $e) {
             error_log('Facebook Graph returned an error: ' . $helper->getMessage(), 0);
             $this->flash->error('Facebook Graph returned an error: ' . $e->getMessage());
+
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         } catch (\Facebook\Exceptions\FacebookSDKException $e) {
             error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
             $this->flash->error('Facebook SDK returned an error: ' . $e->getMessage());
+
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -217,6 +223,7 @@ class UserController extends \BaseController
             if ($user->getMessages()) {
                 error_log('There was an error connecting your facebook user.', 0);
                 $this->flash->error('There was an error connecting your facebook user.');
+
                 return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
             }
 
@@ -273,6 +280,7 @@ class UserController extends \BaseController
 
         if (!$user) {
             $this->flash->error('Invalid key, or time has expired.');
+
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
@@ -304,6 +312,7 @@ class UserController extends \BaseController
     {
         if ($this->session->has('id')) {
             $this->response->redirect('dashboard');
+
             return false;
         }
 
@@ -353,31 +362,37 @@ class UserController extends \BaseController
 
         if ($password != $confirm_password) {
             $this->flash->error('Your passwords do not match.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (strlen($alias) < 4 || !ctype_alpha($alias)) {
             $this->flash->error('Alias must be atleast 4 characters and only alphabetical.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (strlen($password) < 4 || strlen($password) > 128) {
             $this->flash->error('Your password must be 4-128 characters.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (\User::findFirstByAlias($alias)) {
             $this->flash->error('Your alias cannot be used.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (\User::findFirstByEmail($email)) {
             $this->flash->error('This email is already in use.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
         if (!Swift_Validate::email($email)) {
             $this->flash->error('Your email is invalid.');
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
@@ -387,19 +402,22 @@ class UserController extends \BaseController
         $user->alias = $alias;
         $user->email = $email;
         $user->password = $this->security->hash($password);
-
-        // Save them in the mailing list
-        $newsletter = new \Newsletter();
-        $newsletter->email = $email;
-        $newsletter->is_subscribed = 1; // @TODO is tihs right?
-        $newsletter->save();
+        // Create a unique hash per user (@TODO)
+        $user->password_salt = $this->security->hash(random_int(5000, 100000));
 
         $result = $user->save();
 
         if (!$result) {
             $this->flash->error($user->getMessagesList());
+
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
+
+        // Save them in the mailing list
+        $newsletterSubscriptions = new \NewsletterSubscriptions();
+        $newsletterSubscriptions->email = $email;
+        $newsletterSubscriptions->is_subscribed = 1; // @TODO is tihs right?
+        $newsletterSubscriptions->save();
 
         // Where'd they signup from?
         $user->saveReferrer($user->id, $this->request);
@@ -475,6 +493,7 @@ class UserController extends \BaseController
 
         if (!empty($error)) {
             $this->output(0, $error);
+
             return false;
         }
 
@@ -483,14 +502,23 @@ class UserController extends \BaseController
         $user->alias = $alias;
         $user->email = $email;
         $user->password = $this->security->hash($password);
+        // Create a unique hash per user (@TODO)
+        $user->password_salt = $this->security->hash(random_int(5000, 100000));
 
         $result = $user->save();
 
         if (!$result) {
             $error[] = $user->getMessagesList();
             $this->output(0, $error);
+
             return false;
         }
+
+        // Save them in the mailing list
+        $newsletterSubscriptions = new \NewsletterSubscriptions();
+        $newsletterSubscriptions->email = $email;
+        $newsletterSubscriptions->is_subscribed = 1; // @TODO is tihs right?
+        $newsletterSubscriptions->save();
 
         $mail_result = $this->di->get('email', [
             [
@@ -685,16 +713,20 @@ class UserController extends \BaseController
 
         if ($password != $confirm_password) {
             $this->flash->error('Your passwords do not match.');
+
             return $this->redirect(self::PASSWORD_REDIRECT_FAILURE_PASSWD . "$resetKey");
         }
 
         $user->password = $this->security->hash($password);
+        // New Salt
+        $user->password_salt = $this->security->hash(random_int(5000, 100000));
         $user->password_reset_key = null;
         $user->password_reset_expires_at = null;
         $user->save();
 
         if ($user->getMessages() == false) {
             $this->flash->success('Your password has changed, please login.');
+
             return $this->redirect(self::PASSWORD_REDIRECT_SUCCESS);
         }
 
@@ -713,6 +745,7 @@ class UserController extends \BaseController
     public function logoutAction()
     {
         $this->destroySession();
+
         return $this->redirect(self::REDIRECT_LOGIN);
     }
 
@@ -732,7 +765,7 @@ class UserController extends \BaseController
 
         return $helper->getLoginUrl(
             $this->api->fb->redirectUri,
-            (array) $this->api->fb->scope
+            (array)$this->api->fb->scope
         );
     }
 

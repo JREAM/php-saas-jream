@@ -37,6 +37,13 @@ function formatName($name)
 
 // --------------------------------------------------------------
 
+/**
+ * Set form Data for a page refresh.
+ *
+ * @param  string $name  field name
+ *
+ * @return mixed
+ */
 function formData($name) {
     if (!isset($_SESSION)) {
         return false;
@@ -51,7 +58,13 @@ function formData($name) {
 
 // --------------------------------------------------------------
 
-function formDataClear() {
+/**
+ * Clear Form Data
+ *
+ * @return bool
+ */
+function formDataClear()
+{
     if (!isset($_SESSION)) {
         return false;
     }
@@ -66,7 +79,13 @@ function formDataClear() {
 
 // --------------------------------------------------------------
 
-function getDateTime() {
+/**
+ * Get the current DateTime (SQL Friendly)
+ *
+ * @return string
+ */
+function getDateTime()
+{
     return date('Y-m-d H:i:s');
 }
 
@@ -97,7 +116,8 @@ function getTimeElapsed($datetime, $full = false) {
         }
     }
 
-    if ( ! $full) {
+    if (!$full)
+    {
         $string = array_slice($string, 0, 1);
     }
 
@@ -114,7 +134,8 @@ function getTimeElapsed($datetime, $full = false) {
  *
  * @return void
  */
-function pr($data) {
+function pr($data)
+{
     echo '<pre>';
     print_r($data);
     die('</pre>');
@@ -129,7 +150,8 @@ function pr($data) {
  *
  * @return void
  */
-function vd($data) {
+function vd($data)
+{
     echo '<pre>';
     var_dump($data);
     die('</pre>');

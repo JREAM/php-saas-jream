@@ -38,7 +38,6 @@ class UserController extends \BaseController
     public function loginAction()
     {
         if ($this->session->has('id')) {
-
             return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
         }
 
@@ -69,7 +68,15 @@ class UserController extends \BaseController
 
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-        // $remember_me = $this->request->getPost('remember_me');
+
+        $user = new User();
+        $result = $user->doLogin($email, $password);
+
+        if ($result) {
+            return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
+        }
+
+        $this->redirect(self::LOGIN_REDIRECT_FAILURE);
 
         if (!$email || !$password) {
             $this->flash->error('email and password field(s) are required.');

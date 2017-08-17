@@ -11,6 +11,7 @@ class IndexController extends \BaseController
     public function onConstruct()
     {
         parent::initialize();
+        // new \Library\Obj;
         Tag::setTitle('Learn to Code | ' . $this->di['config']['title']);
     }
 

@@ -201,6 +201,56 @@ class User extends BaseModel
 
     // --------------------------------------------------------------
 
+    public function doLogin($email, $password)
+    {
+        if (!$email || !$password) {
+            $this->flash->error('email and password field(s) are required.');
+            return false;
+        }
+
+        $user = self::findFirstByEmail($email);
+        if ($user) {
+            if ($user->is_deleted == 1) {
+                $this->flash->error('This user has been permanently removed.');
+                return false;
+            }
+            // Prevent Spam logins
+            if ($user->login_attempt >= 5) {
+                if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
+                    $this->flash->error('Too many login attempts. Timed out for 10 minutes.');
+                    return false;
+                }
+                // Clear the login attempts if time has expired
+                $user->login_attempt = null;
+                $user->login_attempt_at = null;
+                $user->save();
+            }
+
+            if ($this->security->checkHash($password, $user->password)) {
+                if ($user->isBanned()) {
+                    $this->flash->error('Sorry, your account has been locked due to suspicious activity.
+                                For support, contact <strong>hello@jream.com</strong>.');
+                    return false;
+                }
+
+                // $this->createSession($user, [], $remember_me);
+                $this->createSession($user);
+                return true;
+            }
+
+            // Track the login attempts
+            $user->login_attempt = $user->login_attempt + 1;
+            $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
+            $user->save();
+        }
+
+        $this->flash->error('Incorrect Credentials');
+
+        return false;
+    }
+
+    // --------------------------------------------------------------
+
 }
 
 // End of File

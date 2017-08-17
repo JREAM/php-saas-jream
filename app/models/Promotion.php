@@ -73,6 +73,7 @@ class Promotion extends BaseModel
             ];
         }
 
+
         // The USER ID (If Set) Is checked when the Cookie is created, it won't get to this
         // point, or shouldn't -- but I'll double protect anyways.
         if ($result->user_id && $this->session->get('id') != $result->user_id) {
@@ -118,6 +119,14 @@ class Promotion extends BaseModel
         // Only one of these apply
         if ($result->percent_off)
         {
+            if ($result->percent_off <= 0 && $percent_off >= 100) {
+                return (object) [
+                    'code' => 0,
+                    'data' => null,
+                    'success' => '',
+                    'error' => 'The data is invalid, percent_off must be > 0 and < 100'
+                ];
+            }
             $method = 'percent_off';
             $success = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
                 number_format($product->price - ($product->price * $result->percent_off), 2),
@@ -128,6 +137,15 @@ class Promotion extends BaseModel
         }
         elseif ($result->price)
         {
+            if ($result->price >= $product->price) {
+                return (object) [
+                    'code' => 0,
+                    'data' => null,
+                    'success' => '',
+                    'error' => 'The data is invalid, price must be < product price.'
+                ];
+            }
+
             $method = 'price';
             $success = sprintf("Price marked down from %s to %s using promotional code %s.",
                 number_format($product->price, 2),

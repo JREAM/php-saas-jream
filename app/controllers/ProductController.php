@@ -67,7 +67,7 @@ class ProductController extends \BaseController
         if ($promotion_code) {
             $promotion = new \Promotion();
             $percent_off = $promotion->check($promotion_code, $product->id);
-            if ($percent_off > 0 && $percent_off < 100) {
+            if ($percent_off->code !== 0) {
                 // Keep the promo on the users incase they refresh the page
                 $this->promotion_code = $promotion_code;
 
@@ -82,6 +82,7 @@ class ProductController extends \BaseController
                 $discount_price = $product->price * ($percent_off * .1);
                 $this->session->set('discount', $percent_off);
                 $this->session->set('discount_price', $discount_price);
+
             }
         }
 
@@ -147,81 +148,6 @@ class ProductController extends \BaseController
     private function doPromotionAction()
     {
         // USES The ApiController (Because it is used on the Promotions page as well).
-    }
-
-    // --------------------------------------------------------------
-
-    private function validatePromotionCode($product_id = false)
-    {
-        // Checks for Promotion Applied.
-        // Successful promotions create a cookie (In-case they login/logout)
-        $promo = $this->components->cookie->get('promotion');
-
-        if (!$promo) {
-            return false;
-        }
-        $promo = json_decode('promotion');
-
-        // The USER ID (If Set) Is checked when the Cookie is created, it won't get to this
-        // point, or shouldn't -- but I'll double protect anyways.
-        if ($promo->user_id && $this->session->get('id') != $promo->user_id) {
-            $this->flash->error('This promotion is for an individual only, it does not appear to be you, sorry.');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
-        }
-
-        // If ProductID is set, ensure they are applying correctly
-        if ($promo->product_id && $product->id != $promo->product_id) {
-            $other_product = \Product::getById($promo->product_id);
-            $this->flash->error('You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
-        }
-
-        // Make sure to check this DURING the checkout
-        if ($promo->expires_at > $this->helper->getLocaleTimestamp()) {
-            $this->flash->error('Sorry, this promotion expired on ' . $promo->expires_at);
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
-        }
-
-        // Make sure to check this DURING the checkout
-        if ($promo->deleted_at) {
-            $this->flash->error('Sorry, this promotion was deleted on ' . $promo->deleted_at);
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
-        }
-
-        // @TODO: How do i handle this with product_id on or off?
-
-        // Only one of these apply
-        if ($promo->percent_off) {
-            $price_method = 'percent_off';
-            $promo = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
-                number_format($product->price - ($product->price * $promo->percent_off), 2),
-                $promo->percent_off,
-                $promo->code
-            );
-            $use_price = number_format($product->price - ($product->price * $promo->percent_off), 2);
-        } elseif ($promo->price) {
-            $price_method = 'price';
-            $promo = sprintf("Price marked down from %s to %s using promotional code %s.",
-                number_format($product->price, 2),
-                number_format($promo['price'], 2),
-                $promo->code
-            );
-
-            $use_price = $promo->price;
-        }
-
-        return [
-            'user_id'      => $promo->user_id,
-            'product_id'   => $promo->product_id,
-            'description'  => $promo->description,
-            'price_method' => $price_method,
-            'use_price'    => $use_price,
-        ];
-
     }
 
     // --------------------------------------------------------------

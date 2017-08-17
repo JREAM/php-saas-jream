@@ -1,7 +1,8 @@
 <?php
+
 namespace Api\V1;
 
-use \Phalcon\Tag;
+use \User;
 
 class AuthController extends ApiBaseController
 {

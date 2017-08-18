@@ -15,6 +15,16 @@ class TestController extends \BaseController
         }
     }
 
+    // calls the API
+    public function ajaxAction()
+    {
+        $this->view->pick('test/ajax');
+    }
+
+
+
+
+
     public function indexAction()
     {
         $SNS_ARN = [

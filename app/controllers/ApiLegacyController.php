@@ -1,7 +1,7 @@
 <?php
 
 
-class ApiController extends \BaseController
+class ApiLegacyController extends \BaseController
 {
 
     /**

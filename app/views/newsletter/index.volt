@@ -66,7 +66,7 @@
 
 {% block script %}
 <script>
-var url_recaptcha = "{{ url('api/recaptcha') }}";
+var url_recaptcha = "{{ url('apilegacy/recaptcha') }}";
 var url_action = "{{ url('newsletter/dosubscribe') }}";
 
 // So sloppy but gets it done.

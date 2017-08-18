@@ -181,7 +181,7 @@ $(function() {
             content: $("#ask textarea[name=content]").val()
         };
 
-        $.post("{{ url('api/markdown') }}", postData, function(obj) {
+        $.post("{{ url('apilegacy/markdown') }}", postData, function(obj) {
             $('.question-preview').html(obj.data)
         }, 'json');
     });

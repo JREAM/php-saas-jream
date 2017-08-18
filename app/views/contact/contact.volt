@@ -34,7 +34,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form class="form-login" id="contact-form" method="post" action="{{ url('api/contact') }}">
+                    <form class="form-login" id="contact-form" method="post" action="{{ url('apilegacy/contact') }}">
                         <div class="row">
                             <div class="col-md-6">
 
@@ -108,8 +108,8 @@
 
 {% block script %}
 <script>
-var url_recaptcha = "{{ url('api/recaptcha') }}";
-var url_contact = "{{ url('api/contact') }}";
+var url_recaptcha = "{{ url('apilegacy/recaptcha') }}";
+var url_contact = "{{ url('apilegacy/contact') }}";
 var url_redirect = "{{ url('contact/thanks') }}";
 
 // So sloppy but gets it done.

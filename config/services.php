@@ -308,6 +308,22 @@ if (STAGE != 'live') {
  * Email Transport to send Mail
  * =============================================================
  */
+$di->setShared('s3', function(array $data) {
+    return new Aws\S3\S3Client([
+        'version' => getenv('AWS_S3_VERSION'),
+        'region' => getenv('AWS_S3_REGION'),
+        'credentials' => [
+            'key' => getenv('AWS_S3_ACCESS_KEY'),
+            'secret' => getenv('AWS_S3_ACCESS_SECRET_KEY=')
+        ]
+    ]);
+});
+
+/**
+ * ==============================================================
+ * Email Transport to send Mail
+ * =============================================================
+ */
 $di->setShared('email', function(array $data) use ($di, $api) {
     $to       = new \SendGrid\Email($data['to_name'], $data['to_email']);
     $from     = new \SendGrid\Email($data['from_name'], $data['from_email']);

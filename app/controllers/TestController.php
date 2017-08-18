@@ -15,6 +15,74 @@ class TestController extends \BaseController
         }
     }
 
+    public function indexAction()
+    {
+        $SNS_ARN = [
+            'bounce' => 'arn:aws:sns:us-east-1:950584027081:ses-bounce-topic',
+            'complaint' => 'arn:aws:sns:us-east-1:950584027081:ses-complaint-topic',
+            'delivery' => 'arn:aws:sns:us-east-1:950584027081:ses-delivery-topic',
+        ];
+
+        $sns = new Aws\Sns\SnsClient([
+            'version' => getenv('AWS_SNS_VERSION'),
+            'region' => getenv('AWS_SNS_REGION'),
+            'credentials' => [
+                'key' => getenv('AWS_SNS_ACCESS_KEY'),
+                'secret' => getenv('AWS_SNS_ACCESS_SECRET_KEY')
+            ]
+        ]);
+
+        echo "<pre>";
+        foreach ($SNS_ARN as $key => $value) {
+            echo "<h1>{$key}</h1>";
+            $result = $sns->listSubscriptionsByTopic(['TopicArn' => $value]);
+            print_r($result);
+            echo "<hr>";
+        }
+        echo "</pre>";
+
+        // Try creating SES Topics
+//        $batch = new Aws\Batch\BatchClient([]);
+        foreach ($SNS_ARN as $key => $value) {
+            for ($i = 0; $i < 5; $i++) {
+                $sns->publish([
+                    'TopicArn' => $value,
+                    'Message'  => "$key / $i: Hello Test @ " . time()
+                ]);
+            }
+        }
+
+        /// SQS
+
+        $SQS_URLS = [
+            'sqs_bounce_url' => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-bounce-queue",
+            'sqs_complaint_url' => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-complaint-queue",
+            'sqs_delivery_url' => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-delivery-queue"
+        ];
+
+        $sqs = new Aws\Sqs\SqsClient([
+            'version' => getenv('AWS_SQS_VERSION'),
+            'region' => getenv('AWS_SQS_REGION'),
+            'credentials' => [
+                'key' => getenv('AWS_SQS_ACCESS_KEY'),
+                'secret' => getenv('AWS_SQS_ACCESS_SECRET_KEY')
+            ]
+        ]);
+
+        foreach ($SQS_URLS as $key => $value) {
+            echo "<h1>{$key}</h1>";
+            // Get Messages from queue
+            $result = $sqs->receiveMessage($value, [
+                'QueueUrl' => $value
+            ]);
+            print_r($result);
+            echo "<hr>";
+        }
+        die;
+
+
+    }
+
     public function modelAction()
     {
         \Newsletter::findFirst(['is_deleted = 0']);
@@ -40,17 +108,6 @@ class TestController extends \BaseController
         print_r($this->api);
         die;
         $this->view->pick('test/key.volt');
-    }
-
-    // --------------------------------------------------------------
-
-    public function indexAction()
-    {
-        $parsedown = new Parsedown();
-        echo $parsedown->parse('#ya
-        Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>
-        die;
-        $this->view->pick('test/index.volt');
     }
 
     // --------------------------------------------------------------

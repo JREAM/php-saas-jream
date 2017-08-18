@@ -9,6 +9,11 @@ class NewsletterTask extends Task
         echo 'This can be used to send emails to all users';
     }
 
+    public function snsAction()
+    {
+
+    }
+
     public function createListAction()
     {
         $users = \User::find("is_deleted = 0 AND is_banned = 0");

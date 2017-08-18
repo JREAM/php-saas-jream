@@ -27,6 +27,7 @@ class AuthController extends ApiBaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
+        // Cannot have Empty Fields
         if (!$email || !$password) {
             return $this->output(0, 'email and password field(s) are required.');
         }

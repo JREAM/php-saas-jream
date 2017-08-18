@@ -6,34 +6,88 @@ use Phalcon\Di\FactoryDefault\Cli as CliDI;
 use Phalcon\Cli\Console as ConsoleApp;
 use Phalcon\Loader;
 
+
+/**
+ * ==============================================================
+ * Load Composer
+ * =============================================================
+ */
+$base_dir = dirname(__DIR__);
+$autoload_file = $base_dir . "/vendor/autoload.php";
+
+if (!file_exists($autoload_file)) {
+    die('Required: $ composer install');
+}
+require_once $autoload_file;
+
+
+/**
+ * ==============================================================
+ * Load the .env File
+ * =============================================================
+ */
+try {
+    $dotenv = new Symfony\Component\Dotenv\Dotenv();
+    $dotenv->load($base_dir . '/.env');
+} catch (Exception $e) {
+    die('Missing required .env file.');
+}
+
+
+
+require_once __DIR__ . '/../config/constants.php';
+require_once CONFIG_DIR . '/loader.php';
+require_once CONFIG_DIR . '/config.php';
+require_once CONFIG_DIR . '/api.php';
+
 // Using the CLI factory default services container
 $di = new CliDI();
 
 /**
- * Register the autoloader and tell it to register the tasks directory
+ * ==============================================================
+ * Make Config and api Accessible where we have DI
+ * =============================================================
  */
-$loader = new Loader();
+$di->setShared('config', function() use ($config) {
+    return $config;
+});
 
-$loader->registerDirs(
-    [
-        __DIR__ . '/tasks',
-    ]
-);
+$di->setShared('api', function () use ($api) {
+    return $api;
+});
 
-$loader->register();
 
-// Load the configuration file (if any)
-$configFile = __DIR__ . '/config/config.php';
+/**
+ * ==============================================================
+ * Session
+ * =============================================================
+ */
+$di->setShared('session', function () {
+    $session = new \Phalcon\Session\Adapter\Files();
 
-if (is_readable($configFile)) {
-    $config = include $configFile;
+    $session->start();
+    return $session;
+});
 
-    $di->set('config', $config);
-}
+
+/**
+ * ==============================================================
+ * Database Connection
+ * =============================================================
+ */
+$di->set('db', function () use ($di, $config) {
+    $eventsManager = $di->getShared('eventsManager');
+    $eventsManager->attach('db', new Middleware\Database());
+
+    $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
+    $database->setEventsManager($eventsManager);
+
+    return $database;
+});
+
 
 // Create a console application
 $console = new ConsoleApp();
-
 $console->setDI($di);
 
 /**

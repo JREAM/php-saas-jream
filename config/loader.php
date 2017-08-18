@@ -16,7 +16,7 @@ $loader->registerClasses([
     'Middleware\Dispatch'  => MIDDLEWARE_DIR . 'Dispatch.php',
     'Middleware\Ajax'      => MIDDLEWARE_DIR . 'Ajax.php',
     "Dashboard"            => CONTROLLERS_DIR . "dashboard/",
-    "Api\V1"               => CONTROLLERS_DIR . "api/v1",
+    "Api\V1"               => CONTROLLERS_DIR . "api/v1/",
     'Phalcon'              => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/',
 ]);
 
@@ -28,9 +28,11 @@ $registerDirs = [
     MODELS_DIR,
 ];
 
-// When running unit tests, the SAPI CLI should autoload the tests folder.
+// 1: For running unit tests
+// 2: For the CLI Tasks
 if (\PHP_SAPI == 'cli') {
     $registerDirs[] = TESTS_DIR;
+    $registerDirs[] = TASKS_DIR;
 }
 
 $loader->registerDirs($registerDirs);

@@ -71,6 +71,7 @@ $constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins/';
 $constants['COMPONENTS_DIR'] = $constants['APP_DIR'] . 'components/';
 $constants['FORMS_DIR'] = $constants['APP_DIR'] . 'forms/';
 $constants['LIBRARY_DIR'] = $constants['APP_DIR'] . 'library/';
+$constants['TASKS_DIR'] = $constants['APP_DIR'] . 'tasks/';
 $constants['MIGRATIONS_DIR'] = $constants['BASE_DIR'] . 'migrations/';
 
 

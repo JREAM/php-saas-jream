@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\V1;
+namespace Api;
 
 use \User;
 use \Promotion;
 
-class TestController extends ApiBaseController
+class TestController extends ApiController
 {
 
     /**

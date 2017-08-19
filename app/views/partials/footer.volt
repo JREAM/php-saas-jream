@@ -56,6 +56,9 @@
 <script src="{{ url('vendor/jquery.waypoints.min.js') }} "></script>
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 
+<script>
+window.CSRF = "{% if tokenKey is defined %}{{ tokenKey }},{% endif %}{% if token is defined %}{{ token }}{% endif %}";
+</script>
 <!-- CDN -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 

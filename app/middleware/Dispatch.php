@@ -2,13 +2,18 @@
 
 namespace Middleware;
 
+use Phalcon\Events\Event;
+use Phalcon\Http\Request;
+use \Phalcon\DI\FactoryDefault;
+
 class Dispatch
 {
+//    protected $request;
 
     public function __construct()
     {
-        $this->di = \Phalcon\DI\FactoryDefault::getDefault();
-        $this->config = $this->di->get('config');
+        $this->di = FactoryDefault::getDefault();
+//        $this->request = new Request();
     }
 
     // -------------------------------------------------------------
@@ -20,8 +25,11 @@ class Dispatch
      *
      * @return void
      */
-    public function beforeExecuteRoute(\Phalcon\Events\Event $dispatcher)
+    public function beforeExecuteRoute(Event $dispatcher)
     {
+        // --------------------------------------------------------------
+        // Handle Session/Form Data
+        // --------------------------------------------------------------
         if (!isset($_SESSION)) {
             return;
         }

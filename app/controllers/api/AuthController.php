@@ -1,10 +1,10 @@
 <?php
 
-namespace Api\V1;
+namespace Api;
 
 use \User;
 
-class AuthController extends ApiBaseController
+class AuthController extends ApiController
 {
 
     /**

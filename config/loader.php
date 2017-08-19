@@ -14,9 +14,8 @@ $loader->registerClasses([
     'Component\Cookies'    => COMPONENTS_DIR . 'Cookies.php',
     'Middleware\Database'  => MIDDLEWARE_DIR . 'Database.php',
     'Middleware\Dispatch'  => MIDDLEWARE_DIR . 'Dispatch.php',
-    'Middleware\Ajax'      => MIDDLEWARE_DIR . 'Ajax.php',
     "Dashboard"            => CONTROLLERS_DIR . "dashboard/",
-    "Api\V1"               => CONTROLLERS_DIR . "api/v1/",
+    "Api"                  => CONTROLLERS_DIR . "api/",
     'Phalcon'              => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/',
 ]);
 

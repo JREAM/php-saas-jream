@@ -118,7 +118,6 @@ $di->setShared('dispatcher', function() use ($di) {
 
     $eventsManager = $di->getShared('eventsManager');
     // Database Middleware is under the Ajax DI Definition
-    $eventsManager->attach('ajax', new Middleware\Ajax());
     $eventsManager->attach('dispatch', new Middleware\Dispatch());
     $eventsManager->attach('permission', new Component\Permission());
 
@@ -127,6 +126,7 @@ $di->setShared('dispatcher', function() use ($di) {
     // Events Manager Attached
     // -----------------------------------
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
+
     $dispatcher->setEventsManager($eventsManager);
     return $dispatcher;
 });
@@ -426,7 +426,7 @@ $di->setShared('mailchimp', function() use ($api) {
 
 // Set a default dependency injection container
 // to be obtained into static methods
-//\Phalcon\Di::setDefault($di);
+\Phalcon\Di::setDefault($di);
 //\Phalcon\Di::getDefault();
 
 // End of File

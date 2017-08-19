@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\V1;
+namespace Api;
 
 use \User;
 use \NewsletterSubscribe;
 
-class AuthController extends ApiBaseController
+class NewsletterController extends ApiController
 {
 
     /**

@@ -1,5 +1,6 @@
 window._ = require("lodash");
 
+window.CSRF = 'overwriteme';
 /**
  * =======================================================================
  * Load Dependencies
@@ -14,13 +15,35 @@ try {
 
 /**
  * =======================================================================
- * CSRF: jQuery - This will go to middleware
+ * CSRF: jQuery - This will go to API Controller, Event Handler
  * -----------------------------------------------------------------------
  */
+
 $.ajaxSetup({
-  headers: {
-    "X-CSRF-TOKEN": $("meta[name=\"csrf-token\"]").attr("content")
-  }
+  dataType: 'json',
+  cache: false,
+});
+
+
+$(() => {
+
+  $(document).ajaxStart(function(evt) {
+    "use strict";
+
+  });
+
+  // Globally Handles XHR and applies CSRF token if one exists.
+  $(document).ajaxComplete(function (evt, xhr, req) {
+    "use strict";
+    // ECMA6, if Object Property Exists "csrf"
+    if (!!xhr.responseJSON.csrf) {
+      // Separated by a COMMA, Key => Token, make sure to split.
+      window.csrf = `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`;
+      $("meta[name=\"csrf-token\"]").attr("content", `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`);
+      var z = $("meta[name=\"csrf-token\"]").attr("content");
+      console.log(z);
+    }
+  });
 });
 
 /**

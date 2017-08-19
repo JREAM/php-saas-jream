@@ -21,6 +21,14 @@ class TestController extends \BaseController
         $this->view->pick('test/ajax');
     }
 
+    public function routeAction() {
+//        echo '<pre>';
+//        $r = $this->router->getRoutes();
+//        print_r($r);
+        die;
+
+    }
+
     public function indexAction()
     {
         $SNS_ARN = [

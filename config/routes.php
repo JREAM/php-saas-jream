@@ -75,22 +75,27 @@ $router->add('/dashboard', [
 ])
 ->setName('dashboard');
 
-
 /**
  * ==============================================================
  * API Routes
  * =============================================================
  */
+
 $router->add('/api/:controller/:action/:params', [
-    'namespace'  => 'Api\V1',
+    'namespace'  => 'Api',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
-$router->add('/api/:controller/', [
-    'namespace'  => 'Api\V1',
+$router->add('/api/:controller', [
+    'namespace'  => 'Api',
     'controller' => 1,
+]);
+
+$router->add('/api', [
+    'namespace'  => 'Api',
+    'controller' => 'api',
 ])
 ->setName('api');
 

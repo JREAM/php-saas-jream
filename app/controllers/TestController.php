@@ -21,10 +21,6 @@ class TestController extends \BaseController
         $this->view->pick('test/ajax');
     }
 
-
-
-
-
     public function indexAction()
     {
         $SNS_ARN = [

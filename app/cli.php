@@ -39,6 +39,7 @@ require_once __DIR__ . '/../config/constants.php';
 require_once CONFIG_DIR . '/loader.php';
 require_once CONFIG_DIR . '/config.php';
 require_once CONFIG_DIR . '/api.php';
+require_once APP_DIR . '/functions.php';
 
 // Using the CLI factory default services container
 $di = new CliDI();

@@ -43,7 +43,6 @@ $di->set('cookies', function () {
  */
 $di->setShared('session', function () {
     $session = new \Phalcon\Session\Adapter\Files();
-
     $session->start();
     return $session;
 });
@@ -118,7 +117,7 @@ $di->setShared('url', function () use ($config) {
 $di->setShared('dispatcher', function() use ($di) {
 
     $eventsManager = $di->getShared('eventsManager');
-    // Database Middleware is under the DB DI Definition
+    // Database Middleware is under the Ajax DI Definition
     $eventsManager->attach('ajax', new Middleware\Ajax());
     $eventsManager->attach('dispatch', new Middleware\Dispatch());
     $eventsManager->attach('permission', new Component\Permission());

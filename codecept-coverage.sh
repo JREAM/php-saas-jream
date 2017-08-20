@@ -9,7 +9,7 @@
 
 
 #echo "XDebug is needed to generate coverage reports"
-./vendor/bin/codecept run functional
+./vendor/bin/codecept run --coverage --coverage-html
 
 #codecept run --steps
 #codecept run --steps --coverage

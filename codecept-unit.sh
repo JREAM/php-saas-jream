@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo "XDebug is needed to generate coverage reports"
-./vendor/bin/codecept run unit --coverage --coverage-html
+./vendor/bin/codecept run unit

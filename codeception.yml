@@ -4,10 +4,21 @@ paths:
   data: tests/_data
   support: tests/_support
   envs: tests/_envs
+
+
 actor_suffix: Tester
+
+
 extensions:
   enabled:
       - Codeception\Extension\RunFailed
+
+
+settings:
+  bootstrap: _bootstrap.php
+  memory_limit: 1024M
+
+
 coverage:
   enabled: true
   low_limit: 30
@@ -15,6 +26,8 @@ coverage:
   include:
     - app/controllers
     - app/models
+
+
 modules:
   config:
     Db:

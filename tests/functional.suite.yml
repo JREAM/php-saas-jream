@@ -14,4 +14,3 @@ modules:
             bootstrap: config/functional-bootstrap.php
             cleanup: true
             savepoints: true
-error_level: "E_ALL & ~E_STRICT & ~E_DEPRECATED"

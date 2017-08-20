@@ -48,6 +48,9 @@ $api = include CONFIG_DIR . "api.php";
  */
 include CONFIG_DIR . "loader.php";
 
+$x=$loader->getDirs();
+print_r($x);
+die;
 
 /**
  * ==============================================================

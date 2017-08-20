@@ -2,7 +2,6 @@
 
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
-use Library\GenericResult as R;
 
 class ProductThreadReply extends BaseModel
 {

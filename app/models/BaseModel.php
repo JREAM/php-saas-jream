@@ -147,6 +147,34 @@ class BaseModel extends \Phalcon\Mvc\Model
     }
 
     // --------------------------------------------------------------
+
+    /**
+     * Return a Generic Result from custom Model Functions to use the same format.
+     *
+     * @param int    $result    True/False as an integer, it is forced so 2 will be 1 as in true. 0 for false.
+     * @param string $msg       String of error or success
+     * @param null   $data      Can be any type of data
+     *
+     * @return \stdClass
+     */
+    protected function out(integer $result, string $msg = '', $data = null) : stdClass
+    {
+        $output = new \stdClass();
+        $output->data = $data;
+
+        if ($result) {
+            $output->result = 1;
+            $output->msg = $msg;
+        } else {
+            $output->result = 0;
+            $output->msg = $msg;
+        }
+
+        return $output;
+    }
+
+    // --------------------------------------------------------------
+
 }
 
 trait TimeStamp

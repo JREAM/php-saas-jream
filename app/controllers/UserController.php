@@ -69,8 +69,8 @@ class UserController extends \BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $user = new User();
-        $result = $user->doLogin($email, $password);
+//        $user = new User();
+//        $result = $user->doLogin($email, $password);
 
         if ($result) {
             return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);

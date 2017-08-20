@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Library\GenericResult as R;
 
 class Transaction extends BaseModel
 {

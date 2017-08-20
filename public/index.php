@@ -37,13 +37,9 @@ try {
 
 
 /**
- * Load the Config Constants for everything
+ * Load the Constants
  * =============================================================
  */
-if (!file_exists(dirname(__DIR__) . '/.env')) {
-    die ("Environment File Required.");
-}
-
 // Configuration Overwrite Inclusion
 // @important This must come first!
 require dirname(__DIR__) . '/config/constants.php';
@@ -57,26 +53,6 @@ require dirname(__DIR__) . '/config/constants.php';
 if (!is_writable(CACHE_DIR)) {
     die('Cache dir is not writable.');
 }
-
-
-/**
- * ==============================================================
- * Error Reporting
- *
- * @important: Load AFTER constants
- * =============================================================
- */
-error_reporting(E_ALL); // Log all errors
-
-/**
- * ==============================================================
- * Timezone (Always UTC)
- *
- * @important: Load AFTER constants
- * =============================================================
- */
-date_default_timezone_set(DEFAULT_TIMEZONE);
-
 
 /**
  * ==============================================================

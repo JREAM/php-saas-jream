@@ -101,30 +101,6 @@ $router->add('/api', [
 
 /**
  * ==============================================================
- * Admin Routes
- * =============================================================
- */
-$router->add('/admin/:controller/:action/:params', [
-    'namespace'  => 'Admin',
-    'controller' => 1,
-    'action'     => 2,
-    'params'     => 3,
-]);
-
-$router->add('/admin/:controller', [
-    'namespace'  => 'Admin',
-    'controller' => 1,
-]);
-
-$router->add('/admin', [
-    'namespace'  => 'Admin',
-    'controller' => 'admin',
-])
-->setName('admin');
-
-
-/**
- * ==============================================================
  * Old Routes ___
  * =============================================================
  */

@@ -36,6 +36,7 @@ class BaseModel extends \Phalcon\Mvc\Model
     {
         $this->di = \Phalcon\DI\FactoryDefault::getDefault();
         $this->session = $this->di->get('session');
+        $this->security = $this->di->get('security');
 
         // Make accessible to all models
         $this->config = $this->di->get('config');

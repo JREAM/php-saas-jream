@@ -174,6 +174,8 @@ class ProductController extends \BaseController
             $error = 'There is no preview for this course, please purchase at the product area.';
         }
 
+        Tag::setTitle(formatName($productCourse->name) . ' | Product Preview | ' . $this->di['config']['title']);
+
         $this->view->setVars([
             'rtmpSignedUrl' => $rtmpSignedUrl,
             'error'         => $error,

@@ -2,6 +2,7 @@
 
 use \Phalcon\Mvc\Model\Behavior\SoftDelete;
 use \Phalcon\Mvc\Model\Validator;
+use Library\GenericResult as R;
 
 class User extends BaseModel
 {

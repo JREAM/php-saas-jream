@@ -4,15 +4,14 @@
 # Emulate web requests and make application process them
 # Include one of framework modules (Symfony2, Yii2, Laravel5) to use it
 # Remove this suite if you don't use frameworks
-
-actor: FunctionalTester
+class_name: FunctionalTester
 modules:
     enabled:
+        # add framework module here
+        - Helper\Functional
+        - Asserts
         - Phalcon:
-            bootstrap: 'config/functional-bootstrap.php'
-             cleanup: true
-             savepoints: true
-        - \Helper\Functional
-        - WebDriver:
-            url: http://jream.local
-            browser: phantomjs
+            bootstrap: config/functional-bootstrap.php
+            cleanup: true
+            savepoints: true
+error_level: "E_ALL & ~E_STRICT & ~E_DEPRECATED"

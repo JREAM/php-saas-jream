@@ -18,6 +18,8 @@ class TestController extends \BaseController
     // calls the API
     public function ajaxAction()
     {
+        echo $this->security->hash('efixir');
+        die;
         $this->view->pick('test/ajax');
     }
 

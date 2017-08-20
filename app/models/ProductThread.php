@@ -1,7 +1,8 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\StringLength,
-    Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Phalcon\Mvc\Model\Validator\StringLength;
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Library\GenericResult as R;
 
 class ProductThread extends BaseModel
 {

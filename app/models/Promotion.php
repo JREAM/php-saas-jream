@@ -1,7 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
-use use Library\GenericResult as R;
+use Library\GenericResult as R;
 
 class Promotion extends BaseModel
 {
@@ -169,6 +169,3 @@ class Promotion extends BaseModel
 
     // --------------------------------------------------------------
 }
-
-// End of File
-// --------------------------------------------------------------

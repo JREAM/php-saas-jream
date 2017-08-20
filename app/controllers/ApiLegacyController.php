@@ -173,6 +173,3 @@ class ApiLegacyController extends \BaseController
         exit;
     }
 }
-
-// End of File
-// --------------------------------------------------------------

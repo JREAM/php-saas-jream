@@ -21,9 +21,9 @@ class Permission extends \Phalcon\Mvc\User\Component
      * Constants to prevent a typo
      */
     const GUEST = 'guest';
-    const USER = 'user';
+    const USER  = 'user';
     const ADMIN = 'admin';
-    const BOT = 'bot'; // (For Testing Acceptance/Functional)
+    const BOT   = 'bot'; // (For Testing Acceptance/Functional)
 
     // -------------------------------------------------------------
 
@@ -67,7 +67,7 @@ class Permission extends \Phalcon\Mvc\User\Component
      * @var array
      */
     protected $_adminResources = [
-        'admin'        => ['*']
+        'admin' => ['*'],
     ];
 
     // ------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class Permission extends \Phalcon\Mvc\User\Component
 
         // Get the current Controller/Action from the Dispatcher
         $controller = $dispatcher->getControllerName();
-        $action = $dispatcher->getActionName();
+        $action     = $dispatcher->getActionName();
 
         // Get the ACL Rule List
         $acl = $this->_getACL();
@@ -220,5 +220,3 @@ class Permission extends \Phalcon\Mvc\User\Component
 
 }
 
-// End of File
-// --------------------------------------------------------------

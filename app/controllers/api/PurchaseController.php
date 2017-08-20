@@ -304,6 +304,3 @@ class PurchaseController extends ApiController
         # code...
     }
 }
-
-// End of File
-// --------------------------------------------------------------

@@ -97,6 +97,3 @@ class PromotionController extends \BaseController
         $items = $this->input->post('item');
     }
 }
-
-// End of File
-// --------------------------------------------------------------

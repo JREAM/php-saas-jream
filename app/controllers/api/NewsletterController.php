@@ -84,6 +84,3 @@ class NewsletterController extends ApiController
         return false;
     }
 }
-
-// End of File
-// --------------------------------------------------------------

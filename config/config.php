@@ -63,6 +63,3 @@ $config = new \Phalcon\Config([
 ]);
 
 return $config;
-
-// End of File
-// --------------------------------------------------------------

@@ -112,6 +112,3 @@ $router ->add('/forum', ['controller' => 'product'])
 
 
 return $router;
-
-// End of File
-// --------------------------------------------------------------

@@ -428,6 +428,3 @@ $di->setShared('mailchimp', function() use ($api) {
 // to be obtained into static methods
 \Phalcon\Di::setDefault($di);
 //\Phalcon\Di::getDefault();
-
-// End of File
-// --------------------------------------------------------------------

@@ -37,6 +37,3 @@ if (\PHP_SAPI == 'cli') {
 $loader->registerDirs($registerDirs);
 
 $loader->register();
-
-// End of File
-// --------------------------------------------------------------

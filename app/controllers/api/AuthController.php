@@ -85,6 +85,3 @@ class AuthController extends ApiController
     {
     }
 }
-
-// End of File
-// --------------------------------------------------------------

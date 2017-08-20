@@ -12,10 +12,8 @@ class BaseController extends \Phalcon\Mvc\Controller
     public function initialize()
     {
         getBaseUrl('/');
-        if ($this->session->has('agent'))
-        {
-            if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT'])
-            {
+        if ($this->session->has('agent')) {
+            if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT']) {
                 $this->flash->error('Please re-login. For your security, we\'ve detected you\'re using a different browser.');
                 $this->response->redirect("user/login");
             }
@@ -26,7 +24,8 @@ class BaseController extends \Phalcon\Mvc\Controller
         // $this->_observeActiveSession();
     }
 
-    public function onConstruct() {
+    public function onConstruct()
+    {
         // This has a bug duplicating the title
         // Tag::setTitleSeparator(' / ');
         // Tag::appendTitle($this->di['config']['title']);
@@ -38,13 +37,11 @@ class BaseController extends \Phalcon\Mvc\Controller
     {
         $this->view->system->info_display = false;
 
-        if ($this->view->system->info_display)
-        {
+        if ($this->view->system->info_display) {
             $dt = new \DateTime('now', new \DateTimeZone('America/New_York'));
             $this->view->system->info_date = $dt->format('M jS - g:ia') . ' EST';
             $this->view->system->info_message = "The facebook login SDK is currently being worked on.";
         }
-
     }
 
     // --------------------------------------------------------------
@@ -65,18 +62,15 @@ class BaseController extends \Phalcon\Mvc\Controller
             return false;
         }
 
-        if ($user->session_id != $this->session->getId())
-        {
+        if ($user->session_id != $this->session->getId()) {
             $this->session->destroy();
-            if ($this->session->has('facebook_id'))
-            {
+            if ($this->session->has('facebook_id')) {
                 $this->facebook->destroySession();
             }
 
             $this->flash->success('This account is logged in elsewhere. You have been logged out.');
             return $this->redirect('user/login');
         }
-
     }
 
     // --------------------------------------------------------------
@@ -138,8 +132,8 @@ class BaseController extends \Phalcon\Mvc\Controller
     public function createSession(\User $user, $additional = [], $remember_me = false)
     {
         // Clear the login attempts
-        $user->login_attempt    = NULL;
-        $user->login_attempt_at = NULL;
+        $user->login_attempt    = null;
+        $user->login_attempt_at = null;
 
         $this->session->set('id', $user->id);
         $this->session->set('role', $user->role);
@@ -151,8 +145,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             $this->session->set('timezone', 'utc');
         }
 
-        if (is_array($additional))
-        {
+        if (is_array($additional)) {
             foreach ($additional as $_key => $_value) {
                 $this->session->set($_key, $_value);
             }
@@ -178,8 +171,7 @@ class BaseController extends \Phalcon\Mvc\Controller
     public function destroySession()
     {
 
-        if ($this->session->has('facebook_id'))
-        {
+        if ($this->session->has('facebook_id')) {
             $this->session->destroy();
             $this->facebook->destroySession();
             $this->facebook->setAccessToken('');
@@ -190,7 +182,6 @@ class BaseController extends \Phalcon\Mvc\Controller
     }
 
     // --------------------------------------------------------------
-
 }
 
 
@@ -279,17 +270,12 @@ class Batch
 
         // Build the Flat Value Array
         $valueList = [];
-        foreach ($values as $value)
-        {
-            if (is_array($value))
-            {
-                foreach ($value as $v)
-                {
+        foreach ($values as $value) {
+            if (is_array($value)) {
+                foreach ($value as $v) {
                     $valueList[] = $v;
                 }
-            }
-            else
-            {
+            } else {
                 $valueList[] = $values;
             }
         }
@@ -319,10 +305,11 @@ class Batch
             $insertString = "INSERT INTO `%s` (%s) VALUES %s";
         }
 
-        $query = sprintf($insertString,
-                         $this->table,
-                         $this->rowsString,
-                         $this->bindString
+        $query = sprintf(
+            $insertString,
+            $this->table,
+            $this->rowsString,
+            $this->bindString
         );
 
         $this->db->execute($query, $this->valuesFlattened);
@@ -355,7 +342,6 @@ class Batch
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

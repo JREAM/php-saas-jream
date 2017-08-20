@@ -45,7 +45,6 @@ class ContactController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

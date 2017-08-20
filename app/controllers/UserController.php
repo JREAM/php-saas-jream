@@ -140,7 +140,6 @@ class UserController extends \BaseController
     {
 //        $auth_url = $google_auth->createAuthUrl();
 //        $google_auth->setRedirectUri();
-
     }
 
     // --------------------------------------------------------------
@@ -777,7 +776,6 @@ class UserController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 // End of File
 // --------------------------------------------------------------

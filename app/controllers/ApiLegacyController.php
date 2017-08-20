@@ -66,7 +66,8 @@ class ApiLegacyController extends \BaseController
             CURLOPT_URL => "https://www.google.com/recaptcha/api/siteverify",
             CURLOPT_POSTFIELDS => '',
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => sprintf("secret=%s&response=%s",
+            CURLOPT_POSTFIELDS => sprintf(
+                "secret=%s&response=%s",
                 getenv('GOOGLE_RECAPTCHA_SECRET'),
                 $recaptcha
             ),
@@ -171,7 +172,6 @@ class ApiLegacyController extends \BaseController
         echo json_encode('Fake Output for Testing');
         exit;
     }
-
 }
 
 // End of File

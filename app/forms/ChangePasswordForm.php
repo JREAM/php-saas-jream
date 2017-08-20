@@ -34,7 +34,6 @@ class ChangePasswordForm extends \Phalcon\Forms\Form
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

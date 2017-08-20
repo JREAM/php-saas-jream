@@ -37,8 +37,7 @@ class PromotionController extends \BaseController
         // If there are no promotions
         if ($promotions->count() < 1) {
             $has_promotion = false;
-        }
-        else {
+        } else {
             // $promotion = $promotion->filter(function($promo) {
             //     if (is_int($promo->use_limit) && $promo->use_count >= $promot->use_limit) {
             //         return false;
@@ -96,9 +95,7 @@ class PromotionController extends \BaseController
 
         // Array of Items
         $items = $this->input->post('item');
-
     }
-
 }
 
 // End of File

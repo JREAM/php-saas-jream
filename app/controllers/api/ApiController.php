@@ -37,7 +37,6 @@ class ApiController extends \Phalcon\Mvc\Controller
             if (!$this->security->checkToken($tokenKey, $token)) {
                 return $this->output(0, 'Invalid CSRF Token.');
             }
-
         }
     }
 
@@ -88,7 +87,6 @@ class ApiController extends \Phalcon\Mvc\Controller
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

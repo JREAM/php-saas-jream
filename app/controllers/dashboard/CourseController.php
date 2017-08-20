@@ -206,11 +206,9 @@ class CourseController extends \BaseController
             $this->output(0, $userAction->getMessagesString());
             return false;
         }
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

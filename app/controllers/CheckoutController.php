@@ -1,7 +1,7 @@
 <?php
 
-use \Phalcon\Tag,
-    \Omnipay\Omnipay;
+use \Phalcon\Tag;
+use \Omnipay\Omnipay;
 
 class CheckoutController extends \BaseController
 {
@@ -21,7 +21,7 @@ class CheckoutController extends \BaseController
         Tag::setTitle('Checkout | ' . $this->di['config']['title']);
 
         // Stripe
-        \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
+        \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET'));
 
         // Paypal Express
         $this->paypal = $this->di->get('paypal');
@@ -374,21 +374,15 @@ class CheckoutController extends \BaseController
             $this->flash->success("
             Course addition: {$product->title} was successful!
             However, there was a problem sending an email to: " . $user->getEmail() . " -
-            Don't worry! The course is in your account!"
-            );
+            Don't worry! The course is in your account!");
         } else {
             $this->flash->success("
             Course addition: {$product->title} was successful!
-            Your should receive an email confirmation shortly to: " . $user->getEmail()
-            );
-
+            Your should receive an email confirmation shortly to: " . $user->getEmail());
         }
-
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

@@ -62,7 +62,6 @@ class DashboardController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

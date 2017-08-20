@@ -46,7 +46,6 @@ class UserReferrer extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

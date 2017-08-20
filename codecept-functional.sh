@@ -7,8 +7,9 @@
 # Create New:
 # codecept g:cest acceptance User
 
-codecept run
+
+echo "XDebug is needed to generate coverage reports"
+./vendor/bin/codecept codecept run --coverage --coverage-html
 
 #codecept run --steps
-
 #codecept run --steps --coverage

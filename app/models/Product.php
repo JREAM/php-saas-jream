@@ -187,8 +187,6 @@ class Product extends BaseModel
                 $promotion_result->error;
             }
         }
-
-
     }
 
     // --------------------------------------------------------------
@@ -279,7 +277,7 @@ class Product extends BaseModel
 
     protected function _paypalConfirm()
     {
-       $product = \Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product) {
             $this->flash->error('Could not complete your transaction. The productId is invalid.');
 
@@ -411,14 +409,11 @@ class Product extends BaseModel
             $this->flash->success("
             Course addition: {$product->title} was successful!
             However, there was a problem sending an email to: " . $user->getEmail() . " -
-            Don't worry! The course is in your account!"
-            );
+            Don't worry! The course is in your account!");
         } else {
             $this->flash->success("
             Course addition: {$product->title} was successful!
-            Your should receive an email confirmation shortly to: " . $user->getEmail()
-            );
-
+            Your should receive an email confirmation shortly to: " . $user->getEmail());
         }
     }
 }

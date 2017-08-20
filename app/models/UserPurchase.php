@@ -55,7 +55,6 @@ class UserPurchase extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

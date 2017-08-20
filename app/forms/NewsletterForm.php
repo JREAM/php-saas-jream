@@ -28,11 +28,9 @@ class NewsletterForm extends \Phalcon\Forms\Form
             'value' => 'Subscribe',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

@@ -37,7 +37,7 @@ class CronTask extends Task
 
             // @TODO Need newsletter ID, I can probably pass in the commonHeaders
             // @TODO Need to make Crontab and ensure its always running
-            switch($result->notificationType) {
+            switch ($result->notificationType) {
                 case 'Bounce':
                     $result->bounce->bounceType; // Permanent, Temporary?
                     $result->bounce->bounceSubType; // Abuse, General

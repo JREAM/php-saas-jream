@@ -104,12 +104,11 @@ class NewsletterController extends \BaseController
         $newsletter = Newsletter::findFirstByVerifyKey($token);
 
         // If Key Not Found
-        if ( ! $newletter ) {
+        if (! $newletter) {
             $this->view->setVars([
                 'result' => 'Oops! Your verification token could not be found! Are you sure you registered for the newsletter?'
             ]);
-        }
-        else {
+        } else {
             $newletter->verified = 1;
             $newletter->updated_at = getDateTime();
         }
@@ -128,7 +127,6 @@ class NewsletterController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

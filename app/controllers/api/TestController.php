@@ -22,7 +22,6 @@ class TestController extends ApiController
     {
         return $this->output(1, 'This works, maybe?');
     }
-
 }
 
 // End of File

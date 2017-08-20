@@ -56,7 +56,6 @@ class ContactForm extends \Phalcon\Forms\Form
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

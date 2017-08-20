@@ -48,7 +48,6 @@ class YoutubeController extends \BaseController
 
         $this->view->pick("dashboard/youtube");
     }
-
 }
 
 // End of File

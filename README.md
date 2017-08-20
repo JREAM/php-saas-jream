@@ -1,47 +1,49 @@
 # JREAM 7.0 
 This is the website of JREAM LLC for streaming media and training courses SASS.
-
-##TODO
-
-- Middleware CSRF Token.
-- HLS with HTML5 through RMTP.
-- Check Promotion for Expiration, ONLY IF THEY APPLY IT
-- Make URL so promotion can trigger in a cookie and stay alive.
-- Test out the pricing with the percentages!
-- Test out the pricing with the price~
-- eg:
-  - Promotions Table has no product_id and no user_id, it applies to ALL users globally.
-  - Promotions Table has two records with product_id, it applies ONLY to those products
-  - Promotion ALWAYS checks DELETED_AT, and EXPIRES_AT before doing anything.
-- This will apply to the STANDARD promo code page (regular check)
-- This will apply to the new checkout page.
-
-
-# JREAM
 (C) 2017 JREAM LLC.
 
 JREAM (Jesus Rules Everything Around Me) is a website for streaming videos I've made over the years.
 The system is built to serve people content on the fly after they purchase a product. Reliablity
 is important since JREAM LLC provides a serve. To solve this, AWS is utilized for fall-back servers, Redundant Storage, Geolocalized CDN, and Multi A-Z DB.
 
+##TODO
+
+- [ ] (Skip) Middleware CSRF Token.
+- [ ] HLS with HTML5 through RMTP.
+- [ ] Check Promotion for Expiration, ONLY IF THEY APPLY IT
+- [ ] Make URL so promotion can trigger in a cookie and stay alive.
+- [ ] Test out the pricing with the percentages!
+- [ ] Test out the pricing with the price~
+- eg:
+  - [ ] Promotions Table has no product_id and no user_id, it applies to ALL users globally.
+  - [ ] Promotions Table has two records with product_id, it applies ONLY to those products
+  - [ ] Promotion ALWAYS checks DELETED_AT, and EXPIRES_AT before doing anything.
+- [ ] This will apply to the STANDARD promo code page (regular check)
+- [ ] This will apply to the new checkout page.
+
 
 #### Using Codeception
 From the root folder (Where you can see `/vendor/`) run:
 
-    $ vendor/bin/codecept run
+```sh
+vendor/bin/codecept run
+```
 
 ### Server Cache
 
 Make sure the application/cache folder is writable.
 
-    $ chown -R www-data:www-data /var/www/jream.com
-    $ usermod -a -G www-data jesse
-    $ chmod 770 -R /var/www/jream.com
+```sh
+chown -R www-data:www-data /var/www/jream.com
+usermod -a -G www-data jesse
+chmod 770 -R /var/www/jream.com
+```
 
 ### Test Credentials
 
-    Paypal Test:
-    aniyishay-facilitator@gmail.com
+```
+Paypal Test: aniyishay-facilitator@gmail.com
+```
 
 ## Apache Configuration
 

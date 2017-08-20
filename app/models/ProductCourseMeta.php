@@ -36,7 +36,6 @@ class ProductCourseMeta extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

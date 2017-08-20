@@ -82,7 +82,7 @@ class ProductCourse extends BaseModel
      *
      * @return obj|int
      */
-    private function _getSingleCourse(string $nextOrPrev='next', int $product_id, int $section, int $course)
+    private function _getSingleCourse(string $nextOrPrev = 'next', int $product_id, int $section, int $course)
     {
 
         if (!in_array($nextOrPrev, ['next', 'prev'])) {
@@ -142,7 +142,6 @@ class ProductCourse extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

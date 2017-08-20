@@ -62,7 +62,6 @@ class RegisterForm extends \Phalcon\Forms\Form
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

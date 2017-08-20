@@ -41,11 +41,9 @@ class LoginForm extends \Phalcon\Forms\Form
             'value' => 'Login',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

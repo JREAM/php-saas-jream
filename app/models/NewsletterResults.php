@@ -53,7 +53,6 @@ class NewsletterResults extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

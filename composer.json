@@ -1,8 +1,24 @@
 {
+    "name": "jream/jream.com",
+    "type": "project",
+    "description": "JREAM Website - Phalcon Application.",
+    "keywords": [
+        "phalcon",
+        "jream"
+    ],
+    "homepage": "https://jream.com",
+    "license": "Copyright JREAM LLC",
+    "authors": [
+        {
+            "name": "Jesse Boyer",
+            "email": "hello@jream.com",
+            "homepage": "https://jream.com"
+        }
+    ],
     "require": {
         "phalcon/incubator": "^v3.2",
         "guzzlehttp/guzzle": "^6.3",
-        "aws/aws-sdk-php": "^3.32",
+        "aws/aws-sdk-php": "^3.33",
         "swiftmailer/swiftmailer": "^5.4",
         "stripe/stripe-php": "^v3.23",
         "omnipay/common": "^2.5",
@@ -19,14 +35,14 @@
         "php-http/guzzle6-adapter": "^1.1",
         "sparkpost/sparkpost": "^2.1",
         "google/auth": "^1.0",
-        "phalcon/ide-stubs": "^3.2",
-        "aws/aws-php-sns-message-validator": "^1.2"
+        "php": ">=7.0",
+        "ext-phalcon": ">=3.2"
     },
     "require-dev": {
         "codeception/codeception": "^2.3",
-        "phpunit/phpunit": "^5.7",
         "codeception/specify": "^0.4.6",
         "codeception/verify": "^0.4.0",
-        "symfony/phpunit-bridge": "^3.3"
+        "phalcon/ide-stubs": "^3.2",
+        "squizlabs/php_codesniffer": "^2.9"
     }
 }

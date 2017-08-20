@@ -90,7 +90,6 @@ class IndexController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

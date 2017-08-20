@@ -83,9 +83,9 @@ class User extends BaseModel
 
         if ($this->email) {
             return $this->email;
-        } else if ($this->facebook_email) {
+        } elseif ($this->facebook_email) {
             return $this->facebook_email;
-        } else if ($this->google_email) {
+        } elseif ($this->google_email) {
             $this->google_email;
         }
 
@@ -109,9 +109,9 @@ class User extends BaseModel
 
         if ($this->alias) {
             return $this->alias;
-        } else if ($this->facebook_alias) {
+        } elseif ($this->facebook_alias) {
             return $this->facebook_alias;
-        } else if ($this->google_alias) {
+        } elseif ($this->google_alias) {
             return $this->google_alias;
         }
 
@@ -251,7 +251,6 @@ class User extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

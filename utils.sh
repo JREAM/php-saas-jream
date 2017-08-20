@@ -14,6 +14,8 @@ while true; do
     cat <<- command_list
     CMD         PROCESS
     ----        --------------------------------
+    phpcs       PHP Codesniffer (based on phpcs.xml)
+    phpcbf      PHP Codesniffer Fixer (Fixes based on phpcs.xml)
     rmcache     Removes Cache
     rmcachet    Remove Cache every 5 seconds (Infinite)
     testdb      Creates a Test Database (jream_unit_test)
@@ -28,6 +30,22 @@ echo ""
 read -p "Type a Command: " cmd
 
     case $cmd in
+        phpcs)
+          echo "( + ) Running PHP Code Sniffer"
+          ./vendor/bin/phpcs
+          echo "( + ) Finished"
+          echo ""
+          echo "====================================================================="
+          echo ""
+        ;;
+        phpcbf)
+          echo "( + ) Running PHP Code Sniffer Formatter"
+          ./vendor/bin/phpcbf
+          echo "( + ) Finished"
+          echo ""
+          echo "====================================================================="
+          echo ""
+        ;;
         rmcache)
             echo "( + ) Flushing Redis.."
             redis-cli flushall

@@ -26,7 +26,7 @@ class NewsletterController extends ApiController
         // Exists, check user table
         if ($newsletter) {
             if ($newsleter->user_id) {
-               $this->updateUserRow($newsletter->user_id, 1);
+                $this->updateUserRow($newsletter->user_id, 1);
             }
         }
 
@@ -41,7 +41,6 @@ class NewsletterController extends ApiController
         //        $this->updateUserRow($newsletter->user_id, 1);
         //     }
         // }
-
     }
 
     public function unsubscribeAction()

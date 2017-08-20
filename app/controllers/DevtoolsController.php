@@ -194,7 +194,6 @@ class DevtoolsController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

@@ -108,7 +108,6 @@ class SupportController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

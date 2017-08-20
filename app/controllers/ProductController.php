@@ -1,7 +1,7 @@
 <?php
 
-use \Phalcon\Tag,
-    \Omnipay\Omnipay;
+use \Phalcon\Tag;
+use \Omnipay\Omnipay;
 
 class ProductController extends \BaseController
 {
@@ -22,8 +22,7 @@ class ProductController extends \BaseController
         parent::initialize();
         Tag::setTitle('Products | ' . $this->di['config']['title']);
 
-        // Stripe
-        \Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
+        // Stripe key already set in services.php
 
         // Paypal Express
         $this->paypal = $this->di->get('paypal');
@@ -58,7 +57,7 @@ class ProductController extends \BaseController
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
         if (!$product) {
-            return $this->redirect(self::REDIRECT_MAIN );
+            return $this->redirect(self::REDIRECT_MAIN);
         }
 
         $discount = null;
@@ -82,7 +81,6 @@ class ProductController extends \BaseController
                 $discount_price = $product->price * ($percent_off * .1);
                 $this->session->set('discount', $percent_off);
                 $this->session->set('discount_price', $discount_price);
-
             }
         }
 
@@ -162,7 +160,7 @@ class ProductController extends \BaseController
         if (!$product || !$productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
-            return $this->redirect(self::REDIRECT_MAIN );
+            return $this->redirect(self::REDIRECT_MAIN);
         }
 
         if ($productCourse->free_preview == 1) {
@@ -271,7 +269,8 @@ class ProductController extends \BaseController
             // Only one of these apply
             if ($promo->percent_off) {
                 $promo_method = 'percent_off';
-                $promo = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
+                $promo = sprintf(
+                    "Price marked down from %s to %s at %s percent off using promotional code %s.",
                     number_format($product->price - ($product->price * $promo->percent_off), 2),
                     $promo->percent_off,
                     $promo->code
@@ -279,7 +278,8 @@ class ProductController extends \BaseController
                 $use_price = number_format($product->price - ($product->price * $promo->percent_off), 2);
             } elseif ($promo->price) {
                 $promo_method = 'price';
-                $promo = sprintf("Price marked down from %s to %s using promotional code %s.",
+                $promo = sprintf(
+                    "Price marked down from %s to %s using promotional code %s.",
                     number_format($product->price, 2),
                     number_format($promo['price'], 2),
                     $promo->code
@@ -599,21 +599,15 @@ class ProductController extends \BaseController
             $this->flash->success("
             Course addition: {$product->title} was successful!
             However, there was a problem sending an email to: " . $user->getEmail() . " -
-            Don't worry! The course is in your account!"
-            );
+            Don't worry! The course is in your account!");
         } else {
             $this->flash->success("
             Course addition: {$product->title} was successful!
-            Your should receive an email confirmation shortly to: " . $user->getEmail()
-            );
-
+            Your should receive an email confirmation shortly to: " . $user->getEmail());
         }
-
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

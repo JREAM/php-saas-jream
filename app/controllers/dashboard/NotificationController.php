@@ -33,7 +33,6 @@ class NotificationController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

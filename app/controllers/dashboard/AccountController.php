@@ -1,5 +1,6 @@
 <?php
 namespace Dashboard;
+
 use \Phalcon\Tag;
 
 class AccountController extends \BaseController
@@ -236,7 +237,6 @@ class AccountController extends \BaseController
 
         $this->flash->success('Your password has been changed.');
         return $this->redirect(self::REDIRECT_SUCCESS);
-
     }
 
     // --------------------------------------------------------------
@@ -264,7 +264,6 @@ class AccountController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

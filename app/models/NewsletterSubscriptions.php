@@ -54,7 +54,6 @@ class NewsletterSubscriptions extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

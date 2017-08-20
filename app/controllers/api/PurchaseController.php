@@ -100,7 +100,8 @@ class PurchaseController extends ApiController
             // Only one of these apply
             if ($promo->percent_off) {
                 $promo_method = 'percent_off';
-                $promo = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
+                $promo = sprintf(
+                    "Price marked down from %s to %s at %s percent off using promotional code %s.",
                     number_format($product->price - ($product->price * $promo->percent_off), 2),
                     $promo->percent_off,
                     $promo->code
@@ -108,7 +109,8 @@ class PurchaseController extends ApiController
                 $use_price = number_format($product->price - ($product->price * $promo->percent_off), 2);
             } elseif ($promo->price) {
                 $promo_method = 'price';
-                $promo = sprintf("Price marked down from %s to %s using promotional code %s.",
+                $promo = sprintf(
+                    "Price marked down from %s to %s using promotional code %s.",
                     number_format($product->price, 2),
                     number_format($promo['price'], 2),
                     $promo->code
@@ -301,7 +303,6 @@ class PurchaseController extends ApiController
     {
         # code...
     }
-
 }
 
 // End of File

@@ -77,7 +77,6 @@ class UserSupport extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

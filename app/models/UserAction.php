@@ -78,7 +78,6 @@ class UserAction extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

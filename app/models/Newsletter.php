@@ -52,8 +52,6 @@ class Newsletter extends BaseModel
     }
 
     // --------------------------------------------------------------
-
-
 }
 
 // End of File

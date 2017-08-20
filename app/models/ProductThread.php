@@ -81,7 +81,6 @@ class ProductThread extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

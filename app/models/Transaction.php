@@ -53,7 +53,6 @@ class Transaction extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

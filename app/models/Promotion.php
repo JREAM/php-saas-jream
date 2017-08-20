@@ -118,8 +118,7 @@ class Promotion extends BaseModel
         }
 
         // Only one of these apply
-        if ($result->percent_off)
-        {
+        if ($result->percent_off) {
             if ($result->percent_off <= 0 && $percent_off >= 100) {
                 return (object) [
                     'code' => 0,
@@ -129,15 +128,14 @@ class Promotion extends BaseModel
                 ];
             }
             $method = 'percent_off';
-            $success = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.",
+            $success = sprintf(
+                "Price marked down from %s to %s at %s percent off using promotional code %s.",
                 number_format($product->price - ($product->price * $result->percent_off), 2),
                 $result->percent_off,
                 $result->code
             );
             $promotional_price = number_format($product->price - ($product->price * $result->percent_off), 2);
-        }
-        elseif ($result->price)
-        {
+        } elseif ($result->price) {
             if ($result->price >= $product->price) {
                 return (object) [
                     'code' => 0,
@@ -148,7 +146,8 @@ class Promotion extends BaseModel
             }
 
             $method = 'price';
-            $success = sprintf("Price marked down from %s to %s using promotional code %s.",
+            $success = sprintf(
+                "Price marked down from %s to %s using promotional code %s.",
                 number_format($product->price, 2),
                 number_format($result['price'], 2),
                 $result->code
@@ -169,7 +168,6 @@ class Promotion extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

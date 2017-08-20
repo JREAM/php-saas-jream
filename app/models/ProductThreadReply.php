@@ -71,7 +71,6 @@ class ProductThreadReply extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

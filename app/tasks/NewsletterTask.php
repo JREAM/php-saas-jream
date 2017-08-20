@@ -48,7 +48,6 @@ class NewsletterTask extends Task
                 'Message'  => "$key / $i: Hello Test @ " . time()
             ]);
         }
-
     }
 
     /**
@@ -68,8 +67,7 @@ class NewsletterTask extends Task
         // Traversing with a while
         $users->rewind();
 
-        while ($users->valid())
-        {
+        while ($users->valid()) {
             $user = $users->current();
             $email = $user->getEmail();
 
@@ -108,10 +106,10 @@ class NewsletterTask extends Task
 
         // Create the Transport
         $transport = Swift_SmtpTransport::newInstance(
-                getenv('AWS_SES_HOST'),
-                getenv('AWS_SES_PORT'),
-                'tls'
-            )
+            getenv('AWS_SES_HOST'),
+            getenv('AWS_SES_PORT'),
+            'tls'
+        )
             ->setUsername(getenv('AWS_SES_USERNAME'))
             ->setPassword(getenv('AWS_SES_PASSWORD'));
 
@@ -129,7 +127,5 @@ class NewsletterTask extends Task
         // Send the message
         $result = $mailer->send($message);
         print_r($result);
-
     }
-
 }

@@ -42,13 +42,11 @@ class BaseForm extends \Phalcon\Forms\Form
 
             echo '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
             echo $element;
-
         }
         echo "</form>";
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

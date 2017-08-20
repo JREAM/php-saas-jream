@@ -23,12 +23,12 @@ class TestController extends \BaseController
         $this->view->pick('test/ajax');
     }
 
-    public function routeAction() {
+    public function routeAction()
+    {
 //        echo '<pre>';
 //        $r = $this->router->getRoutes();
 //        print_r($r);
         die;
-
     }
 
     public function indexAction()
@@ -95,8 +95,6 @@ class TestController extends \BaseController
             echo "<hr>";
         }
         die;
-
-
     }
 
     public function modelAction()
@@ -138,7 +136,6 @@ class TestController extends \BaseController
         $this->flash->message('formData', ['name' => 'jesse', 'age' => 25]);
         $z = $this->flash->getMessages('formData');
         print_r($z);
-
     }
 
     // --------------------------------------------------------------
@@ -157,7 +154,6 @@ class TestController extends \BaseController
                 [29, 1],
                 [30, 1],
             ])->insert();
-
     }
 
     // --------------------------------------------------------------
@@ -176,7 +172,6 @@ class TestController extends \BaseController
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

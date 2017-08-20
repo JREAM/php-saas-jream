@@ -31,7 +31,6 @@ class ForgotPasswordForm extends \Phalcon\Forms\Form
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

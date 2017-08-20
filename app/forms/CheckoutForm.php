@@ -28,11 +28,9 @@ class CheckoutForm extends \Phalcon\Forms\Form
             'value' => 'Purchase',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));
-
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

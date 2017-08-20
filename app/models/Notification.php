@@ -52,7 +52,6 @@ class Notification extends BaseModel
     }
 
     // --------------------------------------------------------------
-
 }
 
 // End of File

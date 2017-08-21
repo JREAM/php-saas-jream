@@ -16,15 +16,25 @@ class NewsletterTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\NewsletterController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testSubscribeAction()
     {
-//        $this->assertEquals($this->user->getSource(), 'user');
+//        $t = $this->controller->subscribeAction();
+    }
+
+    public function testUnsubscribeAction()
+    {
+//        $t = $this->controller->unsubscribeAction();
+    }
+
+    public function testVerifyAction()
+    {
+//        $t = $this->controller->verifyAction();
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
-use \Phalcon\Tag;
+namespace App\Controllers;
+
+use Phalcon\Tag;
+use App\Models\Product;
 
 /**
  * @RoutePrefix("/")
  */
-class IndexController extends \BaseController
+class IndexController extends BaseController
 {
 
     /**
@@ -29,11 +32,11 @@ class IndexController extends \BaseController
      */
     public function indexAction()
     {
-        $products = \Product::find(["is_deleted = 0"]);
+        $products = Product::find(["is_deleted = 0"]);
 
         $this->view->setVars([
             'products' => $products,
-            'tags'     => \Product::getAllByTags(),
+            'tags'     => Product::getAllByTags(),
         ]);
 
         $this->view->pick('index/index');

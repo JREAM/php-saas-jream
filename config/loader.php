@@ -7,33 +7,34 @@
  */
 $loader = new \Phalcon\Loader();
 
+// Register some namespaces
+$loader->registerNamespaces(
+    [
+       "App\Components"    => COMPONENTS_DIR,
+       "App\Controllers"    => CONTROLLERS_DIR . "/",
+       "App\Controllers\Api"    => CONTROLLERS_DIR . "api/",
+       "App\Controllers\Dashboard"    => CONTROLLERS_DIR . "dashboard/",
+       "App\Library"    => LIBRARY_DIR . "library/",
+       "App\Forms"    => FORMS_DIR . "forms/",
+       "App\Middleware"    => MIDDLEWARE_DIR . "middleware/",
+       "App\Models"    => MODELS_DIR . "models/",
+       "App\Plugins"    => PLUGINS_DIR . "plugins/",
+       "App\Tasks"    => CONTROLLERS_DIR . "tasks/",
+    ]
+);
+
 $loader->registerClasses([
-    'Component\Permission' => COMPONENTS_DIR . 'Permission.php',
-    'Component\Helper'     => COMPONENTS_DIR . 'Helper.php',
-    'Component\Email'      => COMPONENTS_DIR . 'Email.php',
-    'Component\Cookies'    => COMPONENTS_DIR . 'Cookies.php',
-    'Middleware\Database'  => MIDDLEWARE_DIR . 'Database.php',
-    'Middleware\Dispatch'  => MIDDLEWARE_DIR . 'Dispatch.php',
-    "Dashboard"            => CONTROLLERS_DIR . "dashboard/",
-    "Api"                  => CONTROLLERS_DIR . "api/",
     'Phalcon'              => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/',
 ]);
-
-$registerDirs = [
-    CONFIG_DIR,
-    CONTROLLERS_DIR,
-    FORMS_DIR,
-    MIDDLEWARE_DIR,
-    MODELS_DIR,
-];
 
 // 1: For running unit tests
 // 2: For the CLI Tasks
 if (\PHP_SAPI == 'cli') {
-    $registerDirs[] = TESTS_DIR;
-    $registerDirs[] = TASKS_DIR;
+    $loader->registerDirs([
+        TESTS_DIR,
+        TASKS_DIR
+]   );
 }
 
-$loader->registerDirs($registerDirs);
 
 $loader->register();

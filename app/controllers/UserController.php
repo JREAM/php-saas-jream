@@ -1,11 +1,19 @@
 <?php
 
-use \Phalcon\Tag;
+namespace App\Controllers;
+
+use Swift_Validate;
+use Phalcon\Tag;
+use App\ModelsUser;
+use App\Forms\LoginForm;
+use App\Forms\RegisterForm;
+use App\Forms\ForgotPasswordForm;
+use App\Models\NewsletterSubscription;
 
 /**
  * @RoutePrefix("/user")
  */
-class UserController extends \BaseController
+class UserController extends BaseController
 {
     const LOGIN_REDIRECT_SUCCESS = 'dashboard';
     const LOGIN_REDIRECT_FAILURE = 'user/login';
@@ -47,7 +55,7 @@ class UserController extends \BaseController
         Tag::setTitle('Login | ' . $this->di['config']['title']);
 
         $this->view->setVars([
-            'form'       => new \LoginForm(),
+            'form'       => new LoginForm(),
             'fbLoginUrl' => $this->_getFacebookLoginUrl(),
 //            'googleLogin' => $this->google_auth->createAuthUrl(),
             'tokenKey'   => $this->security->getTokenKey(),
@@ -219,9 +227,9 @@ class UserController extends \BaseController
         }
         $facebookName = $first_name . ' ' . $last_initial;
 
-        $user = \User::findFirstByFacebookId($facebookId);
+        $user = User::findFirstByFacebookId($facebookId);
         if (!$user) {
-            $user = new \User();
+            $user = new User();
             $user->role = 'user';
             $user->account_type = 'fb';
             $user->facebook_id = $facebookId;
@@ -337,7 +345,7 @@ class UserController extends \BaseController
         // ---------------------------
 
         $this->view->setVars([
-            'form'       => new \RegisterForm(),
+            'form'       => new RegisterForm(),
             'fbLoginUrl' => $fbLoginUrl,
             'tokenKey'   => $this->security->getTokenKey(),
             'token'      => $this->security->getToken(),
@@ -387,13 +395,13 @@ class UserController extends \BaseController
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
-        if (\User::findFirstByAlias($alias)) {
+        if (User::findFirstByAlias($alias)) {
             $this->flash->error('Your alias cannot be used.');
 
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
-        if (\User::findFirstByEmail($email)) {
+        if (User::findFirstByEmail($email)) {
             $this->flash->error('This email is already in use.');
 
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
@@ -405,7 +413,7 @@ class UserController extends \BaseController
             return $this->redirect(self::REGISTER_REDIRECT_FAILURE);
         }
 
-        $user = new \User();
+        $user = new User();
         $user->role = 'user';
         $user->account_type = 'default';
         $user->alias = $alias;
@@ -423,7 +431,7 @@ class UserController extends \BaseController
         }
 
         // Save them in the mailing list
-        $newsletterSubscription = new \NewsletterSubscription();
+        $newsletterSubscription = new NewsletterSubscription();
         $newsletterSubscription->email = $email;
         $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
         $newsletterSubscription->save();
@@ -487,11 +495,11 @@ class UserController extends \BaseController
             $error['password'] = 'Your password must be 4-128 characters.';
         }
 
-        if (\User::findFirstByAlias($alias)) {
+        if (User::findFirstByAlias($alias)) {
             $error['alias'] = 'Your alias cannot be used.';
         }
 
-        if (\User::findFirstByEmail($email)) {
+        if (User::findFirstByEmail($email)) {
             $error['email'] = 'This email is already in use.';
         }
 
@@ -506,7 +514,7 @@ class UserController extends \BaseController
             return false;
         }
 
-        $user = new \User();
+        $user = new User();
         $user->role = 'user';
         $user->alias = $alias;
         $user->email = $email;
@@ -524,7 +532,7 @@ class UserController extends \BaseController
         }
 
         // Save them in the mailing list
-        $newsletterSubscription = new \NewsletterSubscription();
+        $newsletterSubscription = new NewsletterSubscription();
         $newsletterSubscription->email = $email;
         $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
         $newsletterSubscription->save();
@@ -584,7 +592,7 @@ class UserController extends \BaseController
     {
         Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
         $this->view->setVars([
-            'form'     => new \ForgotPasswordForm(),
+            'form'     => new ForgotPasswordForm(),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken(),
         ]);
@@ -664,7 +672,7 @@ class UserController extends \BaseController
      */
     public function passwordCreateAction($resetKey)
     {
-        $user = \User::findFirst([
+        $user = User::findFirst([
             "password_reset_key = :key: AND password_reset_expires_at > :date:",
             "bind" => [
                 "key"  => $resetKey,

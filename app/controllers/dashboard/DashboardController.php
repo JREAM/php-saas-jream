@@ -1,13 +1,14 @@
 <?php
 
-namespace Dashboard;
+namespace App\Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use App\Controllers\BaseController;
 
 /**
  * @RoutePrefix("/dashboard")
  */
-class DashboardController extends \BaseController
+class DashboardController extends BaseController
 {
 
     /**

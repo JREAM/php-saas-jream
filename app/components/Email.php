@@ -1,13 +1,15 @@
 <?php
 
-namespace Component;
+namespace App\Components;
+
+use Phalcon\Mvc\User\Component;
 
 /**
  * Email Renderer
  *
  * Phalcon\Mvc\User\Component extends abstract class Phalcon\Di\Injectable
  */
-class Email extends \Phalcon\Mvc\User\Component
+class Email extends Component
 {
     /**
      * Creates an email based on templates

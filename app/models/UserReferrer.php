@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Mvc\Model\Behavior\SoftDelete;
+namespace App\Models;
 
 class UserReferrer extends BaseModel
 {

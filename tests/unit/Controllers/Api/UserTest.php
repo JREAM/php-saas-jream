@@ -16,15 +16,27 @@ class UserTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\UserController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testUpdateTimezoneAction()
     {
-//        $this->assertEquals($this->user->getSource(), 'user');
+//        $t = $this->controller->updateTimezoneAction();
     }
+
+    public function testUpdateEmailAction()
+    {
+//        $t = $this->controller->updateEmailAction();
+    }
+
+    public function testUpdateNotificationsAction()
+    {
+//        $t = $this->controller->updateNotificationsAction();
+    }
+
+
 }

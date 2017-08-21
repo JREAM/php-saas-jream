@@ -8,7 +8,7 @@
 /**
  * @const APP_PRODUCTION Application production stage
  */
-define( , 'production');
+define('APP_PRODUCTION', 'production');
 
 /**
  * @const APP_STAGING Application staging stage

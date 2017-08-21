@@ -4,7 +4,7 @@ namespace App\Test\Unit\Models;
 
 use UnitTester;
 use Codeception\Test\Unit;
-use \User;
+use App\Models\User;
 
 class UserTest extends Unit
 {
@@ -22,7 +22,7 @@ class UserTest extends Unit
 
     protected function _before()
     {
-        $this->user = new User;
+        $this->model = new User;
     }
 
     protected function _after()

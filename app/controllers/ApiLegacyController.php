@@ -1,9 +1,11 @@
 <?php
 
+namespace App\Controllers;
+
 /**
  * @RoutePrefix("/apilegacy/")
  */
-class ApiLegacyController extends \BaseController
+class ApiLegacyController extends BaseController
 {
 
     /**

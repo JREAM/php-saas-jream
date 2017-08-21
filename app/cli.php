@@ -1,10 +1,7 @@
 <?php
 
-// Runs files in Tasks/*
-
 use Phalcon\Di\FactoryDefault\Cli as CliDI;
 use Phalcon\Cli\Console as ConsoleApp;
-use Phalcon\Loader;
 
 
 /**
@@ -64,8 +61,7 @@ $di->setShared('api', function () use ($api) {
  * =============================================================
  */
 $di->setShared('session', function () {
-    $session = new \Phalcon\Session\Adapter\Files();
-
+    $session = new Phalcon\Session\Adapter\Files();
     $session->start();
     return $session;
 });
@@ -78,7 +74,7 @@ $di->setShared('session', function () {
  */
 $di->set('db', function () use ($di, $config) {
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('db', new Middleware\Database());
+    $eventsManager->attach('db', new App\Middleware\Database());
 
     $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
     $database->setEventsManager($eventsManager);
@@ -109,15 +105,15 @@ foreach ($argv as $k => $arg) {
 try {
     // Handle incoming arguments
     $console->handle($arguments);
-} catch (\Phalcon\Exception $e) {
+} catch (Phalcon\Exception $e) {
     // Do Phalcon related stuff here
     // ..
     fwrite(STDERR, $e->getMessage() . PHP_EOL);
     exit(1);
-} catch (\Throwable $throwable) {
+} catch (Throwable $throwable) {
     fwrite(STDERR, $throwable->getMessage() . PHP_EOL);
     exit(1);
-} catch (\Exception $exception) {
+} catch (Exception $exception) {
     fwrite(STDERR, $exception->getMessage() . PHP_EOL);
     exit(1);
 }

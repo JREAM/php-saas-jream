@@ -1,6 +1,14 @@
 <?php
 
-class BaseModel extends \Phalcon\Mvc\Model
+namespace App\Models;
+
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Mvc\Model;
+use DateTime;
+use Parsedown;
+use DateTimeZone;
+
+class BaseModel extends Model
 {
     /** Trait **/
     use Timestamp;
@@ -34,7 +42,7 @@ class BaseModel extends \Phalcon\Mvc\Model
 
     public function onConstruct()
     {
-        $this->di = \Phalcon\DI\FactoryDefault::getDefault();
+        $this->di = FactoryDefault::getDefault();
         $this->session = $this->di->get('session');
         $this->security = $this->di->get('security');
 
@@ -100,7 +108,7 @@ class BaseModel extends \Phalcon\Mvc\Model
 
         $offset = 0;
         if ($timezone && $timezone != 'utc') {
-            $userDateTime = new DateTime($use, new \DateTimeZone($timezone));
+            $userDateTime = new DateTime($use, new DateTimeZone($timezone));
             $offset = $userDateTime->getOffset();
         }
 
@@ -140,7 +148,7 @@ class BaseModel extends \Phalcon\Mvc\Model
 
         // Only load once
         if ($this->parsedown == null) {
-            $this->parsedown = new \Parsedown();
+            $this->parsedown = new Parsedown();
         }
 
         return $this->parsedown->parse($use);
@@ -157,7 +165,7 @@ class BaseModel extends \Phalcon\Mvc\Model
      *
      * @return \stdClass
      */
-    protected function out(integer $result, string $msg = '', $data = null) : stdClass
+    protected function out(integer $result, string $msg = '', $data = null) : \stdClass
     {
         $output = new \stdClass();
         $output->data = $data;

@@ -16,15 +16,25 @@ class QuestionTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\QuestionController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testCreateAction()
     {
-//        $this->assertEquals($this->user->getSource(), 'user');
+//        $t = $this->controller->createAction();
+    }
+
+    public function testReplyAction()
+    {
+//        $t = $this->controller->replyAction();
+    }
+
+    public function testDeleteAction()
+    {
+//        $t = $this->controller->deleteAction();
     }
 }

@@ -16,15 +16,15 @@ class CourseTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\CourseController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testUpdateProgressAction()
     {
-//        $this->assertEquals($this->user->getSource(), 'user');
+//        $t = $this->controler->updateProgressAction();
     }
 }

@@ -1,8 +1,9 @@
 <?php
 
-namespace Api;
+namespace App\Controllers\Api;
+use Phalcon\Mvc\Controller;
 
-class ApiController extends \Phalcon\Mvc\Controller
+class ApiController extends Controller
 {
 
     /**

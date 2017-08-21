@@ -1,12 +1,14 @@
 <?php
 
-use \Phalcon\Tag;
+namespace App\Controllers;
+
+use Phalcon\Tag;
 
 
 /**
  * @RoutePrefix("/devtools")
  */
-class DevtoolsController extends \BaseController
+class DevtoolsController extends BaseController
 {
 
     private $types = [

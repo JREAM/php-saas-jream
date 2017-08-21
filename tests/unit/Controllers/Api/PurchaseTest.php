@@ -16,15 +16,36 @@ class PurchaseTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\PurchaseController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testApplyPromotionAction()
     {
-//        $this->assertEquals($this->user->getSource(), 'user');
+//        $t = $this->controller->applyPromotionAction();
     }
+
+    public function testFreeAction()
+    {
+//        $t = $this->controller->freeAction();
+    }
+
+    public function testStripeAction()
+    {
+//        $t = $this->controller->stripeAction();
+    }
+
+    public function testPaypalAction()
+    {
+//        $t = $this->controller->paypalAction();
+    }
+
+    public function testDoPaypalConfirmAction()
+    {
+//        $t = $this->controller->doPaypalConfirm($id);
+    }
+
 }

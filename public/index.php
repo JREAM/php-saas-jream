@@ -1,4 +1,7 @@
 <?php
+
+use Phalcon\Mvc\Application;
+
 /**
  * ==============================================================
  * @important Below must be in the public index.php page after
@@ -41,9 +44,9 @@ try {
  */
 // Configuration Overwrite Inclusion
 // @important This must come first!
-require dirname(__DIR__) . '/config/constants.php';
+require_once dirname(__DIR__) . '/config/constants.php';
 
-require CONFIG_DIR . '/env.php';
+require_once CONFIG_DIR . '/env.php';
 
 /**
  * ==============================================================
@@ -67,8 +70,8 @@ try {
      * Read the configuration
      * =============================================================
      */
-    $config = include CONFIG_DIR . "config.php";
-    $api = include CONFIG_DIR . "api.php";
+    $config = require_once CONFIG_DIR . "config.php";
+    $api = require_once CONFIG_DIR . "api.php";
 
 
     /**
@@ -76,7 +79,7 @@ try {
      * Read phalcon auto-loader
      * =============================================================
      */
-    include CONFIG_DIR . "loader.php";
+    require_once CONFIG_DIR . "loader.php";
 
 
     /**
@@ -84,7 +87,7 @@ try {
      * Read services
      * =============================================================
      */
-    include CONFIG_DIR . "services.php";
+    require_once CONFIG_DIR . "services.php";
 
 
     /**
@@ -99,13 +102,13 @@ try {
      * Handle the request
      * =============================================================
      */
-    $application = new \Phalcon\Mvc\Application($di);
+    $application = new Application($di);
 
     if (\APPLICATION_ENV == \APP_TEST) {
         return $application;
-    } else {
-        echo $application->handle()->getContent();
     }
+
+    echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
 

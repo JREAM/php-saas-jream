@@ -1,8 +1,10 @@
 <?php
 
-namespace Api;
+namespace App\Controllers\Api;
 
-use \User;
+use Swift_Validate;
+use App\Models\User;
+use App\Models\NewsletterSubscription;
 
 
 /**
@@ -102,11 +104,11 @@ class AuthController extends ApiController
             return $this->output(0, 'Your password must be 4-128 characters.');
         }
 
-        if (\User::findFirstByAlias($alias)) {
+        if (User::findFirstByAlias($alias)) {
             return $this->output(0, 'Your alias cannot be used.');
         }
 
-        if (\User::findFirstByEmail($email)) {
+        if (User::findFirstByEmail($email)) {
             return $this->output(0, 'This email is already in use.');
         }
 
@@ -114,7 +116,7 @@ class AuthController extends ApiController
             return $this->output(0, 'Your email is invalid.');
         }
 
-        $user = new \User();
+        $user = new User();
         $user->role = 'user';
         $user->account_type = 'default';
         $user->alias = $alias;
@@ -130,7 +132,7 @@ class AuthController extends ApiController
         }
 
         // Save them in the mailing list
-        $newsletterSubscription = new \NewsletterSubscription();
+        $newsletterSubscription = new NewsletterSubscription();
         $newsletterSubscription->email = $email;
         $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
         $newsletterSubscription->save();
@@ -285,12 +287,12 @@ class AuthController extends ApiController
     /**
      * Creates a User Session
      *
-     * @param \User $user  User Model
+     * @param User $user  User Model
      * @param array $additional  Additional values to add to session
      *
      * @return void
      */
-    protected function createSession(\User $user, array $additional = [])
+    protected function createSession(User $user, array $additional = [])
     {
         // Clear the login attempts
         $user->login_attempt    = null;

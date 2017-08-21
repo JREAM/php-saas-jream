@@ -1,8 +1,8 @@
 <?php
 
-namespace Api;
+namespace App\Controllers\Api;
 
-use \User;
+use App\Models\User;
 
 /**
  * @RoutePrefix("/api/user")

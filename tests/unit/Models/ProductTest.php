@@ -4,7 +4,7 @@ namespace App\Test\Unit\Models;
 
 use UnitTester;
 use Codeception\Test\Unit;
-use \User;
+use App\Models\Product;
 
 class ProductTest extends Unit
 {
@@ -16,15 +16,11 @@ class ProductTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->model = new Product;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
-    {
-//        $this->assertEquals($this->user->getSource(), 'user');
-    }
 }

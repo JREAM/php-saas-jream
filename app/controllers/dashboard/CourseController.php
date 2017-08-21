@@ -1,6 +1,6 @@
 <?php
 
-namespace Dashboard;
+namespace App\Controllers\Dashboard;
 
 use \Phalcon\Tag;
 

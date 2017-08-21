@@ -1,13 +1,15 @@
 <?php
 
-namespace Dashboard;
+namespace App\Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use App\Controllers\BaseController;
+use App\Models\Youtube;
 
 /**
  * @RoutePrefix("/dashboard/youtube")
  */
-class YoutubeController extends \BaseController
+class YoutubeController extends BaseController
 {
 
     const REDIRECT_SUCCESS = '';
@@ -34,7 +36,7 @@ class YoutubeController extends \BaseController
      */
     public function indexAction($youtubeId = false)
     {
-        $video = \Youtube::findFirstById($youtubeId);
+        $video = Youtube::findFirstById($youtubeId);
 
         if (!$youtubeId) {
             $this->flash->error('There is no record of this item.');

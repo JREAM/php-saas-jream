@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class NewsletterAction extends BaseModel

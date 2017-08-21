@@ -1,12 +1,18 @@
 <?php
 
-use \Phalcon\Tag;
-use \Omnipay\Omnipay;
+namespace App\Controllers;
+
+use Phalcon\Tag;
+use Omnipay\Omnipay;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\UserPurchase;
+use App\Models\Transaction;
 
 /**
  * @RoutePrefix("/checkout")
  */
-class CheckoutController extends \BaseController
+class CheckoutController extends BaseController
 {
     const REDIRECT_SUCCESS = 'checkout/';
     const REDIRECT_FAILURE = 'checkout/';
@@ -37,7 +43,7 @@ class CheckoutController extends \BaseController
      */
     public function indexAction()
     {
-        $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
+        $products = Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
         $this->view->setVars([
             'products' => $products,
@@ -58,7 +64,7 @@ class CheckoutController extends \BaseController
     public function doStripeAction($productId)
     {
         $this->view->disable();
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
         if (!$product) {
             $this->flash->error('No product was found with the Id:' . $productId);
 
@@ -182,7 +188,7 @@ class CheckoutController extends \BaseController
      */
     public function doPayPalAction($productId)
     {
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$product) {
             $this->flash->error('No product was found with the Id:' . $productId);
@@ -235,7 +241,7 @@ class CheckoutController extends \BaseController
      */
     public function doPaypalConfirmAction($productId)
     {
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
         if (!$product) {
             $this->flash->error('Could not complete your transaction. The productId is invalid.');
 
@@ -306,10 +312,10 @@ class CheckoutController extends \BaseController
      *
      * @return void
      */
-    private function _createPurchase(\Product $product, $gateway = false, $transaction_id = false)
+    private function _createPurchase(Product $product, $gateway = false, $transaction_id = false)
     {
         // First create a transaction record
-        $transaction = new \Transaction();
+        $transaction = new Transaction();
         $transaction->user_id = $this->session->get('id');
         $transaction->transaction_id = $transaction_id;
         $transaction->type = 'purchase';
@@ -338,9 +344,8 @@ class CheckoutController extends \BaseController
 
         $result = $transaction->save();
 
-
         // Insert the user record
-        $userPurchase = new \UserPurchase();
+        $userPurchase = new UserPurchase();
         $userPurchase->user_id = $this->session->get('id');
         $userPurchase->product_id = $product->id;
         $userPurchase->transaction_id = $transaction->id;
@@ -359,7 +364,7 @@ class CheckoutController extends \BaseController
             'transaction_id' => $transaction_id,
         ]);
 
-        $user = \User::findFirstById($this->session->get('id'));
+        $user = User::findFirstById($this->session->get('id'));
 
 
         $mail_result = $this->di->get('email', [

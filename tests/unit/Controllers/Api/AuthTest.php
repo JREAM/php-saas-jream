@@ -16,15 +16,36 @@ class AuthTest extends Unit
 
     protected function _before()
     {
-//        $this->user = new User;
+//        $this->controller= new \App\Api\AuthController;
     }
 
     protected function _after()
     {
     }
 
-    public function testGetSource()
+    public function testLoginAction()
     {
+//        $t = $this->controller->loginAction();
 //        $this->assertEquals($this->user->getSource(), 'user');
+    }
+
+    public function testRegisterAction()
+    {
+//        $t = $this->controller->registerAction();
+    }
+
+    public function testLogoutAction()
+    {
+//        $t = $this->controller->logoutAction();
+    }
+
+    public function testPasswordResetAction()
+    {
+//        $t = $this->controller->passwordResetAction();
+    }
+
+    public function testPasswordResetConfirmAction()
+    {
+//        $t = $this->controller->passwordResetConfirmAction();
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
-use \Phalcon\Tag;
+namespace App\Controllers;
+
+use Phalcon\Tag;
+use App\Forms\ContactForm;
 
 /**
  * @RoutePrefix("/contact")
  */
-class ContactController extends \BaseController
+class ContactController extends BaseController
 {
 
     const CONTACT_REDIRECT_FAILURE = 'contact';
@@ -28,7 +31,7 @@ class ContactController extends \BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'form'     => new \ContactForm(),
+            'form'     => new ContactForm(),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken(),
         ]);

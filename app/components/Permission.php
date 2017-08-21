@@ -1,17 +1,18 @@
 <?php
 
-namespace Component;
+namespace App\Components;
 
-use \Phalcon\Mvc\Dispatcher,
-    \Phalcon\Events\Event,
-    \Phalcon\Acl;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Events\Event;
+use Phalcon\Acl;
+use Phalcon\Mvc\User\Component;
 
 /**
  * Permission
  *
  * Prevents User Types from accessing areas they are not allowed in.
  */
-class Permission extends \Phalcon\Mvc\User\Component
+class Permission extends Component
 {
 
     const REDIRECT_SUCCESS = '';

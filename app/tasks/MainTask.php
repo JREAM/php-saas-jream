@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tasks;
+
 use Phalcon\Cli\Task;
 
 class MainTask extends Task

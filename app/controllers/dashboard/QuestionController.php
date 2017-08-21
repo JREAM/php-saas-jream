@@ -1,13 +1,16 @@
 <?php
 
-namespace Dashboard;
+namespace App\Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use App\Controllers\BaseController;
+use App\Models\ProductThread;
+use App\Models\ProductThreadReply;
 
 /**
  * @RoutePrefix("/dashboard/question")
  */
-class QuestionController extends \BaseController
+class QuestionController extends BaseController
 {
 
     const REDIRECT_SUCCESS = 'dashboard/question/index/';
@@ -34,7 +37,7 @@ class QuestionController extends \BaseController
      */
     public function indexAction($productId = false)
     {
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
@@ -44,7 +47,7 @@ class QuestionController extends \BaseController
 
         $this->view->setVars([
             'product'  => $product,
-            'threads'  => \ProductThread::find([
+            'threads'  => ProductThread::find([
                 'product_id' => $productId,
                 'order'      => 'id DESC',
             ]),
@@ -68,7 +71,7 @@ class QuestionController extends \BaseController
         $this->view->disable();
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
 
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->output(0, 'You do not have permission to access this area.');
@@ -79,7 +82,7 @@ class QuestionController extends \BaseController
         $title = $this->request->getPost('title');
         $content = $this->request->getPost('content');
 
-        $thread = new \ProductThread();
+        $thread = new ProductThread();
         $thread->user_id = $this->session->get('id');
         $thread->product_id = $productId;
         $thread->title = $title;
@@ -94,7 +97,7 @@ class QuestionController extends \BaseController
 
         $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $thread->id);
 
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread', [
             'title'         => $title,
             'content'       => $content,
@@ -139,7 +142,7 @@ class QuestionController extends \BaseController
     {
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
 
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
@@ -149,7 +152,7 @@ class QuestionController extends \BaseController
 
         $content = $this->request->getPost('content');
 
-        $thread = new \ProductThreadReply();
+        $thread = new ProductThreadReply();
         $thread->user_id = $this->session->get('id');
         $thread->product_thread_id = $threadId;
         $thread->content = $content;
@@ -163,7 +166,7 @@ class QuestionController extends \BaseController
 
         $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $threadId);
 
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread-reply', [
             'content'       => $content,
             'product_title' => $product->title,

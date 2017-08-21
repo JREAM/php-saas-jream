@@ -1,16 +1,20 @@
 <?php
 
 use Phalcon\Mvc\Router;
-use Phalcon\Mvc\Router\Group;
 
 /**
  * ==============================================================
- * Website Routes
+ * Main Router
  * =============================================================
  */
 $router = new Router();
 $router->removeExtraSlashes(true);
-$router->setDefaultController('index');
+$router->setDefaults([
+    'namespace'     => 'App\Controllers',
+    'controller'    => 'index',
+    'action'        => 'index'
+]);
+
 
 /**
  * ==============================================================

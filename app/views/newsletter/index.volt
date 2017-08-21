@@ -28,7 +28,7 @@
         <div class="col-md-12">
             <h1>Newsletter</h1>
             <p>
-            {{ result }}
+            {% if result is defined %}{{ result }}{% endif %}
             </p>
 
             <form class="form-login" id="newsletter-subscribe-form" method="post" action="{{ url('newsletter/dosubscribe') }}">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            {% if constant('\APPLICATION_ENV') != constant('\APP_DEVELOPMENT') %}
+                            {% if constant('\APPLICATION_ENV') !== constant('\APP_DEVELOPMENT') %}
                             <div class="g-recaptcha" data-sitekey="6LfHCAYTAAAAALb7zfhNEaWLklfHO-MMoIjsKlHV"></div>
                             {% else %}
                             <b>Not Showing Captcha, in LOCAL mode.</b>

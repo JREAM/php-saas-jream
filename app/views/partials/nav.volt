@@ -20,5 +20,6 @@
 
     {% else %}
         <li><a class="btn btn-primary" href="{{ url('user/login') }}">Login</a></li>
+        <li><a class="btn btn-primary" href="{{ url('user/register') }}">Register</a></li>
     {% endif %}
 </ul>

@@ -33,14 +33,6 @@
     </div>
 </div>
 
-<div id="global-promotion" style="background: maroon; color: #fff;">
-    <div class="container container-fluid">
-        <div class="col-md-12">
-            Promotion: 75% off until 10/25, 00:01:23 Remaining.
-        </div>
-    </div>
-</div>
-
 <div class="container container-fluid {% if is_home or is_login %}hide{% endif %}">
     <div class="col-md-12">
         {% block breadcrumb %}{% endblock %}

@@ -165,7 +165,7 @@ $di->setShared('component', function() {
  */
 $di->setShared('view', function () use ($config) {
     $view = new \Phalcon\Mvc\View();
-    $view->setViewsDir($config->get('application')->viewsDir);
+    $view->setViewsDir($config->get('viewsDir'));
     $view->registerEngines([
         '.volt' => function ($view, $di) use ($config) {
 

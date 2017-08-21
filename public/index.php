@@ -23,8 +23,8 @@ try {
      * Read the configuration
      * =============================================================
      */
-    $config = require DOCROOT . "/config/config.php";
-    $api    = require DOCROOT . "/config/api.php";
+    $config = require DOCROOT . "config/config.php";
+    $api    = require $config->get('configDir') . "api.php";
 
 
     /**
@@ -33,7 +33,7 @@ try {
      * This uses the config.php
      * =============================================================
      */
-    require_once DOCROOT . "/config/loader.php";
+    require_once $config->get('configDir') . "loader.php";
 
 
     /**
@@ -41,7 +41,7 @@ try {
      * Read services
      * =============================================================
      */
-    require_once DOCROOT . "/config/services.php";
+    require_once $config->get('configDir') . "services.php";
 
 
     /**
@@ -49,7 +49,8 @@ try {
      * Custom functions after everything has loaded
      * =============================================================
      */
-    require_once APP_PATH . '/functions.php';
+
+    require_once APP_PATH . 'functions.php';
 
 
     /**
@@ -88,10 +89,10 @@ catch (\Exception $e) {
      * Non Live: Show Local Error (Or Whoops Appears)
      * =============================================================
      */
-//    echo '<pre>';
-//    echo "Message: {$e->getMessage()} <br>";
-//    echo "File: {$e->getFile()}<br>";
-//    echo "Line: {$e->getLine()}<br>";
-//    echo $e->getTraceAsString();
-//    echo '</pre>';
+    echo '<pre>';
+    echo "Message: {$e->getMessage()} <br>";
+    echo "File: {$e->getFile()}<br>";
+    echo "Line: {$e->getLine()}<br>";
+    echo $e->getTraceAsString();
+    echo '</pre>';
 }

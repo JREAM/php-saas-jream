@@ -47,7 +47,7 @@
                     <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                 </a>
                 {% else %}
-                <a href="{{ url('product/view/') }}{{ product.slug}}" class="relative img-thumbnail fadeover mar-right-10 {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}">
+                <a href="{{ url('product/view/') }}{{ product.slug}}" class="relative img-thumbnail fadeover mar-right-10">
                     <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                 </a>
                 {% endif %}
@@ -61,17 +61,11 @@
                     <div class="col-sm-4">
                         <h3 class="margin-0 pull-right">
                         {% if product.hasPurchased() %}
-
+                            <!-- Already Purchased -->
+                        {% elseif product.price != 0 %}
+                            <sup>$</sup>{{ product.price }}
                         {% else %}
-                            {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
-                                <sup>$</sup>{{ product.price }} &mdash; Development
-                            {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
-                                Planned
-                            {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
-                                <sup>$</sup>{{ product.price }}
-                            {% else %}
-                                Free
-                            {% endif %}
+                            Free
                         {% endif %}
                         </h3>
                     </div>

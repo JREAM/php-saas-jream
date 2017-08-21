@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Swift_Validate;
 use Phalcon\Tag;
-use App\ModelsUser;
+use App\Models\User;
 use App\Forms\LoginForm;
 use App\Forms\RegisterForm;
 use App\Forms\ForgotPasswordForm;

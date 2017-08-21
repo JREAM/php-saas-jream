@@ -3,11 +3,11 @@
 namespace App\Controllers\Dashboard;
 
 use Phalcon\Tag;
-use App\Models\User;
-use App\Models\UserPurchase;
 use App\Controllers\BaseController;
 use App\Forms\ChangeEmailForm;
 use App\Forms\ChangePasswordForm;
+use App\Models\User;
+use App\Models\UserPurchase;
 
 /**
  * @RoutePrefix("/dashboard/account")
@@ -59,7 +59,7 @@ class AccountController extends BaseController
     public function deleteAction()
     {
         $this->view->setVars([
-            'user'     => \User::findFirstById($this->session->get('id')),
+            'user'     => User::findFirstById($this->session->get('id')),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken()
         ]);
@@ -157,7 +157,7 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $emailExists = \User::findFirstByEmail($email);
+        $emailExists = User::findFirstByEmail($email);
         if ($emailExists) {
             $this->flash->error('This email is in use.');
             return $this->redirect(self::REDIRECT_SUCCESS);
@@ -227,13 +227,13 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = \User::findFirstById($this->session->get('id'));
+        $user = User::findFirstById($this->session->get('id'));
         if (!$this->security->checkHash($current_password, $user->password)) {
             $this->flash->error('Your current password is incorrect.');
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = \User::findFirstById($this->session->get('id'));
+        $user = User::findFirstById($this->session->get('id'));
         $user->password = $this->security->hash($password);
         // Update Salt
         $user->password_salt = $this->security->hash(random_int(5000, 100000));

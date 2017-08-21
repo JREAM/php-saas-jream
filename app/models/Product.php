@@ -28,7 +28,6 @@ class Product extends BaseModel
 
         $this->hasMany('id', 'UserPurchase', 'product_id');
         $this->hasMany('id', 'ProductCourse', 'product_id');
-        $this->hasMany('id', 'ProductCategory', 'product_id');
 
         $this->setSource(self::SOURCE);
     }

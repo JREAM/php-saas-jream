@@ -3,8 +3,8 @@
 namespace App\Controllers\Dashboard;
 
 use Phalcon\Tag;
-use App\Models\Notification;
 use App\Controllers\BaseController;
+use App\Models\Notification;
 
 /**
  * @RoutePrefix("/dashboard/notification")

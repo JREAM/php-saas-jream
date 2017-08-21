@@ -35,7 +35,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="relative">
-            <img class="img-thumbnail-lg {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}" src="{{ product.img_lg }}" alt="{{ product.title }}" />
+            <img class="img-thumbnail-lg" src="{{ product.img_lg }}" alt="{{ product.title }}" />
         </div>
 
         <div class="margin-10-left margin-10-top">
@@ -43,11 +43,7 @@
                 {% if product.hasPurchased() %}
                     Purchased
                 {% else %}
-                    {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
-                        <sup>$</sup>{{ product.price }} &mdash; Development
-                    {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
-                        Planned
-                    {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
+                    {% if product.price != 0 %}
                         {% if discount_price %}
                             <span class="old-price"><sup>$</sup>{{ product.price }}</span>
                             <span class="discount"><sup>$</sup>{{ discount_price }}</span>

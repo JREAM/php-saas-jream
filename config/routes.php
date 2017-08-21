@@ -62,19 +62,19 @@ $router ->add('/updates', [
  * =============================================================
  */
 $router->add('/dashboard/:controller/:action/:params', [
-    'namespace'  => 'Dashboard',
+    'namespace'  => 'App\Controllers\Dashboard',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
 $router->add('/dashboard/:controller', [
-    'namespace'  => 'Dashboard',
+    'namespace'  => 'App\Controllers\Dashboard',
     'controller' => 1,
 ]);
 
 $router->add('/dashboard', [
-    'namespace'  => 'Dashboard',
+    'namespace'  => 'App\Controllers\Dashboard',
     'controller' => 'dashboard',
 ])
 ->setName('dashboard');
@@ -86,19 +86,19 @@ $router->add('/dashboard', [
  */
 
 $router->add('/api/:controller/:action/:params', [
-    'namespace'  => 'Api',
+    'namespace'  => 'App\Controllers\Api',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
 $router->add('/api/:controller', [
-    'namespace'  => 'Api',
+    'namespace'  => 'App\Controllers\Api',
     'controller' => 1,
 ]);
 
 $router->add('/api', [
-    'namespace'  => 'Api',
+    'namespace'  => 'App\Controllers\Api',
     'controller' => 'api',
 ])
 ->setName('api');

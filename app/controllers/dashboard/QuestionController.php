@@ -4,6 +4,7 @@ namespace App\Controllers\Dashboard;
 
 use Phalcon\Tag;
 use App\Controllers\BaseController;
+use App\Models\Product;
 use App\Models\ProductThread;
 use App\Models\ProductThreadReply;
 

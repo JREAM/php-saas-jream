@@ -3,11 +3,16 @@
 namespace App\Controllers\Dashboard;
 
 use \Phalcon\Tag;
+use App\Controllers\BaseController;
+use App\Models\Product;
+use App\Models\ProductCourse;
+use App\Models\UserAction;
+
 
 /**
  * @RoutePrefix("/dashboard/course")
  */
-class CourseController extends \BaseController
+class CourseController extends BaseController
 {
 
     const REDIRECT_SUCCESS = '';
@@ -36,14 +41,14 @@ class CourseController extends \BaseController
      */
     public function indexAction($productId = false)
     {
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
-        $courses = \ProductCourse::find([
+        $courses = ProductCourse::find([
             "product_id = :product_id:",
             "bind"  => [
                 'product_id' => $product->id,
@@ -54,7 +59,7 @@ class CourseController extends \BaseController
         $this->view->setVars([
             'product'    => $product,
             'courses'    => $courses,
-            'userAction' => new \UserAction(),
+            'userAction' => new UserAction(),
             'percent'    => $product->getProductPercent(),
 
             // CSRF
@@ -75,7 +80,7 @@ class CourseController extends \BaseController
      */
     public function viewAction($productId, $contentId)
     {
-        $product = \Product::findFirstById($productId);
+        $product = Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
@@ -83,7 +88,7 @@ class CourseController extends \BaseController
         }
 
         // Get Course list to show Prev/Next
-        $courses = \ProductCourse::find([
+        $courses = ProductCourse::find([
             'product_id = :product_id:',
             'bind'    => [
                 'product_id' => (int)$product->id,
@@ -129,7 +134,7 @@ class CourseController extends \BaseController
             $productCourse->name
         );
 
-        $userAction = new \UserAction();
+        $userAction = new UserAction();
         $userAction = $userAction->getAction(
             'hasCompleted',
             $this->session->get('id'),
@@ -181,7 +186,7 @@ class CourseController extends \BaseController
         $action = $this->request->getPost('action');
         $value = (int)$this->request->getPost('value');
 
-        $userAction = new \UserAction();
+        $userAction = new UserAction();
         $userAction = $userAction->getAction(
             $action,
             $this->session->get('id'),
@@ -194,7 +199,7 @@ class CourseController extends \BaseController
             $this->output(1, ['value' => $value]);
         }
 
-        $userAction = new \UserAction();
+        $userAction = new UserAction();
         $userAction->action = $action;
         $userAction->user_id = $this->session->get('id');
         $userAction->product_id = $productId;

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
-use Phalcon\Tag;
-use App\Forms\ContactForm;
+use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/contact")
@@ -31,7 +30,7 @@ class ContactController extends BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'form'     => new ContactForm(),
+            'form'     => new \ContactForm(),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken(),
         ]);

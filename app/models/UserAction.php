@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class UserAction extends BaseModel
@@ -48,7 +46,7 @@ class UserAction extends BaseModel
 
     public function getAction($action, $userId, $productCourseId)
     {
-        $userAction = UserAction::findFirst([
+        $userAction = \UserAction::findFirst([
             "product_course_id = :productCourseId:
             AND user_id = :userId:
             AND action = :action:",

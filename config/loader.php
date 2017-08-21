@@ -7,30 +7,42 @@
  */
 $loader = new \Phalcon\Loader();
 
-// Register some namespaces
-$loader->registerNamespaces(
-    [
-        "App\Components"            => COMPONENTS_DIR,
-        "App\Controllers"           => CONTROLLERS_DIR,
-        "App\Controllers\Api"       => CONTROLLERS_DIR . "api/",
-        "App\Controllers\Dashboard" => CONTROLLERS_DIR . "dashboard/",
-        "App\Library"               => LIBRARY_DIR,
-        "App\Forms"                 => FORMS_DIR,
-        "App\Middleware"            => MIDDLEWARE_DIR,
-        "App\Models"                => MODELS_DIR,
-        "App\Plugins"               => PLUGINS_DIR,
-        "App\Tasks"                 => TASKS_DIR . "tasks/",
-        "App\Tests"                 => BASE_DIR . "tests",
-        "Phalcon"                   => VENDOR_DIR . 'phalcon/incubator/Library/Phalcon/',
-    ]
-);
+$loader->registerNamespaces([
+    'Component'             => $config->get('componentDir'),
+    'Middleware'            => $config->get('controllersDir'),
+    'Controllers'           => $config->get('controllersDir'),
+    'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
+    'Controllers\Api'       => $config->get('controllersDir') . 'api/',
+    'Library'               => $config->get('libraryDir'),
+    'Plugins'               => $config->get('pluginsDir'),
+    'Migrations'            => $config->get('migrationsDir'),
+]);
+
+$loader->registerClasses([
+    'Phalcon' => DOCROOT . '/vendor/phalcon/incubator/Library/Phalcon/',
+]);
+
+$registerDirs = [
+    $config->get('configDir'),
+    $config->get('formsDir'),
+    $config->get('modelsDir'),
+];
 
 // 1: For running unit tests
 // 2: For the CLI Tasks
-if (\PHP_SAPI == 'cli') {
-    $loader->registerDirs([
-        TESTS_DIR,
+if (strtolower(\PHP_SAPI) === 'cli')
+{
+    // Auto Load the Tests Directory.
+    $registerDirs[] = $config->get('testsDir');
+
+    // Auto Load the Tasks
+    $loader->registerNamespaces([
+        'Tasks' => $config->get('tasksDir')
     ]);
 }
 
+// Register Remaining Directories
+$loader->registerDirs($registerDirs);
+
+// Finished
 $loader->register();

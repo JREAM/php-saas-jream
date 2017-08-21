@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace Controllers\Api;
 
-use App\Models\User;
-use App\Models\NewsletterSubscription;
+use \User;
+use \NewsletterSubscription;
 
 /**
  * @RoutePrefix("/api/newsletter")
@@ -34,7 +34,7 @@ class NewsletterController extends ApiController
         $email = $this->request->getPost('email');
 
         // Insert into DB
-        $newsletter = new Newsletter();
+        $newsletter = new \Newsletter();
         $newsletter->email = $email;
         $newsletter->subscribed = 1;
 
@@ -45,7 +45,7 @@ class NewsletterController extends ApiController
 
         // See if this user is registered,
         // Update their account if so!
-        $user = User::findFirst(["
+        $user = \User::findFirst(["
             email = :email:
             OR facebook_email = :email:
             OR google_email = :email:",

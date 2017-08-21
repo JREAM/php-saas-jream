@@ -1,18 +1,12 @@
 <?php
+namespace Controllers\Dashboard;
 
-namespace App\Controllers\Dashboard;
-
-use Phalcon\Tag;
-use App\Controllers\BaseController;
-use App\Forms\ChangeEmailForm;
-use App\Forms\ChangePasswordForm;
-use App\Models\User;
-use App\Models\UserPurchase;
+use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/dashboard/account")
  */
-class AccountController extends BaseController
+class AccountController extends \BaseController
 {
 
     const REDIRECT_SUCCESS = "dashboard/account";
@@ -39,10 +33,10 @@ class AccountController extends BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'changeEmailForm'    => new ChangeEmailForm(),
-            'changePasswordForm' => new ChangePasswordForm(),
-            'user'               => User::findFirstById($this->session->get('id')),
-            'purchases'          => UserPurchase::findByUserId($this->session->get('id')),
+            'changeEmailForm'    => new \ChangeEmailForm(),
+            'changePasswordForm' => new \ChangePasswordForm(),
+            'user'               => \User::findFirstById($this->session->get('id')),
+            'purchases'          => \UserPurchase::findByUserId($this->session->get('id')),
             'timezones'          => \DateTimeZone::listIdentifiers(),
             'tokenKey'           => $this->security->getTokenKey(),
             'token'              => $this->security->getToken()
@@ -59,7 +53,7 @@ class AccountController extends BaseController
     public function deleteAction()
     {
         $this->view->setVars([
-            'user'     => User::findFirstById($this->session->get('id')),
+            'user'     => \User::findFirstById($this->session->get('id')),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken()
         ]);
@@ -85,7 +79,7 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_DELETE);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
 
         if (strtolower($confirm) != 'delete ' . strtolower($user->getAlias())) {
             $this->flash->error("To remove your account you must enter the confirmation text.");
@@ -123,7 +117,7 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
         $user->timezone = $timezone;
         $user->save();
 
@@ -157,13 +151,13 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $emailExists = User::findFirstByEmail($email);
+        $emailExists = \User::findFirstByEmail($email);
         if ($emailExists) {
             $this->flash->error('This email is in use.');
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
         $user->email_change = $email;
         $user->email_change_key        = hash('sha512', $user->email . time());
         $user->email_change_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
@@ -227,13 +221,13 @@ class AccountController extends BaseController
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
         if (!$this->security->checkHash($current_password, $user->password)) {
             $this->flash->error('Your current password is incorrect.');
             return $this->redirect(self::REDIRECT_SUCCESS);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
         $user->password = $this->security->hash($password);
         // Update Salt
         $user->password_salt = $this->security->hash(random_int(5000, 100000));
@@ -255,7 +249,7 @@ class AccountController extends BaseController
         $this->view->disable();
         $this->component->helper->csrf(self::REDIRECT_FAILURE);
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
 
         $user->email_notifications = (int) $this->request->getPost('email_notifications');
         $user->system_notifications = (int) $this->request->getPost('system_notifications');

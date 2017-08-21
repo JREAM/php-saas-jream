@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Forms;
-
 use Phalcon\Forms\Element;
 use Phalcon\Validation\Validator;
 

@@ -2,26 +2,6 @@
 
 /**
  * ==============================================================
- * Error Reporting
- *
- * @important: Load AFTER constants
- * =============================================================
- */
-error_reporting(E_ALL); // Log all errors
-
-
-/**
- * ==============================================================
- * Timezone (Always UTC)
- *
- * @important: Load AFTER constants
- * =============================================================
- */
-date_default_timezone_set(DEFAULT_TIMEZONE);
-
-
-/**
- * ==============================================================
  * Website Config
  * =============================================================
  * =
@@ -33,34 +13,54 @@ date_default_timezone_set(DEFAULT_TIMEZONE);
  */
 
 $config = new \Phalcon\Config([
-    'title' => getenv('SITE_TITLE'),
-    'session_hash'  => 'D0__2&$whatLORD$As4Sayy_)s5<E1+WilBeWe1lll2#', // Do not change this
-    'cookie_hash' => '#_can$iSAY>let*US*EN~cryp_T-theCookieS!',
-    'url_static' => 'https://d2qmoq5vnrtrov.cloudfront.net/',
-    'email' => [
-        'from_address' => getenv('EMAIL_FROM_ADDR'),
-        'from_name'    => getenv('EMAIL_FROM_NAME'),
-        'to_name'      => getenv('EMAIL_TO_NAME'),
+    'title'          => getenv('SITE_TITLE'),
+    'session_hash'   => 'D0__2&$whatLORD$As4Sayy_)s5<E1+WilBeWe1lll2#', // Do not change this
+    'cookie_hash'    => '#_can$iSAY>let*US*EN~cryp_T-theCookieS!',
+    'url_static'     => 'https://d2qmoq5vnrtrov.cloudfront.net/',
+
+    /**
+     * Directories
+     * These must ALWAYS have a trailing "/"
+     */
+    'baseUri'        => getenv('BASE_URI'),
+    'cacheDir'       => DOCROOT . '/cache/',
+    'configDir'      => DOCROOT . '/config/',
+    'controllersDir' => APP_PATH . '/controllers/',
+    'emailsDir'      => DOCROOT . '/emails/',
+    'formsDir'       => APP_PATH . '/forms/',
+    'libraryDir'     => APP_PATH . '/library/',
+    'migrationsDir'  => APP_PATH . '/migrations/',
+    'modelsDir'      => APP_PATH . '/models/',
+    'pluginsDir'     => APP_PATH . '/plugins/',
+    'resourcesDir'   => DOCROOT . '/resources/',
+    'tasksDir'       => APP_PATH . '/tasks/',
+    'testsDir'       => DOCROOT . '/tests/',
+    'viewsDir'       => APP_PATH . '/views/',
+
+    'email'       => [
+        'from_address'        => getenv('EMAIL_FROM_ADDR'),
+        'from_name'           => getenv('EMAIL_FROM_NAME'),
+        'to_name'             => getenv('EMAIL_TO_NAME'),
         'to_question_address' => getenv('EMAIL_QUESTION_ADDR'),
-        'to_contact_address'  => getenv('EMAIL_CONTACT_ADDR')
+        'to_contact_address'  => getenv('EMAIL_CONTACT_ADDR'),
     ],
-    'database' => [
+    'database'    => [
         'adapter'  => getenv('DB_ADAPTER'),
         'host'     => getenv('DB_HOST'),
         'username' => getenv('DB_USERNAME'),
         'password' => getenv('DB_PASSWORD'),
-        'dbname'   => getenv('DB_DATABASE')
+        'dbname'   => getenv('DB_DATABASE'),
     ],
     'application' => [
-        'controllersDir' => CONTROLLERS_DIR,
-        'modelsDir'      => MODELS_DIR,
-        'migrationsDir'  => MIGRATIONS_DIR,
-        'viewsDir'       => VIEWS_DIR,
-        'pluginsDir'     => PLUGINS_DIR,
-        'libraryDir'     => LIBRARY_DIR,
-        'cacheDir'       => CACHE_DIR,
+        'controllersDir' => APP_PATH . '/controllers',
+        'modelsDir'      => APP_PATH . '/models',
+        'migrationsDir'  => APP_PATH . '/migrations',
+        'viewsDir'       => APP_PATH . '/views',
+        'pluginsDir'     => APP_PATH . '/plugins',
+        'libraryDir'     => APP_PATH . '/library',
+        'cacheDir'       => DOCROOT . '/cache',
         'baseUri'        => dirname(__DIR__),
-    ]
+    ],
 ]);
 
 return $config;

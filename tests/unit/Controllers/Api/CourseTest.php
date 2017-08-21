@@ -4,7 +4,6 @@ namespace App\Test\Unit\Controllers\Api;
 
 use UnitTester;
 use Codeception\Test\Unit;
-use \User;
 
 class CourseTest extends Unit
 {
@@ -16,7 +15,7 @@ class CourseTest extends Unit
 
     protected function _before()
     {
-//        $this->controller= new \App\Api\CourseController;
+//        $this->controller= new \Api\CourseController;
     }
 
     protected function _after()

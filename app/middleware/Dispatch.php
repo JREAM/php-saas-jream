@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Middleware;
+namespace Middleware;
 
 use Phalcon\Events\Event;
 use Phalcon\Http\Request;
-use Phalcon\DI\FactoryDefault;
-use Whoops\Handler\PrettyPageHandler;
-use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
+use \Phalcon\DI\FactoryDefault;
 
 class Dispatch
 {
@@ -88,7 +86,7 @@ class Dispatch
             $this->di->get('sentry')->captureException($exception);
         } else {
             $whoops = $this->di->get('whoops')->register();
-            $whoops->pushHandler(new PrettyPageHandler);
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
             $whoops->handleException($exception);
             $whoops->register();
         }
@@ -96,7 +94,7 @@ class Dispatch
         // -----------------------------------
         // Handle 404 exceptions
         // -----------------------------------
-        if ($exception instanceof DispatcherException) {
+        if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception) {
             $dispatcher->forward([
                 'controller' => 'index',
                 'action'     => 'show404',

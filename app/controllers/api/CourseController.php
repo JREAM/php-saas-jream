@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace Controllers\Api;
 
-use App\Models\UserAction;
+use \UserAction;
 
 /**
  * @RoutePrefix("/api/course")

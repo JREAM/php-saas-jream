@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
-use Phalcon\Tag;
+use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/test")
@@ -36,21 +36,21 @@ class TestController extends BaseController
 
     public function modelAction()
     {
-        \App\Models\Newsletter::findFirst(['is_deleted = 0']);
-        \App\Models\Notification::findFirst(['is_deleted = 0']);
-        \App\Models\Product::findFirst(['is_deleted = 0']);
-        \App\Models\ProductCourse::findFirst(['is_deleted = 0']);
-        \App\Models\ProductCourseMeta::findFirst(['is_deleted = 0']);
-        \App\Models\Promotion::findFirst(['is_deleted = 0']);
-        \App\Models\ProductThread::findFirst(['is_deleted = 0']);
-        \App\Models\ProductThreadReply::findFirst(['is_deleted = 0']);
-        \App\Models\Transaction::findFirst(['is_deleted = 0']);
-        \App\Models\User::findFirst(['is_deleted = 0']);
-        \App\Models\UserAction::findFirst(['is_deleted = 0']);
-        \App\Models\UserPurchase::findFirst(['is_deleted = 0']);
-        \App\Models\UserReferrer::findFirst(['id = 0']);
-        \App\Models\UserSupport::findFirst(['is_deleted = 0']);
-        \App\Models\Youtube::findFirst(['is_deleted = 0']);
+        \Newsletter::findFirst(['is_deleted = 0']);
+        \Notification::findFirst(['is_deleted = 0']);
+        \Product::findFirst(['is_deleted = 0']);
+        \ProductCourse::findFirst(['is_deleted = 0']);
+        \ProductCourseMeta::findFirst(['is_deleted = 0']);
+        \Promotion::findFirst(['is_deleted = 0']);
+        \ProductThread::findFirst(['is_deleted = 0']);
+        \ProductThreadReply::findFirst(['is_deleted = 0']);
+        \Transaction::findFirst(['is_deleted = 0']);
+        \User::findFirst(['is_deleted = 0']);
+        \UserAction::findFirst(['is_deleted = 0']);
+        \UserPurchase::findFirst(['is_deleted = 0']);
+        \UserReferrer::findFirst(['id = 0']);
+        \UserSupport::findFirst(['is_deleted = 0']);
+        \Youtube::findFirst(['is_deleted = 0']);
     }
 
     public function keyAction()

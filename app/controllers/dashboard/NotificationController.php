@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Controllers\Dashboard;
+namespace Controllers\Dashboard;
 
-use Phalcon\Tag;
-use App\Controllers\BaseController;
-use App\Models\Notification;
+use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/dashboard/notification")
  */
-class NotificationController extends BaseController
+class NotificationController extends \BaseController
 {
 
     /**
@@ -28,7 +26,7 @@ class NotificationController extends BaseController
      */
     public function indexAction()
     {
-        $notifications = Notification::findByUserId($this->session->get('id'));
+        $notifications = \UserNotification::findByUserId($this->session->get('id'));
 
         $this->view->setVars([
             'notifications' => $notifications,

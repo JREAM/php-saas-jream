@@ -1,14 +1,8 @@
 <?php
 
-namespace App\Tasks;
+namespace Tasks;
 
 use Phalcon\Cli\Task;
-use App\Models\Newsletter;
-use App\Models\NewsletterSubscription;
-use App\Models\User;
-use Swift_SmtpTransport;
-use Swift_Mailer;
-use Aws\Sns\SnsClient;
 
 class NewsletterTask extends Task
 {
@@ -32,7 +26,7 @@ class NewsletterTask extends Task
             'delivery' => 'arn:aws:sns:us-east-1:950584027081:ses-delivery-topic',
         ];
 
-        $sns = new SnsClient([
+        $sns = new Aws\Sns\SnsClient([
             'version' => getenv('AWS_SNS_VERSION'),
             'region' => getenv('AWS_SNS_REGION'),
             'credentials' => [
@@ -65,7 +59,7 @@ class NewsletterTask extends Task
      */
     public function createListAction()
     {
-        $users = User::find("is_deleted = 0 AND is_banned = 0");
+        $users = \User::find("is_deleted = 0 AND is_banned = 0");
 
         if (!$users) {
             echo 'No users found.' . PHP_EOL;
@@ -79,7 +73,7 @@ class NewsletterTask extends Task
             $user = $users->current();
             $email = $user->getEmail();
 
-            $newsletterSubscriber = NewsletterSubscription::findFirst([
+            $newsletterSubscriber = \NewsletterSubscription::findFirst([
                 "conditions" => "user_id = :id: OR email = :email:",
                 "bind" => [
                     "email" => $email,
@@ -90,7 +84,7 @@ class NewsletterTask extends Task
             // Add to Newsletter
             if (!$newsletterSubscriber) {
                 printf("Inserting %s into newsletter_subscription.\n", $user->getEmail());
-                $newsletterSubscriber = new NewsletterSubscription();
+                $newsletterSubscriber = new \NewsletterSubscription();
                 $newsletterSubscriber->is_subscribed = 1;
                 $newsletterSubscriber->user_id = $user->id;
                 $newsletterSubscriber->email = $email;

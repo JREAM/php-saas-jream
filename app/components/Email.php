@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Components;
-
-use Phalcon\Mvc\User\Component;
+namespace Component;
 
 /**
  * Email Renderer
  *
  * Phalcon\Mvc\User\Component extends abstract class Phalcon\Di\Injectable
  */
-class Email extends Component
+class Email extends \Phalcon\Mvc\User\Component
 {
     /**
      * Creates an email based on templates
@@ -51,7 +49,9 @@ class Email extends Component
      */
     private function _getFile($template)
     {
-        $filename = EMAILS_DIR . basename($template) . '.php';
+        $config = $this->di->get('config');
+
+        $filename = $config->get('emailsDir') . basename($template) . '.php';
 
         if (file_exists($filename) && is_readable($filename)) {
             return file_get_contents($filename);

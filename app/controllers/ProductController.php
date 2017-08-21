@@ -1,15 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
-use Phalcon\Tag;
-use Omnipay\Omnipay;
-use App\Models\Product;
-use App\Models\ProductCourse;
-use App\Models\Promotion;
-use App\Models\Transaction;
-use App\Models\UserPurchase;
-use App\Models\User;
+use \Phalcon\Tag;
+use \Omnipay\Omnipay;
 
 /**
  * @RoutePrefix("/product")
@@ -50,7 +44,7 @@ class ProductController extends BaseController
      */
     public function indexAction()
     {
-        $products = Product::find(['is_deleted = 0 ORDER BY status DESC']);
+        $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
         $this->view->setVars([
             'products' => $products,
@@ -68,7 +62,7 @@ class ProductController extends BaseController
      */
     public function viewAction($slug)
     {
-        $product = Product::findFirstBySlug($slug);
+        $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
         if (!$product) {
@@ -79,7 +73,7 @@ class ProductController extends BaseController
         $discount_price = null;
         $promotion_code = $this->request->get('promotion_code');
         if ($promotion_code) {
-            $promotion = new Promotion();
+            $promotion = new \Promotion();
             $percent_off = $promotion->check($promotion_code, $product->id);
             if ($percent_off->code !== 0) {
                 // Keep the promo on the users incase they refresh the page
@@ -99,7 +93,7 @@ class ProductController extends BaseController
             }
         }
 
-        $courses = ProductCourse::find([
+        $courses = \ProductCourse::find([
             "product_id = :product_id:",
             "bind"  => [
                 'product_id' => $product->id,
@@ -170,8 +164,8 @@ class ProductController extends BaseController
         $rtmpSignedUrl = null;
         $error = null;
 
-        $product = Product::findFirstBySlug($productSlug);
-        $productCourse = ProductCourse::findFirstById($courseId);
+        $product = \Product::findFirstBySlug($productSlug);
+        $productCourse = \ProductCourse::findFirstById($courseId);
         if (!$product || !$productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
@@ -222,7 +216,7 @@ class ProductController extends BaseController
 //            return $this->redirect(REDIRECT_MAIN);
 //        }
 
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product) {
             $this->flash->error('No product was found with the Id: %s', $productId);
 
@@ -261,7 +255,7 @@ class ProductController extends BaseController
 
             // If ProductID is set, ensure they are applying correctly
             if ($promo->product_id && $product->id != $promo->product_id) {
-                $other_product = Product::getById($promo->product_id);
+                $other_product = \Product::getById($promo->product_id);
                 $this->flash->error('You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
 
                 return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
@@ -398,7 +392,7 @@ class ProductController extends BaseController
      */
     public function doPayPalAction($productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
 
         if (!$product) {
             $this->flash->error('No product was found with the Id:' . $productId);
@@ -450,7 +444,7 @@ class ProductController extends BaseController
      */
     public function doPaypalConfirmAction($productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product) {
             $this->flash->error('Could not complete your transaction. The productId is invalid.');
 
@@ -521,7 +515,7 @@ class ProductController extends BaseController
      */
     public function doFreeCourseAction($productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
             $this->flash->error('Sorry this is an invalid or non-free course.');
 
@@ -544,10 +538,10 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    private function _createPurchase(Product $product, $gateway = false, $transaction_id = false)
+    private function _createPurchase(\Product $product, $gateway = false, $transaction_id = false)
     {
         // First create a transaction record
-        $transaction = new Transaction();
+        $transaction = new \Transaction();
         $transaction->user_id = $this->session->get('id');
         $transaction->transaction_id = $transaction_id;
         $transaction->type = 'purchase';
@@ -576,8 +570,9 @@ class ProductController extends BaseController
 
         $result = $transaction->save();
 
+
         // Insert the user record
-        $userPurchase = new UserPurchase();
+        $userPurchase = new \UserPurchase();
         $userPurchase->user_id = $this->session->get('id');
         $userPurchase->product_id = $product->id;
         $userPurchase->transaction_id = $transaction->id;
@@ -595,7 +590,7 @@ class ProductController extends BaseController
             'transaction_id' => $transaction_id,
         ]);
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
 
 
         $mail_result = $this->di->get('email', [

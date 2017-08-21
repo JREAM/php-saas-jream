@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
 use \Phalcon\Tag;
-use App\Forms\NewsletterForm;
-use App\Models\NewsletterSubscription;
 
 /**
  * @RoutePrefix("/newsletter")
@@ -37,7 +35,7 @@ class NewsletterController extends BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'form'     => new NewsletterForm(),
+            'form'     => new \NewsletterForm(),
             'tokenKey' => $this->security->getTokenKey(),
             'token'    => $this->security->getToken(),
         ]);
@@ -65,7 +63,7 @@ class NewsletterController extends BaseController
      */
     public function doVerifyAction($token)
     {
-        $newsletterSubscription = NewsletterSubscription::findFirstByVerifyKey($token);
+        $newsletterSubscription = \NewsletterSubscription::findFirstByVerifyKey($token);
 
         // If Key Not Found
         if (!$newsletterSubscription) {

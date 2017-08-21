@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Components;
-
-use Phalcon\Mvc\User\Component;
+namespace Component;
 
 /**
  * Helper Utilities
  *
  * Phalcon\Mvc\User\Component extends abstract class Phalcon\Di\Injectable
  */
-class Helper extends Component
+class Helper extends \Phalcon\Mvc\User\Component
 {
 
     // Get the Exact Timestamp with the Applied Timezone

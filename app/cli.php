@@ -2,6 +2,7 @@
 
 use Phalcon\Di\FactoryDefault\Cli as CliDI;
 use Phalcon\Cli\Console as ConsoleApp;
+use Phalcon\Loader;
 
 
 /**
@@ -31,12 +32,10 @@ try {
 }
 
 
-
-require_once __DIR__ . '/../config/constants.php';
-require_once CONFIG_DIR . '/loader.php';
-require_once CONFIG_DIR . '/config.php';
-require_once CONFIG_DIR . '/api.php';
-require_once APP_DIR . '/functions.php';
+require_once DOCROOT . '/config/loader.php';
+require_once DOCROOT . '/config/config.php';
+require_once DOCROOT . '/config/api.php';
+require_once APP_PATH . '/functions.php';
 
 // Using the CLI factory default services container
 $di = new CliDI();
@@ -61,7 +60,8 @@ $di->setShared('api', function () use ($api) {
  * =============================================================
  */
 $di->setShared('session', function () {
-    $session = new Phalcon\Session\Adapter\Files();
+    $session = new \Phalcon\Session\Adapter\Files();
+
     $session->start();
     return $session;
 });
@@ -74,7 +74,7 @@ $di->setShared('session', function () {
  */
 $di->set('db', function () use ($di, $config) {
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('db', new App\Middleware\Database());
+    $eventsManager->attach('db', new \Middleware\Database());
 
     $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
     $database->setEventsManager($eventsManager);
@@ -105,15 +105,15 @@ foreach ($argv as $k => $arg) {
 try {
     // Handle incoming arguments
     $console->handle($arguments);
-} catch (Phalcon\Exception $e) {
+} catch (\Phalcon\Exception $e) {
     // Do Phalcon related stuff here
     // ..
     fwrite(STDERR, $e->getMessage() . PHP_EOL);
     exit(1);
-} catch (Throwable $throwable) {
+} catch (\Throwable $throwable) {
     fwrite(STDERR, $throwable->getMessage() . PHP_EOL);
     exit(1);
-} catch (Exception $exception) {
+} catch (\Exception $exception) {
     fwrite(STDERR, $exception->getMessage() . PHP_EOL);
     exit(1);
 }

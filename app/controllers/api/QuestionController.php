@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace Controllers\Api;
 
-use App\Models\Product;
-use App\Models\ProductThread;
+use \Product;
 
 /**
  * @RoutePrefix("/api/question")
@@ -30,7 +29,7 @@ class QuestionController extends ApiController
     {
         $this->component->helper->csrf($productId);
 
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             return $this->output(0, 'You do not have permission to access this area.');
@@ -39,7 +38,7 @@ class QuestionController extends ApiController
         $title = $this->request->getPost('title');
         $content = $this->request->getPost('content');
 
-        $thread = new ProductThread();
+        $thread = new \ProductThread();
         $thread->user_id = $this->session->get('id');
         $thread->product_id = $productId;
         $thread->title = $title;
@@ -52,7 +51,7 @@ class QuestionController extends ApiController
 
         $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $thread->id);
 
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread', [
             'title'         => $title,
             'content'       => $content,
@@ -98,7 +97,7 @@ class QuestionController extends ApiController
     {
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
 
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
@@ -108,7 +107,7 @@ class QuestionController extends ApiController
 
         $content = $this->request->getPost('content');
 
-        $thread = new ProductThreadReply();
+        $thread = new \ProductThreadReply();
         $thread->user_id = $this->session->get('id');
         $thread->product_thread_id = $threadId;
         $thread->content = $content;
@@ -122,7 +121,7 @@ class QuestionController extends ApiController
 
         $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $threadId);
 
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread-reply', [
             'content'       => $content,
             'product_title' => $product->title,

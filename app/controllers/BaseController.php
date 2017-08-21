@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
-use Phalcon\Tag;
-use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\Dispatcher;
-use App\Models\User;
+use \Phalcon\Tag;
 
-class BaseController extends Controller
+class BaseController extends \Phalcon\Mvc\Controller
 {
 
     /**
@@ -39,7 +36,7 @@ class BaseController extends Controller
 
     // --------------------------------------------------------------
 
-    public function afterExecuteRoute(Dispatcher $dispatcher)
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         $this->view->system->info_display = false;
 
@@ -63,7 +60,7 @@ class BaseController extends Controller
             return false;
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
         if (!$user) {
             return false;
         }
@@ -135,7 +132,7 @@ class BaseController extends Controller
 
     // --------------------------------------------------------------
 
-    public function createSession(User $user, $additional = [])
+    public function createSession(\User $user, $additional = [])
     {
         // Clear the login attempts
         $user->login_attempt    = null;
@@ -225,7 +222,7 @@ class Batch
             $this->table = (string) $table;
         }
 
-        $di = \Phalcon\DI::getDefault();
+        $di = Phalcon\DI::getDefault();
         $this->db = $di->get('db');
 
         return $this;

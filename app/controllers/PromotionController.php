@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
 use \Phalcon\Tag;
-use App\Models\Promotion;
-use App\Models\Product;
 
 /**
  * @RoutePrefix("/promotion")
@@ -34,7 +32,7 @@ class PromotionController extends BaseController
         // Is a Promotion Enabled?
         $has_promotion = true;
 
-        $promotions = Promotion::find([
+        $promotions = \Promotion::find([
             'deleted_at IS NULL
             AND user_id IS NULL
             AND NOW() < expires_at
@@ -61,7 +59,7 @@ class PromotionController extends BaseController
         // die;
 
         // List All Courses
-        $products = Product::find(['is_deleted = 0 ORDER BY status DESC']);
+        $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
         // if ($promotion)
 
@@ -80,7 +78,7 @@ class PromotionController extends BaseController
 
     public function viewAction($promotionId)
     {
-        $promotion = Promotion::findFirst(['is_delete = 0 AND NOW() < expires_at AND id = :id:'], [
+        $promotion = \Promotion::findFirst(['is_delete = 0 AND NOW() < expires_at AND id = :id:'], [
             'id' => $promotionId,
         ]);
         if (!$promotion) {

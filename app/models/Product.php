@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class Product extends BaseModel
@@ -62,7 +60,7 @@ class Product extends BaseModel
     {
         // \Product::find(["is_deleted = 0"]);
         // $tags = \Product::find(["is_deleted = 0"]);
-        $products = Product::find([
+        $products = \Product::find([
             'conditions' => 'is_deleted = 0',
             'columns'    => 'id, title, slug, tags, img_sm, img_md',
         ])
@@ -107,7 +105,7 @@ class Product extends BaseModel
             $userId = $this->session->get('id');
         }
 
-        $userPurchase = UserPurchase::findFirst([
+        $userPurchase = \UserPurchase::findFirst([
             'product_id = :pid: AND user_id = :id:',
             'bind' => [
                 'pid' => $this->id,
@@ -126,10 +124,10 @@ class Product extends BaseModel
 
     public function getProductPercent()
     {
-        $courses = ProductCourse::findByProductId($this->id);
+        $courses = \ProductCourse::findByProductId($this->id);
         $courseTotal = count($courses);
 
-        $completedTotal = UserAction::sum([
+        $completedTotal = \UserAction::sum([
             'column'     => 'value',
             'conditions' => 'action = :action:
                 AND user_id = :user_id:

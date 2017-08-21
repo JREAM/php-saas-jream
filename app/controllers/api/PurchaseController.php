@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace Controllers\Api;
 
-use App\Models\User;
-use App\Models\UserPurchase;
-use App\Models\Promotion;
-use App\Models\Transaction;
-use App\Models\Product;
+use \User;
+use \UserPurchase;
+use \Promotion;
+use \Transaction;
+use \Product;
 
 /**
  * @RoutePrefix("/api/purchase")
@@ -44,7 +44,7 @@ class PurchaseController extends ApiController
      */
     public function freeAction(int $productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
             return $this->output(0, 'Sorry this is an invalid or non-free course.');
         }
@@ -62,7 +62,7 @@ class PurchaseController extends ApiController
      */
     public function stripeAction($productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product) {
             return $this->output(0, 'No product was found with the Id: %s', $productId);
         }
@@ -94,7 +94,7 @@ class PurchaseController extends ApiController
 
             // If ProductID is set, ensure they are applying correctly
             if ($promo->product_id && $product->id != $promo->product_id) {
-                $other_product = Product::getById($promo->product_id);
+                $other_product = \Product::getById($promo->product_id);
 
                 return $this->output(0, 'You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
             }
@@ -216,7 +216,7 @@ class PurchaseController extends ApiController
      */
     public function paypalAction(int $productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
 
         if (!$product) {
             return $this->output(0, 'No product was found with the Id:' . $productId);
@@ -262,7 +262,7 @@ class PurchaseController extends ApiController
      */
     public function doPaypalConfirmAction(int $productId)
     {
-        $product = Product::findFirstById($productId);
+        $product = \Product::findFirstById($productId);
         if (!$product) {
             return $this->output(0, 'Could not complete your transaction. The productId is invalid.');
         }

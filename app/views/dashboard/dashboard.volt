@@ -77,14 +77,18 @@
 
                 {% if products|length != 0 %}
                     {% for index, product in products %}
-                    <div class="relative img-thumbnail img-responsive dashboard-image-list">
+                    <div class="relative img-thumbnail img-responsive dashboard-image-list {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}" {% if product.status !== 'development' and product.price != 0 %}data-toggle="popover" data-placement="top" data-content="Click to Purchase {{ product.title }}"{% endif %}>
                         <a href="{{ url('product/view/') }}{{ product.slug }}">
                             <img class="fadeover" src="{{ product.img_sm }}" alt="{{ product.title }}" />
                         </a>
                         <div class="dashboard-product-title text-center">
                             <strong><a href="{{ url('product/view/') }}{{ product.slug }}"><i class="fa fa-arrow-circle-right"></i> {{ product.title }}</a></strong>
                             <br />
-                            {% if product.price != 0 %}
+                            {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
+                                Development
+                            {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
+                                Planned
+                            {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
                                 <sup>$</sup>{{ product.price }}
                             {% else %}
                                 Free

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace Controllers;
 
-use Phalcon\Tag;
+use \Phalcon\Tag;
 
 
 /**

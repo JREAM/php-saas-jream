@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Controllers\Dashboard;
+namespace Controllers\Dashboard;
 
-use Phalcon\Tag;
-use App\Controllers\BaseController;
-use App\Models\User;
-use App\Models\UserPurchase;
-use App\Models\Product;
-use App\Models\Youtube;
+use \Phalcon\Tag;
+
 /**
  * @RoutePrefix("/dashboard")
  */
-class DashboardController extends BaseController
+class DashboardController extends \BaseController
 {
 
     /**
@@ -30,35 +26,35 @@ class DashboardController extends BaseController
      */
     public function indexAction()
     {
-        $userPurchases = UserPurchase::findByUserId($this->session->get('id'));
+        $userPurchases = \UserPurchase::findByUserId($this->session->get('id'));
 
         $productStatus = [];
         $purchaseIds = [];
 
         foreach ($userPurchases as $purchase) {
             $purchaseIds[] = $purchase->product_id;
-            $product = Product::findFirstById($purchase->product_id);
+            $product = \Product::findFirstById($purchase->product_id);
 
             $productStatus[$purchase->product_id] = $product->getProductPercent();
         }
         $purchaseIds = implode(',', $purchaseIds);
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
 
         if ($purchaseIds) {
             // Note: Binding does not work here because
             // the imploded data renders as one string
-            $products = Product::find([
+            $products = \Product::find([
                 "id NOT IN ($purchaseIds) AND is_deleted = 0 ORDER BY status DESC",
             ]);
         } else {
-            $products = Product::find();
+            $products = \Product::find();
         }
 
         $this->view->setVars([
             'user'          => $user,
             'products'      => $products,
-            'youtube'       => Youtube::find(),
+            'youtube'       => \Youtube::find(),
             'productStatus' => $productStatus,
             'userPurchases' => $userPurchases,
             'hasPurchase'   => (count($userPurchases)) ? true : false,

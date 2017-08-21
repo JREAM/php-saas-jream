@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 use \Phalcon\Mvc\Model\Behavior\SoftDelete;
 use \Phalcon\Mvc\Model\Validator;
 
@@ -184,7 +182,7 @@ class User extends BaseModel
      */
     public function saveReferrer($userId, $request)
     {
-        $referrer = new UserReferrer();
+        $referrer = new \UserReferrer();
         $referrer->user_id = $userId;
         $referrer->referrer = $request->getHTTPReferer();
         $referrer->data = json_encode([

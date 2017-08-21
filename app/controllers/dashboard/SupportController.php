@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Controllers\Dashboard;
+namespace Controllers\Dashboard;
 
-use Phalcon\Tag;
-use App\Controllers\BaseController;
-use App\Models\User;
-use App\Models\UserSupport;
+use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/dashboard/support")
  */
-class SupportController extends BaseController
+class SupportController extends \BaseController
 {
 
     const REDIRECT_SUCCESS = 'dashboard';
@@ -70,9 +67,9 @@ class SupportController extends BaseController
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
-        $user = User::findFirstById($this->session->get('id'));
+        $user = \User::findFirstById($this->session->get('id'));
 
-        $userSupport = new UserSupport();
+        $userSupport = new \UserSupport();
         $userSupport->user_id = $user->id;
         $userSupport->type = $type;
         $userSupport->title = $title;

@@ -1,10 +1,59 @@
 <?php
+/**
+ * ==============================================================
+ * Error Reporting
+ * =============================================================
+ */
+error_reporting(E_ALL);
 
 /**
  * ==============================================================
- * Set Environment the Constants
+ * Set Environment & Constants
  * =============================================================
  */
+
+/**
+ * @const DOCROOT Document root
+ */
+define('DOCROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+
+if (!file_exists(DOCROOT . 'vendor/autoload.php')) {
+    throw new \RuntimeException(
+        'Unable to locate autoloader.' .
+        'Install dependencies from the project root directory to run test suite: `composer install`.'
+    );
+}
+
+/**
+ * Include Composer autoloader
+ */
+require_once DOCROOT . 'vendor/autoload.php';
+
+/**
+ * ==============================================================
+ * Load the .env File
+ * =============================================================
+ */
+try {
+    $dotenv = new Symfony\Component\Dotenv\Dotenv();
+    $dotenv->load(DOCROOT . DIRECTORY_SEPARATOR . '.env');
+} catch (Exception $e) {
+    die('Missing required .env file.');
+}
+
+define('URL', getenv('URL'));
+define('HTTPS', getenv('HTTPS'));
+
+/**
+ * @const DOCROOT Main application path
+ */
+define('APP_PATH', DOCROOT . 'app' . DIRECTORY_SEPARATOR);
+
+/**
+ * @const APPLICATION_ENV The current environment
+ */
+define('APPLICATION_ENV', getenv('APPLICATION_ENV'));
+
 /**
  * @const APP_PRODUCTION Application production stage
  */
@@ -39,7 +88,6 @@ define('APP_START_MEMORY', memory_get_usage());
  * @const HOSTNAME Current hostname
  */
 define('HOSTNAME', explode('.', gethostname())[0]);
-
 
 /**
  * Set the default locale

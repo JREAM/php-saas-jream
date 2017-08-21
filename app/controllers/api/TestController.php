@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace Controllers\Api;
 
 use \User;
 use \Promotion;

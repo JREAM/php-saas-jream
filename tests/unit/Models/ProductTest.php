@@ -4,7 +4,6 @@ namespace App\Test\Unit\Models;
 
 use UnitTester;
 use Codeception\Test\Unit;
-use App\Models\Product;
 
 class ProductTest extends Unit
 {
@@ -16,7 +15,7 @@ class ProductTest extends Unit
 
     protected function _before()
     {
-//        $this->model = new Product;
+//        $this->model = new \Product;
     }
 
     protected function _after()

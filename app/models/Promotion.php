@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class Promotion extends BaseModel
@@ -53,7 +51,7 @@ class Promotion extends BaseModel
 
         $productId = implode(',', $productId);
 
-        $result = Promotion::findFirst([
+        $result = \Promotion::findFirst([
             "code = :code:
             AND product_id IN (:product_id:)
             AND deleted_at = 0
@@ -89,7 +87,7 @@ class Promotion extends BaseModel
 
         // If ProductID is set, ensure they are applying correctly
         if ($result->product_id && $productId != $result->product_id) {
-            $other_product = Product::getById($result->product_id);
+            $other_product = \Product::getById($result->product_id);
             return (object) [
                 'code' => 0,
                 'data' => null,

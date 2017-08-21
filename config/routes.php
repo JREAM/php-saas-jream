@@ -9,12 +9,8 @@ use Phalcon\Mvc\Router;
  */
 $router = new Router();
 $router->removeExtraSlashes(true);
-$router->setDefaults([
-    'namespace'     => 'App\Controllers',
-    'controller'    => 'index',
-    'action'        => 'index'
-]);
-
+$router->setDefaultController('index');
+$router->setDefaultNamespace('Controllers');
 
 /**
  * ==============================================================
@@ -62,19 +58,19 @@ $router ->add('/updates', [
  * =============================================================
  */
 $router->add('/dashboard/:controller/:action/:params', [
-    'namespace'  => 'App\Controllers\Dashboard',
+    'namespace'  => 'Controllers\Dashboard',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
 $router->add('/dashboard/:controller', [
-    'namespace'  => 'App\Controllers\Dashboard',
+    'namespace'  => 'Controllers\Dashboard',
     'controller' => 1,
 ]);
 
 $router->add('/dashboard', [
-    'namespace'  => 'App\Controllers\Dashboard',
+    'namespace'  => 'Controllers\Dashboard',
     'controller' => 'dashboard',
 ])
 ->setName('dashboard');
@@ -86,19 +82,19 @@ $router->add('/dashboard', [
  */
 
 $router->add('/api/:controller/:action/:params', [
-    'namespace'  => 'App\Controllers\Api',
+    'namespace'  => 'Controllers\Api',
     'controller' => 1,
     'action'     => 2,
     'params'     => 3,
 ]);
 
 $router->add('/api/:controller', [
-    'namespace'  => 'App\Controllers\Api',
+    'namespace'  => 'Controllers\Api',
     'controller' => 1,
 ]);
 
 $router->add('/api', [
-    'namespace'  => 'App\Controllers\Api',
+    'namespace'  => 'Controllers\Api',
     'controller' => 'api',
 ])
 ->setName('api');

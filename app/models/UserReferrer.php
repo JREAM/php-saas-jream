@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Models;
-
 class UserReferrer extends BaseModel
 {
 

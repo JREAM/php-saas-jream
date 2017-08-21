@@ -4,7 +4,6 @@ namespace App\Test\Unit\Models;
 
 use UnitTester;
 use Codeception\Test\Unit;
-use App\Models\Promotion;
 
 class PromotionTest extends Unit
 {
@@ -16,7 +15,7 @@ class PromotionTest extends Unit
 
     protected function _before()
     {
-//        $this->model = new Promotion;
+//        $this->model = new \Promotion;
     }
 
     protected function _after()

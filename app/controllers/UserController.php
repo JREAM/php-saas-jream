@@ -423,10 +423,10 @@ class UserController extends \BaseController
         }
 
         // Save them in the mailing list
-        $newsletterSubscriptions = new \NewsletterSubscriptions();
-        $newsletterSubscriptions->email = $email;
-        $newsletterSubscriptions->is_subscribed = 1; // @TODO is tihs right?
-        $newsletterSubscriptions->save();
+        $newsletterSubscription = new \NewsletterSubscription();
+        $newsletterSubscription->email = $email;
+        $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
+        $newsletterSubscription->save();
 
         // Where'd they signup from?
         $user->saveReferrer($user->id, $this->request);
@@ -524,10 +524,10 @@ class UserController extends \BaseController
         }
 
         // Save them in the mailing list
-        $newsletterSubscriptions = new \NewsletterSubscriptions();
-        $newsletterSubscriptions->email = $email;
-        $newsletterSubscriptions->is_subscribed = 1; // @TODO is tihs right?
-        $newsletterSubscriptions->save();
+        $newsletterSubscription = new \NewsletterSubscription();
+        $newsletterSubscription->email = $email;
+        $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
+        $newsletterSubscription->save();
 
         $mail_result = $this->di->get('email', [
             [

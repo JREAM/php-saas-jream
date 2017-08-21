@@ -19,6 +19,7 @@ error_reporting(E_ALL); // Log all errors
  */
 date_default_timezone_set(DEFAULT_TIMEZONE);
 
+
 /**
  * ==============================================================
  * Website Config

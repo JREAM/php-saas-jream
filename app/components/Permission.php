@@ -187,7 +187,8 @@ class Permission extends \Phalcon\Mvc\User\Component
 
     private function _handleHttps($dispatcher)
     {
-        if (\STAGE != 'live') {
+
+        if (\APPLICATION_ENV !== \APP_PRODUCTION) {
             return false;
         }
 

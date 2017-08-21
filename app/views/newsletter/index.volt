@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            {% if constant('STAGE') != 'local' %}
+                            {% if constant('\APPLICATION_ENV') != constant('\APP_DEVELOPMENT') %}
                             <div class="g-recaptcha" data-sitekey="6LfHCAYTAAAAALb7zfhNEaWLklfHO-MMoIjsKlHV"></div>
                             {% else %}
                             <b>Not Showing Captcha, in LOCAL mode.</b>

@@ -81,7 +81,7 @@ class Dispatch
     {
         error_log($exception->getMessage(), 0);
 
-        if (\STAGE == 'live') {
+        if (\APPLICATION_ENV === \APP_PRODUCTION) {
             // GetSentry to log the error
             $this->di->get('sentry')->captureException($exception);
         } else {

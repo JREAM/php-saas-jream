@@ -52,8 +52,7 @@ class ApiLegacyController extends \BaseController
             return false;
         }
 
-
-        if (\STAGE == 'local') {
+        if (\APPLICATION_ENV === \APP_DEVELOPMENT) {
             $this->session->set('recaptcha', 1);
             $this->output(1, 'Local Development Auto-Pass');
             return false;
@@ -95,7 +94,6 @@ class ApiLegacyController extends \BaseController
     public function contactAction()
     {
         // Make sure recaptcha called and all
-        // STAGE==LOCAL mode sets a value
         if (!$this->session->has('recaptcha')) {
             $this->output(0, 'Recaptcha is required.');
             return false;

@@ -3,7 +3,7 @@
 namespace Api;
 
 use \User;
-use \NewsletterSubscriptions;
+use \NewsletterSubscription;
 
 /**
  * @RoutePrefix("/api/newsletter")
@@ -27,7 +27,7 @@ class NewsletterController extends ApiController
     public function subscribeAction()
     {
         $email = $this->input->getPost('email');
-        $newsletter = NewsletterSubscriptions::findFirstByEmail($email);
+        $newsletter = NewsletterSubscription::findFirstByEmail($email);
 
         // Exists, check user table
         if ($newsletter) {
@@ -36,7 +36,7 @@ class NewsletterController extends ApiController
             }
         }
 
-        $newsletter = new NewsletterSubscriptions();
+        $newsletter = new NewsletterSubscription();
         $newsletter->email = $email;
         $newsletter->is_subscribed = 1;
         $newsletter->save();
@@ -55,7 +55,7 @@ class NewsletterController extends ApiController
     public function unsubscribeAction()
     {
         $email = $this->input->getPost('email');
-        $newsletter = NewsletterSubscriptions::findFirstByEmail($email);
+        $newsletter = NewsletterSubscription::findFirstByEmail($email);
         if (!$newsletter) {
             return $this->output(0, 'Subscription not found.');
         }
@@ -75,7 +75,7 @@ class NewsletterController extends ApiController
     public function verifyAction()
     {
         $token = $this->input->getPost('token');
-        $newsletter = NewsletterSubscriptions::findFirstByToken($token);
+        $newsletter = NewsletterSubscription::findFirstByToken($token);
         if (!$newsletter) {
             return $this->output(0, 'Token not found.');
         }

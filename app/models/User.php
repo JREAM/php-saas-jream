@@ -74,7 +74,7 @@ class User extends BaseModel
         }
 
         // Only do this locally!
-        if (\STAGE == 'local') {
+        if (\APPLICATION_ENV === \APP_DEVELOPMENT) {
             if (!$this->email && !$this->facebook_email && !$this->google_email) {
                 return '&lt;&lt;no email&gt;&gt;';
             }

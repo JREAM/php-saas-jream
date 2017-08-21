@@ -75,7 +75,7 @@ window.CSRF = "{% if tokenKey is defined %}{{ tokenKey }},{% endif %}{% if token
 
 
 
-{% if constant('STAGE') == 'local' %}
+{% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}
     <script src="http://localhost:35729/livereload.js"></script>
 {% else %}
     <script>

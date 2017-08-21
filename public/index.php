@@ -22,7 +22,6 @@ if (!file_exists($autoload_file)) {
 }
 require_once $autoload_file;
 
-
 /**
  * ==============================================================
  * Load the .env File
@@ -44,6 +43,7 @@ try {
 // @important This must come first!
 require dirname(__DIR__) . '/config/constants.php';
 
+require CONFIG_DIR . '/env.php';
 
 /**
  * ==============================================================
@@ -100,7 +100,12 @@ try {
      * =============================================================
      */
     $application = new \Phalcon\Mvc\Application($di);
-    echo $application->handle()->getContent();
+
+    if (\APPLICATION_ENV == \APP_TEST) {
+        return $application;
+    } else {
+        echo $application->handle()->getContent();
+    }
 
 } catch (\Exception $e) {
 
@@ -113,7 +118,7 @@ try {
      * Non Live: Show Local Error (Or Whoops Appears)
      * =============================================================
      */
-    if (\STAGE != 'live') {
+    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
         echo '<pre>';
         echo "Message: {$e->getMessage()} <br>";
         echo "File: {$e->getFile()}<br>";

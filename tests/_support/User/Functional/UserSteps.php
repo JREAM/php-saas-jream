@@ -36,7 +36,7 @@ class UserSteps
     {
         $I = $this->tester;
 
-        return $I->haveRecord('\Models\Users', $this->formFields);
+        return $I->haveRecord('\Users', $this->formFields);
     }
 
     /**

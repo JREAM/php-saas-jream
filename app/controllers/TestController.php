@@ -13,7 +13,7 @@ class TestController extends \BaseController
      */
     public function onConstruct()
     {
-        if (\STAGE == 'live' && !$this->input->get('jesse=1')) {
+        if (\APPLICATION_ENV == \APP_PRODUCTION && !$this->input->get('jesse=1')) {
             return $this->redirect('index');
         }
     }
@@ -33,6 +33,7 @@ class TestController extends \BaseController
 //        print_r($r);
         die;
     }
+}
 
     /**
      * @Get(

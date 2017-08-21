@@ -22,11 +22,15 @@
 $constants = [];
 
 // --------------------------------------------------------------
+// Used for Testing and All that
+// --------------------------------------------------------------
+$constants['APPLICATION_ENV'] = getenv('APPLICATION_ENV');
+
+// --------------------------------------------------------------
 // Timezone: This should always be UTC
 // --------------------------------------------------------------
 $constants['DEFAULT_TIMEZONE'] = getenv('DEFAULT_TIMEZONE');
 
-$constants['STAGE'] = getenv('STAGE');
 $constants['URL'] = getenv('URL');
 $constants['BASE_URI'] = getenv('BASE_URI');
 $constants['HTTPS'] = getenv('HTTPS');
@@ -44,11 +48,11 @@ $constants['BASE_DIR'] = dirname(__DIR__) . '/';// Append Slash
  * Core Paths
  * =============================================================
  */
-$constants['APP_DIR'] = $constants['BASE_DIR'] . 'app/';
-$constants['CACHE_DIR'] = $constants['BASE_DIR'] . 'cache/';
-$constants['VENDOR_DIR'] = $constants['BASE_DIR'] . 'vendor/';
-$constants['CONFIG_DIR'] = $constants['BASE_DIR'] . 'config/';
-$constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
+$constants['APP_DIR'] = $constants['BASE_DIR'] . 'app' . DIRECTORY_SEPARATOR;
+$constants['CACHE_DIR'] = $constants['BASE_DIR'] . 'cache' . DIRECTORY_SEPARATOR;
+$constants['VENDOR_DIR'] = $constants['BASE_DIR'] . 'vendor' . DIRECTORY_SEPARATOR;
+$constants['CONFIG_DIR'] = $constants['BASE_DIR'] . 'config' . DIRECTORY_SEPARATOR;
+$constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests' . DIRECTORY_SEPARATOR;
 
 
 /**
@@ -56,11 +60,11 @@ $constants['TESTS_DIR'] = $constants['BASE_DIR'] . 'tests/';
  * MVC Paths
  * =============================================================
  */
-$constants['VIEWS_DIR'] = $constants['APP_DIR'] . 'views/';
-$constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models/';
-$constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers/';
-$constants['MIDDLEWARE_DIR'] = $constants['APP_DIR'] . 'middleware/';
-$constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins/';
+$constants['VIEWS_DIR'] = $constants['APP_DIR'] . 'views' . DIRECTORY_SEPARATOR;
+$constants['MODELS_DIR'] = $constants['APP_DIR'] . 'models' . DIRECTORY_SEPARATOR;
+$constants['CONTROLLERS_DIR'] = $constants['APP_DIR'] . 'controllers' . DIRECTORY_SEPARATOR;
+$constants['MIDDLEWARE_DIR'] = $constants['APP_DIR'] . 'middleware' . DIRECTORY_SEPARATOR;
+$constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins' . DIRECTORY_SEPARATOR;
 
 
 /**
@@ -68,11 +72,11 @@ $constants['PLUGINS_DIR'] = $constants['APP_DIR'] . 'plugins/';
  * MVC Extra Paths
  * =============================================================
  */
-$constants['COMPONENTS_DIR'] = $constants['APP_DIR'] . 'components/';
-$constants['FORMS_DIR'] = $constants['APP_DIR'] . 'forms/';
-$constants['LIBRARY_DIR'] = $constants['APP_DIR'] . 'library/';
-$constants['TASKS_DIR'] = $constants['APP_DIR'] . 'tasks/';
-$constants['MIGRATIONS_DIR'] = $constants['BASE_DIR'] . 'migrations/';
+$constants['COMPONENTS_DIR'] = $constants['APP_DIR'] . 'components' . DIRECTORY_SEPARATOR;
+$constants['FORMS_DIR'] = $constants['APP_DIR'] . 'forms' . DIRECTORY_SEPARATOR;
+$constants['LIBRARY_DIR'] = $constants['APP_DIR'] . 'library' . DIRECTORY_SEPARATOR;
+$constants['TASKS_DIR'] = $constants['APP_DIR'] . 'tasks' . DIRECTORY_SEPARATOR;
+$constants['MIGRATIONS_DIR'] = $constants['BASE_DIR'] . 'migrations' . DIRECTORY_SEPARATOR;
 
 
 /**
@@ -80,9 +84,8 @@ $constants['MIGRATIONS_DIR'] = $constants['BASE_DIR'] . 'migrations/';
  * Additional Paths
  * =============================================================
  */
-$constants['RESOURCES_DIR'] = $constants['BASE_DIR'] . 'resources/';
-$constants['EMAILS_DIR'] = $constants['RESOURCES_DIR'] . 'emails/';
-
+$constants['RESOURCES_DIR'] = $constants['BASE_DIR'] . 'resources' . DIRECTORY_SEPARATOR;
+$constants['EMAILS_DIR'] = $constants['RESOURCES_DIR'] . 'emails' . DIRECTORY_SEPARATOR;
 
 /**
  * ==============================================================
@@ -98,3 +101,4 @@ foreach ($constants as $key => $value) {
 
     defined($key) or define($key, $value);
 }
+

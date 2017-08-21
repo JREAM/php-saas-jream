@@ -145,7 +145,7 @@ try {
      * Non Live: Show Local Error (Or Whoops Appears)
      * =============================================================
      */
-    if (\STAGE != 'live') {
+    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
         echo '<pre>';
         echo "Message: {$e->getMessage()} <br>";
         echo "File: {$e->getFile()}<br>";

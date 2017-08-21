@@ -71,7 +71,7 @@ class NewsletterTask extends Task
             $user = $users->current();
             $email = $user->getEmail();
 
-            $newsletterSubscriber = \NewsletterSubscriptions::findFirst([
+            $newsletterSubscriber = \NewsletterSubscription::findFirst([
                 "conditions" => "user_id = :id: OR email = :email:",
                 "bind" => [
                     "email" => $email,
@@ -82,7 +82,7 @@ class NewsletterTask extends Task
             // Add to Newsletter
             if (!$newsletterSubscriber) {
                 printf("Inserting %s into newsletter_subscription.\n", $user->getEmail());
-                $newsletterSubscriber = new \NewsletterSubscriptions();
+                $newsletterSubscriber = new \NewsletterSubscription();
                 $newsletterSubscriber->is_subscribed = 1;
                 $newsletterSubscriber->user_id = $user->id;
                 $newsletterSubscriber->email = $email;
@@ -102,7 +102,7 @@ class NewsletterTask extends Task
     public function sendEmailAction()
     {
         // Load AWS SES.. only send to ppl that didnt receive email id X
-//        $subscribers = \NewsletterSubscriptions::get();
+//        $subscribers = \NewsletterSubscription::get();
 
         // Create the Transport
         $transport = Swift_SmtpTransport::newInstance(

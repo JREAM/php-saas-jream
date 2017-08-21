@@ -169,22 +169,30 @@ $di->setShared('view', function () use ($config) {
     $view->registerEngines([
         '.volt' => function ($view, $di) use ($config) {
 
+            $path = APPLICATION_ENV == APP_TEST ? BASE_DIR . 'tests/_cache/' : CACHE_DIR;
+
             // ------------------------------------------------
             // Volt Template Engine
             // ------------------------------------------------
             $volt = new VoltEngine($view, $di);
 
             $volt->setOptions([
-                'compiledPath' => CACHE_DIR,
+                'compiledPath' => $path,
                 'compiledSeparator' => '_',
                 // ------------------------------------------------
                 // For DEV, to prevent Caching annoyances
                 // ------------------------------------------------
-                'compileAlways' => true
+                'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION
             ]);
 
+            $volt->getCompiler()
+                ->addFunction('strtotime', 'strtotime')
+                ->addFunction('sprintf', 'sprintf')
+                ->addFunction('str_replace', 'str_replace')
+                ->addFunction('is_a', 'is_a');
+
             // Use Cache for live site
-            if (\STAGE == 'live') {
+            if (\APPLICATION_ENV == \APP_PRODUCTION) {
                 $voltOptions['compileAlways'] = false;
             }
 
@@ -197,7 +205,9 @@ $di->setShared('view', function () use ($config) {
     ]);
 
     // Used for global variables (See: middleware/afterExecuteRoute)
-    $view->system = new \stdClass();
+    $view
+        ->setVar('version', \Phalcon\Version::get())
+        ->system = new \stdClass();
 
     return $view;
 });
@@ -301,7 +311,7 @@ $di->setShared('sentry', function() use ($api) {
  * Local Error Logging
  * =============================================================
  */
-if (STAGE != 'live') {
+if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
     $di->setShared('whoops', function() {
         $whoops = new \Whoops\Run;

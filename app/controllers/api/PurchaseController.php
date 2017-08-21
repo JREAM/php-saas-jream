@@ -5,6 +5,9 @@ namespace Api;
 use \User;
 use \Promotion;
 
+/**
+ * @RoutePrefix("/api/purchase")
+ */
 class PurchaseController extends ApiController
 {
 
@@ -18,15 +21,23 @@ class PurchaseController extends ApiController
 
     // --------------------------------------------------------------
 
+    /**
+     * @return string JSON
+     */
     public function applyPromotionAction()
     {
         $code = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
 
+        $user_id = $this->session->get('user_id');
+
         $promotion = new Promotion();
         $result = $promotion->check($code, $productId);
     }
 
+    /**
+     * @return string JSON
+     */
     public function freeAction()
     {
         $product = \Product::findFirstById($productId);
@@ -41,6 +52,9 @@ class PurchaseController extends ApiController
         return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
     }
 
+    /**
+     * @return string JSON
+     */
     public function stripeAction($productId)
     {
         $product = \Product::findFirstById($productId);
@@ -57,7 +71,7 @@ class PurchaseController extends ApiController
         $zip = $this->request->getPost('zip');
 
         if (!$name) {
-            return $this->output->response(0, 'You must provide a name.');
+            return $this->output(0, 'You must provide a name.');
         }
 
         // Checks for Promotion Applied.
@@ -70,31 +84,24 @@ class PurchaseController extends ApiController
             // The USER ID (If Set) Is checked when the Cookie is created, it won't get to this
             // point, or shouldn't -- but I'll double protect anyways.
             if ($promo->user_id && $this->session->get('id') != $promo->user_id) {
-                $this->flash->error('This promotion is for an individual only, it does not appear to be you, sorry.');
-
-                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+                return $this->output(0, 'This promotion is for an individual only, it does not appear to be you, sorry.');
             }
 
             // If ProductID is set, ensure they are applying correctly
             if ($promo->product_id && $product->id != $promo->product_id) {
                 $other_product = \Product::getById($promo->product_id);
-                $this->flash->error('You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
 
-                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+                return $this->output(0, 'You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
             }
 
             // Make sure to check this DURING the checkout
             if ($promo->expires_at > $this->helper->getLocaleTimestamp()) {
-                $this->flash->error('Sorry, this promotion expired on ' . $promo->expires_at);
-
-                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+                return $this->output(0, 'Sorry, this promotion expired on ' . $promo->expires_at);
             }
 
             // Make sure to check this DURING the checkout
             if ($promo->deleted_at) {
-                $this->flash->error('Sorry, this promotion was deleted on ' . $promo->deleted_at);
-
-                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+                return $this->output(0, 'Sorry, this promotion was deleted on ' . $promo->deleted_at);
             }
 
             // Only one of these apply
@@ -149,9 +156,8 @@ class PurchaseController extends ApiController
                 'amount_in_cents'       => $amount_in_cents,
                 'revert_money_test'     => $revert_money_test,
             ]);
-            $this->flash->error($msg);
 
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, $msg);
         }
 
         try {
@@ -170,28 +176,32 @@ class PurchaseController extends ApiController
             ]);
         } catch (\Stripe\Error\Card $e) {
             $this->di->get('sentry')->captureException($e);
-            return $this->output->response(0, $e->getMessage());
+
+            return $this->output(0, $e->getMessage());
         }
 
         // Check failure of non 200
         if ((int)$response->getLastResponse()->code != 200) {
             $msg = "Sorry, the Stripe Gateway did not return a successful response.";
             $this->di->get('sentry')->captureMessage($msg);
-            return $this->output->response(0, $e->getMessage());
+
+            return $this->output(0, $e->getMessage());
         }
 
         // Check failure of paid false
         if ((int)$response->paid == 0) {
             $this->di->get('sentry')->captureException($response);
-            return $this->output->response(0, 'There was a problem processing your payment');
+
+            return $this->output(0, 'There was a problem processing your payment');
         }
 
         if ((int)$response->paid == 1) {
             $this->_createPurchase($product, 'Stripe', $response->getLastResponse()->json['id']);
-            return $this->output->response(1, 'Success.');
+
+            return $this->output(1, 'Success.');
         }
 
-        return $this->output->response(0, 'Sorry, your Stripe API Payment was not returned as paid.');
+        return $this->output(0, 'Sorry, your Stripe API Payment was not returned as paid.');
     }
 
     public function paypalAction()
@@ -199,11 +209,11 @@ class PurchaseController extends ApiController
         $product = \Product::findFirstById($productId);
 
         if (!$product) {
-            return $this->output->response(0, 'No product was found with the Id:' . $productId);
+            return $this->output(0, 'No product was found with the Id:' . $productId);
         }
 
         if ($product->hasPurchased() == true) {
-            return $this->output->response(0, 'You have already purchased this');
+            return $this->output(0, 'You have already purchased this');
         }
 
         // Default Price

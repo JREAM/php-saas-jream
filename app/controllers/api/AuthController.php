@@ -4,6 +4,10 @@ namespace Api;
 
 use \User;
 
+
+/**
+ * @RoutePrefix("/api/auth")
+ */
 class AuthController extends ApiController
 {
 
@@ -17,6 +21,9 @@ class AuthController extends ApiController
 
     // --------------------------------------------------------------
 
+    /**
+     * @return string JSON
+     */
     public function loginAction()
     {
         if (!$this->component->helper->csrf(false, true)) {
@@ -55,8 +62,6 @@ class AuthController extends ApiController
                 if ($user->isBanned()) {
                     return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
                                 For support, contact <strong>hello@jream.com</strong>.');
-
-                    return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
                 }
 
                 // $this->createSession($user, [], $remember_me);
@@ -73,14 +78,23 @@ class AuthController extends ApiController
         return $this->output(0, 'Incorrect Credentials');
     }
 
+    /**
+     * @return string JSON
+     */
     public function registerAction()
     {
     }
 
+    /**
+     * @return string JSON
+     */
     public function forgotPasswordAction()
     {
     }
 
+    /**
+     * @return string JSON
+     */
     public function createNewPasswordAction()
     {
     }

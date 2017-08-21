@@ -19,6 +19,9 @@ class ApiController extends \Phalcon\Mvc\Controller
         $this->view->disable();
     }
 
+    /**
+     * @return string JSON
+     */
     public function beforeExecuteRoute()
     {
         // For AJAX Requests, Regenerate the Token.
@@ -29,9 +32,9 @@ class ApiController extends \Phalcon\Mvc\Controller
                 return $this->output(0, 'No CSRF Token provided.');
             }
 
-            $parts      = explode(',', $csrf);
-            $tokenKey   = $parts[0];
-            $token      = $parts[1];
+            $parts = explode(',', $csrf);
+            $tokenKey = $parts[0];
+            $token = $parts[1];
 
             // CSRF Failed
             if (!$this->security->checkToken($tokenKey, $token)) {
@@ -58,7 +61,7 @@ class ApiController extends \Phalcon\Mvc\Controller
      * @param  boolean             $result
      * @param  array|object|string $data (Optional)
      *
-     * @return string
+     * @return string JSON
      */
     protected function output($result, $data = null)
     {

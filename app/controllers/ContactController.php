@@ -2,6 +2,9 @@
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/contact")
+ */
 class ContactController extends \BaseController
 {
 

@@ -1,4 +1,6 @@
 <?php
+
+use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 use \Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use \Phalcon\Http\Response\Cookies;
 use \Phalcon\Crypt;
@@ -95,6 +97,16 @@ $di->setShared('router', function() {
     return require CONFIG_DIR . '/routes.php';
 });
 
+
+//$di->setShared('router', function () {
+//    // Use the annotations router. We're passing false as we don't want the router to add its default patterns
+//    $router = new RouterAnnotations(false);
+//
+//    // Read the annotations from ProductsController if the URI starts with /api/products
+//    $router->addResource("Products", "/api/products");
+//
+//    return $router;
+//});
 
 /**
  * ==============================================================

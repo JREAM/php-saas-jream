@@ -4,6 +4,9 @@ namespace Dashboard;
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/dashboard/course")
+ */
 class CourseController extends \BaseController
 {
 

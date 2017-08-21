@@ -2,6 +2,9 @@
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/user")
+ */
 class UserController extends \BaseController
 {
     const LOGIN_REDIRECT_SUCCESS = 'dashboard';

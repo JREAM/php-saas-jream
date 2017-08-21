@@ -3,6 +3,9 @@ namespace Dashboard;
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/dashboard/account")
+ */
 class AccountController extends \BaseController
 {
 

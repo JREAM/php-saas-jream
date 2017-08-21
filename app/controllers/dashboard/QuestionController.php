@@ -4,6 +4,9 @@ namespace Dashboard;
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/dashboard/question")
+ */
 class QuestionController extends \BaseController
 {
 

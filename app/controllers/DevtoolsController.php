@@ -2,6 +2,10 @@
 
 use \Phalcon\Tag;
 
+
+/**
+ * @RoutePrefix("/devtools")
+ */
 class DevtoolsController extends \BaseController
 {
 

@@ -3,8 +3,11 @@
 namespace Api;
 
 use \User;
-use \NewsletterSubscribe;
+use \NewsletterSubscriptions;
 
+/**
+ * @RoutePrefix("/api/newsletter")
+ */
 class NewsletterController extends ApiController
 {
 
@@ -18,10 +21,13 @@ class NewsletterController extends ApiController
 
     // --------------------------------------------------------------
 
+    /**
+     * @return string JSON
+     */
     public function subscribeAction()
     {
         $email = $this->input->getPost('email');
-        $newsletter = NewsletterSubscribe::findFirstByEmail($email);
+        $newsletter = NewsletterSubscriptions::findFirstByEmail($email);
 
         // Exists, check user table
         if ($newsletter) {
@@ -30,7 +36,7 @@ class NewsletterController extends ApiController
             }
         }
 
-        $newsletter = new NewsletterSubscribe();
+        $newsletter = new NewsletterSubscriptions();
         $newsletter->email = $email;
         $newsletter->is_subscribed = 1;
         $newsletter->save();
@@ -43,12 +49,15 @@ class NewsletterController extends ApiController
         // }
     }
 
+    /**
+     * @return string JSON
+     */
     public function unsubscribeAction()
     {
         $email = $this->input->getPost('email');
-        $newsletter = NewsletterSubscribe::findFirstByEmail($email);
+        $newsletter = NewsletterSubscriptions::findFirstByEmail($email);
         if (!$newsletter) {
-            return false;
+            return $this->output(0, 'Subscription not found.');
         }
         $newsletter->is_subscribed = 0;
         $newsletter->save();
@@ -57,22 +66,29 @@ class NewsletterController extends ApiController
             $this->updateUserRow($newsletter->user_id, 0);
         }
 
-        return true;
+        return $this->output(1, 'Unsubscribed');
     }
 
+    /**
+     * @return string JSON
+     */
     public function verifyAction()
     {
         $token = $this->input->getPost('token');
-        $newsletter = NewsletterSubscribe::findFirstByToken($token);
+        $newsletter = NewsletterSubscriptions::findFirstByToken($token);
         if (!$newsletter) {
-            return false;
+            return $this->output(0, 'Token not found.');
         }
         $newsletter->is_verified = 1;
         $newsletter->is_subscribed = 1;
         $newsletter->save();
-        return true;
+
+        return $this->output(1, 'Verified.');
     }
 
+    /**
+     * @return bool
+     */
     protected function updateUserRow($user_id, $boolean)
     {
         $user = User::findFirstById($user_id);

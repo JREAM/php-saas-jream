@@ -3,6 +3,9 @@
 use \Phalcon\Tag;
 use \Omnipay\Omnipay;
 
+/**
+ * @RoutePrefix("/product")
+ */
 class ProductController extends \BaseController
 {
     const REDIRECT_MAIN = 'product';
@@ -31,6 +34,10 @@ class ProductController extends \BaseController
     // --------------------------------------------------------------
 
     /**
+     * @Get(
+     *     "/"
+     * )
+     *
      * @return void
      */
     public function indexAction()

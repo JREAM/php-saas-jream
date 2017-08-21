@@ -2,6 +2,9 @@
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/test")
+ */
 class TestController extends \BaseController
 {
 
@@ -31,6 +34,10 @@ class TestController extends \BaseController
         die;
     }
 
+    /**
+     * @Get(
+     *     "/"
+     * )
     public function indexAction()
     {
         $SNS_ARN = [

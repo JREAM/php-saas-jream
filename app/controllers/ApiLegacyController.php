@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * @RoutePrefix("/apilegacy/")
+ */
 class ApiLegacyController extends \BaseController
 {
 

@@ -3,6 +3,9 @@
 use \Phalcon\Tag;
 use \Omnipay\Omnipay;
 
+/**
+ * @RoutePrefix("/checkout")
+ */
 class CheckoutController extends \BaseController
 {
     const REDIRECT_SUCCESS = 'checkout/';

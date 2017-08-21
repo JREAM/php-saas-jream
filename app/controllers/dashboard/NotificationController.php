@@ -4,6 +4,9 @@ namespace Dashboard;
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/dashboard/notification")
+ */
 class NotificationController extends \BaseController
 {
 

@@ -2,6 +2,9 @@
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/promotion")
+ */
 class PromotionController extends \BaseController
 {
 
@@ -17,6 +20,9 @@ class PromotionController extends \BaseController
     // --------------------------------------------------------------
 
     /**
+     * @Get(
+     *     "/"
+     * )
      * @return void
      */
     public function indexAction()

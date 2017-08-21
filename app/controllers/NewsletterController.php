@@ -2,6 +2,9 @@
 
 use \Phalcon\Tag;
 
+/**
+ * @RoutePrefix("/newsletter")
+ */
 class NewsletterController extends \BaseController
 {
 
@@ -21,6 +24,10 @@ class NewsletterController extends \BaseController
     // --------------------------------------------------------------
 
     /**
+     * @Get(
+     *     "/"
+     * )
+     *
      * @return void
      */
     public function indexAction()
@@ -37,6 +44,9 @@ class NewsletterController extends \BaseController
     // --------------------------------------------------------------
 
     /**
+     * @Post(
+     *     "/"
+     * )
      * @return void
      */
     public function doSubscribeAction()

@@ -129,7 +129,7 @@ class BaseController extends \Phalcon\Mvc\Controller
 
     // --------------------------------------------------------------
 
-    public function createSession(\User $user, $additional = [], $remember_me = false)
+    public function createSession(\User $user, $additional = [])
     {
         // Clear the login attempts
         $user->login_attempt    = null;

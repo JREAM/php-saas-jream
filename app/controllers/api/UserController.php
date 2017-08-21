@@ -23,15 +23,6 @@ class UserController extends ApiController
     /**
      * @return string JSON
      */
-    public function updatePasswordAction()
-    {
-        $user_id = $this->session->get('user_id');
-
-    }
-
-    /**
-     * @return string JSON
-     */
     public function updateTimezoneAction()
     {
         $user_id = $this->session->get('user_id');

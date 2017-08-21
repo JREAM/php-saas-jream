@@ -3,7 +3,10 @@
 namespace Api;
 
 use \User;
+use \UserPurchase;
 use \Promotion;
+use \Transaction;
+use \Product;
 
 /**
  * @RoutePrefix("/api/purchase")
@@ -36,30 +39,32 @@ class PurchaseController extends ApiController
     }
 
     /**
+     * @param int   $productId
      * @return string JSON
      */
-    public function freeAction()
+    public function freeAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
-            $this->flash->error('Sorry this is an invalid or non-free course.');
-
-            return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
+            return $this->output(0, 'Sorry this is an invalid or non-free course.');
         }
 
-        $this->_createPurchase($product, 'free', 'website');
+        $do = $this->_createPurchase($product, 'free', 'website');
+        if ($do->result) {
+            return $this->output(1, ['redirect' => $product->id]);
+        }
 
-        return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
+        return $this->output(0, $do->msg);
     }
 
     /**
-     * @return string JSON
+     * @return string   JSON
      */
     public function stripeAction($productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
-            return $this->output->response(0, 'No product was found with the Id: %s', $productId);
+            return $this->output(0, 'No product was found with the Id: %s', $productId);
         }
 
         if ($product->hasPurchased() == true) {
@@ -152,7 +157,7 @@ class PurchaseController extends ApiController
                     This is a unique error, and it is logged and emailed to JREAM.";
             $this->di->get('sentry')->captureMessage($msg, [
                 'amount'                => $amount,
-                'amount_after_discount' => $amount_after_discount,
+                'amount_after_discount' => 1,//$amount_after_discount,
                 'amount_in_cents'       => $amount_in_cents,
                 'revert_money_test'     => $revert_money_test,
             ]);
@@ -185,7 +190,7 @@ class PurchaseController extends ApiController
             $msg = "Sorry, the Stripe Gateway did not return a successful response.";
             $this->di->get('sentry')->captureMessage($msg);
 
-            return $this->output(0, $e->getMessage());
+            return $this->output(0, $msg);
         }
 
         // Check failure of paid false
@@ -204,7 +209,12 @@ class PurchaseController extends ApiController
         return $this->output(0, 'Sorry, your Stripe API Payment was not returned as paid.');
     }
 
-    public function paypalAction()
+    /**
+     * @param int   $productId
+     *
+     * @return string   JSON
+     */
+    public function paypalAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
 
@@ -244,18 +254,21 @@ class PurchaseController extends ApiController
         $response->redirect();
     }
 
-    // If I change this make sure i change in paypal if i need to
-    public function doPaypalConfirmAction()
+    /**
+     * @TODO If I change this make sure i change in paypal if i need to
+     *
+     * @param  integer  $productId
+     * @return string   JSON
+     */
+    public function doPaypalConfirmAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
-            $this->flash->error('Could not complete your transaction. The productId is invalid.');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, 'Could not complete your transaction. The productId is invalid.');
         }
 
         if (!$productId || $product->hasPurchased() == true) {
-            return $this->redirect(self::REDIRECT_FAILURE_UNAVAILABLE . $product->slug);
+            return $this->output(0, 'Product does not exist or has been purchased.');
         }
 
         $amount = number_format($product->price, 2);
@@ -272,45 +285,129 @@ class PurchaseController extends ApiController
                 'currency' => 'USD',
             ])->send();
         } catch (\Exception $e) {
-            $this->flash->error('Could not complete your transaction. Paypal has had an error.');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, 'Could not complete your transaction. Paypal has had an error.');
         }
 
         if ($response->isSuccessful() == false) {
-            $this->flash->error('There was a problem processing your payment');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, 'There was a problem processing your payment');
         }
 
         $data = $response->getData(); // this is the raw response object
 
         if (empty($data)) {
-            $this->flash->error('There was no response from paypal.');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, 'There was no response from paypal.');
         }
 
         if (strtolower($data['ACK']) != 'success') {
-            $this->flash->error('Payment was unsuccessful.');
-
-            return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+            return $this->output(0, 'Payment was unsuccessful.');
         }
 
         $transactionID = false;
+
         if (isset($data['PAYMENTINFO_0_TRANSACTIONID'])) {
             $transactionID = $data['PAYMENTINFO_0_TRANSACTIONID'];
         }
 
-        $this->_createPurchase($product, 'Paypal Express Checkout', $transactionID);
+        $do = $this->_createPurchase($product, 'Paypal Express Checkout', $transactionID);
 
-        return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
+        if (!$do->result) {
+            return $this->output(0, $do->msg);
+        }
+
+        return $this->output(1, ['redirect' => $product->id]);
     }
 
     // --------------------------------------------------------------
 
-    private function createPurchase()
+    /**
+     * Create a Purchase Record
+     *
+     * @param  \Product $product
+     * @param  mixed   $gateway
+     * @param  mixed   $transaction_id
+     *
+     * @return object
+     */
+    private function _createPurchase(Product $product, $gateway = false, $transaction_id = false)
     {
-        # code...
+        // First create a transaction record
+        $transaction = new Transaction();
+        $transaction->user_id = $this->session->get('id');
+        $transaction->transaction_id = $transaction_id;
+        $transaction->type = 'purchase';
+        $transaction->gateway = strtolower($gateway);
+
+        // Default Price
+        $use_price = $product->price;
+
+        $promo_applied = false;
+        // Check for discount
+        if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
+            $use_price = $this->session->get('discount_price');
+            $promo_applied = true;
+        }
+
+        $transaction->amount = $use_price;
+
+        $purchased_for = number_format($product->price, 2);
+
+        // If coupon
+        if ($this->session->has('code')) {
+            $code = $this->session->get('code');
+            $transaction->amount_after_discount = number_format($code['price'], 2);
+            $purchased_for = number_format($code['price'], 2);
+        }
+
+        $transaction->save();
+
+
+        // Insert the user record
+        $userPurchase = new UserPurchase();
+        $userPurchase->user_id = $this->session->get('id');
+        $userPurchase->product_id = $product->id;
+        $userPurchase->transaction_id = $transaction->id;
+        if ($promo_applied) {
+            $userPurchase->promotion_code = $this->promotion_code;
+        }
+        $userPurchase->save();
+
+        $content = $this->component->email->create('purchase', [
+            'product_title'  => $product->title,
+            'product_img'    => $product->img_sm,
+            'login_url'      => \URL . '/user/login',
+            'product_price'  => $purchased_for,
+            'gateway'        => $gateway,
+            'transaction_id' => $transaction_id,
+        ]);
+
+        $user = User::findFirstById($this->session->get('id'));
+
+
+        // Send email regarding purchase
+        $mail_result = $this->di->get('email', [
+            [
+                'to_name'    => $user->getAlias(),
+                'to_email'   => $user->getEmail(),
+                'from_name'  => $this->config->email->from_name,
+                'from_email' => $this->config->email->from_address,
+                'subject'    => 'JREAM Purchase Confirmation',
+                'content'    => $content,
+            ],
+        ]);
+
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+            return (object) [
+                'result' => 0,
+                'msg' => "Course addition: {$product->title} was successful!
+                    However, there was a problem sending an email to: " . $user->getEmail() . " -
+                    Don't worry! The course is in your account!"
+            ];
+        }
+
+        return (object) [
+            'result' => 1,
+            'msg' => "Course addition: {$product->title} was successful!
+            Your should receive an email confirmation shortly to: \" . $user->getEmail());"
+        ];
     }
 }

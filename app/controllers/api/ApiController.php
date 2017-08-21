@@ -25,22 +25,22 @@ class ApiController extends \Phalcon\Mvc\Controller
     public function beforeExecuteRoute()
     {
         // For AJAX Requests, Regenerate the Token.
-        if ($this->request->isAjax()) {
-            // request->get() is the $_REQUEST
-            $csrf = $this->request->getHeader('X-CSRFTOKEN');
-            if (!$csrf || strpos($csrf, ',') !== -1) {
-                return $this->output(0, 'No CSRF Token provided.');
-            }
-
-            $parts = explode(',', $csrf);
-            $tokenKey = $parts[0];
-            $token = $parts[1];
-
-            // CSRF Failed
-            if (!$this->security->checkToken($tokenKey, $token)) {
-                return $this->output(0, 'Invalid CSRF Token.');
-            }
-        }
+//        if ($this->request->isAjax()) {
+//            // request->get() is the $_REQUEST
+//            $csrf = $this->request->getHeader('X-CSRFTOKEN');
+//            if (!$csrf || strpos($csrf, ',') !== -1) {
+//                return $this->output(0, 'No CSRF Token provided.');
+//            }
+//
+//            $parts = explode(',', $csrf);
+//            $tokenKey = $parts[0];
+//            $token = $parts[1];
+//
+//            // CSRF Failed
+//            if (!$this->security->checkToken($tokenKey, $token)) {
+//                return $this->output(0, 'Invalid CSRF Token.');
+//            }
+//        }
     }
 
     // --------------------------------------------------------------

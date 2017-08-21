@@ -10,7 +10,12 @@ use Phalcon\Mvc\Router;
 $router = new Router();
 $router->removeExtraSlashes(true);
 $router->setDefaultController('index');
+$router->setDefaultAction('index');
 $router->setDefaultNamespace('Controllers');
+
+$router ->add('/lab',     ['action' => 'lab'])->setName('lab');
+$router ->add('/terms',   ['action' => 'terms'])->setName('terms');
+$router ->add('/updates', ['action' => 'updates'])->setName('updates');
 
 /**
  * ==============================================================
@@ -31,26 +36,6 @@ $router->add('newsletter')->setName('newsletter');
 $router->add('newsletter/subscribe')->setName('newsletter_subscribe');
 $router->add('newsletter/verifysubscribe')->setName('newsletter_verify_subscribe');
 $router->add('newsletter/unsubscribe')->setName('newsletter_unsubscribe');
-
-/**
- * ==============================================================
- * Index Based Routes
- * =============================================================
- */
-$router ->add('/lab', [
-    'controller' => 'index',
-    'action'     => 'lab'
-])->setName('lab');
-
-$router ->add('/terms', [
-    'controller' => 'index',
-    'action'     => 'terms'
-])->setName('terms');
-
-$router ->add('/updates', [
-    'controller' => 'index',
-    'action'     => 'updates'
-])->setName('updates');
 
 /**
  * ==============================================================
@@ -81,6 +66,7 @@ $router->add('/dashboard', [
  * =============================================================
  */
 
+//$router->addPost
 $router->add('/api/:controller/:action/:params', [
     'namespace'  => 'Controllers\Api',
     'controller' => 1,

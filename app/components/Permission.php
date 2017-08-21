@@ -1,6 +1,6 @@
 <?php
 
-namespace Component;
+namespace Components;
 
 use \Phalcon\Mvc\Dispatcher,
     \Phalcon\Events\Event,

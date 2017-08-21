@@ -1,16 +1,16 @@
 <?php
 
-use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
-use \Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use \Phalcon\Http\Response\Cookies;
 use \Phalcon\Crypt;
+use \Phalcon\Http\Response\Cookies;
+use \Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 
 /**
  * ==============================================================
  * Services
  * =============================================================
  */
-$di = new Phalcon\DI\FactoryDefault();
+$di = new \Phalcon\DI\FactoryDefault();
 
 
 /**
@@ -115,7 +115,7 @@ $di->setShared('router', function() use($config) {
  * =============================================================
  */
 $di->setShared('url', function () use ($config) {
-    $url = new Phalcon\Mvc\Url();
+    $url = new \Phalcon\Mvc\Url();
     $url->setBaseUri($config->get('baseUri'));
     return $url;
 });
@@ -130,8 +130,8 @@ $di->setShared('dispatcher', function() use ($di) {
 
     $eventsManager = $di->getShared('eventsManager');
     // Database Middleware is under the Ajax DI Definition
-    $eventsManager->attach('dispatch', new Middleware\Dispatch());
-    $eventsManager->attach('permission', new Component\Permission());
+    $eventsManager->attach('dispatch', new \Middleware\Dispatch());
+    $eventsManager->attach('permission', new \Components\Permission());
 
     // -----------------------------------
     // Return the new dispatcher with the
@@ -150,10 +150,10 @@ $di->setShared('dispatcher', function() use ($di) {
  * =============================================================
  */
 $di->setShared('component', function() {
-    $obj = new stdClass();
-    $obj->cookies = new \Component\Cookies();
-    $obj->helper  = new \Component\Helper();
-    $obj->email   = new \Component\Email();
+    $obj = new \stdClass();
+    $obj->cookies = new \Components\Cookies();
+    $obj->helper  = new \Components\Helper();
+    $obj->email   = new \Components\Email();
     return $obj;
 });
 
@@ -314,8 +314,7 @@ $di->setShared('sentry', function() use ($api) {
 if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
     $di->setShared('whoops', function() {
-        $whoops = new \Whoops\Run;
-        return $whoops;
+        return new \Whoops\Run;
     });
 
     $whoops = $di->get('whoops')->register();
@@ -329,7 +328,7 @@ if (\APPLICATION_ENV !== \APP_PRODUCTION) {
  * Email Transport to send Mail
  * =============================================================
  */
-$di->setShared('s3', function(array $data) {
+$di->setShared('s3', function() {
     return new Aws\S3\S3Client([
         'version' => getenv('AWS_S3_VERSION'),
         'region' => getenv('AWS_S3_REGION'),
@@ -390,14 +389,14 @@ $di->setShared('facebook', function () use ($api) {
  */
 $di->setShared('google_auth', function() use ($api) {
 
-    $middleware = Google\Auth\ApplicationDefaultCredentials::getMiddleware(
+    $middleware = \Google\Auth\ApplicationDefaultCredentials::getMiddleware(
         $api->google->scope
     );
 
-    $stack = GuzzleHttp\HandlerStack::create();
+    $stack = \GuzzleHttp\HandlerStack::create();
     $stack->push($middleware);
 
-    return new GuzzleHttp\Client([
+    return new \GuzzleHttp\Client([
         'handler'   => $stack,
         'base_uri'  => 'https://www.googleapis.com',
         'auth'      => 'google_auth'  // authorize all requests

@@ -8,18 +8,19 @@
 $loader = new \Phalcon\Loader();
 
 $loader->registerNamespaces([
-    'Component'             => $config->get('componentDir'),
-    'Middleware'            => $config->get('controllersDir'),
+    'Components'            => $config->get('componentsDir'),
     'Controllers'           => $config->get('controllersDir'),
-    'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
     'Controllers\Api'       => $config->get('controllersDir') . 'api/',
+    'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
     'Library'               => $config->get('libraryDir'),
-    'Plugins'               => $config->get('pluginsDir'),
+    'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
+    'Plugins'               => $config->get('pluginsDir'),
+    'Tasks'                 => $config->get('tasksDir'),
 ]);
 
 $loader->registerClasses([
-    'Phalcon' => DOCROOT . '/vendor/phalcon/incubator/Library/Phalcon/',
+    'Phalcon' => DOCROOT . 'vendor/phalcon/incubator/Library/Phalcon/',
 ]);
 
 $registerDirs = [
@@ -34,15 +35,12 @@ if (strtolower(\PHP_SAPI) === 'cli')
 {
     // Auto Load the Tests Directory.
     $registerDirs[] = $config->get('testsDir');
-
-    // Auto Load the Tasks
-    $loader->registerNamespaces([
-        'Tasks' => $config->get('tasksDir')
-    ]);
 }
+
 
 // Register Remaining Directories
 $loader->registerDirs($registerDirs);
 
 // Finished
 $loader->register();
+

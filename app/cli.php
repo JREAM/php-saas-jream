@@ -2,47 +2,60 @@
 
 use Phalcon\Di\FactoryDefault\Cli as CliDI;
 use Phalcon\Cli\Console as ConsoleApp;
-use Phalcon\Loader;
-
 
 /**
  * ==============================================================
- * Load Composer
+ * Load
  * =============================================================
  */
-$base_dir = dirname(__DIR__);
-$autoload_file = $base_dir . "/vendor/autoload.php";
-
-if (!file_exists($autoload_file)) {
-    die('Required: $ composer install');
-}
-require_once $autoload_file;
-
+require_once realpath(dirname(__DIR__)) . '/config/env.php';
 
 /**
  * ==============================================================
- * Load the .env File
+ * Phalcon CLI Bootstrap
  * =============================================================
  */
-try {
-    $dotenv = new Symfony\Component\Dotenv\Dotenv();
-    $dotenv->load($base_dir . '/.env');
-} catch (Exception $e) {
-    die('Missing required .env file.');
-}
 
+/**
+ * ==============================================================
+ * Read the configuration
+ * =============================================================
+ */
+$config = require DOCROOT . "/config/config.php";
+$api    = require DOCROOT . "/config/api.php";
 
-require_once DOCROOT . '/config/loader.php';
-require_once DOCROOT . '/config/config.php';
-require_once DOCROOT . '/config/api.php';
+/**
+ * ==============================================================
+ * Read phalcon auto-loader
+ * This uses the config.php
+ * =============================================================
+ */
+require_once DOCROOT . "/config/loader.php";
+
+/**
+ * ==============================================================
+ * @important
+ * Do NOT Load Services
+ * =============================================================
+ */
+
+/**
+ * ==============================================================
+ * Custom functions after everything has loaded
+ * =============================================================
+ */
 require_once APP_PATH . '/functions.php';
 
-// Using the CLI factory default services container
+/**
+ * ==============================================================
+ * Using the CLI factory default services container
+ * =============================================================
+ */
 $di = new CliDI();
 
 /**
  * ==============================================================
- * Make Config and api Accessible where we have DI
+ * Add necessary DI Items
  * =============================================================
  */
 $di->setShared('config', function() use ($config) {
@@ -53,19 +66,12 @@ $di->setShared('api', function () use ($api) {
     return $api;
 });
 
-
-/**
- * ==============================================================
- * Session
- * =============================================================
- */
 $di->setShared('session', function () {
     $session = new \Phalcon\Session\Adapter\Files();
 
     $session->start();
     return $session;
 });
-
 
 /**
  * ==============================================================

@@ -49,7 +49,8 @@ try {
      * Custom functions after everything has loaded
      * =============================================================
      */
-    require_once APP_DIR . 'functions.php';
+    require_once APP_PATH . '/functions.php';
+
 
     /**
      * ==============================================================
@@ -58,7 +59,7 @@ try {
      */
     $application = new Application($di);
 
-    if (\APPLICATION_ENV == \APP_TEST) {
+    if (\APPLICATION_ENV === \APP_TEST) {
         return $application;
     }
 

@@ -13,29 +13,11 @@
  */
 
 $config = new \Phalcon\Config([
+
     'title'          => getenv('SITE_TITLE'),
     'session_hash'   => 'D0__2&$whatLORD$As4Sayy_)s5<E1+WilBeWe1lll2#', // Do not change this
     'cookie_hash'    => '#_can$iSAY>let*US*EN~cryp_T-theCookieS!',
     'url_static'     => 'https://d2qmoq5vnrtrov.cloudfront.net/',
-
-    /**
-     * Directories
-     * These must ALWAYS have a trailing "/"
-     */
-    'baseUri'        => getenv('BASE_URI'),
-    'cacheDir'       => DOCROOT . '/cache/',
-    'configDir'      => DOCROOT . '/config/',
-    'controllersDir' => APP_PATH . '/controllers/',
-    'emailsDir'      => DOCROOT . '/emails/',
-    'formsDir'       => APP_PATH . '/forms/',
-    'libraryDir'     => APP_PATH . '/library/',
-    'migrationsDir'  => APP_PATH . '/migrations/',
-    'modelsDir'      => APP_PATH . '/models/',
-    'pluginsDir'     => APP_PATH . '/plugins/',
-    'resourcesDir'   => DOCROOT . '/resources/',
-    'tasksDir'       => APP_PATH . '/tasks/',
-    'testsDir'       => DOCROOT . '/tests/',
-    'viewsDir'       => APP_PATH . '/views/',
 
     'email'       => [
         'from_address'        => getenv('EMAIL_FROM_ADDR'),
@@ -51,16 +33,28 @@ $config = new \Phalcon\Config([
         'password' => getenv('DB_PASSWORD'),
         'dbname'   => getenv('DB_DATABASE'),
     ],
-    'application' => [
-        'controllersDir' => APP_PATH . '/controllers',
-        'modelsDir'      => APP_PATH . '/models',
-        'migrationsDir'  => APP_PATH . '/migrations',
-        'viewsDir'       => APP_PATH . '/views',
-        'pluginsDir'     => APP_PATH . '/plugins',
-        'libraryDir'     => APP_PATH . '/library',
-        'cacheDir'       => DOCROOT . '/cache',
-        'baseUri'        => dirname(__DIR__),
-    ],
+
+    /**
+     * Directories
+     * These must ALWAYS have a trailing "/"
+     */
+    'baseUri'        => getenv('BASE_URI'),
+    'cacheDir'       => DOCROOT . 'cache/',
+    'componentsDir'  => APP_PATH . 'components/',
+    'configDir'      => DOCROOT . 'config/',
+    'controllersDir' => APP_PATH . 'controllers/',
+    'emailsDir'      => DOCROOT . 'emails/',
+    'formsDir'       => APP_PATH . 'forms/',
+    'libraryDir'     => APP_PATH . 'library/',
+    'migrationsDir'  => APP_PATH . 'migrations/',
+    'middlewareDir'  => APP_PATH . 'middleware/',
+    'modelsDir'      => APP_PATH . 'models/',
+    'pluginsDir'     => APP_PATH . 'plugins/',
+    'resourcesDir'   => DOCROOT . 'resources/',
+    'tasksDir'       => APP_PATH . 'tasks/',
+    'testsDir'       => DOCROOT . 'tests/',
+    'viewsDir'       => APP_PATH . 'views/',
+
 ]);
 
 return $config;

@@ -11,6 +11,6 @@ modules:
         - Helper\Functional
         - Asserts
         - Phalcon:
-            bootstrap: config/functional-bootstrap.php
+            bootstrap: public/index.php
             cleanup: true
             savepoints: true

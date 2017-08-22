@@ -16,7 +16,6 @@ $loader->registerNamespaces([
     'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
     'Plugins'               => $config->get('pluginsDir'),
-    'Tasks'                 => $config->get('tasksDir'),
 ]);
 
 $loader->registerClasses([
@@ -27,6 +26,7 @@ $registerDirs = [
     $config->get('configDir'),
     $config->get('formsDir'),
     $config->get('modelsDir'),
+    $config->get('tasksDir'),
 ];
 
 // 1: For running unit tests

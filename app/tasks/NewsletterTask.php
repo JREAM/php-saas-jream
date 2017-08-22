@@ -1,7 +1,5 @@
 <?php
 
-namespace Tasks;
-
 use Phalcon\Cli\Task;
 
 class NewsletterTask extends Task

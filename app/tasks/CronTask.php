@@ -1,7 +1,5 @@
 <?php
 
-namespace Tasks;
-
 use Phalcon\Cli\Task;
 use Aws\Exception\AwsException;
 

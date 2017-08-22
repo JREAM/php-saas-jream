@@ -53,7 +53,6 @@ class NewsletterController extends BaseController
      */
     public function doSubscribeAction()
     {
-
     }
 
     // --------------------------------------------------------------

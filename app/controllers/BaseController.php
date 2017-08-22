@@ -2,9 +2,10 @@
 
 namespace Controllers;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\Controller;
 
-class BaseController extends \Phalcon\Mvc\Controller
+class BaseController extends Controller
 {
 
     /**
@@ -15,14 +16,13 @@ class BaseController extends \Phalcon\Mvc\Controller
     public function initialize()
     {
         getBaseUrl('/');
+
         if ($this->session->has('agent')) {
             if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT']) {
                 $this->flash->error('Please re-login. For your security, we\'ve detected you\'re using a different browser.');
                 $this->response->redirect("user/login");
             }
         }
-
-
 
         // $this->_observeActiveSession();
     }
@@ -38,13 +38,6 @@ class BaseController extends \Phalcon\Mvc\Controller
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $this->view->system->info_display = false;
-
-        if ($this->view->system->info_display) {
-            $dt = new \DateTime('now', new \DateTimeZone('America/New_York'));
-            $this->view->system->info_date = $dt->format('M jS - g:ia') . ' EST';
-            $this->view->system->info_message = "The facebook login SDK is currently being worked on.";
-        }
     }
 
     // --------------------------------------------------------------
@@ -222,7 +215,7 @@ class Batch
             $this->table = (string) $table;
         }
 
-        $di = Phalcon\DI::getDefault();
+        $di = \Phalcon\DI::getDefault();
         $this->db = $di->get('db');
 
         return $this;

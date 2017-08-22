@@ -119,4 +119,10 @@ class IndexController extends BaseController
     }
 
     // --------------------------------------------------------------
+
+    public function show500Action($exception)
+    {
+    }
+
+    // --------------------------------------------------------------
 }

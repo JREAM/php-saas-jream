@@ -32,4 +32,3 @@ class CheckoutForm extends \Phalcon\Forms\Form
 
     // --------------------------------------------------------------
 }
-

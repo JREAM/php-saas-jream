@@ -151,5 +151,4 @@ class QuestionController extends ApiController
     {
         $user_id = $this->session->get('user_id');
     }
-
 }

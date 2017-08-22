@@ -37,7 +37,7 @@ class ApiLegacyController extends BaseController
             $content = $parsedown->parse($content);
         }
 
-        $this->output(1, $content);
+        return $this->output(1, $content);
     }
 
     // --------------------------------------------------------------
@@ -82,8 +82,7 @@ class ApiLegacyController extends BaseController
 
         // Set a session so they don't try to work-around it..
         $this->session->set('recaptcha', $result);
-        $this->output($result, 'Invalid Recaptcha');
-        return false;
+        return $this->output($result, 'Invalid Recaptcha');
     }
 
     // --------------------------------------------------------------
@@ -97,13 +96,11 @@ class ApiLegacyController extends BaseController
     {
         // Make sure recaptcha called and all
         if (!$this->session->has('recaptcha')) {
-            $this->output(0, 'Recaptcha is required.');
-            return false;
+            return $this->output(0, 'Recaptcha is required.');
         }
 
         if (!$this->session->get('recaptcha')) {
-            $this->output(0, 'Recaptcha was invalid');
-            return false;
+            return $this->output(0, 'Recaptcha was invalid');
         }
 
         $form = new \ContactForm();
@@ -114,8 +111,7 @@ class ApiLegacyController extends BaseController
             foreach ($form->getMessages() as $message) {
                 $errors[] = $message->getMessage();
             }
-            $this->output(0, $errors);
-            return false;
+            return $this->output(0, $errors);
         }
 
         // Gather the POST stuff
@@ -141,14 +137,12 @@ class ApiLegacyController extends BaseController
         ]);
 
         if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
-            $this->output(0, 'Error sending email');
-            return false;
+            return $this->output(0, 'Error sending email');
         }
 
         // Succcess
         $this->session->set('recaptcha', 0);
-        $this->output(1, 'Email Sent');
-        return true;
+        return $this->output(1, 'Email Sent');
     }
 
     // --------------------------------------------------------------

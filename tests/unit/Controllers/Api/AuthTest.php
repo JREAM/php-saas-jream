@@ -16,7 +16,7 @@ class AuthTest extends Unit
 
     protected function _before()
     {
-//        $this->controller= new \Api\AuthController;
+        $this->controller= new \Controllers\Api\AuthController;
     }
 
     protected function _after()

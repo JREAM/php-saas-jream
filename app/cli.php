@@ -1,4 +1,9 @@
 <?php
+/**
+ * ==============================================================
+ * Phalcon CLI Bootstrap
+ * =============================================================
+ */
 
 use Phalcon\Di\FactoryDefault\Cli as CliDI;
 use Phalcon\Cli\Console as ConsoleApp;
@@ -10,11 +15,6 @@ use Phalcon\Cli\Console as ConsoleApp;
  */
 require_once realpath(dirname(__DIR__)) . '/config/env.php';
 
-/**
- * ==============================================================
- * Phalcon CLI Bootstrap
- * =============================================================
- */
 
 /**
  * ==============================================================
@@ -22,7 +22,7 @@ require_once realpath(dirname(__DIR__)) . '/config/env.php';
  * =============================================================
  */
 $config = require DOCROOT . "/config/config.php";
-$api    = require DOCROOT . "/config/api.php";
+$api = require $config->get('configDir') . "api.php";
 
 /**
  * ==============================================================
@@ -30,7 +30,7 @@ $api    = require DOCROOT . "/config/api.php";
  * This uses the config.php
  * =============================================================
  */
-require_once DOCROOT . "/config/loader.php";
+require_once $config->get('configDir') . "loader.php";
 
 /**
  * ==============================================================
@@ -58,7 +58,7 @@ $di = new CliDI();
  * Add necessary DI Items
  * =============================================================
  */
-$di->setShared('config', function() use ($config) {
+$di->setShared('config', function () use ($config) {
     return $config;
 });
 
@@ -70,6 +70,7 @@ $di->setShared('session', function () {
     $session = new \Phalcon\Session\Adapter\Files();
 
     $session->start();
+
     return $session;
 });
 
@@ -82,7 +83,7 @@ $di->set('db', function () use ($di, $config) {
     $eventsManager = $di->getShared('eventsManager');
     $eventsManager->attach('db', new \Middleware\Database());
 
-    $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
+    $database = new \Phalcon\Db\Adapter\Pdo\Mysql((array)$config->database);
     $database->setEventsManager($eventsManager);
 
     return $database;
@@ -101,9 +102,11 @@ $arguments = [];
 foreach ($argv as $k => $arg) {
     if ($k === 1) {
         $arguments['task'] = $arg;
-    } elseif ($k === 2) {
+    }
+    elseif ($k === 2) {
         $arguments['action'] = $arg;
-    } elseif ($k >= 3) {
+    }
+    elseif ($k >= 3) {
         $arguments['params'][] = $arg;
     }
 }

@@ -3,11 +3,12 @@
 namespace Controllers\Dashboard;
 
 use \Phalcon\Tag;
+use Controllers\BaseController;
 
 /**
  * @RoutePrefix("/dashboard/question")
  */
-class QuestionController extends \BaseController
+class QuestionController extends BaseController
 {
 
     const REDIRECT_SUCCESS = 'dashboard/question/index/';

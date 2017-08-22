@@ -145,5 +145,4 @@ class Product extends BaseModel
 
         return (int)(($completedTotal / $courseTotal) * 100);
     }
-
 }

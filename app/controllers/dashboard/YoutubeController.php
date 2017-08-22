@@ -2,12 +2,13 @@
 
 namespace Controllers\Dashboard;
 
+use Controllers\BaseController;
 use \Phalcon\Tag;
 
 /**
  * @RoutePrefix("/dashboard/youtube")
  */
-class YoutubeController extends \BaseController
+class YoutubeController extends BaseController
 {
 
     const REDIRECT_SUCCESS = '';

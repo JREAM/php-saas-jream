@@ -3,11 +3,12 @@
 namespace Controllers\Dashboard;
 
 use \Phalcon\Tag;
+use Controllers\BaseController;
 
 /**
  * @RoutePrefix("/dashboard/support")
  */
-class SupportController extends \BaseController
+class SupportController extends BaseController
 {
 
     const REDIRECT_SUCCESS = 'dashboard';

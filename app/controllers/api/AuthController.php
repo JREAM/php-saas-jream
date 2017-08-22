@@ -4,7 +4,6 @@ namespace Controllers\Api;
 
 use \User;
 
-
 /**
  * @RoutePrefix("/api/auth")
  */
@@ -203,8 +202,7 @@ class AuthController extends ApiController
         $user->password_reset_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->update();
 
-        if ($user->getMessages())
-        {
+        if ($user->getMessages()) {
             return $this->output(0, 'An internal update to the user occurred.');
         }
 
@@ -226,16 +224,17 @@ class AuthController extends ApiController
         ]);
 
         // Email: If the status code is not 200 the mail didn't send.
-        if (!in_array($mail_result->statusCode(), [200, 201, 202]))
-        {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
-        return $this->output(0,
+        return $this->output(
+            0,
             'A reset link has been sent to your email.
             You have 10 minutes to change your
             password before the link expires.
-        ');
+        '
+        );
     }
 
     /**
@@ -307,10 +306,8 @@ class AuthController extends ApiController
 
         $this->session->set('timezone', $use_timezone);
 
-        if (is_array($additional))
-        {
-            foreach ($additional as $_key => $_value)
-            {
+        if (is_array($additional)) {
+            foreach ($additional as $_key => $_value) {
                 $this->session->set($_key, $_value);
             }
         }

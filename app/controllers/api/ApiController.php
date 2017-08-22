@@ -2,7 +2,9 @@
 
 namespace Controllers\Api;
 
-class ApiController extends \Phalcon\Mvc\Controller
+use Phalcon\Mvc\Controller;
+
+class ApiController extends Controller
 {
 
     /**

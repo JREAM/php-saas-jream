@@ -52,7 +52,6 @@ try {
 
     require_once APP_PATH . 'functions.php';
 
-
     /**
      * ==============================================================
      * Handle the request

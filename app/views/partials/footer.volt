@@ -36,7 +36,7 @@
                 <ul class="footer-links text-right list-unstyled">
                     <li><a href="{{ url('contact') }}">Contact</a></li>
                     <li><a href="{{ url('updates') }}">Updates</a></li>
-                    <li><i class="fa fa-external-link" aria-hidden="true"></i> <a href="//jream.studio" target="blank">Development Studio</i></a></li>
+                    <li><i class="fa fa-external-link" aria-hidden="true"></i> <a href="//jream.studio" target="blank">Development Studio</a></li>
                     <li><a href="{{ url('terms') }}">Terms and Privacy</a></li>
                 </ul>
             </div>
@@ -64,15 +64,6 @@ window.CSRF = "{% if tokenKey is defined %}{{ tokenKey }},{% endif %}{% if token
 
 <!-- App -->
 <script src="{{ url('js/app.js') }}"></script>
-
-
-{% if system.info_display %}
-<div id="system-info">
-    <span class='info-timestamp'>{{ system.info_date }}</span>
-    <i class="fa fa-exclamation-triangle"></i> {{ system.info_message }}
-</div>
-{% endif %}
-
 
 
 {% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}

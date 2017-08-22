@@ -53,8 +53,7 @@ class CronTask extends Task
                 'WaitTimeSeconds' => 0
             ]);
 
-            if (count($result) > 0)
-            {
+            if (count($result) > 0) {
                 $messages = $result->get('Messages');
                 foreach ($messages as $mkey => $mvalue) {
                     var_dump($mvalue);
@@ -66,7 +65,6 @@ class CronTask extends Task
             }
 
             print_r($result);
-
         } catch (AwsException $e) {
             error_log($e->getMessage());
         }

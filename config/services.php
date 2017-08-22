@@ -2,8 +2,8 @@
 
 use \Phalcon\Crypt;
 use \Phalcon\Http\Response\Cookies;
+use Phalcon\Events\Manager as EventsManager;
 use \Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 
 /**
  * ==============================================================
@@ -12,6 +12,9 @@ use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
  */
 $di = new \Phalcon\DI\FactoryDefault();
 
+
+$eventsManager = new EventsManager;
+$di->setShared('eventsManager', $eventsManager);
 
 /**
  * ==============================================================
@@ -60,7 +63,7 @@ $di->setShared('flash', function($mode = 'session') {
     $mode = strtolower(trim($mode));
     $validModes = ['session', 'direct'];
     if ( ! in_array($mode, $validModes ) ) {
-        throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' . implode(',', $mode));
+        throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' . explode(',', $validModes));
     }
 
     // There is a Direct, and a Session
@@ -126,20 +129,14 @@ $di->setShared('url', function () use ($config) {
  * Custom Dispatcher (Overrides the default)
  * =============================================================
  */
-$di->setShared('dispatcher', function() use ($di) {
+$di->setShared('dispatcher', function() use ($di, $eventsManager) {
 
-    $eventsManager = $di->getShared('eventsManager');
-    // Database Middleware is under the Ajax DI Definition
+    $eventsManager->attach('dispatch', new \Components\Permission());
     $eventsManager->attach('dispatch', new \Middleware\Dispatch());
-    $eventsManager->attach('permission', new \Components\Permission());
 
-    // -----------------------------------
-    // Return the new dispatcher with the
-    // Events Manager Attached
-    // -----------------------------------
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
-
     $dispatcher->setEventsManager($eventsManager);
+
     return $dispatcher;
 });
 
@@ -163,7 +160,7 @@ $di->setShared('component', function() {
  * View component
  * =============================================================
  */
-$di->setShared('view', function () use ($config) {
+$di->setShared('view', function () use ($config, $di) {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir($config->get('viewsDir'));
     $view->registerEngines([
@@ -179,10 +176,7 @@ $di->setShared('view', function () use ($config) {
             $volt->setOptions([
                 'compiledPath' => $path,
                 'compiledSeparator' => '_',
-                // ------------------------------------------------
-                // For DEV, to prevent Caching annoyances
-                // ------------------------------------------------
-                'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION
+                'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION,
             ]);
 
             $volt->getCompiler()
@@ -205,9 +199,9 @@ $di->setShared('view', function () use ($config) {
     ]);
 
     // Used for global variables (See: middleware/afterExecuteRoute)
-    $view
-        ->setVar('version', \Phalcon\Version::get())
-        ->system = new \stdClass();
+    $view->setVar('version', \Phalcon\Version::get());
+
+    // @TODO: If i wanted i could pass routes in here for JS, anything to JS here?
 
     return $view;
 });
@@ -218,9 +212,8 @@ $di->setShared('view', function () use ($config) {
  * Database Connection
  * =============================================================
  */
-$di->set('db', function () use ($di, $config) {
-    $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('db', new Middleware\Database());
+$di->set('db', function () use ($di, $config, $eventsManager) {
+    $eventsManager->attach('db', new \Middleware\Database());
 
     $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->get('database'));
     $database->setEventsManager($eventsManager);
@@ -448,4 +441,4 @@ $di->setShared('mailchimp', function() use ($api) {
 // Set a default dependency injection container
 // to be obtained into static methods
 \Phalcon\Di::setDefault($di);
-//\Phalcon\Di::getDefault();
+\Phalcon\Di::getDefault();

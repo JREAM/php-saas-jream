@@ -18,4 +18,5 @@
     <file>app/models</file>
     <file>app/plugins</file>
     <file>app/tasks</file>
+    <file>config/</file>
 </ruleset>

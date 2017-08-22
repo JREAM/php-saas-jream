@@ -2,12 +2,13 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Controllers\BaseController;
 
 /**
  * @RoutePrefix("/dashboard")
  */
-class DashboardController extends \BaseController
+class DashboardController extends BaseController
 {
 
     /**

@@ -4,7 +4,6 @@ namespace Controllers;
 
 use \Phalcon\Tag;
 
-
 /**
  * @RoutePrefix("/devtools")
  */

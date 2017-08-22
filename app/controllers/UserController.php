@@ -74,22 +74,13 @@ class UserController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-//        $user = new User();
-//        $result = $user->doLogin($email, $password);
-
-        if ($result) {
-            return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
-        }
-
-        $this->redirect(self::LOGIN_REDIRECT_FAILURE);
-
         if (!$email || !$password) {
             $this->flash->error('email and password field(s) are required.');
 
             return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
         }
 
-        $user = User::findFirstByEmail($email);
+        $user = \User::findFirstByEmail($email);
         if ($user) {
             if ($user->is_deleted == 1) {
                 $this->flash->error('This user has been permanently removed.');
@@ -281,7 +272,7 @@ class UserController extends BaseController
      */
     public function doConfirmEmailChangeAction($resetKey)
     {
-        $user = User::findFirst([
+        $user = \User::findFirst([
             "email_change_key = :key: AND email_change_expires_at > :date:",
             "bind" => [
                 "key"  => $resetKey,
@@ -497,7 +488,7 @@ class UserController extends BaseController
             $error['email'] = 'This email is already in use.';
         }
 
-        if (!Swift_Validate::email($email)) {
+        if (!\Swift_Validate::email($email)) {
             $error['email'] = 'Your email is invalid.';
         }
 
@@ -605,7 +596,7 @@ class UserController extends BaseController
         $this->component->helper->csrf(self::PASSWORD_REDIRECT_FAILURE);
 
         $email = $this->request->getPost('email');
-        $user = User::findFirstByEmail($email);
+        $user = \User::findFirstByEmail($email);
 
         if ($user) {
             $user->password_reset_key = hash('sha512', time() * random_int(1, 9999));
@@ -704,7 +695,7 @@ class UserController extends BaseController
 
         $this->component->helper->csrf(self::PASSWORD_REDIRECT_FAILURE_PASSWD . $resetKey);
 
-        $user = User::findFirst([
+        $user = \User::findFirst([
             "email = :email: AND password_reset_key = :key: AND password_reset_expires_at > :date:",
             "bind" => [
                 "email" => $confirmEmail,

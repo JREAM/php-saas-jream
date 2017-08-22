@@ -1,12 +1,14 @@
 <?php
+
 namespace Controllers\Dashboard;
 
 use \Phalcon\Tag;
+use Controllers\BaseController;
 
 /**
  * @RoutePrefix("/dashboard/account")
  */
-class AccountController extends \BaseController
+class AccountController extends BaseController
 {
 
     const REDIRECT_SUCCESS = "dashboard/account";

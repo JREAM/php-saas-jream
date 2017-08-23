@@ -8,7 +8,6 @@
 $loader = new \Phalcon\Loader();
 
 $loader->registerNamespaces([
-    'Components'            => $config->get('componentsDir'),
     'Controllers'           => $config->get('controllersDir'),
     'Controllers\Api'       => $config->get('controllersDir') . 'api/',
     'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
@@ -23,6 +22,7 @@ $loader->registerClasses([
 ]);
 
 $registerDirs = [
+    $config->get('componentsDir'),
     $config->get('configDir'),
     $config->get('formsDir'),
     $config->get('modelsDir'),

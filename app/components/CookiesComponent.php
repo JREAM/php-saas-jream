@@ -1,13 +1,13 @@
 <?php
 
-namespace Components;
+use Phalcon\Mvc\User\Component;
 
 /**
  * Cookie Assistant
  *
  * Phalcon\Mvc\User\Component extends abstract class Phalcon\Di\Injectable
  */
-class Cookies extends \Phalcon\Mvc\User\Component
+class CookieComponent extends Component
 {
 
     /**

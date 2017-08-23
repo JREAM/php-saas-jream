@@ -131,7 +131,7 @@ $di->setShared('url', function () use ($config) {
  */
 $di->setShared('dispatcher', function() use ($di, $eventsManager) {
 
-    $eventsManager->attach('dispatch', new \Components\Permission());
+    $eventsManager->attach('dispatch', new \PermissionComponent());
     $eventsManager->attach('dispatch', new \Middleware\Dispatch());
 
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
@@ -148,9 +148,9 @@ $di->setShared('dispatcher', function() use ($di, $eventsManager) {
  */
 $di->setShared('component', function() {
     $obj = new \stdClass();
-    $obj->cookies = new \Components\Cookies();
-    $obj->helper  = new \Components\Helper();
-    $obj->email   = new \Components\Email();
+    $obj->cookies = new \CookieComponent();
+    $obj->helper  = new \HelperComponent();
+    $obj->email   = new \EmailComponent();
     return $obj;
 });
 

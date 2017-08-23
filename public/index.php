@@ -23,8 +23,8 @@ try {
      * Read the configuration
      * =============================================================
      */
-    $config = require DOCROOT . "config/config.php";
-    $api    = require $config->get('configDir') . "api.php";
+    $config = require_once DOCROOT . "config/config.php";
+    $api    = require_once $config->get('configDir') . "api.php";
 
 
     /**

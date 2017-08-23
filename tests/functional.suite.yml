@@ -14,3 +14,7 @@ modules:
             bootstrap: public/index.php
             cleanup: true
             savepoints: true
+extensions:
+    enabled:
+        - Codeception\Extension\RunProcess:
+            - chromedriver

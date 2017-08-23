@@ -22,6 +22,7 @@ settings:
 extensions:
   enabled:
       - Codeception\Extension\RunFailed
+      - Codeception\Extension\Logger
 
 coverage:
   enabled: true
@@ -30,6 +31,7 @@ coverage:
   include:
     - app/controllers
     - app/models
+    - app/functions.php
 
 # Global modules configuration.
 modules:

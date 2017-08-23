@@ -18,6 +18,7 @@ while true; do
     phpcbf      PHP Codesniffer Fixer (Fixes based on phpcs.xml)
     rmcache     Removes Cache
     rmcachet    Remove Cache every 5 seconds (Infinite)
+    db          Import the schema.sql into Database (jream)
     testdb      Creates a Test Database (jream_unit_test)
     devtools    N/A: Setup Phalcon Devtools to /opt/phalcon-tools
     q           Quit (or CTRL + C)
@@ -78,6 +79,17 @@ read -p "Type a Command: " cmd
             echo "====================================================================="
             echo ""
             ;;
+        db)
+          echo "( + ) Dropping, and Re-creating Database (jream)"
+          mysqladmin drop -u root -proot jream
+          mysqladmin create -u root -proot jream
+          echo "( + ) Importing __setup/schema.sql into (jream)"
+          mysql -u root -proot jream < resources/__setup/schema.sql
+          echo "( + ) Done."
+          echo ""
+          echo "====================================================================="
+          echo ""
+          ;;
         testdb)
           echo "( + ) Dumping 'jream' database to SQL [/tmp/jream.sql]"
           mysqldump -u root -proot jream > /tmp/jream.sql

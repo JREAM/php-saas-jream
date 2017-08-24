@@ -18,7 +18,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-responsive-collapse">
-                {% include "partials/nav.volt" %}
+                {% include "templates/partials/nav.volt" %}
             </div><!-- /navbar-collapse -->
         </div>
     </div>

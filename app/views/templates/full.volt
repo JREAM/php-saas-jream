@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-{% include 'partials/head.volt' %}
+{% include 'templates/partials/head.volt' %}
 {% block head %}{% endblock %}
 {% block style %}{% endblock %}
 </head>
@@ -19,7 +19,7 @@
     {% set is_login = false %}
 {% endif %}
 
-{% include 'partials/header.volt' %}
+{% include 'templates/partials/header.volt' %}
 
 {% block hero %}{% endblock %}
 
@@ -51,7 +51,7 @@
 {% block content %}{% endblock %}
 </div>
 
-{% include "partials/footer.volt" %}
+{% include "templates/partials/footer.volt" %}
 
 {% block script %}{% endblock %}
 </body>

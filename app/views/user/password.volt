@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
-            <form id="form-password-reset" class="form-signin" method="post" action="{{ url('user/doPasswordReset') }}">
+            <form id="formPasswordResetConfirm" class="form-signin" method="post" action="{{ url('user/doPasswordReset') }}">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4><i class="fa fa-key opacity-50" aria-hidden="true"></i> Forgot Password</h4>

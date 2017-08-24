@@ -22,7 +22,7 @@
 </ol>
 
 <div class="social-share">
-{% include 'partials/addthis.volt' %}
+{% include 'templates/partials/addthis.volt' %}
 </div>
 {% endblock %}
 

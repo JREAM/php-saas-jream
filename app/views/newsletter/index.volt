@@ -31,7 +31,7 @@
             {% if result is defined %}{{ result }}{% endif %}
             </p>
 
-            <form class="form-login" id="newsletter-subscribe-form" method="post" action="{{ url('newsletter/dosubscribe') }}">
+            <form id="formNewsletterSubscribe" class="form-login" method="post" action="{{ url('newsletter/dosubscribe') }}">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

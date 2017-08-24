@@ -56,9 +56,9 @@ require("./pages/checkout");
 require("./pages/contact");
 require("./pages/dashboard");
 require("./pages/devtools");
-require("./pages/product");
+require("./pages/purchase");
 require("./pages/promotion");
-require("./pages/register");
+require("./pages/auth");
 
 /**
  * =======================================================================

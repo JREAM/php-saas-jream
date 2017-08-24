@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
-            <form id="form-register" class="form-signin" method="post" action="{{ url('user/doRegister') }}">
+            <form id="formRegister" class="form-signin" method="post" action="{{ url('user/doRegister') }}">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h4><i class="fa fa-user-plus opacity-50" aria-hidden="true"></i> Register</h4>

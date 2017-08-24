@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <h1>Newsletter</h1>
             <p>
-            The Newsletter
+            Unsubscribe..
             </p>
          </div>
      </div>

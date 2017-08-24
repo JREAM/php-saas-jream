@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-{% include 'partials/head.volt' %}
+{% include 'templates/partials/head.volt' %}
 {% block head %}{% endblock %}
 {% block style %}{% endblock %}
 </head>
 <body id="page-{{ router.getControllerName()|lower }}{% if router.getActionName() is not '' %}-action-{{ router.getActionName()|lower }}{% endif %}">
 
-{% include 'partials/header.volt' %}
+{% include 'templates/partials/header.volt' %}
 {% block hero %}{% endblock %}
 <div class="point"></div> {# For WayPoint Detection #}
 
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-{% include "partials/footer.volt" %}
+{% include "templates/partials/footer.volt" %}
 
 {% block script %}{% endblock %}
 </body>

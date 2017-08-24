@@ -6,7 +6,7 @@ $(() => {
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
-    $(this).post(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
   });
@@ -17,7 +17,7 @@ $(() => {
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
-    $(this).post(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
   });
@@ -29,7 +29,7 @@ $(() => {
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
-    $(this).post(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
 

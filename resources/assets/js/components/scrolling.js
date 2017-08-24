@@ -4,18 +4,18 @@
  */
 function skipPage() {
   const skipPages = [
-    "page-product-action-preview",
-    "page-course-action-view",
+    "page-product-preview",
+    "page-course-view",
     "page-dashboard",
     "page-contact",
     "page-account",
-    "page-account-action-delete",
-    "page-question-action-index",
-    "page-course-action-index",
-    "page-user-action-login",
-    "page-user-action-register",
-    "page-user-action-password",
-    "page-user-action-passwordCreate"
+    "page-account-delete",
+    "page-question",
+    "page-course",
+    "page-user-login",
+    "page-user-register",
+    "page-user-password",
+    "page-user-passwordCreate"
   ];
   const pageId = $("body").prop("id");
 

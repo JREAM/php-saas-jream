@@ -9,7 +9,7 @@ use Phalcon\Mvc\Application;
  * @important   The Order of file loading is crucial.
  * =============================================================
  */
-require_once realpath(dirname(__DIR__)) . '/config/env.php';
+require_once realpath(dirname(__DIR__)) . '/app/config/env.php';
 
 /**
  * ==============================================================
@@ -23,7 +23,7 @@ try {
      * Read the configuration
      * =============================================================
      */
-    $config = require_once DOCROOT . "config/config.php";
+    $config = require_once APP_PATH . "config/config.php";
     $api    = require_once $config->get('configDir') . "api.php";
 
 

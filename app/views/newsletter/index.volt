@@ -52,7 +52,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {{ form.render('submit') }}
-                            <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                            <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                         </div>
                     </div>
                 </div>

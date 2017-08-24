@@ -118,7 +118,7 @@ $(function() {
                 </div>
             </div>
 
-            <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+            <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
 
         </form>
 

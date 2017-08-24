@@ -34,3 +34,9 @@ $I->seeInTitle('Lab');
 $I->amOnPage('/promotion');
 $I->seeInTitle('Promotion');
 
+$I->amOnPage('/user/login');
+$I->seeInTitle('Login');
+
+$I->amOnPage('/user/register');
+$I->seeInTitle('Register');
+

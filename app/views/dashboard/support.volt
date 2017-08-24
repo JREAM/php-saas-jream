@@ -57,7 +57,9 @@
                         <div class="form-group">
                             <input class="disable-click btn btn-lg btn-primary btn-block" type="submit" value="Submit">
                         </div>
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                 </div>
             </div>

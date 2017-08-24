@@ -16,7 +16,8 @@
             <form id="formRegister" class="form-signin" method="post" action="{{ url('user/doRegister') }}">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-user-plus opacity-50" aria-hidden="true"></i> Register</h4>
+                        <img class="jream-icon-login" src="{{ config.url_static }}img/logo/icon-sm.svg">
+                        <h4>Register</h4>
                     </div>
                     <div class="panel-body">
                         <p class="text-center">
@@ -51,7 +52,8 @@
                         By Registering you agree to the <a target="_blank" href="{{url('index/terms')}}">Terms</a>.
                         </p>
 
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </div>
                 </div>
 

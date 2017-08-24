@@ -5,7 +5,7 @@
 {% block head %}{% endblock %}
 {% block style %}{% endblock %}
 </head>
-<body id="page-{{ router.getControllerName()|lower }}{% if router.getActionName() is not '' %}-action-{{ router.getActionName()|lower }}{% endif %}">
+<body id="{{  pageId }}">
 
 {% if router.getControllerName() == 'index' and router.getActionName() == '' %}
     {% set is_home = true %}

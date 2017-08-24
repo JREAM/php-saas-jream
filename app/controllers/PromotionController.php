@@ -67,8 +67,6 @@ class PromotionController extends BaseController
             'has_promotion' => $has_promotion,
             'promotions'    => $promotions,
             'products'      => $products,
-            'tokenKey'      => $this->security->getTokenKey(),
-            'token'         => $this->security->getToken(),
         ]);
 
         $this->view->pick('promotion/promotion');
@@ -89,8 +87,6 @@ class PromotionController extends BaseController
             'has_promotion' => $has_promotion,
             'promotion'     => $promotion,
             'products'      => $products,
-            'tokenKey'      => $this->security->getTokenKey(),
-            'token'         => $this->security->getToken(),
         ]);
         $this->view->pick('promotion/view');
     }

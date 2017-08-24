@@ -5,7 +5,7 @@ $(() => {
 
     const url = $(this).attr("action");
 
-    $(this).get(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
   });
@@ -15,7 +15,7 @@ $(() => {
 
     const url = $(this).attr("action");
 
-    $(this).get(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
   });
@@ -25,7 +25,7 @@ $(() => {
 
     const url = $(this).attr("action");
 
-    $(this).get(url, postData, function (resp) {
+    $.post(url, postData, function (resp) {
       console.log(resp);
     }, "json");
   });

@@ -36,8 +36,6 @@ class NewsletterController extends BaseController
     {
         $this->view->setVars([
             'form'     => new \NewsletterForm(),
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
 
         $this->view->pick('newsletter/index');

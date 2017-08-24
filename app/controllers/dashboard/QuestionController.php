@@ -49,9 +49,6 @@ class QuestionController extends BaseController
                 'product_id' => $productId,
                 'order'      => 'id DESC',
             ]),
-            // CSRF
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
 
         $this->view->pick('dashboard/question');

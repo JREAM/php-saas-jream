@@ -13,7 +13,7 @@ use Phalcon\Cli\Console as ConsoleApp;
  * Load
  * =============================================================
  */
-require_once realpath(dirname(__DIR__)) . '/config/env.php';
+require_once realpath(dirname(__DIR__)) . '/app/config/env.php';
 
 
 /**
@@ -21,7 +21,7 @@ require_once realpath(dirname(__DIR__)) . '/config/env.php';
  * Read the configuration
  * =============================================================
  */
-$config = require DOCROOT . "/config/config.php";
+$config = require APP_PATH . "/config/config.php";
 $api = require $config->get('configDir') . "api.php";
 
 /**

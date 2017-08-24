@@ -48,6 +48,21 @@ class ApiController extends Controller
     // --------------------------------------------------------------
 
     /**
+     * Check CSRF Calls
+     * @return string   JSON
+     */
+    public function validateTokens()
+    {
+        $tokenKey = $this->input->get('tokenKey');
+        $token    = $this->input->get('token');
+        if (!$this->security->checkToken($tokenKey, $token)) {
+            return $this->output(0, 'Invalid CSRF Token.');
+        }
+    }
+
+    // --------------------------------------------------------------
+
+    /**
      * Default output for /api route.
      */
     public function indexAction()

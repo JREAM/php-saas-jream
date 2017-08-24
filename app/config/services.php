@@ -183,7 +183,10 @@ $di->setShared('view', function () use ($config, $di) {
                 ->addFunction('strtotime', 'strtotime')
                 ->addFunction('sprintf', 'sprintf')
                 ->addFunction('str_replace', 'str_replace')
-                ->addFunction('is_a', 'is_a');
+                ->addFunction('is_a', 'is_a')
+                ->addFunction('pageid', function($str, $expr) {
+                    return str_replace('-page', '', $str);
+                });
 
             // Use Cache for live site
             if (\APPLICATION_ENV == \APP_PRODUCTION) {

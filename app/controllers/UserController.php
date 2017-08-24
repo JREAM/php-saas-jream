@@ -52,8 +52,6 @@ class UserController extends BaseController
             'form'       => new \LoginForm(),
             'fbLoginUrl' => $this->_getFacebookLoginUrl(),
 //            'googleLogin' => $this->google_auth->createAuthUrl(),
-            'tokenKey'   => $this->security->getTokenKey(),
-            'token'      => $this->security->getToken(),
         ]);
 
         $this->view->pick('user/login');
@@ -332,8 +330,6 @@ class UserController extends BaseController
         $this->view->setVars([
             'form'       => new \RegisterForm(),
             'fbLoginUrl' => $fbLoginUrl,
-            'tokenKey'   => $this->security->getTokenKey(),
-            'token'      => $this->security->getToken(),
         ]);
     }
 
@@ -578,8 +574,6 @@ class UserController extends BaseController
         Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
         $this->view->setVars([
             'form'     => new \ForgotPasswordForm(),
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
     }
 

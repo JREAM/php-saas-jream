@@ -57,10 +57,6 @@ class CourseController extends BaseController
             'courses'    => $courses,
             'userAction' => new \UserAction(),
             'percent'    => $product->getProductPercent(),
-
-            // CSRF
-            'tokenKey'   => $this->security->getTokenKey(),
-            'token'      => $this->security->getToken(),
         ]);
 
         $this->view->pick("dashboard/course");
@@ -159,10 +155,6 @@ class CourseController extends BaseController
             // Navigation
             'next'              => $next,
             'prev'              => $prev,
-
-            // CSRF
-            'tokenKey'          => $this->security->getTokenKey(),
-            'token'             => $this->security->getToken(),
         ]);
 
         $this->view->pick("dashboard/course-view");

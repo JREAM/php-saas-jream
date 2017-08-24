@@ -44,10 +44,6 @@ class YoutubeController extends BaseController
 
         $this->view->setVars([
             'youtube'  => $video,
-
-            // CSRF
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
 
         $this->view->pick("dashboard/youtube");

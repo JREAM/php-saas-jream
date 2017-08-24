@@ -40,10 +40,6 @@ class SupportController extends BaseController
         $this->view->setVars([
             // Make sure the type is a forced
             'types'    => $this->_types,
-
-            // CSRF
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
 
         $this->view->pick("dashboard/support");

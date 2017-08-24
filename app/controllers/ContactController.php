@@ -31,8 +31,6 @@ class ContactController extends BaseController
     {
         $this->view->setVars([
             'form'     => new \ContactForm(),
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken(),
         ]);
 
         $this->view->pick('contact/contact');

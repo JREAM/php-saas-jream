@@ -34,10 +34,42 @@ class BaseController extends Controller
         // Tag::appendTitle($this->di['config']['title']);
     }
 
-    // --------------------------------------------------------------
+    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    {
+    }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        // Set the Page ID  for FrontEnd
+        $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));
+
+        // Set the CSRF for every request (It uses once token per page)
+        $this->view->setVars([
+            'token' => $this->security->getToken(),
+            'tokenKey' => $this->security->getTokenKey(),
+        ]);
+    }
+
+    // --------------------------------------------------------------
+
+    /**
+     * Used for the Views, sets a PageID variable
+     *
+     * @return string
+     */
+    protected function generateBodyPageId()
+    {
+        $pageId = $this->di->get('router')->getControllerName();
+        $action_name = $this->di->get('router')->getActionName();
+        if ($action_name !==  '') {
+            $pageId .= '-' . $this->di->get('router')->getActionName();
+        }
+        // Remove the "Index" or default home page.
+        if (strpos($pageId, '-index') !== -1) {
+            $pageId = str_replace('-index', '', $pageId);
+        }
+
+        return strtolower($pageId);
     }
 
     // --------------------------------------------------------------

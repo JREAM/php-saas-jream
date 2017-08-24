@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 /**
  * @const DOCROOT Document root
  */
-define('DOCROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+define('DOCROOT', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR);
 
 if (!file_exists(DOCROOT . 'vendor/autoload.php')) {
     throw new \RuntimeException(

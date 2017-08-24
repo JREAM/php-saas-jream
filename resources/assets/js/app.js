@@ -37,6 +37,8 @@ $(() => {
     "use strict";
     // ECMA6, if Object Property Exists "csrf"
     if (!!xhr.responseJSON.csrf) {
+      $("input['data-name=csrf']").attr('name', ${xhr.responseJSON.csrf.tokenKey});
+      $("input['data-name=csrf']").attr('value', ${xhr.responseJSON.csrf.token});
       // Separated by a COMMA, Key => Token, make sure to split.
       window.csrf = `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`;
       $("meta[name=\"csrf-token\"]").attr("content", `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`);

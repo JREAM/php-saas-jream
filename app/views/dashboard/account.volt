@@ -60,7 +60,9 @@
                         <div class="form-group">
                             <input class="disable-click btn btn-sm btn-primary" type="submit" value="Update" />
                         </div>
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                     <div class="clearfix"></div>
                 </div>
@@ -95,7 +97,8 @@
                             {{ changeEmailForm.render('submit', ["class": "btn btn-lg btn-primary pull-right"]) }}
                         </div>
 
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                 </div>
             </div>
@@ -119,7 +122,9 @@
                         <div class="form-group">
                             {{ changePasswordForm.render('submit', ["class": "btn btn-lg btn-primary pull-right"]) }}
                         </div>
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                 </div>
             </div>
@@ -157,7 +162,9 @@
                         <div class="form-group">
                             <input class="disable-click btn btn-lg btn-primary pull-right" type="submit" value="Update">
                         </div>
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                 </div>
             </div>

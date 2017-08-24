@@ -1,8 +1,8 @@
 <?php
-$I = new FunctionalTester($scenario);
-$$I->wantTo('Test Account with Bot (Requires Login');
+//$I = new FunctionalTester($scenario);
 
-$I->amOnPage('/product/view/php-punch-in-the-face');
+//$$I->wantTo('Test Account with Bot (Requires Login');
+//$I->amOnPage('/product/view/php-punch-in-the-face');
 // Stripe;
 //$I->fillField('.form-login input[name=email]', 'test@test.com');
 //$I->fillField('#login input[name=password]', 'efixir');

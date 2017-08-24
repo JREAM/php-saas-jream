@@ -51,7 +51,9 @@
                         <div class="form-group">
                             <input class="disable-click btn btn-lg btn-danger pull-right" type="submit" value="Delete Account">
                         </div>
-                        <input type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
+                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+
                     </form>
                 </div>
             </div>

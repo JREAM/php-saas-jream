@@ -145,8 +145,6 @@ class ProductController extends BaseController
             'fbLoginUrl'     => $fbLoginUrl,
             'months'         => $months,
             'years'          => range(date('Y'), date('Y') + 5),
-            'tokenKey'       => $this->security->getTokenKey(),
-            'token'          => $this->security->getToken(),
         ]);
     }
 

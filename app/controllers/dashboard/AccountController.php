@@ -40,8 +40,6 @@ class AccountController extends BaseController
             'user'               => \User::findFirstById($this->session->get('id')),
             'purchases'          => \UserPurchase::findByUserId($this->session->get('id')),
             'timezones'          => \DateTimeZone::listIdentifiers(),
-            'tokenKey'           => $this->security->getTokenKey(),
-            'token'              => $this->security->getToken()
         ]);
 
         $this->view->pick("dashboard/account");
@@ -56,8 +54,6 @@ class AccountController extends BaseController
     {
         $this->view->setVars([
             'user'     => \User::findFirstById($this->session->get('id')),
-            'tokenKey' => $this->security->getTokenKey(),
-            'token'    => $this->security->getToken()
         ]);
 
         $this->view->pick("dashboard/account-delete");

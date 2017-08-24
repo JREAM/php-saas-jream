@@ -191,7 +191,7 @@
             </p>
 
             <h2 id="purchase-security">Purchase Security</h2>
-            {% include "partials/section/purchase-security.volt" %}
+            {% include "partials/payment-security.volt" %}
 
             <h2 id="misc-security">Misc. Security</h2>
             <p>

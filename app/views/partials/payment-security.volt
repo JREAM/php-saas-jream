@@ -1,5 +1,5 @@
 <ul>
-    <li><strong>Card Purchases</strong>
+    <li><b>Card Purchases</b>
         <ul>
             <li>Your card details are <strong>never</strong> posted or stored to JREAM server(s).</li>
             <li><strong>PCI Level 1</strong> Compliance is handled by the <strong>Stripe Payment Gateway</strong> (<a target="_blank" href="https://stripe.com/help/security">More Details</a>).</li>
@@ -7,7 +7,7 @@
             <li>Re-usable token(s) are <strong>never</strong> stored on JREAM server(s), it's a one time charge.</li>
             <li>You will receive a receipt for your purchase from JREAM and Stripe (You are only charged once).</li>
         </ul>
-    <li><strong>PayPal Purchases</strong>
+    <li><b>PayPal Purchases</b>
         <ul>
             <li>Personal Paypal information is <strong>never</strong> stored to JREAM server(s). However, we do store the alphanumeric Transaction ID to reference your purchase.</li>
             <li>You will be taken to a <strong>PayPal Express Checkout</strong> to purchase.</li>

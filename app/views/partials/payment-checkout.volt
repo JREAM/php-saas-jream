@@ -1,4 +1,3 @@
-{% if user %}
 <script src="https://js.stripe.com/v2/" type="text/javascript"></script>
 <script>
 // @TODO Not sure why this wont load elsewhere
@@ -31,20 +30,21 @@ $(function() {
 
 <div class="panel panel-default panel-primary checkout-purchase-paypal">
     <div class="panel-heading">
-        <strong>Buy Now with Paypal</strong>
+        <strong>PayPal</strong>
     </div>
     <div class="panel-body text-center">
         <a href="{{ url('product/dopaypal') }}/{{ product.id }}">
-            <img src="{{ url('images/payments/checkout-with-paypal.jpg') }}" alt="Paypal Checkout" />
+            <img src="{{ url('images/payments/checkout-with-paypal.jpg') }}" alt="PayPal Checkout" />
         </a>
     </div>
 </div>
 
 <div class="panel panel-default panel-primary checkout-purchase-card">
     <div class="panel-heading">
-        <strong>Buy Now with Card</strong>
+        <strong>Credit Card</strong>
     </div>
     <div class="panel-body">
+        <i class="fa fa-lock"></i> Security
         <form id="form-purchase" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
         <div class="payment-errors"></div>
 
@@ -60,7 +60,7 @@ $(function() {
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>Card Number</label>
-                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\APPLICATION_ENV") != constant('\APP_DEVELOPMENT') %}4242424242424242{% endif %}">
+                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\APPLICATION_ENV") != constant('\APPLICATION_PRODUCTION') %}4242424242424242{% endif %}">
                     </div>
                 </div>
             </div>
@@ -89,14 +89,14 @@ $(function() {
             <div class="row">
                 <div class="col-xs-6">
                     <div class="form-group">
-                        <label>Zip <span class="glyphicon glyphicon glyphicon-question-sign" data-toggle="tooltip" title="Required for security verification."></span></label>
-                        <input data-stripe="address_zip" class="form-control" value="<?=formData('zip')?>" />
+                        <label>Zip <i class="fa fa-question-circle-o" data-toggle="tooltip" title="Required for security verification."></i></label>
+                        <input data-stripe="address_zip" class="form-control" value="<?=formData('zip')?>">
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="form-group">
-                        <label>CVV <span class="glyphicon glyphicon glyphicon-question-sign" data-toggle="tooltip" title="3 Digits on the back of your card. (Also known as CVC, CID, or CSC)"></span></label>
-                        <input data-stripe="cvc" class="form-control" value="{% if constant("\APPLICATION_ENV") != constant('\APP_DEVELOPMENT') %}100{% endif %}" />
+                        <label>CVC <i class="fa fa-question-circle-o" data-toggle="tooltip" title="3 Digits on the back of your card. (Also known as CVV, CID, or CSC)."></i></label>
+                        <input data-stripe="cvc" class="form-control" value="{% if constant("\APPLICATION_ENV") != constant("\APP_DEVELOPMENT") %}100{% endif %}">
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@ $(function() {
             </div>
             <div class="row">
                 <div class="col-xs-12 text-center">
-                {% include "partials/section/payments.volt" %}
+                {% include "partials/payment-icons.volt" %}
                 </div>
             </div>
             <div class="row">
@@ -125,11 +125,9 @@ $(function() {
     </div>
 </div>
 
-{% endif %}
-
 <ul class="text-right" style="list-style-type: none;">
     <li><a href="#course-content">Course Content</a></li>
     <li><a href="#purchase-security">Purchase Security</a></li>
     <li><a href="#system-requirements">System Requirements</a></li>
-    <li><a href="#discrepencies">Discrepencies</a></li>
+    <li><a href="#discrepancies">Discrepancies</a></li>
 </ul>

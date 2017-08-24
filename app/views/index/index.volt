@@ -135,7 +135,7 @@
 
 <div class="spacer-40"></div>
 
-{% include "partials/section/call-to-action.volt" %}
+{% include "partials/call-to-action.volt" %}
 
 <div class="spacer-80"></div>
 

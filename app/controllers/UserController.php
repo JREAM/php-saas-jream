@@ -573,7 +573,7 @@ class UserController extends BaseController
     {
         Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
         $this->view->setVars([
-            'form'     => new \ForgotPasswordForm(),
+            'form' => new \ForgotPasswordForm(),
         ]);
     }
 

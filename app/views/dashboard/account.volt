@@ -72,7 +72,7 @@
 
         </div>
 
-        {% include "partials/section/purchase-history.volt" %}
+        {% include "dashboard/account/purchase-history.volt" %}
 
     </div>
     <div class="col-md-5">

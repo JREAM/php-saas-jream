@@ -112,7 +112,7 @@
 {% if !product.hasPurchased() %}
 
     <h2 id="course-content">Course Content</h2>
-    {% include "partials/section/course-list.volt" %}
+    {% include "partials/course-list.volt" %}
 
     {% if !session.has('id') %}
     <hr />
@@ -121,7 +121,7 @@
     {% endif %}
 
     {% if product.price != 0 %}
-        {% include "partials/section/payment/requirements.volt" %}
+        {% include "partials/payment/payment-requirements.volt" %}
     {% endif %}
 {% endif %}
 
@@ -157,7 +157,7 @@
         </div>
     {% else %}
         {% if product.price != 0 %}
-            {% include "partials/section/payment/checkout.volt" %}
+            {% include "partials/payment-checkout.volt" %}
         {% elseif user %}
             <h2>Free Course</h2>
             <a class="btn btn-primary btn-lg" href="{{ url('product/dofreecourse') }}/{{ product.id }}">Add Free Course</a>

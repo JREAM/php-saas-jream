@@ -26,7 +26,6 @@ class AuthTest extends Unit
     public function testLoginAction()
     {
 //        $t = $this->controller->loginAction();
-//        $this->assertEquals($this->user->getSource(), 'user');
     }
 
     public function testRegisterAction()

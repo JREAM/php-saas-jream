@@ -96,7 +96,7 @@
     {% endfor %}
 
 {% if !session.has('id') and !session.has('fb_user_id') %}
-    {% include "partials/section/call-to-action.volt" %}
+    {% include "partials/call-to-action.volt" %}
 {% endif %}
 
 <div class="spacer-80"></div>

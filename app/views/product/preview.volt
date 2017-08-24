@@ -39,7 +39,7 @@
 {% else %}
     <div class="row">
         <div class="col-md-12">
-            {% include "partials/section/flowplayer.volt" %}
+            {% include "partials/flowplayer.volt" %}
         </div>
     </div>
 

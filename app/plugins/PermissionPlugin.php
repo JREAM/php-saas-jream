@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Mvc\User\Component;
+use Phalcon\Mvc\User\Plugin;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Acl;
@@ -10,7 +10,7 @@ use Phalcon\Acl;
  *
  * Prevents User Types from accessing areas they are not allowed in.
  */
-class PermissionComponent extends Component
+class PermissionPlugin extends Plugin
 {
 
     const REDIRECT_SUCCESS = '';
@@ -184,7 +184,7 @@ class PermissionComponent extends Component
 
     // ------------------------------------------------------------------------
 
-    private function _handleHttps($dispatcher)
+    private function _handleHttps(Dispatcher $dispatcher)
     {
 
         if (\APPLICATION_ENV !== \APP_PRODUCTION) {

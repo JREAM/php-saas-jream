@@ -19,16 +19,6 @@ $router ->add('/updates', ['action' => 'updates'])->setName('updates');
 
 /**
  * ==============================================================
- * User Routes
- * =============================================================
- */
-$router->add('user/login')->setName('login');
-$router->add('user/logout')->setName('logout');
-$router->add('user/register')->setName('register');
-$router->add('user/password')->setName('password');
-
-/**
- * ==============================================================
  * Newsletter Routes
  * =============================================================
  */
@@ -84,6 +74,23 @@ $router->add('/api', [
     'controller' => 'api',
 ])
 ->setName('api');
+
+/**
+ * ==============================================================
+ * User Routes
+ * =============================================================
+ */
+$router->add('/logout', [
+    'namespace' => 'Controllers\Api',
+    'controller' => 'Auth',
+    'action' => 'logout'
+]);
+
+$router->add('api/auth/logout')->setName('logout');
+$router->add('api/auth/login')->setName('login');
+$router->add('api/auth/register')->setName('register');
+$router->add('api/auth/password')->setName('password');
+
 
 /**
  * ==============================================================

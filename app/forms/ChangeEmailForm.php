@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Element;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
 class ChangeEmailForm extends \Phalcon\Forms\Form
@@ -8,7 +10,7 @@ class ChangeEmailForm extends \Phalcon\Forms\Form
 
     public function initialize()
     {
-        $email = new Element\Text('email', [
+        $email = new Text('email', [
             'placeholder' => 'New Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -23,7 +25,7 @@ class ChangeEmailForm extends \Phalcon\Forms\Form
         ]);
 
 
-        $confirm_email = new Element\Text('confirm_email', [
+        $confirm_email = new Text('confirm_email', [
             'placeholder' => 'Confirm New Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -40,7 +42,7 @@ class ChangeEmailForm extends \Phalcon\Forms\Form
         $this->add($email);
         $this->add($confirm_email);
 
-        $this->add(new Element\Submit('submit', [
+        $this->add(new Submit('submit', [
             'value' => 'Submit',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));

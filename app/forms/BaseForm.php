@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Phalcon\Forms\Element;
 use Phalcon\Validation\Validator;

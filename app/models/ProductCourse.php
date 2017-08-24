@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
@@ -48,7 +49,7 @@ class ProductCourse extends BaseModel
      *
      * @return obj|int
      */
-    public function getPrevCourse(int $product_id, int $section, int $course)
+    public function getPrevCourse(integer $product_id, integer $section, integer $course)
     {
         return $this->_getSingleCourse('prev', $product_id, $section, $course);
     }
@@ -64,9 +65,55 @@ class ProductCourse extends BaseModel
      *
      * @return obj|int
      */
-    public function getNextCourse(int $product_id, int $section, int $course)
+    public function getNextCourse(integer $product_id, integer $section, integer $course)
     {
         return $this->_getSingleCourse('next', $product_id, $section, $course);
+    }
+
+    // --------------------------------------------------------------
+
+        // --------------------------------------------------------------
+
+    /**
+     * Create a RTMP Signed URL
+     *
+     * @param  string   $productPath S3 Folder   $productPath
+     * @param  string    $courseName  S3 Filename $courseName
+     *
+     * @return array
+     */
+    public static function generateStreamUrl(string $productPath, string $courseName)
+    {
+        // ----------------------------
+        // Load the AWS Config
+        // * - key_pair_id: The ID of the key pair used to sign CloudFront URLs for private distributions.
+        // * - private_key: The filepath ot the private key used to sign CloudFront URLs for private distributions.
+        // ----------------------------
+        $cloudfront = new \Aws\CloudFront\CloudFrontClient([
+            'region'  => getenv('AWS_CLOUDFRONT_REGION'),
+            'version' => getenv('AWS_CLOUDFRONT_VERSION')
+        ]);
+
+        $resourceUris = [
+            'mp4' => sprintf('%s/%s.mp4', $productPath, $courseName),
+            // 'webm'    => sprintf('%s/webmhd/%s.webmhd.webm', $productPath, $courseName)
+        ];
+
+        $api = $this->di->get('api');
+
+        $signedUrl = [];
+        foreach ($resourceUris as $key => $value) {
+            // Note: I can change expires to policy and limit to an IP
+            // But I had trouble getting it running, see: http://docs.aws.amazon.com/aws-sdk-php/guide/latest/service-cloudfront.html
+            $signedUrl[$key] = $cloudfront->getSignedUrl([
+                'url'         => getenv('AWS_CLOUDFRONT_RMTP_URL') . $value,
+                'expires'     => $api->aws->cloudfront->expiration,
+                'private_key' => $api->aws->cloudfront->privateKeyLocation,
+                'key_pair_id' => getenv('AWS_CLOUDFRONT_KEYPAIR_ID')
+            ]);
+        }
+
+        return $signedUrl;
     }
 
     // --------------------------------------------------------------

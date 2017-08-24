@@ -6,10 +6,15 @@ class NewsletterTask extends Task
 {
     public function mainAction()
     {
-        echo 'This can be used to send emails to all users';
+        echo 'This can be used to send emails to all users' . PHP_EOL;
     }
 
-    public function snsAction($newsletterId)
+    /**
+     * @param int $newsletterId  Id of the newsletter to send
+     *
+     * @return bool
+     */
+    public function snsAction(integer $newsletterId)
     {
         $newsletter = \Newsletter::findById($newsletterId);
         if (!$newsletter) {

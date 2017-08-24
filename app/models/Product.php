@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
@@ -64,10 +65,13 @@ class Product extends BaseModel
             'conditions' => 'is_deleted = 0',
             'columns'    => 'id, title, slug, tags, img_sm, img_md',
         ])
-            ->toArray();
+        ->toArray();
 
         $tag_list = [];
         foreach ($products as $product) {
+            if (!$product['tags']) {
+                continue;
+            }
             $tags = explode(',', $product['tags']);
             foreach ($tags as $tag) {
                 if (!isset($tag_list[$tag])) {
@@ -145,4 +149,25 @@ class Product extends BaseModel
 
         return (int)(($completedTotal / $courseTotal) * 100);
     }
+
+    public function getDifficulty()
+    {
+        $empty_stars = 5 - $this->difficulty;
+        $full_stars = 5 - $empty_stars;
+
+        $output = '';
+
+        for ($i = 0; $i < $full_stars; $i++) {
+            $output .= '<i class="fa fa-circle star-rating"></i> ';
+        }
+
+        for ($i = 0; $i < $empty_stars; $i++) {
+            $output .= '<i class="fa fa-circle-o star-rating-disabled"></i> ';
+        }
+
+        return $output;
+    }
+
+
+
 }

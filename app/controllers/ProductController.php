@@ -1,13 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Controllers;
 
 use \Phalcon\Tag;
 use \Omnipay\Omnipay;
 
-/**
- * @RoutePrefix("/product")
- */
 class ProductController extends BaseController
 {
     const REDIRECT_MAIN = 'product';
@@ -36,10 +34,6 @@ class ProductController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function indexAction()
@@ -56,11 +50,11 @@ class ProductController extends BaseController
     /**
      * Displays a Product based on the slug
      *
-     * @param  $slug  URL Friendly Slug
+     * @param  string   $slug  URL Friendly Slug
      *
      * @return void
      */
-    public function viewAction($slug)
+    public function viewAction(string $slug)
     {
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
@@ -157,7 +151,13 @@ class ProductController extends BaseController
 
     // --------------------------------------------------------------
 
-    public function previewAction($productSlug, $courseId)
+    /**
+     * Preview a Course
+     *
+     * @param string $productSlug
+     * @param int    $courseId
+     */
+    public function previewAction(string $productSlug, integer $courseId)
     {
         $rtmpSignedUrl = null;
         $error = null;
@@ -171,7 +171,7 @@ class ProductController extends BaseController
         }
 
         if ($productCourse->free_preview == 1) {
-            $rtmpSignedUrl = $this->component->helper->generateStreamUrl(
+            $rtmpSignedUrl = \ProductCourse::generateStreamUrl(
                 $productCourse->getProduct()->path,
                 $productCourse->name
             );
@@ -201,7 +201,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function doStripeAction($productId)
+    public function doStripeAction(integer $productId)
     {
         $this->view->disable();
         $this->component->helper->csrf(self::REDIRECT_MAIN);
@@ -260,11 +260,12 @@ class ProductController extends BaseController
             }
 
             // Make sure to check this DURING the checkout
-            if ($promo->expires_at > $this->helper->getLocaleTimestamp()) {
-                $this->flash->error('Sorry, this promotion expired on ' . $promo->expires_at);
-
-                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
-            }
+            // @TODO: Use UTC Timestamp
+//            if ($promo->expires_at > $this->helper->getLocaleTimestamp()) {
+//                $this->flash->error('Sorry, this promotion expired on ' . $promo->expires_at);
+//
+//                return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
+//            }
 
             // Make sure to check this DURING the checkout
             if ($promo->deleted_at) {
@@ -388,7 +389,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function doPayPalAction($productId)
+    public function doPayPalAction(integer $productId)
     {
         $product = \Product::findFirstById($productId);
 
@@ -440,7 +441,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function doPaypalConfirmAction($productId)
+    public function doPaypalConfirmAction(integer $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -511,7 +512,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function doFreeCourseAction($productId)
+    public function doFreeCourseAction(integer $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
@@ -536,7 +537,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    private function _createPurchase(\Product $product, $gateway = false, $transaction_id = false)
+    private function _createPurchase(\Product $product, mixed $gateway = false, mixed $transaction_id = false)
     {
         // First create a transaction record
         $transaction = new \Transaction();

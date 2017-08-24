@@ -1,8 +1,7 @@
 <?php
+declare(strict_types=1);
 
 namespace Controllers\Api;
-
-use \User;
 
 /**
  * @RoutePrefix("/api/user")

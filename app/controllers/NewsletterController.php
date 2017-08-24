@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Controllers;
 
@@ -26,10 +27,6 @@ class NewsletterController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function indexAction()
@@ -56,9 +53,13 @@ class NewsletterController extends BaseController
     // --------------------------------------------------------------
 
     /**
+     * Verifies a users email address.
+     *
+     * @param string    $token
+     *
      * @return void
      */
-    public function doVerifyAction($token)
+    public function doVerifyAction(string $token)
     {
         $newsletterSubscription = \NewsletterSubscription::findFirstByVerifyKey($token);
 

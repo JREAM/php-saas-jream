@@ -6,9 +6,8 @@ class MainTask extends Task
 {
     public function mainAction()
     {
-        echo ' - Run with: php app/cli.php main taskname param' . PHP_EOL;
-        echo ' - Run with: php app/cli.php newsletter send' . PHP_EOL;
-        echo ' - This is the default task and the default action' . PHP_EOL;
+        echo ' - Run with: php app/cli.php main {taskname} {param}' . PHP_EOL;
+        echo '      - Example: php app/cli.php newsletter send' . PHP_EOL;
     }
 
     /**

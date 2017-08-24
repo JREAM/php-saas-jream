@@ -35,7 +35,7 @@ class CourseController extends BaseController
      *
      * @return mixed
      */
-    public function indexAction($productId = false)
+    public function indexAction(mixed $productId = false)
     {
         $product = \Product::findFirstById($productId);
 
@@ -65,12 +65,12 @@ class CourseController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $productId
-     * @param integer $contentId
+     * @param integer   $productId
+     * @param integer   $contentId
      *
      * @return mixed
      */
-    public function viewAction($productId, $contentId)
+    public function viewAction(integer $productId, integer $contentId)
     {
         $product = \Product::findFirstById($productId);
 
@@ -121,7 +121,7 @@ class CourseController extends BaseController
         $productName = $productCourse->getProduct()->title;
         Tag::setTitle($this->sectionTitle . ' | ' . $courseName . ' > ' . $productName . ' | ' . $this->di['config']['title']);
 
-        $rtmpSignedUrl = $this->component->helper->generateStreamUrl(
+        $rtmpSignedUrl = \ProductCourse::generateStreamUrl(
             $productCourse->getProduct()->path,
             $productCourse->name
         );

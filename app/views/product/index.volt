@@ -78,7 +78,7 @@
                 </div>
 
                 <div>
-                    <span class="label label-difficulty">Difficulty</span> {{ component.helper.productDifficulty(product.difficulty) }}
+                    <span class="label label-difficulty">Difficulty</span> {{ product.getDifficulty() }}
                 </div>
 
                 <div class="expandable">

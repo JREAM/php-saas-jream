@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Element;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
 class LoginForm extends \Phalcon\Forms\Form
@@ -8,7 +11,7 @@ class LoginForm extends \Phalcon\Forms\Form
 
     public function initialize()
     {
-        $email = new Element\Text('email', [
+        $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -23,7 +26,7 @@ class LoginForm extends \Phalcon\Forms\Form
         ]);
 
 
-        $password = new Element\Password('password', [
+        $password = new Password('password', [
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',
         ]);
@@ -37,7 +40,7 @@ class LoginForm extends \Phalcon\Forms\Form
         $this->add($email);
         $this->add($password);
 
-        $this->add(new Element\Submit('submit', [
+        $this->add(new Submit('submit', [
             'value' => 'Login',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));

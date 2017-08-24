@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use \Phalcon\Mvc\Model\Behavior\SoftDelete;
 use \Phalcon\Mvc\Model\Validator;
@@ -46,19 +47,36 @@ class User extends BaseModel
 
     public function afterCreate()
     {
-        $this->created_at = getDateTime();
-        $this->save();
+        if ($this->save() != false) {
+            $this->created_at = getDateTime();
+            $this->save();
+        }
     }
 
     // --------------------------------------------------------------
 
     public function afterUpdate()
     {
-        $this->created_at = getDateTime();
-        $this->save();
+        if ($this->save() != false) {
+            $this->created_at = getDateTime();
+            $this->save();
+        }
     }
 
     // --------------------------------------------------------------
+
+    /**
+     * Get the Exact Timestamp with the Applied Timezone
+     *
+     * @param string Timezone
+     * @return string Timestamp
+     */
+    public static function getLocaleTimestamp($timezone = 'America/New_York')
+    {
+        $date = new DateTime(time(), new DateTimeZone($timezone));
+
+        return $date->getTimestamp();
+    }
 
     /**
      * Gets a users Email since there are multiple clients

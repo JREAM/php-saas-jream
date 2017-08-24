@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Controllers\Api;
 
@@ -40,39 +41,44 @@ class AuthController extends ApiController
 
         // Find the user based on the email
         $user = User::findFirstByEmail($email);
-        if ($user) {
-            if ($user->is_deleted == 1) {
-                return $this->output(0, 'This user has been permanently removed.');
+        if (!$user) {
+            return $this->output(0, 'Incorrect Credentials');
+        }
+
+        if ($user->is_deleted == 1) {
+            return $this->output(0, 'This user has been permanently removed.');
+        }
+
+        // Prevent Spam logins
+        if ($user->login_attempt >= 5) {
+            if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
+                return $this->output(0, 'Too many login attempts. Timed out for 10 minutes.');
             }
 
-            // Prevent Spam logins
-            if ($user->login_attempt >= 5) {
-                if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
-                    return $this->output(0, 'Too many login attempts. Timed out for 10 minutes.');
-                }
-
-                // Clear the login attempts if time has expired
-                $user->login_attempt = null;
-                $user->login_attempt_at = null;
-                $user->save();
-            }
-
-            if ($this->security->checkHash($password, $user->password)) {
-                if ($user->isBanned()) {
-                    return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
-                                For support, contact <strong>hello@jream.com</strong>.');
-                }
-
-                // $this->createSession($user, [], $remember_me);
-                $this->createSession($user);
-                return $this->output(1, 'Login Success.');
-            }
-
-            // Track the login attempts
-            $user->login_attempt = $user->login_attempt + 1;
-            $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
+            // Clear the login attempts if time has expired
+            $user->login_attempt = null;
+            $user->login_attempt_at = null;
             $user->save();
         }
+
+        if ($this->security->checkHash($password, $user->password))
+        {
+            // Check Banned
+            if ($user->isBanned())
+            {
+                return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
+                            For support, contact <strong>hello@jream.com</strong>.');
+            }
+
+            // $this->createSession($user, [], $remember_me);
+            $this->createSession($user);
+            return $this->output(1, ['redirect' => $this->router->getRouteByName('dashboard')]);
+        }
+
+        // Track the login attempts
+        $user->login_attempt = $user->login_attempt + 1;
+        $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
+        $user->save();
 
         return $this->output(0, 'Incorrect Credentials');
     }
@@ -166,7 +172,7 @@ class AuthController extends ApiController
     }
 
     /**
-     * @return string JSON
+     * @return callable
      */
     public function logoutAction()
     {
@@ -180,7 +186,8 @@ class AuthController extends ApiController
         }
 
         $this->session->destroy();
-        return $this->output(1, ['redirect' => 'home']);
+
+        return $this->response->redirect($this->router->getRouteByName('home'));
     }
 
     /**

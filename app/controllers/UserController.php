@@ -734,20 +734,6 @@ class UserController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * Handles Logout
-     *
-     * @return mixed
-     */
-    public function logoutAction()
-    {
-        $this->destroySession();
-
-        return $this->redirect(self::REDIRECT_LOGIN);
-    }
-
-    // --------------------------------------------------------------
-
-    /**
      * Retrieves Facebook Login URL
      *
      * @return string

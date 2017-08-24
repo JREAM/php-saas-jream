@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Element;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\TextArea;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
 class ContactForm extends \Phalcon\Forms\Form
@@ -9,7 +12,7 @@ class ContactForm extends \Phalcon\Forms\Form
     public function initialize()
     {
 
-        $name = new Element\Text('name', [
+        $name = new Text('name', [
             'placeholder' => 'Name',
             'class'       => 'form-control input-lg',
         ]);
@@ -20,7 +23,7 @@ class ContactForm extends \Phalcon\Forms\Form
             ]),
         ]);
 
-        $email = new Element\Text('email', [
+        $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -34,7 +37,7 @@ class ContactForm extends \Phalcon\Forms\Form
             ]),
         ]);
 
-        $msg = new Element\TextArea('message', [
+        $msg = new TextArea('message', [
             'placeholder' => 'Message',
             'class'       => 'form-control input-lg',
         ]);
@@ -49,7 +52,7 @@ class ContactForm extends \Phalcon\Forms\Form
         $this->add($email);
         $this->add($msg);
 
-        $this->add(new Element\Submit('submit', [
+        $this->add(new Submit('submit', [
             'value' => 'Send the Email',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));

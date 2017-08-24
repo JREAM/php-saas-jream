@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Element;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
 class RegisterForm extends \Phalcon\Forms\Form
@@ -8,12 +11,12 @@ class RegisterForm extends \Phalcon\Forms\Form
 
     public function initialize()
     {
-        $alias = new Element\Text('alias', [
+        $alias = new Text('alias', [
             'placeholder' => 'Alias',
             'class'       => 'form-control input-lg',
         ]);
 
-        $email = new Element\Text('email', [
+        $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -27,7 +30,7 @@ class RegisterForm extends \Phalcon\Forms\Form
             ]),
         ]);
 
-        $password = new Element\Password('password', [
+        $password = new Password('password', [
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',
         ]);
@@ -38,7 +41,7 @@ class RegisterForm extends \Phalcon\Forms\Form
             ]),
         ]);
 
-        $confirmPassword = new Element\Password('confirm_password', [
+        $confirmPassword = new Password('confirm_password', [
             'placeholder' => 'Confirm Password',
             'class'       => 'form-control input-lg',
         ]);
@@ -55,7 +58,7 @@ class RegisterForm extends \Phalcon\Forms\Form
         $this->add($confirmPassword);
 //        $this->add($newsletterSubscribe);
 
-        $this->add(new Element\Submit('submit', [
+        $this->add(new Submit('submit', [
             'value' => 'Register',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));

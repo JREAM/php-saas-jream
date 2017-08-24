@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Controllers\Api;
 
@@ -75,15 +76,15 @@ class ApiController extends Controller
     /**
      * JSON Output
      *
-     * @param  boolean             $result
+     * @param  integer             $result
      * @param  array|object|string $data (Optional)
      *
      * @return string JSON
      */
-    protected function output($result, $data = null)
+    protected function output(integer $result, $data = null)
     {
         $output = [];
-        $output['result'] = (int)$result;
+        $output['result'] = (boolean) (integer) $result;
 
         if ($result == 0) {
             $output['data'] = null;

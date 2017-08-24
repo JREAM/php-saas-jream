@@ -85,7 +85,7 @@
             <div class="panel-body">
             {% for meta in productCourse.getProductCourseMeta() %}
                 <div>
-                {{ component.helper.getMetaIcon(meta.type) }}
+                {{ productCourse.getTypeIcon(meta.type) }}
                 {% if meta.type == 'link' %}
                     <a target="_blank" href="{{ meta.resource }}">{{ meta.resource }}</a>
                 {% else %}

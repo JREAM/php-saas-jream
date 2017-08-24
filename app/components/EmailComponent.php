@@ -15,9 +15,9 @@ class EmailComponent extends Component
      * @param  string $template     A file in the emails folder
      * @param  array  $replacements associative array of replacements
      *
-     * @return boolean|string
+     * @return string
      */
-    public function create($template, $replacements = [])
+    public function create(string $template, array $replacements = []) : string
     {
         // The wrapper Template
         $tpl_base = $this->_getFile('base');
@@ -43,11 +43,11 @@ class EmailComponent extends Component
     /**
      * Fetches a file
      *
-     * @param  string $template
+     * @param  string $template Email Template Name
      *
      * @return boolean|string
      */
-    private function _getFile($template)
+    private function _getFile(string $template)
     {
         $config = $this->di->get('config');
 

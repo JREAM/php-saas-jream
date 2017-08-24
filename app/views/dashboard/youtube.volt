@@ -4,17 +4,6 @@
 <span class="title">{{ youtube.title }}</span>
 {% endblock %}
 
-{% block hero %}
-{#<div id="hero">#}
-    {#<div class="container container-fluid">#}
-        {#<div class="row">#}
-            {#<div class="col-xs-12 inner">#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-{#</div>#}
-{% endblock %}
-
 {% block breadcrumb %}
 <div class="container container-fluid">
 <div class="col-md-6">

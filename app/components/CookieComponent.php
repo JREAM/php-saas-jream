@@ -16,7 +16,7 @@ class CookieComponent extends Component
      * @param $key   string
      * @param $value mixed
      */
-    public function set(string $key, $value, $time = false)
+    public function set(string $key, mixed $value, $time = false)
     {
 
         if (!$time) {

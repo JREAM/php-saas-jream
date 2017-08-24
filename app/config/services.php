@@ -131,7 +131,7 @@ $di->setShared('url', function () use ($config) {
  */
 $di->setShared('dispatcher', function() use ($di, $eventsManager) {
 
-    $eventsManager->attach('dispatch', new \PermissionComponent());
+    $eventsManager->attach('dispatch', new \PermissionPlugin());
     $eventsManager->attach('dispatch', new \Middleware\Dispatch());
 
     $dispatcher = new \Phalcon\Mvc\Dispatcher();

@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Controllers;
 
 use \Phalcon\Tag;
 
-/**
- * @RoutePrefix("/")
- */
 class IndexController extends BaseController
 {
 
@@ -23,10 +22,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function indexAction()
@@ -44,10 +39,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function labAction()
@@ -58,10 +49,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function updatesAction()
@@ -79,10 +66,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function termsAction()
@@ -93,10 +76,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function show404Action()
@@ -107,10 +86,6 @@ class IndexController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @Get(
-     *     "/"
-     * )
-     *
      * @return void
      */
     public function show503Action()
@@ -120,7 +95,10 @@ class IndexController extends BaseController
 
     // --------------------------------------------------------------
 
-    public function show500Action($exception)
+    /**
+     * @return void
+     */
+    public function show500Action(\Exception $exception)
     {
     }
 

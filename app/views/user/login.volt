@@ -19,7 +19,7 @@
                     <h4>Login</h4>
                 </div>
                 <div class="panel-body">
-                    <form id="formLogin" class="form-login" method="post" action="{{ url('user/doLogin') }}">
+                    <form id="formLogin" class="form-login" method="post" action="{{ url('api/auth/login') }}">
 
                     <div class="form-group">
                         {{ form.render('email') }}

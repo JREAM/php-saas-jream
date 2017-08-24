@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
@@ -35,4 +36,22 @@ class ProductCourseMeta extends BaseModel
     }
 
     // --------------------------------------------------------------
+
+    public function getTypeIcon($type)
+    {
+        switch ($type) {
+            case 'text':
+                return '<span class="glyphicon glyphicon-align-justify"></span>';
+                break;
+            case 'file':
+                return '<span class="glyphicon glyphicon-download-alt"></span>';
+                break;
+            case 'link':
+                return '<span class="glyphicon glyphicon-link"></span>';
+                break;
+        }
+    }
+
+    // --------------------------------------------------------------
+
 }

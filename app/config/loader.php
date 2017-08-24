@@ -14,7 +14,6 @@ $loader->registerNamespaces([
     'Library'               => $config->get('libraryDir'),
     'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
-    'Plugins'               => $config->get('pluginsDir'),
 ]);
 
 $loader->registerClasses([
@@ -25,6 +24,7 @@ $registerDirs = [
     $config->get('componentsDir'),
     $config->get('configDir'),
     $config->get('formsDir'),
+    $config->get('pluginsDir'),
     $config->get('modelsDir'),
     $config->get('tasksDir'),
 ];

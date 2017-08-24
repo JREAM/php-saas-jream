@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Element;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
 class ForgotPasswordForm extends \Phalcon\Forms\Form
@@ -8,7 +10,7 @@ class ForgotPasswordForm extends \Phalcon\Forms\Form
 
     public function initialize()
     {
-        $email = new Element\Text('email', [
+        $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
@@ -24,7 +26,7 @@ class ForgotPasswordForm extends \Phalcon\Forms\Form
 
         $this->add($email);
 
-        $this->add(new Element\Submit('submit', [
+        $this->add(new Submit('submit', [
             'value' => 'Submit',
             'class' => 'btn btn-lg btn-primary btn-block',
         ]));

@@ -19,11 +19,17 @@ class CronTask extends Task
         'delivery'  => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-delivery-queue"
     ];
 
+    /**
+     * This is a Cron Task
+     */
     public function mainAction()
     {
         echo '... Cron Task ...' . PHP_EOL;
     }
 
+    /**
+     * Reads from AWS RSR
+     */
     public function sqsReceiveAction()
     {
         $this->client = new Aws\Sqs\SqsClient([
@@ -41,6 +47,11 @@ class CronTask extends Task
         }
     }
 
+    /**
+     * Handles the SQS Results
+     *
+     * @param string  $endpoint  An AWS Endpoint
+     */
     protected function processSqs($endpoint)
     {
         try {

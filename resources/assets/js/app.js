@@ -2,8 +2,11 @@ window._ = require("lodash");
 window.axios = require("axios");
 
 window.axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest'
+  'X-Requested-With': 'XMLHttpRequest'
 };
+
+window.axios.defaults.headers.post['responseType'] = 'json';
+window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 window.ajax = require('./components/ajax.js');
 

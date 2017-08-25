@@ -52,7 +52,7 @@
                         By Registering you agree to the <a target="_blank" href="{{url('index/terms')}}">Terms</a>.
                         </p>
 
-                        <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                        <input class="csrf-field" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
 
                     </div>
                 </div>

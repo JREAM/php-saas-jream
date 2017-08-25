@@ -77,7 +77,7 @@
                             <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
                         </div>
 
-                       <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                       <input class="csrf-field" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
 
                     </form>
                 </div>
@@ -113,7 +113,7 @@
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
             </div>
 
-            <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+            <input class="csrf-field" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
 
         </form>
     </div>

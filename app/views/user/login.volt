@@ -31,7 +31,7 @@
 
                     {{ form.render('submit') }}
 
-                    <input data-name="csrf" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                    <input class="csrf-field" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
 
                     <br />
                     <p class="text-center">

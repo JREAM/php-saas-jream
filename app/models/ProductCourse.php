@@ -49,7 +49,7 @@ class ProductCourse extends BaseModel
      *
      * @return obj|int
      */
-    public function getPrevCourse(integer $product_id, integer $section, integer $course)
+    public function getPrevCourse(int $product_id, int $section, int $course)
     {
         return $this->_getSingleCourse('prev', $product_id, $section, $course);
     }
@@ -65,7 +65,7 @@ class ProductCourse extends BaseModel
      *
      * @return obj|int
      */
-    public function getNextCourse(integer $product_id, integer $section, integer $course)
+    public function getNextCourse(int $product_id, int $section, int $course)
     {
         return $this->_getSingleCourse('next', $product_id, $section, $course);
     }
@@ -131,15 +131,17 @@ class ProductCourse extends BaseModel
     private function _getSingleCourse(string $nextOrPrev = 'next', int $product_id, int $section, int $course)
     {
 
+        $nextOrPrev = strtolower($nextOrPrev);
+
         if (!in_array($nextOrPrev, ['next', 'prev'])) {
             throw new \InvalidArgumentException('ProductCourse Model must supply string: next or prev only.');
         }
 
-        if ($nextOrPrev == 'next') {
+        if ($nextOrPrev === 'next') {
             $try_section += 1;
             $try_course += 1;
             $order_mode = 'ASC'; // lowest ID first [Going Forwards]
-        } elseif ($nextOrPrev == 'prev') {
+        } elseif ($nextOrPrev === 'prev') {
             $try_section -= 1;
             $try_course -= 1;
             $order_mode = 'DESC'; //highest ID first [Going Backwards]

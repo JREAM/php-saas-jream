@@ -22,11 +22,11 @@ class QuestionController extends ApiController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $productId
+     * @param int $productId
      *
      * @return string   JSON
      */
-    public function createAction(integer $productId)
+    public function createAction(int $productId)
     {
         $this->component->helper->csrf($productId);
 
@@ -89,12 +89,12 @@ class QuestionController extends ApiController
     /**
      * Reply Action
      *
-     * @param  integer $productId
-     * @param  integer $threadId
+     * @param  int $productId
+     * @param  int $threadId
      *
      * @return
      */
-    public function replyAction(integer $productId, integer $threadId)
+    public function replyAction(int $productId, int $threadId)
     {
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
 

@@ -29,7 +29,7 @@ class QuestionController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $productId
+     * @param int $productId
      *
      * @return void
      */
@@ -57,11 +57,11 @@ class QuestionController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $productId
+     * @param int $productId
      *
      * @return void
      */
-    public function doAction($productId)
+    public function doAction(int $productId)
     {
         $this->view->disable();
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
@@ -128,12 +128,12 @@ class QuestionController extends BaseController
     /**
      * Reply Action
      *
-     * @param  integer $productId
-     * @param  integer $threadId
+     * @param  int $productId
+     * @param  int $threadId
      *
      * @return void
      */
-    public function doReplyAction($productId, $threadId)
+    public function doReplyAction(int $productId, int $threadId)
     {
         $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
 

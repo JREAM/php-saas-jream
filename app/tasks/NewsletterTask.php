@@ -14,7 +14,7 @@ class NewsletterTask extends Task
      *
      * @return bool
      */
-    public function snsAction(integer $newsletterId)
+    public function snsAction(int $newsletterId)
     {
         $newsletter = \Newsletter::findById($newsletterId);
         if (!$newsletter) {

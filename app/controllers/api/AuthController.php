@@ -61,17 +61,16 @@ class AuthController extends ApiController
             $user->save();
         }
 
-        if ($this->security->checkHash($password, $user->password))
-        {
+        if ($this->security->checkHash($password, $user->password)) {
             // Check Banned
-            if ($user->isBanned())
-            {
+            if ($user->isBanned()) {
                 return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
                             For support, contact <strong>hello@jream.com</strong>.');
             }
 
             // $this->createSession($user, [], $remember_me);
             $this->createSession($user);
+
             return $this->output(1, ['redirect' => $this->router->getRouteByName('dashboard')]);
         }
 
@@ -81,6 +80,121 @@ class AuthController extends ApiController
         $user->save();
 
         return $this->output(0, 'Incorrect Credentials');
+    }
+
+    /**
+     * Does the Login via Facebook Auth
+     *
+     * @return string   JSON
+     */
+    public function loginFacebookAction()
+    {
+        $helper = $this->facebook->getRedirectLoginHelper();
+
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch
+        (\Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            $this->di->get('sentry')->captureException($e);
+
+            return $this->output(0, 'Facebook Graph returned an error: ' . $e->getMessage());
+        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            $this->di->get('sentry')->captureException($e);
+
+            return $this->output(0, 'Facebook SDK returned an error: ' . $e->getMessage());
+        }
+
+        // Missing Access Token
+        if (!isset($accessToken)) {
+            if ($helper->getError()) {
+                $this->di->get('sentry')->captureException($helper->getError());
+                header('HTTP/1.0 401 Unauthorized');
+                echo "Error: " . $helper->getError() . "\n";
+                echo "Error Code: " . $helper->getErrorCode() . "\n";
+                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }
+
+        // Logged in
+        try {
+            // Returns a `Facebook\FacebookResponse` object (username is deprecated)
+            $response = $this->facebook->get('/me?fields=id,name,email', $accessToken);
+        } catch (\Facebook\Exceptions\FacebookResponseException $e) {
+            error_log('Facebook Graph returned an error: ' . $helper->getMessage(), 0);
+
+            return $this->output(0, 'Facebook Graph returned an error: ' . $e->getMessage());
+        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+            error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
+
+            return $this->output(0, 'Facebook SDK returned an error: ' . $e->getMessage());
+        }
+
+        // User is logged in with a long-lived access token.
+        // You can redirect them to a members-only page.
+        $facebookUser = $response->getGraphUser();
+        $facebookId = $facebookUser->getId();
+        $facebookEmail = $facebookUser->getEmail();
+
+        // Generate the users name since it doesnt let you use a username anymore.
+        $full_name = explode(' ', $facebookUser->getName());
+        $first_name = $full_name[0];
+        $last_initial = false;
+        if (count($full_name) > 1) {
+            $last_initial = end($full_name)[0];
+        }
+        $facebookName = $first_name . ' ' . $last_initial;
+
+        $user = \User::findFirstByFacebookId($facebookId);
+        if (!$user) {
+            $user = new \User();
+            $user->role = 'user';
+            $user->account_type = 'fb';
+            $user->facebook_id = $facebookId;
+            $user->facebook_email = $facebookEmail;
+            $user->facebook_alias = $facebookName;
+            $user->create();
+
+            if ($user->getMessages()) {
+                error_log('There was an error connecting your facebook user.', 0);
+
+                return $this->output(0, 'There was an error connecting your facebook user.');
+            }
+
+            // Where'd they signup from?
+            $user->saveReferrer($user->id, $this->request);
+        } else {
+            // If the facebook users name or email changed
+            if ($user->facebook_email != $facebookEmail) {
+                $user->facebook_email = $facebookEmail;
+            }
+            if ($user->facebook_alias != $facebookName) {
+                $user->facebook_alias = $facebookName;
+            }
+            $user->save();
+        }
+
+        if ($user->isBanned($user)) {
+            return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
+                                For support, contact <b>hello@jream.com</b>.');
+        }
+
+        $this->createSession($user, [
+            'fb_user_id'      => $facebookId,
+            'fb_access_token' => $accessToken,
+            'fb_logout_url'   => $helper->getLogoutUrl(
+                $accessToken,
+                \URL . '/' . 'user/login'
+            ),
+        ]);
+
+        return $this->output(1, ['redirect' => 'dashboard']);
     }
 
     /**
@@ -180,8 +294,9 @@ class AuthController extends ApiController
             $this->session->destroy();
             $this->facebook->destroySession();
             $this->facebook->setAccessToken('');
+
             return $this->output(1, [
-                'redirect' => $this->response->redirect($this->facebook->getLogoutUrl(), true)
+                'redirect' => $this->response->redirect($this->facebook->getLogoutUrl(), true),
             ]);
         }
 
@@ -243,7 +358,6 @@ class AuthController extends ApiController
         '
         );
     }
-
     /**
      * @return string JSON
      */
@@ -291,15 +405,15 @@ class AuthController extends ApiController
     /**
      * Creates a User Session
      *
-     * @param \User $user  User Model
-     * @param array $additional  Additional values to add to session
+     * @param \User $user       User Model
+     * @param array $additional Additional values to add to session
      *
      * @return void
      */
     protected function createSession(\User $user, array $additional = [])
     {
         // Clear the login attempts
-        $user->login_attempt    = null;
+        $user->login_attempt = null;
         $user->login_attempt_at = null;
 
         $this->session->set('id', $user->id);

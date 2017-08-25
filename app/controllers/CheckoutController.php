@@ -54,11 +54,11 @@ class CheckoutController extends BaseController
     /**
      * Stripe Payment
      *
-     * @param integer $productId
+     * @param int $productId
      *
      * @return void
      */
-    public function doStripeAction($productId)
+    public function doStripeAction(int $productId)
     {
         $this->view->disable();
         $product = \Product::findFirstById($productId);
@@ -179,11 +179,11 @@ class CheckoutController extends BaseController
     /**
      * Paypal Payment
      *
-     * @param  integer $productId
+     * @param  int $productId
      *
      * @return void
      */
-    public function doPayPalAction($productId)
+    public function doPayPalAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
 
@@ -232,11 +232,11 @@ class CheckoutController extends BaseController
     /**
      * Paypal Confirmation after returning from payment
      *
-     * @param  integer $productId
+     * @param  int $productId
      *
      * @return void
      */
-    public function doPaypalConfirmAction($productId)
+    public function doPaypalConfirmAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {

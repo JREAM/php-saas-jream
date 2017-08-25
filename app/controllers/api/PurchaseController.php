@@ -258,7 +258,7 @@ class PurchaseController extends ApiController
     /**
      * @TODO If I change this make sure i change in paypal if i need to
      *
-     * @param  integer  $productId
+     * @param  int $productId
      * @return string   JSON
      */
     public function doPaypalConfirmAction(int $productId)

@@ -29,7 +29,7 @@ class YoutubeController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $youtubeId
+     * @param int $youtubeId
      *
      * @return mixed
      */

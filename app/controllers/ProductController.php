@@ -157,7 +157,7 @@ class ProductController extends BaseController
      * @param string $productSlug
      * @param int    $courseId
      */
-    public function coursePreviewAction(string $productSlug, integer $courseId)
+    public function coursePreviewAction(string $productSlug, int $courseId)
     {
         $rtmpSignedUrl = null;
         $error = null;
@@ -197,11 +197,11 @@ class ProductController extends BaseController
     /**
      * Stripe Payment
      *
-     * @param integer $productId
+     * @param int $productId
      *
      * @return void
      */
-    public function doStripeAction(integer $productId)
+    public function doStripeAction(int $productId)
     {
         $this->view->disable();
         $this->component->helper->csrf(self::REDIRECT_MAIN);
@@ -385,11 +385,11 @@ class ProductController extends BaseController
     /**
      * Paypal Payment
      *
-     * @param  integer $productId
+     * @param  int $productId
      *
      * @return void
      */
-    public function doPayPalAction(integer $productId)
+    public function doPayPalAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
 
@@ -437,11 +437,11 @@ class ProductController extends BaseController
     /**
      * Paypal Confirmation after returning from payment
      *
-     * @param  integer $productId
+     * @param  int $productId
      *
      * @return void
      */
-    public function doPaypalConfirmAction(integer $productId)
+    public function doPaypalConfirmAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -508,11 +508,11 @@ class ProductController extends BaseController
     /**
      * Add a free course (No Purchase Required)
      *
-     * @param  integer $productId
+     * @param  int $productId
      *
      * @return void
      */
-    public function doFreeCourseAction(integer $productId)
+    public function doFreeCourseAction(int $productId)
     {
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {

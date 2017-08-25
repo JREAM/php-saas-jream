@@ -31,7 +31,7 @@ class CourseController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer $productId
+     * @param int $productId
      *
      * @return mixed
      */
@@ -65,12 +65,12 @@ class CourseController extends BaseController
     // --------------------------------------------------------------
 
     /**
-     * @param integer   $productId
-     * @param integer   $contentId
+     * @param int $productId
+     * @param int $contentId
      *
      * @return mixed
      */
-    public function viewAction(integer $productId, integer $contentId)
+    public function viewAction(int $productId, int $contentId)
     {
         $product = \Product::findFirstById($productId);
 

@@ -76,15 +76,15 @@ class ApiController extends Controller
     /**
      * JSON Output
      *
-     * @param  integer             $result
+     * @param  int  $result
      * @param  array|object|string $data (Optional)
      *
      * @return string JSON
      */
-    protected function output(integer $result, $data = null)
+    protected function output(int $result, $data = null)
     {
         $output = [];
-        $output['result'] = (boolean) (integer) $result;
+        $output['result'] = (boolean) (int) $result;
 
         if ($result == 0) {
             $output['data'] = null;

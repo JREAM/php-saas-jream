@@ -81,7 +81,7 @@ class User extends BaseModel
     /**
      * Gets a users Email since there are multiple clients
      *
-     * @param  integer $id (Optional) Will uses current session by default
+     * @param  int $id (Optional) Will uses current session by default
      *
      * @return string
      */
@@ -114,7 +114,7 @@ class User extends BaseModel
     /**
      * Gets a users Alias since there are multiple clients
      *
-     * @param  integer $id (Optional) Will uses current session by default
+     * @param  int $id (Optional) Will uses current session by default
      *
      * @return string
      */
@@ -140,8 +140,8 @@ class User extends BaseModel
     /**
      * Gets a users Icon from a service
      *
-     * @param  integer $id   (Optional) Will uses current session by default
-     * @param  size    $size (Optional) Will change the HTML width
+     * @param  int      $id   (Optional) Will uses current session by default
+     * @param  mixed    $size (Optional) Will change the HTML width
      *
      * @return string
      */

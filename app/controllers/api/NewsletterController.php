@@ -70,11 +70,10 @@ class NewsletterController extends ApiController
                 'email' => $email,
             ]);
 
-            $this->output(0, "Something went wrong. There was an error saving, the error has been traced and will be look into.");
-            return $this->redirect(self::SUBSCRIBE_REDIRECT_FAILURE);
+            return $this->output(0, "Something went wrong. There was an error saving, the error has been traced and will be look into.");
         }
 
-        $this->output(1, "Thank you! You've been subscribed to the JREAM Newsletter.
+        return $this->output(1, "Thank you! You've been subscribed to the JREAM Newsletter.
             You'll receive an email for a double opt-in confirmation. You may un-subscribe at anytime
             at the footer of every email with one click.
         ");

@@ -53,7 +53,6 @@
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
 {#<script src="{{ url('vendor/validator.min.js') }} "></script>#}
 {#<script src="{{ url('vendor/moment.min.js') }} "></script>#}
-<script src="{{ url('vendor/jquery.waypoints.min.js') }} "></script>
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 
 <script>
@@ -64,7 +63,6 @@ window.CSRF = "{% if tokenKey is defined %}{{ tokenKey }},{% endif %}{% if token
 
 <!-- App -->
 <script src="{{ url('js/app.js') }}"></script>
-
 
 {% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}
     <script src="http://localhost:35729/livereload.js"></script>

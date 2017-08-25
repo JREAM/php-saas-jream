@@ -64,7 +64,7 @@
             <div class="clear"></div>
 
             {% if not product.hasPurchased() %}
-            <form class="form-inline pull-right" method="get" action="{{ url('product/view') }}/{{ product.slug }}">
+            <form class="form-inline pull-right" method="get" action="{{ url('product/course') }}/{{ product.slug }}">
                 <div class="form-group">
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     <input type="text" name="promotion_code" class="form-control input-sm" placeholder="Promo Code" {% if promotion_code %}value="{{ promotion_code }}"{% endif %}>
@@ -121,7 +121,7 @@
     {% endif %}
 
     {% if product.price != 0 %}
-        {% include "partials/payment/payment-requirements.volt" %}
+        {% include "partials/payment-requirements.volt" %}
     {% endif %}
 {% endif %}
 

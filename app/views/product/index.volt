@@ -35,60 +35,56 @@
     {% for product in products %}
 
     <div class="container container-fluid container-product-row {% if product.hasPurchased() %}purchased{% endif %}">
+        <div class="row product-header">
+            <div class="col-sm-6">
+                <a href="{{ url('product/course/') }}{{ product.slug}}">{{ product.title }}</a>
+            </div>
+            <div class="col-sm-6">
+                <span class="price">
+                    {% if product.hasPurchased() %}
+
+                    {% else %}
+                        {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
+                            <sup>$</sup>{{ product.price }} &mdash; Development
+                        {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
+                            Planned
+                        {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
+                            <sup>$</sup>{{ product.price }}
+                        {% else %}
+                            Free
+                        {% endif %}
+                    {% endif %}
+                </span>
+            </div>
+        </div>
         {% if product.hasPurchased() %}
             <div class="ribbon"><span>Purchased</span></div>
         {% elseif product.is_free == 1 %}
             <div class="ribbon free"><span>Free</span></div>
         {% endif %}
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 inner">
                 {% if product.hasPurchased() %}
-                <a href="{{ url('dashboard/course/index') }}/{{ product.id }}" class="relative img-thumbnail fadeover mar-right-10">
+                <a href="{{ url('dashboard/course/index') }}/{{ product.id }}" class="relative img-thumbnail mar-right-10">
                     <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                 </a>
                 {% else %}
-                <a href="{{ url('product/view/') }}{{ product.slug}}" class="relative img-thumbnail fadeover mar-right-10 {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}">
+                <a href="{{ url('product/course/') }}{{ product.slug}}" class="relative img-thumbnail mar-right-10 {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}">
                     <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                 </a>
                 {% endif %}
+                <br>
+                <span class="label label-difficulty">Difficulty</span> {{ product.getDifficulty() }}
             </div>
-            <div class="col-sm-6 relative public-product-description">
-
-                <div class="row">
-                    <div class="col-sm-8">
-                        <h3 class="public-product-title"><a href="{{ url('product/view/') }}{{ product.slug}}">{{ product.title }}</a></h3>
-                    </div>
-                    <div class="col-sm-4">
-                        <h3 class="margin-0 pull-right">
-                        {% if product.hasPurchased() %}
-
-                        {% else %}
-                            {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
-                                <sup>$</sup>{{ product.price }} &mdash; Development
-                            {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
-                                Planned
-                            {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
-                                <sup>$</sup>{{ product.price }}
-                            {% else %}
-                                Free
-                            {% endif %}
-                        {% endif %}
-                        </h3>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="label label-difficulty">Difficulty</span> {{ product.getDifficulty() }}
-                </div>
-
-                <div class="expandable">
+            <div class="col-sm-6 relative public-product-description inner">
+                <p class="expandable">
                     <?=strip_tags($product->description);?>
-                </div>
+                </p>
 
                 {% if product.hasPurchased() %}
                     <a class="full-product" href="{{ url('dashboard/course/index') }}/{{ product.id }}"><i class="fa fa-arrow-right"></i> Go to My Course</a>
                 {% elseif product.is_free %}
-                    <a class="full-product" href="{{ url('product/view/') }}{{ product.slug}}"><i class="fa fa-arrow-right"></i> View Course</a>
+                    <a class="full-product" href="{{ url('product/course/') }}{{ product.slug}}"><i class="fa fa-arrow-right"></i> View Course</a>
                 {% endif %}
             </div>
         </div>

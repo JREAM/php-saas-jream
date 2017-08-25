@@ -10,20 +10,25 @@
   opacity: 0.9;
 }
 
-
 /** Overwrite the thumbnail */
 .img-thumbnail {
-  border: 10px solid $soft-gray;
-  // border: none;
+  transition: 0.5s;
+  border: 0px solid $highlight-25;
+  border-bottom: 12px solid $highlight-25;
   border-radius: 1px;
   background: $soft-gray;
+  opacity: .85;
+  padding: 0;
 
   &:hover {
+    transition: 0.5s;
     border-color: $highlight;
     background: $highlight;
+    opacity: 1;
   }
 }
 
 .img-thumbnail-lg {
-
+  width: 100%;
 }
+

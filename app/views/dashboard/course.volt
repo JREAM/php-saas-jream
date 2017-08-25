@@ -71,7 +71,7 @@
     <div class="col-md-4">
 
         <div style="margin-bottom: 15px">
-            <img class="fadeover img-thumbnail img-responsive" src="{{ product.img_sm }}" alt="{{ product.path }}" />
+            <img class="img-thumbnail img-responsive" src="{{ product.img_sm }}" alt="{{ product.path }}" />
         </div>
 
         <div class="expandable">

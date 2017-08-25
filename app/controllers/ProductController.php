@@ -10,8 +10,8 @@ class ProductController extends BaseController
 {
     const REDIRECT_MAIN = 'product';
     const REDIRECT_SUCCESS = 'dashboard/course/index/';
-    const REDIRECT_FAILURE = 'product/view/';
-    const REDIRECT_FAILURE_UNAVAILABLE = 'product/view/';
+    const REDIRECT_FAILURE = 'product/course/';
+    const REDIRECT_FAILURE_UNAVAILABLE = 'product/';
 
     public $promotion_code = null;
 
@@ -54,7 +54,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function viewAction(string $slug)
+    public function courseAction(string $slug)
     {
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
@@ -98,7 +98,7 @@ class ProductController extends BaseController
         // ---------------------------
         // Facebook Login
         // ---------------------------
-        $after_fb = sprintf('/product/view/%s', $slug);
+        $after_fb = sprintf('/product/course/%s', $slug);
         $helper = $this->facebook->getRedirectLoginHelper();
         $fbLoginUrl = $helper->getLoginUrl(
             $this->api->fb->redirectUri,
@@ -157,7 +157,7 @@ class ProductController extends BaseController
      * @param string $productSlug
      * @param int    $courseId
      */
-    public function previewAction(string $productSlug, integer $courseId)
+    public function coursePreviewAction(string $productSlug, integer $courseId)
     {
         $rtmpSignedUrl = null;
         $error = null;
@@ -537,7 +537,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    private function _createPurchase(\Product $product, mixed $gateway = false, mixed $transaction_id = false)
+    private function _createPurchase(\Product $product, $gateway = false, $transaction_id = false)
     {
         // First create a transaction record
         $transaction = new \Transaction();

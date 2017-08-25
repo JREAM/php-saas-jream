@@ -47,6 +47,7 @@ $router->add('/dashboard/:controller', [
 $router->add('/dashboard', [
     'namespace'  => 'Controllers\Dashboard',
     'controller' => 'dashboard',
+    ["GET",]
 ])
 ->setName('dashboard');
 
@@ -90,6 +91,25 @@ $router->add('api/auth/logout')->setName('logout');
 $router->add('api/auth/login')->setName('login');
 $router->add('api/auth/register')->setName('register');
 $router->add('api/auth/password')->setName('password');
+
+
+/**
+ * ==============================================================
+ * Product Routes
+ * =============================================================
+ */
+//$router->add('product/course/:params', [
+//    'controller' => 'Product',
+//    'action' => 'course',
+//    'params' => 1,
+//])->setName('course');
+
+$router->add('product/course/preview/:params', [
+    'controller' => 'Product',
+    'action' => 'coursePreview',
+    'params' => 1,
+])->setName('course.preview');
+
 
 
 /**

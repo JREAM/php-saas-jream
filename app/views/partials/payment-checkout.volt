@@ -4,7 +4,7 @@
 Stripe.setPublishableKey('{{ api.stripe.publishableKey }}');
 
 $(function() {
-    $("#form-purchase").submit(function(evt) {
+    $("#formPurchase").submit(function(evt) {
         evt.preventDefault();
 
         var self = $(this);
@@ -45,7 +45,7 @@ $(function() {
     </div>
     <div class="panel-body">
         <i class="fa fa-lock"></i> Security
-        <form id="form-purchase" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
+        <form id="formPurchase" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
         <div class="payment-errors"></div>
 
             <div class="row">
@@ -60,7 +60,7 @@ $(function() {
                 <div class="col-xs-12">
                     <div class="form-group">
                         <label>Card Number</label>
-                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\APPLICATION_ENV") != constant('\APPLICATION_PRODUCTION') %}4242424242424242{% endif %}">
+                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="{% if constant("\APPLICATION_ENV") != constant('\APP_PRODUCTION') %}4242424242424242{% endif %}">
                     </div>
                 </div>
             </div>

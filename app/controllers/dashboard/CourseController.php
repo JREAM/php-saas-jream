@@ -35,7 +35,7 @@ class CourseController extends BaseController
      *
      * @return mixed
      */
-    public function indexAction(mixed $productId = false)
+    public function indexAction($productId = false)
     {
         $product = \Product::findFirstById($productId);
 

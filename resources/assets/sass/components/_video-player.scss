@@ -24,11 +24,3 @@ a.toggle-lights {
   width: 100%;
   z-index: 8;
 }
-
-.fadeover {
-  opacity: 0.85;
-  &:hover {
-    opacity: 1;
-    @include transition(opacity 1000ms ease-out);
-  }
-}

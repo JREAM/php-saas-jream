@@ -1,9 +1,10 @@
 <?php
 
-use \Phalcon\Crypt;
-use \Phalcon\Http\Response\Cookies;
+use Phalcon\Crypt;
+use Phalcon\Http\Response\Cookies;
 use Phalcon\Events\Manager as EventsManager;
-use \Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Filter;
 
 /**
  * ==============================================================
@@ -233,6 +234,19 @@ $di->set('db', function () use ($di, $config, $eventsManager) {
 $redis = new \Redis();
 $redis->connect("localhost", 6379);
 
+
+/**
+ * ==============================================================
+ * Filters
+ * =============================================================
+ */
+$di->setShared('filter', function() {
+    $filter = new Filter();
+    $filter->add('slug', function($value) {
+        return new Phalcon\Utils\Slug($value);
+    });
+    return $filter;
+});
 
 /**
  * ==============================================================

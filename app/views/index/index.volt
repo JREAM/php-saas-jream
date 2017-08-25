@@ -69,22 +69,22 @@
 <div class="container container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-offset featured-course text-center">
-            <a href="{{ url('product/view/php-punch-in-the-face') }}" class="fadeover">
+            <a href="{{ url('product/course/php-punch-in-the-face') }}">
                 <img class="img-responsive img-thumbnail" src="{{ config.url_static }}img/product/php-punch-in-the-face-sm.jpg" alt="PHP Punch in the Face">
             </a>
         </div>
         <div class="col-sm-3 featured-course text-center">
-            <a href="{{ url('product/view/php-codeigniter') }}" class="fadeover">
+            <a href="{{ url('product/course/php-codeigniter') }}">
                 <img class="img-responsive img-thumbnail" src="{{ config.url_static }}img/product/php-codeigniter-sm.jpg" alt="Learn Codeigniter">
             </a>
         </div>
         <div class="col-sm-3 featured-course text-center">
-            <a href="{{ url('product/view/phalcon-php') }}" class="fadeover">
+            <a href="{{ url('product/course/phalcon-php') }}">
                 <img class="img-responsive img-thumbnail" src="{{ config.url_static }}img/product/phalcon-php-sm.jpg" alt="PhalconPHP">
             </a>
         </div>
         <div class="col-md-3 col-md-offset featured-course text-center">
-            <a href="{{ url('product/view/python-for-rookies') }}" class="fadeover">
+            <a href="{{ url('product/course/python-for-rookies') }}">
                 <img class="img-responsive img-thumbnail" src="{{ config.url_static }}img/product/python-for-rookies-sm.jpg" alt="Python for Rookies">
             </a>
         </div>

@@ -13,10 +13,10 @@ $I->see('Programming Courses');
 $I->amOnPage('/product');
 $I->seeInTitle('Product');
 
-$I->amOnPage('/product/view/php-punch-in-the-face');
+$I->amOnPage('/product/course/php-punch-in-the-face');
 $I->seeInTitle('PHP Punch');
 
-$I->amOnPage('/product/preview/php-punch-in-the-face/1');
+$I->amOnPage('/product/course/preview/php-punch-in-the-face/1');
 $I->seeInTitle('1.1');
 
 $I->amOnPage('/contact');

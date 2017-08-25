@@ -17,7 +17,7 @@
 <ol class="breadcrumb">
     <li><a href="{{ url() }}">Home</a></li>
     <li><a href="{{ url('product') }}">Products</a></li>
-    <li><a href="{{ url('product/view') }}/{{ product.slug }}">{{ product.title }}</a></li>
+    <li><a href="{{ url('product/course') }}/{{ product.slug }}">{{ product.title }}</a></li>
     <li class="active">{{ courseName }}</li>
 </ol>
 

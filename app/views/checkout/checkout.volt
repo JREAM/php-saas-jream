@@ -42,8 +42,8 @@
             <strong>Create an Account</strong> or <strong>Login</strong>
         </div>
         <div class="panel-body text-center">
-            <a href="{{ url('user/register') }}"><img src="{{ url('images/buttons/jream-login.png') }}" class="fadeover" alt="JREAM Login"></a>
-            <a href="{{ fbLoginUrl }}"><img src="{{ url('images/buttons/facebook-login.png') }}" class="fadeover" alt="Facebook Login" /></a>
+            <a href="{{ url('user/register') }}"><img src="{{ url('images/buttons/jream-login.png') }}" alt="JREAM Login"></a>
+            <a href="{{ fbLoginUrl }}"><img src="{{ url('images/buttons/facebook-login.png') }}" alt="Facebook Login" /></a>
         </div>
     </div>
     {% endif %}

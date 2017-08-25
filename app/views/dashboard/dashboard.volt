@@ -38,7 +38,7 @@
 
                 <div class="img-thumbnail img-responsive dashboard-image-list">
                     <a href="{{ url('dashboard/course/index/') }}{{ userPurchase.getProduct().id }}">
-                        <img class="fadeover " src="{{ userPurchase.getProduct().img_sm }}" alt="{{ userPurchase.getProduct().title }}" />
+                        <img src="{{ userPurchase.getProduct().img_sm }}" alt="{{ userPurchase.getProduct().title }}" />
                     </a>
                     <div class="dashboard-product-title text-center">
                         <strong>{{ userPurchase.getProduct().title }}</strong>
@@ -67,11 +67,11 @@
                 {% if products|length != 0 %}
                     {% for index, product in products %}
                     <div class="relative img-thumbnail img-responsive dashboard-image-list {% if product.status == constant('\Product::STATUS_PLANNED') %}grayscale{% endif %}" {% if product.status !== 'development' and product.price != 0 %}data-toggle="popover" data-placement="top" data-content="Click to Purchase {{ product.title }}"{% endif %}>
-                        <a href="{{ url('product/view/') }}{{ product.slug }}">
-                            <img class="fadeover" src="{{ product.img_sm }}" alt="{{ product.title }}" />
+                        <a href="{{ url('product/course/') }}{{ product.slug }}">
+                            <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                         </a>
                         <div class="dashboard-product-title text-center">
-                            <strong><a href="{{ url('product/view/') }}{{ product.slug }}"><i class="fa fa-arrow-circle-right"></i> {{ product.title }}</a></strong>
+                            <strong><a href="{{ url('product/course/') }}{{ product.slug }}"><i class="fa fa-arrow-circle-right"></i> {{ product.title }}</a></strong>
                             <br />
                             {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
                                 Development

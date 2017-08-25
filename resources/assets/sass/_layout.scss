@@ -32,25 +32,6 @@ a {
   opacity: 0.9;
 }
 
-#system-info {
-  background: #ffffcc;
-  bottom: 0%;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-
-  .info-timestamp {
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: 3px;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
-    float: left;
-    font-size: $font-size-xs;
-    left: 0;
-    padding: 2px 5px;
-    position: absolute;
-  }
-}
-
 #hero {
   background-color: $hero-bg-color;
   background-size: cover !important;

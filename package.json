@@ -23,6 +23,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.5",
     "cssnano": "^3.10.0",
+    "datatable": "^2.0.2",
     "devicons": "^1.8.0",
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",

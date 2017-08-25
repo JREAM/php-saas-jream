@@ -9,6 +9,8 @@ use Phalcon\Mvc\Controller;
 class BaseController extends Controller
 {
 
+    protected $filter;
+
     /**
      * Initializes all the base items for a page
      *
@@ -24,6 +26,8 @@ class BaseController extends Controller
                 $this->response->redirect("user/login");
             }
         }
+
+        $this->filter = $this->di->get('filter');
 
         // $this->_observeActiveSession();
     }

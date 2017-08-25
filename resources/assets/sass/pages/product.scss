@@ -5,31 +5,50 @@
     height: $hero-height-md;
   }
 
+  .product-header {
+    background: $bg-color-head;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: $font-size-md;
+
+    span {
+      font-weight: 600;
+      font-size: $font-size-md;
+    }
+     a {
+      font-size: $font-size-md;
+      color: inherit;
+
+       &:hover {
+          color: $highlight;
+       }
+    }
+    a:hover {
+    }
+
+    .price {
+      font-size: $font-size-md;
+      text-align: right;
+    }
+  }
+
   a.full-product {
     display: block;
     font-weight: bold;
     margin-top: 10px;
   }
 
-  .public-product-title {
-    font-weight: 600;
-    margin: 0;
-    a {
-      color: inherit;
-    }
-    a:hover {
-      color: $primary-hover;
-    }
-  }
-
   .container-product-row {
     background: $bg-color-alt;
-    border: 1px solid transparent;
     margin-bottom: 40px !important;
-    padding: 20px 20px;
+    padding: 0;
     position: relative; /** To contain ribbons */
     &:hover {
       border: 1px solid transparent;
+    }
+
+    div.inner {
+      padding: 20px;
     }
   }
 

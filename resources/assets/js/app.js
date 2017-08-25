@@ -1,6 +1,6 @@
 window._ = require("lodash");
 
-window.CSRF = 'overwriteme';
+window.CSRF = "overwriteme";
 /**
  * =======================================================================
  * Load Dependencies
@@ -20,16 +20,15 @@ try {
  */
 
 $.ajaxSetup({
-  dataType: 'json',
-  cache: false,
+  dataType: "json",
+  cache: false
 });
 
 
 $(() => {
 
-  $(document).ajaxStart(function(evt) {
+  $(document).ajaxStart(function (evt) {
     "use strict";
-
   });
 
   // Globally Handles XHR and applies CSRF token if one exists.
@@ -37,12 +36,13 @@ $(() => {
     "use strict";
     // ECMA6, if Object Property Exists "csrf"
     if (!!xhr.responseJSON.csrf) {
-      $("input['data-name=csrf']").attr('name', ${xhr.responseJSON.csrf.tokenKey});
-      $("input['data-name=csrf']").attr('value', ${xhr.responseJSON.csrf.token});
+      $("input[data-name='csrf']").attr("name" ${xhr.responseJSON.csrf.tokenKey});
+      $("input[data-name='csrf']").attr("value" ${xhr.responseJSON.csrf.token});
       // Separated by a COMMA, Key => Token, make sure to split.
       window.csrf = `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`;
       $("meta[name=\"csrf-token\"]").attr("content", `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`);
-      var z = $("meta[name=\"csrf-token\"]").attr("content");
+
+      const z = $("meta[name=\"csrf-token\"]").attr("content");
       console.log(z);
     }
   });
@@ -105,7 +105,6 @@ function toggleLogo() {
 
 $(() => {
 
-  // $('.carousel').carousel({interval: 5000});
   $("[data-toggle=tooltip]").tooltip();
   $("[data-toggle=popover]").popover({
     trigger: "hover"
@@ -169,7 +168,7 @@ $(() => {
   // Course-View, Lights Off
   $(".toggle-lights").click(function (evt) {
     evt.preventDefault();
-    var overlay = $(".overlay");
+    const overlay = $(".overlay");
 
     if (overlay.hasClass("hide")) {
       $(".overlay").removeClass("hide");

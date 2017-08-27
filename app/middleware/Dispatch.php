@@ -3,18 +3,17 @@
 namespace Middleware;
 
 use Phalcon\Events\Event;
-use Phalcon\Http\Request;
-use Library\TokenManager;
 use Phalcon\DI\FactoryDefault;
 
 class Dispatch
 {
-//    protected $request;
+    /**
+     * @var \Phalcon\Http\Request
+     */
 
     public function __construct()
     {
         $this->di = FactoryDefault::getDefault();
-//        $this->request = new Request();
     }
 
     // -------------------------------------------------------------
@@ -28,17 +27,6 @@ class Dispatch
      */
     public function beforeExecuteRoute(Event $dispatcher)
     {
-
-        // --------------------------------------------------------------
-        // Session CSRF
-        // 1: Create a user-session CSRF Token Pair if one does NOT exist.
-        // .. All Users signed in or not must have a CSRF token.
-        // --------------------------------------------------------------
-        $tokenManager = new TokenManager();
-        if (!$tokenManager->hasToken()) {
-            $tokenManager->generate();
-        }
-
         // --------------------------------------------------------------
         // Handle Session/Form Data
         // @TODO Convert this to $this->>session probably?
@@ -71,12 +59,15 @@ class Dispatch
             //      & Removed on next page load.
             ++$_SESSION['formDataSeen'];
         }
+
+        return $dispatcher;
     }
 
     // -------------------------------------------------------------
 
-    public function afterExecuteRoute($dispatcher)
+    public function afterExecuteRoute(Event $dispatcher)
     {
+        return $dispatcher;
     }
 
     // -------------------------------------------------------------

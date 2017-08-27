@@ -7,14 +7,14 @@ function updateCsrf(response) {
   console.log(response)
 
   $(".csrf-field")
-    .attr("name", response.data.csrf.tokenKey)
-    .attr("value", response.data.csrf.token);
+    .attr("name", response.tokenKey)
+    .attr("value", response.token);
 
   console.log( $(".csrf-field").attr('name') );
 
   $("meta#csrf")
-    .attr("data-key", response.data.csrf.tokenKey)
-    .attr("data-token", response.data.csrf.token);
+    .attr("data-key", response.tokenKey)
+    .attr("data-token", response.token);
 
   console.log( $("meta#csrf").attr('data-key') );
   console.log( $("meta#csrf").attr('data-token') );

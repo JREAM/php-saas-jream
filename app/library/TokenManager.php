@@ -89,7 +89,7 @@ class TokenManager extends Component
     /**
      * Gets token values from session
      *
-     * @return array|bool
+     * @return array|string|bool
      */
     public function getTokens()
     {
@@ -104,4 +104,5 @@ class TokenManager extends Component
 
         return false;
     }
+
 }

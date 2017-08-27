@@ -5,15 +5,14 @@ namespace Controllers\Api;
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
+use Library\TokenManager
 
 class ApiController extends Controller
 {
-
     /**
-     * These are Generated every request.
+     * @var TokenManager
      */
-    protected $tokenKey;
-    protected $token;
+    protected $tokenManager();
 
     /**
      * All Views are Disabled, only Output Text
@@ -21,6 +20,7 @@ class ApiController extends Controller
     public function initialize()
     {
         $this->view->disable();
+        $this->tokenManager = new TokenManager();
     }
 
     /**
@@ -28,6 +28,16 @@ class ApiController extends Controller
      */
     public function beforeExecuteRoute()
     {
+        // --------------------------------------------------------------
+        // Generate User Sessions CSRF Tokens
+        // --------------------------------------------------------------
+        // 1: Create a user-session CSRF Token Pair if one does NOT exist.
+        // .. All Users signed in or not must have a CSRF token.
+        // --------------------------------------------------------------
+        if (!$this->tokenManager->hasToken()) {
+            // Creates session data.
+            $this->tokenManager->generate();
+        }
     }
 
 // --------------------------------------------------------------
@@ -47,51 +57,47 @@ class ApiController extends Controller
 
 // --------------------------------------------------------------
 
-/**
- * Default output for /api route.
- */
-public
-function indexAction()
-{
-    $this->output(0, 'Hey, use the API correctly!');
-}
+    /**
+     * Default output for /api route.
+     */
+    public function indexAction()
+    {
+        $this->output(0, 'Hey, use the API correctly!');
+    }
 
 // --------------------------------------------------------------
 
-/**
- * JSON Output
- *
- * @param  int                 $result
- * @param  array|object|string $data (Optional)
- *
- * @return string JSON
- */
-protected
-function output(int $result, $data = null)
-{
-    $output = [];
-    $output['result'] = (boolean)(int)$result;
+    /**
+     * JSON Output
+     *
+     * @param  int                 $result
+     * @param  array|object|string $data (Optional)
+     *
+     * @return string JSON
+     */
+    protected function output(int $result, $data = null)
+    {
+        $output = [];
+        $output['result'] = (boolean)(int)$result;
 
-    if ($result == 0) {
-        $output['data'] = null;
-        $output['error'] = $data;
-    }
-    else {
-        $output['data'] = $data;
-        $output['error'] = null;
-    }
+        if ($result == 0) {
+            $output['data'] = null;
+            $output['error'] = $data;
+        }
+        else {
+            $output['data'] = $data;
+            $output['error'] = null;
+        }
 
-    // CSRF Tokens for every call
-    $output['csrf'] = [
-        'tokenKey' => $this->security->getTokenKey(),
-        'token'    => $this->security->getToken(),
-    ];
+        // CSRF Tokens for every call, though they do not change per user session, we may need them if expired (?)
+        $output['tokenKey'] = $this->tokenManager->getTokens()['tokenKey'];
+        $output['token']    = $this->tokenManager->getTokens()['token'];
 
-    $response = new Response();
-    $response->setStatusCode(200, "OK");
-    $response->setContent(json_encode($output));
-    $response->send();
-    exit;
+        $response = new Response();
+        $response->setStatusCode(200, "OK");
+        $response->setContent(json_encode($output));
+        $response->send();
+        exit;
 }
 
 // --------------------------------------------------------------

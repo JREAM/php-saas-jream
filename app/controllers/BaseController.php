@@ -3,13 +3,22 @@ declare(strict_types=1);
 
 namespace Controllers;
 
+use Library\TokenManager;
 use Phalcon\Tag;
 use Phalcon\Mvc\Controller;
 
 class BaseController extends Controller
 {
 
+    /**
+     * @var \Phalcon\Filter
+     */
     protected $filter;
+
+    /**
+     * @var TokenManager
+     */
+    protected $tokenManager;
 
     /**
      * Initializes all the base items for a page
@@ -28,6 +37,7 @@ class BaseController extends Controller
         }
 
         $this->filter = $this->di->get('filter');
+        $this->tokenManager = new TokenManager();
 
 //        echo $this->session->getId();
 //        die;
@@ -44,6 +54,16 @@ class BaseController extends Controller
 
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        // --------------------------------------------------------------
+        // Generate User Sessions CSRF Tokens
+        // --------------------------------------------------------------
+        // 1: Create a user-session CSRF Token Pair if one does NOT exist.
+        // .. All Users signed in or not must have a CSRF token.
+        // --------------------------------------------------------------
+        if (!$this->tokenManager->hasToken()) {
+            // Creates session data.
+            $this->tokenManager->generate();
+        }
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -51,11 +71,19 @@ class BaseController extends Controller
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));
 
-        // Set the CSRF for every request (It uses once token per page)
+        // Set the CSRF for every request (It uses a unique key/pair token per user session)
         $this->view->setVars([
-            'token' => $this->security->getToken(),
-            'tokenKey' => $this->security->getTokenKey(),
+            'tokenKey'  => $this->tokenManager->getTokens()['tokenKey'],
+            'token'     => $this->tokenManager->getTokens()['token'],
         ]);
+    }
+
+    protected function validateTokens()
+    {
+        if (!$this->tokenManager->checkToken('User', $this->request->getPost('tokenKey'), $this->request->getPost('tokenValue'))) {
+            // Json Output
+            return;
+        }
     }
 
     // --------------------------------------------------------------
@@ -206,7 +234,6 @@ class BaseController extends Controller
      */
     public function destroySession()
     {
-
         if ($this->session->has('facebook_id')) {
             $this->session->destroy();
             $this->facebook->destroySession();

@@ -5,12 +5,8 @@ namespace Controllers\Api;
 
 use \UserAction;
 
-/**
- * @RoutePrefix("/api/course")
- */
 class CourseController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -18,8 +14,6 @@ class CourseController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @Route(

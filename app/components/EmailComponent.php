@@ -38,8 +38,6 @@ class EmailComponent extends Component
         return str_replace('{%content%}', $tpl_inner, $tpl_base);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Fetches a file
      *
@@ -59,7 +57,5 @@ class EmailComponent extends Component
 
         return false;
     }
-
-    // --------------------------------------------------------------
 
 }

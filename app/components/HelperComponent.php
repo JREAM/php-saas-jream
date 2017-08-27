@@ -42,6 +42,4 @@ class HelperComponent extends Component
         return true;
     }
 
-    // --------------------------------------------------------------
-
 }

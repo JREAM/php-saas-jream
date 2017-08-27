@@ -43,8 +43,6 @@ class ApiController extends Controller
         $this->validateTokens();
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Check CSRF Session Token
      * @return string   JSON
@@ -57,23 +55,21 @@ class ApiController extends Controller
         }
     }
 
-// --------------------------------------------------------------
-
     /**
      * Default output for /api route.
+     *
+     * @return string   JSON
      */
     public function indexAction()
     {
-        $this->output(0, 'Hey, use the API correctly!');
+        return $this->output(0, 'Invalid usage of the API.');
     }
-
-// --------------------------------------------------------------
 
     /**
      * JSON Output
      *
-     * @param  int                 $result
-     * @param  array|object|string $data (Optional)
+     * @param  int      $result
+     * @param  mixed    $data (Optional)
      *
      * @return string JSON
      */
@@ -99,7 +95,6 @@ class ApiController extends Controller
         $response->setContent(json_encode($output));
         $response->send();
         exit;
-}
+    }
 
-// --------------------------------------------------------------
 }

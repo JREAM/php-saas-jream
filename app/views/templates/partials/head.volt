@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ url('vendor/fonts.css') }}" type="text/css">
 
     <!-- App -->
-    <link rel="stylesheet" href="{{ url('css/app.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url('css/app.css') }}{{ cacheBust }}" type="text/css">
 
     <!-- JS Dependencies (Must Come First) -->
     <script src="{{ url('vendor/modernizr-custom.js') }} "></script>

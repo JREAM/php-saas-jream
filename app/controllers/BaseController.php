@@ -9,7 +9,6 @@ use Phalcon\Mvc\Controller;
 
 class BaseController extends Controller
 {
-
     /**
      * @var \Phalcon\Filter
      */
@@ -38,11 +37,6 @@ class BaseController extends Controller
 
         $this->filter = $this->di->get('filter');
         $this->tokenManager = new TokenManager();
-
-//        echo $this->session->getId();
-//        die;
-
-        // $this->_observeActiveSession();
     }
 
     public function onConstruct()
@@ -76,6 +70,13 @@ class BaseController extends Controller
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));
 
+        // Create a random number for   cache busting in non-production
+        $cacheBust = false;
+        if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+            $cacheBust = '?v=' . random_int(100000, 999999);
+        }
+        $this->view->setVar('cacheBust', $cacheBust);
+
         // Set the CSRF for every request (It uses a unique key/pair token per user session)
         $this->view->setVars([
             'tokenKey'  => $this->tokenManager->getTokens()['tokenKey'],
@@ -95,8 +96,6 @@ class BaseController extends Controller
             return $this->output(0, 'Invalid CSRF Token.');
         }
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Used for the Views, sets a PageID variable
@@ -118,41 +117,10 @@ class BaseController extends Controller
         return strtolower($pageId);
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * Simple way to prevent duplicate logins with same userID
-     *
-     * @return boolean|callable redirect
-     */
-//    protected function _observeActiveSession()
-//    {
-//        if (!$this->session->isStarted() || !$this->session->has('id')) {
-//            return false;
-//        }
-//
-//        $user = \User::findFirstById($this->session->get('id'));
-//        if (!$user) {
-//            return false;
-//        }
-//
-//        if ($user->session_id != $this->session->getId()) {
-//            $this->session->destroy();
-//            if ($this->session->has('facebook_id')) {
-//                $this->facebook->destroySession();
-//            }
-//
-//            $this->flash->success('This account is logged in elsewhere. You have been logged out.');
-//            return $this->redirect('user/login');
-//        }
-//    }
-
-    // --------------------------------------------------------------
-
     /**
      * Redirection
      *
-     * @param  string $uri
+     * @param  string   $append  Add the the full URL
      *
      * @return void
      */
@@ -167,11 +135,8 @@ class BaseController extends Controller
             $url = trim($url, '/');
         }
 
-
         return $this->response->redirect($url, false);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * JSON Output
@@ -201,8 +166,14 @@ class BaseController extends Controller
         exit;
     }
 
-    // --------------------------------------------------------------
-
+    /**
+     * Creates a Session
+     *
+     * @param  \User  $user       The user
+     * @param  array  $additional Add Session Data if desired
+     *
+     * @return void
+     */
     public function createSession(\User $user, $additional = [])
     {
         // Clear the login attempts
@@ -235,8 +206,6 @@ class BaseController extends Controller
         $this->session->set('agent', $_SERVER['HTTP_USER_AGENT']);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Logs a user out here and with a service if applicable
      *
@@ -254,7 +223,6 @@ class BaseController extends Controller
         $this->session->destroy();
     }
 
-    // --------------------------------------------------------------
 }
 
 
@@ -284,8 +252,6 @@ class Batch
     /** @var array */
     public $values = [];
 
-    // --------------------------------------------------------------
-
     public function __construct($table = false)
     {
         if ($table) {
@@ -297,8 +263,6 @@ class Batch
 
         return $this;
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Set the Rows
@@ -314,8 +278,6 @@ class Batch
 
         return $this;
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Set the values
@@ -358,8 +320,6 @@ class Batch
         return $this;
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Insert into the Database
      *
@@ -388,8 +348,6 @@ class Batch
         $this->db->execute($query, $this->valuesFlattened);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Validates the data before calling SQL
      *
@@ -414,5 +372,4 @@ class Batch
         }
     }
 
-    // --------------------------------------------------------------
 }

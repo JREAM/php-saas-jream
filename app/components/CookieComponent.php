@@ -30,8 +30,6 @@ class CookieComponent extends Component
         );
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Get a Cookies Value
      *
@@ -49,8 +47,6 @@ class CookieComponent extends Component
 
         return $item->getValue();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Delete a Cookie Key
@@ -70,8 +66,6 @@ class CookieComponent extends Component
         return true;
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Reset the users Cookies, This cannot return a Boolean as it returns an interface instead.
      */
@@ -79,7 +73,5 @@ class CookieComponent extends Component
     {
         $this->cookies->reset();
     }
-
-    // --------------------------------------------------------------
 
 }

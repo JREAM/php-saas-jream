@@ -22,7 +22,6 @@ mix.webpackConfig({
  | file for your application, as well as bundling up your JS files.
  |
  */
-
 mix.js("resources/assets/js/app.js", "public/js")
   .sourceMaps();
 

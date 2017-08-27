@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator;
 
 class LoginForm extends \Phalcon\Forms\Form

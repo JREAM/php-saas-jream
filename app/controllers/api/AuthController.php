@@ -19,8 +19,6 @@ class AuthController extends ApiController
         parent::initialize();
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return string JSON
      */
@@ -438,4 +436,5 @@ class AuthController extends ApiController
         // If the user changes web browsers, prevent a hijacking attempt
         $this->session->set('agent', $_SERVER['HTTP_USER_AGENT']);
     }
+
 }

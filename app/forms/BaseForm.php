@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Phalcon\Forms\Element;
 use Phalcon\Validation\Validator;
+use Phalcon\Forms\Form;
 
 class BaseForm extends \Phalcon\Forms\Form
 {
@@ -23,6 +24,7 @@ class BaseForm extends \Phalcon\Forms\Form
      */
     public function fullRender()
     {
+        // $form = new Form();
         echo "<form id='{$this->_formId}'>";
 
         $formElements = $this->getElements();

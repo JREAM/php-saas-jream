@@ -1,5 +1,6 @@
 window._ = require("lodash");
 window.axios = require("axios");
+import swal from 'sweetalert2';
 
 /**
  * =======================================================================
@@ -11,11 +12,14 @@ $(() => {
   const tokenKey = csrfSelector.attr("data-key");
   const token = csrfSelector.attr("data-token");
 
-  $.ajaxSetup({
-    dataType: "json",
-    headers: {"X-CSRFToken": `${tokenKey}|${token}`}
-  });
-
+  // swal({
+  //   title: 'Are you sure?',
+  //   text: 'You will not be able to recover this imaginary file!',
+  //   type: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonText: 'Yes, delete it!',
+  //   cancelButtonText: 'No, keep it'
+  // });
 
   /**
    * =======================================================================
@@ -24,7 +28,8 @@ $(() => {
    */
   window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    "X-CSRFToken": `${tokenKey}|${token}`
+    'X-CSRFToken': `${tokenKey}|${token}`,
+    'X-Redirect': ''
   };
   window.axios.defaults.headers.post['responseType'] = 'json';
   window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -44,6 +49,9 @@ require("./pages/promotion");
 require("./pages/purchase");
 require("./pages/question");
 require("./pages/user");
+
+// Handles the AJAX Interceptions
+require("./middleware/interceptors");
 
 /**
  * =======================================================================

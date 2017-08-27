@@ -127,20 +127,23 @@ a {
 }
 
 .call-to-action {
-  background-size: cover;
-  background: $bg-color-head;
-  color: $content-text;
+  border: $call-to-action-border;
+  background: $call-to-action-bg-color;
+  color: $lightest;
   margin-top: 25px;
+
   h3 {
     color: $lightest;
     font-size: $font-size-lg;
   }
+
   p {
     color: $lightest;
     font-size: $font-size-default;
     margin-bottom: 2px;
     text-align: center;
   }
+
   div:first-child {
     margin-bottom: 20px;
   }

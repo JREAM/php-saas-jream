@@ -5,14 +5,14 @@ namespace Controllers\Api;
 
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
-use Library\TokenManager
+use Library\TokenManager;
 
 class ApiController extends Controller
 {
     /**
      * @var TokenManager
      */
-    protected $tokenManager();
+    protected $tokenManager;
 
     /**
      * All Views are Disabled, only Output Text
@@ -38,22 +38,24 @@ class ApiController extends Controller
             // Creates session data.
             $this->tokenManager->generate();
         }
+
+        // Validate the Session Data for ALL Ajax calls
+        $this->validateTokens();
     }
 
-// --------------------------------------------------------------
+    // --------------------------------------------------------------
 
-//    /**
-//     * Check CSRF Calls
-//     * @return string   JSON
-//     */
-//    public function validateTokens()
-//    {
-//        $tokenKey = $this->input->get('tokenKey');
-//        $token    = $this->input->get('token');
-//        if (!$this->security->checkToken($tokenKey, $token)) {
-//            return $this->output(0, 'Invalid CSRF Token.');
-//        }
-//    }
+    /**
+     * Check CSRF Session Token
+     * @return string   JSON
+     */
+    public function validateTokens()
+    {
+        $csrfTokens = $this->request->getHeader('X-CSRFToken');
+        if ($this->tokenManager->validate($csrfTokens) === false) {
+            return $this->output(0, 'Invalid CSRF Token.');
+        }
+    }
 
 // --------------------------------------------------------------
 
@@ -90,9 +92,8 @@ class ApiController extends Controller
         }
 
         // CSRF Tokens for every call, though they do not change per user session, we may need them if expired (?)
-        $output['tokenKey'] = $this->tokenManager->getTokens()['tokenKey'];
-        $output['token']    = $this->tokenManager->getTokens()['token'];
-
+        //$output['tokenKey'] = $this->tokenManager->getTokens()['tokenKey'];
+        //$output['token']    = $this->tokenManager->getTokens()['token'];
         $response = new Response();
         $response->setStatusCode(200, "OK");
         $response->setContent(json_encode($output));

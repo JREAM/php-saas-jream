@@ -53,19 +53,30 @@ class TokenManager extends Component
     /**
      * Checks token given values against session values
      *
-     * @param string $tokenKey
+     * @param string $tokenKey Can be the full tokenKey+token (As with AJAX Post), or only one
      * @param string $token
      *
      * @return bool
      */
-    public function validate(string $tokenKey, string $token): bool
+    public function validate(string $tokenKey, string ...$token): bool
     {
         if (!$this->session->has($this->session_key)) {
             return false;
         }
 
-        $tokens = $this->session->get($this->session_key);
-        if ($tokens['tokenKey'] == $tokenKey && $tokens['token'] == $token) {
+        $sessionTokens = $this->session->get($this->session_key);
+
+        // If the token has a pipe "|" we shall explode it into two parts.
+        // This comes from the AJAX Header Call with one string parameter.
+        if (strpos($tokenKey, '|') !== false) {
+            $parts = explode('|', $tokenKey);
+            $tokenKey = $parts[0];
+            $token = $parts[1];
+        } else {
+            $token = $token[0];
+        }
+
+        if ($sessionTokens['tokenKey'] == $tokenKey && $sessionTokens['token'] == $token) {
             return true;
         }
 

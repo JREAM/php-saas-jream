@@ -55,13 +55,14 @@ class User extends BaseModel
 
     // --------------------------------------------------------------
 
-    public function afterUpdate()
-    {
-        if ($this->save() != false) {
-            $this->created_at = getDateTime();
-            $this->save();
-        }
-    }
+    // @TODO This causes a bug and loop
+//    public function afterUpdate()
+//    {
+//        if ($this->save() != false) {
+//            $this->created_at = getDateTime();
+//            $this->save();
+//        }
+//    }
 
     // --------------------------------------------------------------
 

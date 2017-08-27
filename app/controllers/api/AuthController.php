@@ -26,10 +26,6 @@ class AuthController extends ApiController
      */
     public function loginAction()
     {
-        if (!$this->component->helper->csrf(false, true)) {
-            return $this->output(0, 'Invalid CSRF');
-        }
-
         // POST Data
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');

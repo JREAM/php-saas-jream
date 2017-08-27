@@ -1,61 +1,33 @@
 window._ = require("lodash");
 window.axios = require("axios");
 
-window.axios.defaults.headers.common = {
-  'X-Requested-With': 'XMLHttpRequest'
-};
-
-window.axios.defaults.headers.post['responseType'] = 'json';
-window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
-window.ajax = require('./components/ajax.js');
-
-window.CSRF = "overwriteme";
 /**
  * =======================================================================
- * Load Dependencies
+ * Set the users unique CSRF tokenKey/token for all Ajax Calls
  * -----------------------------------------------------------------------
  */
-try {
-  // These JS Files are loaded individually, so it's off right now.
-  // window.$ = window.jQuery = require('jquery');
-  // require('bootstrap-sass');
-} catch (e) {
-}
-
-/**
- * =======================================================================
- * CSRF: jQuery - This will go to API Controller, Event Handler
- * -----------------------------------------------------------------------
- */
-
-$.ajaxSetup({
-  dataType: "json",
-  cache: false
-});
-
-
 $(() => {
+  const csrfSelector = $("meta[name='csrf']");
+  const tokenKey = csrfSelector.attr("data-key");
+  const token = csrfSelector.attr("data-token");
 
-  $(document).ajaxStart(function (evt) {
-    "use strict";
+  $.ajaxSetup({
+    dataType: "json",
+    headers: {"X-CSRFToken": `${tokenKey}|${token}`}
   });
 
-  // Globally Handles XHR and applies CSRF token if one exists.
-  $(document).ajaxComplete(function (evt, xhr, req) {
-    "use strict";
-    // ECMA6, if Object Property Exists "csrf"
-    if (!!xhr.responseJSON.csrf) {
-      $("input[data-name='csrf']").attr("name", xhr.responseJSON.csrf.tokenKey);
-      $("input[data-name='csrf']").attr("value", xhr.responseJSON.csrf.token);
-      // Separated by a COMMA, Key => Token, make sure to split.
-      window.csrf = `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`;
-      $("meta[name=\"csrf-token\"]").attr("content", `${xhr.responseJSON.csrf.tokenKey},${xhr.responseJSON.csrf.token}`);
 
-      const z = $("meta[name=\"csrf-token\"]").attr("content");
-      console.log(z);
-    }
-  });
+  /**
+   * =======================================================================
+   * Set Axios Defaults
+   * -----------------------------------------------------------------------
+   */
+  window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    "X-CSRFToken": `${tokenKey}|${token}`
+  };
+  window.axios.defaults.headers.post['responseType'] = 'json';
+  window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 });
 
 /**

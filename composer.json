@@ -40,7 +40,9 @@
     "require-dev": {
         "codeception/codeception": "~2.2",
         "phalcon/ide-stubs": "^3.2",
-        "squizlabs/php_codesniffer": "^2.9"
+        "squizlabs/php_codesniffer": "^2.9",
+        "php-console/php-console": "^3.1",
+        "symfony/process": "^3.3"
     },
     "autoload-dev": {
         "psr-4": {

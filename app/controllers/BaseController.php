@@ -64,6 +64,11 @@ class BaseController extends Controller
             // Creates session data.
             $this->tokenManager->generate();
         }
+
+        if ($this->request->isMethod('post')) {
+            // Check every POST (Non-XHR and XHR) to have CSRF
+            $this->validateTokens();
+        }
     }
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
@@ -76,13 +81,18 @@ class BaseController extends Controller
             'tokenKey'  => $this->tokenManager->getTokens()['tokenKey'],
             'token'     => $this->tokenManager->getTokens()['token'],
         ]);
+
     }
 
-    protected function validateTokens()
+    /**
+     * Check CSRF Session Token
+     * @return string   JSON
+     */
+    public function validateTokens()
     {
-        if (!$this->tokenManager->checkToken('User', $this->request->getPost('tokenKey'), $this->request->getPost('tokenValue'))) {
-            // Json Output
-            return;
+        $csrfTokens = $this->request->getHeader('X-CSRFToken');
+        if ($this->tokenManager->validate($csrfTokens) === false) {
+            return $this->output(0, 'Invalid CSRF Token.');
         }
     }
 

@@ -1,20 +1,5 @@
 {% extends "templates/sidebar.volt" %}
 
-{% block head %}
-{% endblock %}
-
-{% block hero %}
-<div id="hero">
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-xs-12 inner">
-                <h2><i class="fa fa-hand-o-up"></i> Promotions</h2>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
 {% block title %}
 <span class="title">Promotions</span>
 {% endblock %}

@@ -21,7 +21,11 @@
 
     ul {
       color: $lightest;
+      font-size: $font-size-md2;
+
       li {
+        margin-bottom: 15px;
+
         i {
           color: $highlight;
         }

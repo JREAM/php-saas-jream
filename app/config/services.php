@@ -315,13 +315,23 @@ $di->set('modelsCache', function () use ($redis) {
 
 /**
  * ==============================================================
+ * PHP Console for Debugging (Requires Chrome Extension)
+ * =============================================================
+ */
+if (APPLICATION_ENV !== APP_PRODUCTION) {
+    // Register PhpConsole as PC::debug($foo), PC::tag($bar), PC::debug('msg')
+    PhpConsole\Helper::register();
+}
+
+
+/**
+ * ==============================================================
  * Sentry Error Logging
  * =============================================================
  */
 $di->setShared('sentry', function () use ($api) {
     return (new Raven_Client(getenv('GET_SENTRY')))->install();
 });
-
 
 /**
  * ==============================================================
@@ -330,13 +340,26 @@ $di->setShared('sentry', function () use ($api) {
  */
 if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
-    $di->setShared('whoops', function () {
-        return new \Whoops\Run;
+
+    $whoops = new \Whoops\Run;
+
+    // This is so it is accessible in the global Middleware Dispatcher
+    $di->setShared('whoops', function () use ($whoops) {
+        return $whoops;
     });
 
-    $whoops = $di->get('whoops')->register();
+    // The default page handler
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+
+    // Push another handler if it is an AJAX call for JSON responses.
+    if (\Whoops\Util\Misc::isAjaxRequest()) {
+        $jsonHandler = new \Whoops\Handler\JsonResponseHandler();
+        $jsonHandler->setJsonApi(true);
+        $whoops->pushHandler($jsonHandler);
+    }
+
     $whoops->register();
+
 }
 
 

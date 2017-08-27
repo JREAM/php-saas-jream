@@ -1,3 +1,10 @@
+let sections = [
+  '#page-account',
+  '#page-forgotpassword',
+  '#page-forgotpassword',
+  '#page-createpassword?',
+];
+
 /**
  * Update CSRF
  *

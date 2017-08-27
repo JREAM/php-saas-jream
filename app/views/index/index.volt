@@ -112,23 +112,33 @@
     <div class="row icon-set">
         <div class="col-sm-3 text-center">
             <i class="ico-light ico-lg ico-rounded ico-hover et-shield"></i>
-            <h3 class="margin-20-top">Strong Userbase</h3>
-            <p>Trusted by over 5,000 users.</p>
         </div>
         <div class="col-sm-3 text-center">
             <i class="margin-20-top ico-light ico-lg ico-rounded ico-hover et-strategy"></i>
-            <h3 class="margin-20-top">Strategize</h3>
-            <p>Grow by practicing alongside.</p>
         </div>
         <div class="col-sm-3 text-center">
             <i class="margin-20-top ico-light ico-lg ico-rounded ico-hover et-genius"></i>
-            <h3 class="margin-20-top">Acquire Skills</h3>
-            <p>Move in the correct programming direction.</p>
         </div>
         <div class="col-sm-3 text-center">
             <i class="margin-20-top ico-light ico-lg ico-rounded ico-hover et-trophy"></i>
+        </div>
+    </div>
+    <div class="row icon-set">
+        <div class="col-sm-3 text-center">
+            <h3 class="margin-20-top">Strong Userbase</h3>
+            <p>Trusted by over +7,000 users.</p>
+        </div>
+        <div class="col-sm-3 text-center">
+            <h3 class="margin-20-top">Strategize</h3>
+            <p>Learn by Strategic Practice.</p>
+        </div>
+        <div class="col-sm-3 text-center">
+            <h3 class="margin-20-top">Acquire Skills</h3>
+            <p>Move Swiftly and Avoid Tedious Mistakes.</p>
+        </div>
+        <div class="col-sm-3 text-center">
             <h3 class="margin-20-top">Rewarding</h3>
-            <p>Use your new skills for any opportunity or dream!</p>
+            <p>Skills acquired can land gigs, jobs, and careers.</p>
         </div>
     </div>
 </div>

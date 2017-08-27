@@ -63,14 +63,11 @@ $(() => {
  * Load Pages and Elements
  * -----------------------------------------------------------------------
  */
-require("./components/scrolling");
 require("./pages/auth");
 require("./pages/checkout");
 require("./pages/contact");
 require("./pages/dashboard");
-require("./pages/devtools");
 require("./pages/newsletter");
-require("./pages/purchase");
 require("./pages/promotion");
 require("./pages/purchase");
 require("./pages/question");

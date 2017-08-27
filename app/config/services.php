@@ -2,8 +2,12 @@
 
 use Phalcon\Crypt;
 use Phalcon\Http\Response\Cookies;
+use Phalcon\Security as Security;
+use Phalcon\Flash\Session as Flash;
+use Phalcon\Session\Adapter\Files as SessionFiles;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Db\Adapter\Pdo\Mysql as MySQL;
 use Phalcon\Filter;
 
 /**
@@ -17,6 +21,22 @@ $di = new \Phalcon\DI\FactoryDefault();
 $eventsManager = new EventsManager;
 $di->setShared('eventsManager', $eventsManager);
 
+
+/**
+ * ==============================================================
+ * Set the Security for Usage
+ *
+ * @important This comes before the Session
+ * =============================================================
+ */
+$di->setShared('security', function () {
+    $security = new Security();
+    $security->setWorkFactor(12);
+
+    return $security;
+});
+
+
 /**
  * ==============================================================
  * Set Encryption Token for all Cookies
@@ -25,6 +45,7 @@ $di->setShared('eventsManager', $eventsManager);
 $di->set('crypt', function () use ($config) {
     $crypt = new Crypt();
     $crypt->setKey($config->get('cookie_hash'));
+
     return $crypt;
 });
 
@@ -38,6 +59,7 @@ $di->set('crypt', function () use ($config) {
 $di->set('cookies', function () {
     $cookies = new Cookies();
     $cookies->useEncryption(true);
+
     return $cookies;
 });
 
@@ -47,9 +69,11 @@ $di->set('cookies', function () {
  * Session
  * =============================================================
  */
-$di->setShared('session', function () {
-    $session = new \Phalcon\Session\Adapter\Files();
+$di->setShared('session', function () use ($di) {
+    // Start a new Session for every user.
+    $session = new SessionFiles();
     $session->start();
+
     return $session;
 });
 
@@ -59,31 +83,32 @@ $di->setShared('session', function () {
  * Session Flash Data
  * =============================================================
  */
-$di->setShared('flash', function($mode = 'session') {
+$di->setShared('flash', function ($mode = 'session') {
 
     $mode = strtolower(trim($mode));
     $validModes = ['session', 'direct'];
-    if ( ! in_array($mode, $validModes ) ) {
+    if (!in_array($mode, $validModes)) {
         throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' . explode(',', $validModes));
     }
 
     // There is a Direct, and a Session
-    $flash = new \Phalcon\Flash\Session([
-        'error'     => 'alert alert-danger',
-        'success'   => 'alert alert-success',
-        'notice'    => 'alert alert-info',
-        'warning'   => 'alert alert-warning',
+    $flash = new Flash([
+        'error'   => 'alert alert-danger',
+        'success' => 'alert alert-success',
+        'notice'  => 'alert alert-info',
+        'warning' => 'alert alert-warning',
     ]);
+
     return $flash;
 });
 
 
 /**
  * ==============================================================
- * Make Config and api Accessible where we have DI
+ * Make Config/Api Accessible where we have DI
  * =============================================================
  */
-$di->setShared('config', function() use ($config) {
+$di->setShared('config', function () use ($config) {
     return $config;
 });
 
@@ -97,20 +122,10 @@ $di->setShared('api', function () use ($api) {
  * Apply the Router
  * =============================================================
  */
-$di->setShared('router', function() use($config) {
+$di->setShared('router', function () use ($config) {
     return require $config->get('configDir') . 'routes.php';
 });
 
-
-//$di->setShared('router', function () {
-//    // Use the annotations router. We're passing false as we don't want the router to add its default patterns
-//    $router = new RouterAnnotations(false);
-//
-//    // Read the annotations from ProductsController if the URI starts with /api/products
-//    $router->addResource("Products", "/api/products");
-//
-//    return $router;
-//});
 
 /**
  * ==============================================================
@@ -121,6 +136,7 @@ $di->setShared('router', function() use($config) {
 $di->setShared('url', function () use ($config) {
     $url = new \Phalcon\Mvc\Url();
     $url->setBaseUri($config->get('baseUri'));
+
     return $url;
 });
 
@@ -130,10 +146,10 @@ $di->setShared('url', function () use ($config) {
  * Custom Dispatcher (Overrides the default)
  * =============================================================
  */
-$di->setShared('dispatcher', function() use ($di, $eventsManager) {
+$di->setShared('dispatcher', function () use ($di, $eventsManager) {
 
-    $eventsManager->attach('dispatch', new \PermissionPlugin());
-    $eventsManager->attach('dispatch', new \Middleware\Dispatch());
+    $eventsManager->attach('dispatch', new PermissionPlugin());
+    $eventsManager->attach('dispatch', new Middleware\Dispatch());
 
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
     $dispatcher->setEventsManager($eventsManager);
@@ -147,11 +163,12 @@ $di->setShared('dispatcher', function() use ($di, $eventsManager) {
  * Register Component libraries
  * =============================================================
  */
-$di->setShared('component', function() {
+$di->setShared('component', function () {
     $obj = new \stdClass();
-    $obj->cookies = new \CookieComponent();
-    $obj->helper  = new \HelperComponent();
-    $obj->email   = new \EmailComponent();
+    $obj->cookies = new CookieComponent();
+    $obj->helper = new HelperComponent();
+    $obj->email = new EmailComponent();
+
     return $obj;
 });
 
@@ -165,7 +182,7 @@ $di->setShared('view', function () use ($config, $di) {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir($config->get('viewsDir'));
     $view->registerEngines([
-        '.volt' => function ($view, $di) use ($config) {
+        '.volt'  => function ($view, $di) use ($config) {
 
             $path = APPLICATION_ENV == APP_TEST ? DOCROOT . 'tests/_cache/' : $config->get('cacheDir');
 
@@ -175,7 +192,7 @@ $di->setShared('view', function () use ($config, $di) {
             $volt = new VoltEngine($view, $di);
 
             $volt->setOptions([
-                'compiledPath' => $path,
+                'compiledPath'      => $path,
                 'compiledSeparator' => '_',
                 'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION,
             ]);
@@ -185,7 +202,7 @@ $di->setShared('view', function () use ($config, $di) {
                 ->addFunction('sprintf', 'sprintf')
                 ->addFunction('str_replace', 'str_replace')
                 ->addFunction('is_a', 'is_a')
-                ->addFunction('pageid', function($str, $expr) {
+                ->addFunction('pageid', function ($str, $expr) {
                     return str_replace('-page', '', $str);
                 });
 
@@ -199,7 +216,7 @@ $di->setShared('view', function () use ($config, $di) {
         // --------------------------------------------------------------------
         // The Default Templating (However, VOLT is cleaner)
         // --------------------------------------------------------------------
-        '.phtml' => '\Phalcon\Mvc\View\Engine\Php'
+        '.phtml' => '\Phalcon\Mvc\View\Engine\Php',
     ]);
 
     // Used for global variables (See: middleware/afterExecuteRoute)
@@ -217,9 +234,9 @@ $di->setShared('view', function () use ($config, $di) {
  * =============================================================
  */
 $di->set('db', function () use ($di, $config, $eventsManager) {
-    $eventsManager->attach('db', new \Middleware\Database());
+    $eventsManager->attach('db', new Middleware\Database());
 
-    $database = new Phalcon\Db\Adapter\Pdo\Mysql((array) $config->get('database'));
+    $database = new MySQL((array)$config->get('database'));
     $database->setEventsManager($eventsManager);
 
     return $database;
@@ -240,11 +257,12 @@ $redis->connect("localhost", 6379);
  * Filters
  * =============================================================
  */
-$di->setShared('filter', function() {
+$di->setShared('filter', function () {
     $filter = new Filter();
-    $filter->add('slug', function($value) {
+    $filter->add('slug', function ($value) {
         return new Phalcon\Utils\Slug($value);
     });
+
     return $filter;
 });
 
@@ -253,8 +271,9 @@ $di->setShared('filter', function() {
  * Model Manager
  * =============================================================
  */
-$di->set('modelsManager', function() {
+$di->set('modelsManager', function () {
     \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
+
     return new \Phalcon\Mvc\Model\Manager();
 });
 
@@ -264,10 +283,10 @@ $di->set('modelsManager', function() {
  * Model Meta Data (Uses Redis)
  * =============================================================
  */
-$di->set('modelsMetadata', function() use ($redis) {
+$di->set('modelsMetadata', function () use ($redis) {
     return new \Phalcon\Mvc\Model\MetaData\Redis([
         "lifetime" => 3600,
-        "redis"    => $redis
+        "redis"    => $redis,
     ]);
 });
 
@@ -277,17 +296,17 @@ $di->set('modelsMetadata', function() use ($redis) {
  * ORM And Front-end Caching
  * =============================================================
  */
-$di->set('modelsCache', function() use ($redis) {
+$di->set('modelsCache', function () use ($redis) {
 
     // Cache data for one day by default
     // It's cleared using fabfile for a deploy
     $frontCache = new \Phalcon\Cache\Frontend\Data([
-        "lifetime" => 86400
+        "lifetime" => 86400,
     ]);
 
     // Redis connection settings
     $cache = new \Phalcon\Cache\Backend\Redis($frontCache, [
-        "redis" => $redis
+        "redis" => $redis,
     ]);
 
     return $cache;
@@ -296,23 +315,11 @@ $di->set('modelsCache', function() use ($redis) {
 
 /**
  * ==============================================================
- * Set the Security for Usage
- * =============================================================
- */
-$di->setShared('security', function(){
-    $security = new \Phalcon\Security();
-    $security->setWorkFactor(12);
-    return $security;
-});
-
-
-/**
- * ==============================================================
  * Sentry Error Logging
  * =============================================================
  */
-$di->setShared('sentry', function() use ($api) {
-    return (new Raven_Client( getenv('GET_SENTRY') ))->install();
+$di->setShared('sentry', function () use ($api) {
+    return (new Raven_Client(getenv('GET_SENTRY')))->install();
 });
 
 
@@ -323,7 +330,7 @@ $di->setShared('sentry', function() use ($api) {
  */
 if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
-    $di->setShared('whoops', function() {
+    $di->setShared('whoops', function () {
         return new \Whoops\Run;
     });
 
@@ -338,14 +345,14 @@ if (\APPLICATION_ENV !== \APP_PRODUCTION) {
  * Email Transport to send Mail
  * =============================================================
  */
-$di->setShared('s3', function() {
+$di->setShared('s3', function () {
     return new Aws\S3\S3Client([
-        'version' => getenv('AWS_S3_VERSION'),
-        'region' => getenv('AWS_S3_REGION'),
+        'version'     => getenv('AWS_S3_VERSION'),
+        'region'      => getenv('AWS_S3_REGION'),
         'credentials' => [
-            'key' => getenv('AWS_S3_ACCESS_KEY'),
-            'secret' => getenv('AWS_S3_ACCESS_SECRET_KEY=')
-        ]
+            'key'    => getenv('AWS_S3_ACCESS_KEY'),
+            'secret' => getenv('AWS_S3_ACCESS_SECRET_KEY='),
+        ],
     ]);
 });
 
@@ -354,14 +361,14 @@ $di->setShared('s3', function() {
  * Email Transport to send Mail
  * =============================================================
  */
-$di->setShared('email', function(array $data) use ($di, $api) {
-    $to       = new \SendGrid\Email($data['to_name'], $data['to_email']);
-    $from     = new \SendGrid\Email($data['from_name'], $data['from_email']);
-    $content  = new \SendGrid\Content("text/html", $data['content']);
+$di->setShared('email', function (array $data) use ($di, $api) {
+    $to = new \SendGrid\Email($data['to_name'], $data['to_email']);
+    $from = new \SendGrid\Email($data['from_name'], $data['from_email']);
+    $content = new \SendGrid\Content("text/html", $data['content']);
 
-    $mail     = new \SendGrid\Mail($from, $data['subject'], $to, $content);
+    $mail = new \SendGrid\Mail($from, $data['subject'], $to, $content);
 
-    $sg       = new \SendGrid(getenv('SENDGRID_KEY'));
+    $sg = new \SendGrid(getenv('SENDGRID_KEY'));
     $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
@@ -387,7 +394,7 @@ $di->setShared('facebook', function () use ($api) {
     return new \Facebook\Facebook([
         'app_id'                => getenv('FACEBOOK_APP_ID'),
         'app_secret'            => getenv('FACEBOOK_APP_SECRET'),
-        'default_graph_version' => getenv('FACEBOOK_DEFAULT_GRAPH_VERSION')
+        'default_graph_version' => getenv('FACEBOOK_DEFAULT_GRAPH_VERSION'),
     ]);
 });
 
@@ -397,7 +404,7 @@ $di->setShared('facebook', function () use ($api) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google_auth', function() use ($api) {
+$di->setShared('google_auth', function () use ($api) {
 
     $middleware = \Google\Auth\ApplicationDefaultCredentials::getMiddleware(
         $api->google->scope
@@ -407,9 +414,9 @@ $di->setShared('google_auth', function() use ($api) {
     $stack->push($middleware);
 
     return new \GuzzleHttp\Client([
-        'handler'   => $stack,
-        'base_uri'  => 'https://www.googleapis.com',
-        'auth'      => 'google_auth'  // authorize all requests
+        'handler'  => $stack,
+        'base_uri' => 'https://www.googleapis.com',
+        'auth'     => 'google_auth'  // authorize all requests
     ]);
 
 });
@@ -420,28 +427,27 @@ $di->setShared('google_auth', function() use ($api) {
  * API: Stripe
  * =============================================================
  */
-\Stripe\Stripe::setApiKey( getenv('STRIPE_SECRET') );
+\Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET'));
 
 /**
  * ==============================================================
  * API: Paypal
  * =============================================================
  */
-$di->setShared('paypal', function() {
+$di->setShared('paypal', function () {
     // Paypal Express
     // @source  https://omnipay.thephpleague.com/gateways/configuring/
     $paypal = \Omnipay\Omnipay::create('PayPal_Express');
-    $paypal->setUsername( getenv('PAYPAL_USERNAME') );
-    $paypal->setPassword( getenv('PAYPAL_PASSWORD') );
-    $paypal->setSignature( getenv('PAYPAL_SIGNATURE') );
+    $paypal->setUsername(getenv('PAYPAL_USERNAME'));
+    $paypal->setPassword(getenv('PAYPAL_PASSWORD'));
+    $paypal->setSignature(getenv('PAYPAL_SIGNATURE'));
 
-    if ( getenv('PAYPAL_TESTMODE') ) {
+    if (getenv('PAYPAL_TESTMODE')) {
         $paypal->setTestMode(true);
     }
 
     return $paypal;
 });
-
 
 
 /**
@@ -450,8 +456,8 @@ $di->setShared('paypal', function() {
  * Only Used to Subscribe (Should Change Someday)
  * =============================================================
  */
-$di->setShared('mailchimp', function() use ($api) {
-    return new \Mailchimp( getenv('MAILCHIMP_KEY') );
+$di->setShared('mailchimp', function () use ($api) {
+    return new \Mailchimp(getenv('MAILCHIMP_KEY'));
 });
 
 

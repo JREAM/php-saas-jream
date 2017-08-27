@@ -29,6 +29,9 @@ class BaseController extends Controller
 
         $this->filter = $this->di->get('filter');
 
+//        echo $this->session->getId();
+//        die;
+
         // $this->_observeActiveSession();
     }
 
@@ -84,27 +87,27 @@ class BaseController extends Controller
      *
      * @return boolean|callable redirect
      */
-    protected function _observeActiveSession()
-    {
-        if (!$this->session->isStarted() || !$this->session->has('id')) {
-            return false;
-        }
-
-        $user = \User::findFirstById($this->session->get('id'));
-        if (!$user) {
-            return false;
-        }
-
-        if ($user->session_id != $this->session->getId()) {
-            $this->session->destroy();
-            if ($this->session->has('facebook_id')) {
-                $this->facebook->destroySession();
-            }
-
-            $this->flash->success('This account is logged in elsewhere. You have been logged out.');
-            return $this->redirect('user/login');
-        }
-    }
+//    protected function _observeActiveSession()
+//    {
+//        if (!$this->session->isStarted() || !$this->session->has('id')) {
+//            return false;
+//        }
+//
+//        $user = \User::findFirstById($this->session->get('id'));
+//        if (!$user) {
+//            return false;
+//        }
+//
+//        if ($user->session_id != $this->session->getId()) {
+//            $this->session->destroy();
+//            if ($this->session->has('facebook_id')) {
+//                $this->facebook->destroySession();
+//            }
+//
+//            $this->flash->success('This account is logged in elsewhere. You have been logged out.');
+//            return $this->redirect('user/login');
+//        }
+//    }
 
     // --------------------------------------------------------------
 

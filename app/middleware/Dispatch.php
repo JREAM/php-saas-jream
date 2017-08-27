@@ -4,7 +4,8 @@ namespace Middleware;
 
 use Phalcon\Events\Event;
 use Phalcon\Http\Request;
-use \Phalcon\DI\FactoryDefault;
+use Library\TokenManager;
+use Phalcon\DI\FactoryDefault;
 
 class Dispatch
 {
@@ -27,8 +28,20 @@ class Dispatch
      */
     public function beforeExecuteRoute(Event $dispatcher)
     {
+
+        // --------------------------------------------------------------
+        // Session CSRF
+        // 1: Create a user-session CSRF Token Pair if one does NOT exist.
+        // .. All Users signed in or not must have a CSRF token.
+        // --------------------------------------------------------------
+        $tokenManager = new TokenManager();
+        if (!$tokenManager->hasToken()) {
+            $tokenManager->generate();
+        }
+
         // --------------------------------------------------------------
         // Handle Session/Form Data
+        // @TODO Convert this to $this->>session probably?
         // --------------------------------------------------------------
         if (!isset($_SESSION)) {
             return;

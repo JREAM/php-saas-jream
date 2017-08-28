@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Controllers\Api;
 
@@ -39,8 +39,8 @@ class CourseController extends ApiController
             $productCourseId
         );
 
-        if ($userAction) {
-            $userAction->value = (int)$value;
+        if($userAction) {
+            $userAction->value = (int) $value;
             $userAction->save();
             $this->output(1, ['value' => $value]);
         }
@@ -53,7 +53,7 @@ class CourseController extends ApiController
         $userAction->value = $value;
         $userAction->save();
 
-        if ($userAction->getMessages() == false) {
+        if($userAction->getMessages() == false) {
             return $this->output(1, ['value' => $value]);
         }
 

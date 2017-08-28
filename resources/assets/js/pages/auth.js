@@ -45,7 +45,7 @@ $(() => {
       if (!!error.data) {
         updateCsrf(error);
       }
-    })
+    });
 
   });
 

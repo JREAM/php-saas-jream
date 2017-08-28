@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Controllers\Api;
 
@@ -29,23 +29,23 @@ class AuthController extends ApiController
         $password = $this->request->getPost('password');
 
         // Cannot have Empty Fields
-        if (!$email || !$password) {
+        if( ! $email || ! $password) {
             return $this->output(0, 'email and password field(s) are required.');
         }
 
         // Find the user based on the email
         $user = User::findFirstByEmail($email);
-        if (!$user) {
+        if( ! $user) {
             return $this->output(0, 'Incorrect Credentials');
         }
 
-        if ($user->is_deleted == 1) {
+        if($user->is_deleted == 1) {
             return $this->output(0, 'This user has been permanently removed.');
         }
 
         // Prevent Spam logins
-        if ($user->login_attempt >= 5) {
-            if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
+        if($user->login_attempt >= 5) {
+            if(strtotime('now') < strtotime($user->login_attempt_at) + 600) {
                 return $this->output(0, 'Too many login attempts. Timed out for 10 minutes.');
             }
 
@@ -55,17 +55,21 @@ class AuthController extends ApiController
             $user->save();
         }
 
-        if ($this->security->checkHash($password, $user->password)) {
+        if($this->security->checkHash($password, $user->password)) {
             // Check Banned
-            if ($user->isBanned()) {
-                return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
-                            For support, contact <strong>hello@jream.com</strong>.');
+            if($user->isBanned()) {
+                return $this->output(0, '
+                    Sorry, your account has been locked due to suspicious activity.
+                    For support, contact <b>hello@jream.com</b>.
+                    ');
             }
 
             // $this->createSession($user, [], $remember_me);
             $this->createSession($user);
 
-            return $this->output(1, ['redirect' => $this->router->getRouteByName('dashboard')]);
+            return $this->output(1, [
+                'redirect' => $this->router->getRouteByName('dashboard'),
+            ]);
         }
 
         // Track the login attempts
@@ -92,24 +96,29 @@ class AuthController extends ApiController
             // When Graph returns an error
             $this->di->get('sentry')->captureException($e);
 
-            return $this->output(0, 'Facebook Graph returned an error: ' . $e->getMessage());
-        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+            return $this->output(0,
+                'Facebook Graph returned an error: ' . $e->getMessage()
+            );
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             $this->di->get('sentry')->captureException($e);
 
-            return $this->output(0, 'Facebook SDK returned an error: ' . $e->getMessage());
+            return $this->output(0,
+                'Facebook SDK returned an error: ' . $e->getMessage()
+            );
         }
 
         // Missing Access Token
-        if (!isset($accessToken)) {
-            if ($helper->getError()) {
+        if( ! isset($accessToken)) {
+            if($helper->getError()) {
                 $this->di->get('sentry')->captureException($helper->getError());
                 header('HTTP/1.0 401 Unauthorized');
                 echo "Error: " . $helper->getError() . "\n";
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
+            }
+            else {
                 header('HTTP/1.0 400 Bad Request');
                 echo 'Bad request';
             }
@@ -119,34 +128,43 @@ class AuthController extends ApiController
         // Logged in
         try {
             // Returns a `Facebook\FacebookResponse` object (username is deprecated)
-            $response = $this->facebook->get('/me?fields=id,name,email', $accessToken);
-        } catch (\Facebook\Exceptions\FacebookResponseException $e) {
-            error_log('Facebook Graph returned an error: ' . $helper->getMessage(), 0);
+            $response = $this->facebook->get(
+                '/me?fields=id,name,email',
+                $accessToken
+            );
+        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
+            error_log(
+                'Facebook Graph returned an error: ' . $helper->getMessage(), 0
+            );
 
-            return $this->output(0, 'Facebook Graph returned an error: ' . $e->getMessage());
-        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+            return $this->output(0,
+                'Facebook Graph returned an error: ' . $e->getMessage()
+            );
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
             error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
 
-            return $this->output(0, 'Facebook SDK returned an error: ' . $e->getMessage());
+            return $this->output(0,
+                'Facebook SDK returned an error: ' . $e->getMessage()
+            );
         }
 
         // User is logged in with a long-lived access token.
         // You can redirect them to a members-only page.
-        $facebookUser = $response->getGraphUser();
-        $facebookId = $facebookUser->getId();
         $facebookEmail = $facebookUser->getEmail();
+        $facebookId = $facebookUser->getId();
+        $facebookUser = $response->getGraphUser();
 
         // Generate the users name since it doesnt let you use a username anymore.
         $full_name = explode(' ', $facebookUser->getName());
         $first_name = $full_name[0];
         $last_initial = false;
-        if (count($full_name) > 1) {
+        if(count($full_name) > 1) {
             $last_initial = end($full_name)[0];
         }
         $facebookName = $first_name . ' ' . $last_initial;
 
         $user = \User::findFirstByFacebookId($facebookId);
-        if (!$user) {
+        if( ! $user) {
             $user = new \User();
             $user->role = 'user';
             $user->account_type = 'fb';
@@ -155,28 +173,33 @@ class AuthController extends ApiController
             $user->facebook_alias = $facebookName;
             $user->create();
 
-            if ($user->getMessages()) {
+            if($user->getMessages()) {
                 error_log('There was an error connecting your facebook user.', 0);
 
-                return $this->output(0, 'There was an error connecting your facebook user.');
+                return $this->output(0,
+                    'There was an error connecting your facebook user.'
+                );
             }
 
             // Where'd they signup from?
             $user->saveReferrer($user->id, $this->request);
-        } else {
+        }
+        else {
             // If the facebook users name or email changed
-            if ($user->facebook_email != $facebookEmail) {
+            if($user->facebook_email != $facebookEmail) {
                 $user->facebook_email = $facebookEmail;
             }
-            if ($user->facebook_alias != $facebookName) {
+            if($user->facebook_alias != $facebookName) {
                 $user->facebook_alias = $facebookName;
             }
             $user->save();
         }
 
-        if ($user->isBanned($user)) {
-            return $this->output(0, 'Sorry, your account has been locked due to suspicious activity.
-                                For support, contact <b>hello@jream.com</b>.');
+        if($user->isBanned($user)) {
+            return $this->output(0,
+                'Sorry, your account has been locked due to suspicious activity.
+                        For support, contact <b>hello@jream.com</b>.'
+            );
         }
 
         $this->createSession($user, [
@@ -196,35 +219,43 @@ class AuthController extends ApiController
      */
     public function registerAction()
     {
-        $this->component->helper->csrf(self::REGISTER_REDIRECT_FAILURE);
-
         $alias = $this->request->getPost('alias');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if ($password != $confirm_password) {
+        if($password != $confirm_password) {
             return $this->output(0, 'Your passwords do not match.');
         }
 
-        if (strlen($alias) < 4 || !ctype_alpha($alias)) {
-            return $this->output(0, 'Alias must be atleast 4 characters and only alphabetical.');
+        if(strlen($alias) < 4 || ! ctype_alpha($alias)) {
+            return $this->output(0,
+                'Alias must be atleast 4 characters and only alphabetical.'
+            );
         }
 
-        if (strlen($password) < 4 || strlen($password) > 128) {
-            return $this->output(0, 'Your password must be 4-128 characters.');
+        if(strlen($password) < 4 || strlen($password) > 128) {
+            return $this->output(0,
+                'Your password must be 4-128 characters.'
+            );
         }
 
-        if (\User::findFirstByAlias($alias)) {
-            return $this->output(0, 'Your alias cannot be used.');
+        if(\User::findFirstByAlias($alias)) {
+            return $this->output(0,
+                'Your alias cannot be used.'
+            );
         }
 
-        if (\User::findFirstByEmail($email)) {
-            return $this->output(0, 'This email is already in use.');
+        if(\User::findFirstByEmail($email)) {
+            return $this->output(0,
+                'This email is already in use.'
+            );
         }
 
-        if (!Swift_Validate::email($email)) {
-            return $this->output(0, 'Your email is invalid.');
+        if( ! Swift_Validate::email($email)) {
+            return $this->output(0,
+                'Your email is invalid.'
+            );
         }
 
         $user = new \User();
@@ -238,7 +269,7 @@ class AuthController extends ApiController
 
         $result = $user->save();
 
-        if (!$result) {
+        if( ! $result) {
             return $this->output(0, $user->getMessagesList());
         }
 
@@ -264,12 +295,13 @@ class AuthController extends ApiController
         ]);
 
         // If email error, oh well still success
-        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = 'You have successfully registered!
                                  However, there was a problem sending
                                  your welcome email.
                 ';
-        } else {
+        }
+        else {
             $message = 'You have successfully registered!';
         }
 
@@ -284,7 +316,7 @@ class AuthController extends ApiController
      */
     public function logoutAction()
     {
-        if ($this->session->has('facebook_id')) {
+        if($this->session->has('facebook_id')) {
             $this->session->destroy();
             $this->facebook->destroySession();
             $this->facebook->setAccessToken('');
@@ -310,7 +342,7 @@ class AuthController extends ApiController
         $email = $this->request->getPost('email');
         $user = User::findFirstByEmail($email);
 
-        if (!$user) {
+        if( ! $user) {
             return $this->output(0, 'No email associated.');
         }
 
@@ -318,7 +350,7 @@ class AuthController extends ApiController
         $user->password_reset_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->update();
 
-        if ($user->getMessages()) {
+        if($user->getMessages()) {
             return $this->output(0, 'An internal update to the user occurred.');
         }
 
@@ -340,18 +372,17 @@ class AuthController extends ApiController
         ]);
 
         // Email: If the status code is not 200 the mail didn't send.
-        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
-        return $this->output(
-            0,
-            'A reset link has been sent to your email.
+        return $this->output(0, 'A reset link has been sent to your email.
             You have 10 minutes to change your
             password before the link expires.
         '
         );
     }
+
     /**
      * @return string JSON
      */
@@ -371,14 +402,14 @@ class AuthController extends ApiController
             ],
         ]);
 
-        if (!$user) {
+        if( ! $user) {
             return $this->output(0, 'Invalid email and key combo, or time has expired.');
         }
 
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if ($password != $confirm_password) {
+        if($password != $confirm_password) {
             return $this->output(0, 'Your passwords do not match.');
         }
 
@@ -389,7 +420,7 @@ class AuthController extends ApiController
         $user->password_reset_expires_at = null;
         $user->save();
 
-        if ($user->getMessages()) {
+        if($user->getMessages()) {
             return $this->output(0, 'There was an internal error updating.');
         }
 
@@ -415,14 +446,14 @@ class AuthController extends ApiController
         $this->session->set('alias', $user->getAlias());
 
         $use_timezone = 'utc';
-        if (property_exists($user, 'timezone')) {
+        if(property_exists($user, 'timezone')) {
             $use_timezone = $user->timezone;
         }
 
         $this->session->set('timezone', $use_timezone);
 
-        if (is_array($additional)) {
-            foreach ($additional as $_key => $_value) {
+        if(is_array($additional)) {
+            foreach($additional as $_key => $_value) {
                 $this->session->set($_key, $_value);
             }
         }

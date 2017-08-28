@@ -33,7 +33,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form class="form-login" id="contact-form" method="post" action="{{ url('apilegacy/contact') }}">
+                    <form class="form-login" id="formContact" method="post" action="{{ url('api/contact') }}">
                         <div class="row">
                             <div class="col-md-6">
 
@@ -48,7 +48,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {% if constant('\APPLICATION_ENV') != constant('\APP_DEVELOPMENT') %}
-                                    <div class="g-recaptcha" data-sitekey="6LfHCAYTAAAAALb7zfhNEaWLklfHO-MMoIjsKlHV"></div>
+                                    <div id="recaptcha" class="g-recaptcha" data-sitekey="6LfHCAYTAAAAALb7zfhNEaWLklfHO-MMoIjsKlHV"></div>
                                     {% else %}
                                     <b>Not Showing Captcha, in LOCAL mode.</b>
                                     {% endif %}
@@ -105,60 +105,4 @@
 
 
 <div class="spacer-80"></div>
-{% endblock %}
-
-{% block script %}
-<script>
-var url_recaptcha = "{{ url('apilegacy/recaptcha') }}";
-var url_contact = "{{ url('apilegacy/contact') }}";
-var url_redirect = "{{ url('contact/thanks') }}";
-
-// So sloppy but gets it done.
-// Need that event listener trigger in JS forgot how to do it
-$(function() {
-    $("#contact-form").submit(function(evt) {
-        var postData = $(this).serialize();
-
-        var submit_btn = $(this).find("input[type=submit]");
-
-        evt.preventDefault();
-        $("#form-errors").html();
-        $("#form-errors").addClass('hidden');
-
-        $.post(url_recaptcha, postData, function(obj) {
-            submit_btn.attr('disabled', 'disabled');
-            if (obj.result == 0) {
-                $("#form-errors").html(obj.error).removeClass('hidden');
-                submit_btn.removeAttr('disabled');
-                return;
-            }
-
-            $.post(url_contact, postData, function(obj) {
-                if (obj.result == 0)
-                {
-                    // string
-                    if (typeof obj.error != 'object') {
-                        $("#form-errors").html(obj.error).removeClass('hidden');
-                        submit_btn.removeAttr('disabled');
-                        return;
-                    }
-
-                    // list
-                    elems = '<ul>';
-                    for (var i = 0; i < obj.error.length; i++) {
-                        elems += '<li>' + obj.error[i] + '</li>';
-                    }
-                    elems += '</ul>';
-                    $("#form-errors").html(elems).removeClass('hidden');
-                    submit_btn.removeAttr('disabled');
-                    return;
-                }
-
-                $(location).attr('href', url_redirect);
-
-            }, 'json');
-        }, 'json');
-    });
-});
-</script>
 {% endblock %}

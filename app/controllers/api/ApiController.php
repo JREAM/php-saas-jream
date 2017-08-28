@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Controllers\Api;
 
@@ -34,7 +34,7 @@ class ApiController extends Controller
         // 1: Create a user-session CSRF Token Pair if one does NOT exist.
         // .. All Users signed in or not must have a CSRF token.
         // --------------------------------------------------------------
-        if (!$this->tokenManager->hasToken()) {
+        if( ! $this->tokenManager->hasToken()) {
             // Creates session data.
             $this->tokenManager->generate();
         }
@@ -45,12 +45,13 @@ class ApiController extends Controller
 
     /**
      * Check CSRF Session Token
+     *
      * @return string   JSON
      */
     public function validateTokens()
     {
         $csrfTokens = $this->request->getHeader('X-CSRFToken');
-        if ($this->tokenManager->validate($csrfTokens) === false) {
+        if($this->tokenManager->validate($csrfTokens) === false) {
             return $this->output(0, 'Invalid CSRF Token.');
         }
     }
@@ -68,17 +69,17 @@ class ApiController extends Controller
     /**
      * JSON Output
      *
-     * @param  int      $result
-     * @param  mixed    $data (Optional)
+     * @param  int   $result
+     * @param  mixed $data (Optional)
      *
      * @return string JSON
      */
     protected function output(int $result, $data = null)
     {
         $output = [];
-        $output['result'] = (boolean)(int)$result;
+        $output['result'] = (boolean) (int) $result;
 
-        if ($result == 0) {
+        if($result == 0) {
             $output['data'] = null;
             $output['error'] = $data;
         }

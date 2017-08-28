@@ -1,6 +1,7 @@
-window._ = require("lodash");
-window.axios = require("axios");
-import swal from 'sweetalert2';
+import _ from "lodash";
+import axios from "axios";
+import swal from "sweetalert2";
+const Promise = require('es6-promise').Promise;
 
 /**
  * =======================================================================
@@ -26,32 +27,36 @@ $(() => {
    * Set Axios Defaults
    * -----------------------------------------------------------------------
    */
+  console.log(window.axios)
   window.axios.defaults.headers.common = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRFToken': `${tokenKey}|${token}`,
-    'X-Redirect': ''
+    "X-Requested-With": "XMLHttpRequest",
+    "X-CSRFToken": `${tokenKey}|${token}`,
+    "X-Redirect": ""
   };
-  window.axios.defaults.headers.post['responseType'] = 'json';
-  window.axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  window.axios.defaults.headers.post.responseType = "json";
+  window.axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+  // Handles the AJAX Interceptions
+  /**
+   * =======================================================================
+   * Load Pages and Elements
+   * -----------------------------------------------------------------------
+   */
+  require("./pages/auth");
+  require("./pages/checkout");
+  require("./pages/contact");
+  require("./pages/dashboard");
+  require("./pages/newsletter");
+  require("./pages/promotion");
+  require("./pages/purchase");
+  require("./pages/question");
+  require("./pages/user");
+
+  require("./middleware/interceptors");
+
 });
 
-/**
- * =======================================================================
- * Load Pages and Elements
- * -----------------------------------------------------------------------
- */
-require("./pages/auth");
-require("./pages/checkout");
-require("./pages/contact");
-require("./pages/dashboard");
-require("./pages/newsletter");
-require("./pages/promotion");
-require("./pages/purchase");
-require("./pages/question");
-require("./pages/user");
 
-// Handles the AJAX Interceptions
-require("./middleware/interceptors");
 
 /**
  * =======================================================================
@@ -65,6 +70,7 @@ if (!Modernizr.svg) {
   for (let i = 0; i < imgs.length; i++) {
     if (imgs[i].src.match(svgExtension)) {
       imgs[i].src = `${imgs[i].src.slice(0, -3)}png`;
+
       // console.log(imgs[i].src);
     }
   }
@@ -98,7 +104,7 @@ $(() => {
   });
 
   $("a[href='#top']").click(() => {
-    $("html, body").animate({scrollTop: 0}, "slow");
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     return false;
   });
 
@@ -119,7 +125,7 @@ $(() => {
     });
   }
 
-  $(".disable-click").click(function () {
+  $(".disable-click").click(function() {
     $(this).addClass("disabled");
     return true;
   });
@@ -128,7 +134,7 @@ $(() => {
     $(".data-table").dataTable();
   }
 
-  $(document).scroll(function () {
+  $(document).scroll(function() {
     const scroll = $(this).scrollTop();
 
     if (scroll > 600) {
@@ -146,14 +152,14 @@ $(() => {
   });
 
   // For the Dashboard/Account
-  $("#toggle-timezone").click(function (evt) {
+  $("#toggle-timezone").click(evt => {
     evt.preventDefault();
     $("#form-timezone").toggleClass("hide");
   });
 
 
   // Course-View, Lights Off
-  $(".toggle-lights").click(function (evt) {
+  $(".toggle-lights").click(evt => {
     evt.preventDefault();
     const overlay = $(".overlay");
 

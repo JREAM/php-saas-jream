@@ -1,3 +1,5 @@
+import axios from "./../components/axios";
+
 $(() => {
 
   $("#formUpdateTimezone").submit(function (evt) {

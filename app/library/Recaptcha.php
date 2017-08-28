@@ -11,11 +11,18 @@ class RecaptchaLibrary
     protected $request;
     protected $output; // #TODO where to get this? Im duplicating code several placed
 
-    public function __construct()
+    /**
+     * Pass the Session and Recaptcha String
+     *
+     * @param DI $session
+     * @param str    $post
+     */
+    public function __construct($session, str $post)
     {
         $this->di = $this->get('di');
-        $this->request = $this->di->get('request');
-        $this->session = $this->di->getShared('session');
+        $this->session = $session;
+        $this->post = $post;
+        $this->session = $session;
     }
 
     /**
@@ -25,6 +32,7 @@ class RecaptchaLibrary
      */
     public function recaptchaAction()
     {
+        // Success, Already Has it Set
         if($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
             return true;
         }
@@ -35,8 +43,7 @@ class RecaptchaLibrary
         }
 
         // Get Recaptcha POST to Google
-        $recaptcha = $this->request->getPost('g-recaptcha-response');
-        $result = $this->verify($recaptcha);
+        $result = $this->verify($this->post);
 
         if( ! $result) {
             // Set a session so they don't try to work-around it..
@@ -69,7 +76,7 @@ class RecaptchaLibrary
         ]);
 
 
-        $response = json_decpde($response->getBody());
+        $response = json_decode($response->getBody());
 
         // @TODO: test here first
         print_r($response->getBody());

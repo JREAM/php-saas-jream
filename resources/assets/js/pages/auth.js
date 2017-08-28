@@ -1,31 +1,11 @@
+import swal from "sweetalert2";
+
 let sections = [
   '#page-account',
   '#page-forgotpassword',
   '#page-forgotpassword',
   '#page-createpassword?',
 ];
-
-/**
- * Update CSRF
- *
- * @param response
- */
-function updateCsrf(response) {
-  console.log(response)
-
-  $(".csrf-field")
-    .attr("name", response.tokenKey)
-    .attr("value", response.token);
-
-  console.log( $(".csrf-field").attr('name') );
-
-  $("meta#csrf")
-    .attr("data-key", response.tokenKey)
-    .attr("data-token", response.token);
-
-  console.log( $("meta#csrf").attr('data-key') );
-  console.log( $("meta#csrf").attr('data-token') );
-}
 
 
 $(() => {
@@ -38,13 +18,29 @@ $(() => {
 
     axios.post(url, postData).then(function (response) {
       console.log(response);
-      updateCsrf(response);
-
+        swal({
+          title: 'Success',
+          text: 'Logging In..',
+          type: 'success',
+          timer: 2000
+        })
+        .then(function () {},
+          // handling the promise rejection
+          function (dismiss) {
+            if (dismiss === 'timer') {
+              window.location = '/dashboard';
+            }
+            window.location = '/dashboard';
+        });
     }).catch(function (error) {
       console.log(error);
-      if (!!error.data) {
-        updateCsrf(error);
-      }
+        swal({
+          title: 'Error',
+          text: error.msg,
+          type: 'error',
+          showCancelButton: true,
+          cancelButtonText: 'Close'
+        });
     });
 
   });
@@ -55,22 +51,22 @@ $(() => {
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
+    axios.post(url, postData).then(function (response) {
 
-    $.post(url, postData, function (resp) {
-      console.log(resp);
-    }, "json");
+    });
+
   });
 
 
-  $("#formPasswordResetConfirm").submit(function (evt) {
+  $("#formPasswordResetConfirm").submit(function(evt) {
     evt.preventDefault();
 
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
-    $.post(url, postData, function (resp) {
-      console.log(resp);
-    }, "json");
+    axios.post(url, postData).then(function (response) {
+
+    });
 
   });
 
@@ -80,9 +76,10 @@ $(() => {
 
     const url = $(this).attr("action");
 
-    $(this).get(url, postData, function (resp) {
-      console.log(resp);
-    }, "json");
+    axios.get(url, postData).then(function (response) {
+
+    });
+
   });
 
 });

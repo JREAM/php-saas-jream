@@ -1,4 +1,1 @@
-// code
-
-
-module.exports = "";
+import axios from "../components/axios";

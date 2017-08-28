@@ -1,3 +1,5 @@
+import axios from "./../components/axios";
+
 $(() => {
 
   $("#formNewsletterSubscribe").submit(function (evt) {

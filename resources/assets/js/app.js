@@ -1,7 +1,9 @@
 import _ from "lodash";
 import axios from "axios";
+import './components/axios'
 import swal from "sweetalert2";
 const Promise = require('es6-promise').Promise;
+
 
 /**
  * =======================================================================
@@ -9,39 +11,14 @@ const Promise = require('es6-promise').Promise;
  * -----------------------------------------------------------------------
  */
 $(() => {
-  const csrfSelector = $("meta[name='csrf']");
-  const tokenKey = csrfSelector.attr("data-key");
-  const token = csrfSelector.attr("data-token");
 
-  // swal({
-  //   title: 'Are you sure?',
-  //   text: 'You will not be able to recover this imaginary file!',
-  //   type: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonText: 'Yes, delete it!',
-  //   cancelButtonText: 'No, keep it'
-  // });
-
-  /**
-   * =======================================================================
-   * Set Axios Defaults
-   * -----------------------------------------------------------------------
-   */
-  console.log(window.axios)
-  window.axios.defaults.headers.common = {
-    "X-Requested-With": "XMLHttpRequest",
-    "X-CSRFToken": `${tokenKey}|${token}`,
-    "X-Redirect": ""
-  };
-  window.axios.defaults.headers.post.responseType = "json";
-  window.axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-
-  // Handles the AJAX Interceptions
   /**
    * =======================================================================
    * Load Pages and Elements
    * -----------------------------------------------------------------------
    */
+  require("./components/forms");
+
   require("./pages/auth");
   require("./pages/checkout");
   require("./pages/contact");
@@ -52,7 +29,6 @@ $(() => {
   require("./pages/question");
   require("./pages/user");
 
-  require("./middleware/interceptors");
 
 });
 

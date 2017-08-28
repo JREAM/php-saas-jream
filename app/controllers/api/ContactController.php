@@ -3,6 +3,7 @@
 namespace Controllers\Api;
 
 use Phalcon\Mvc\Controller;
+use Library\RecaptchaLibrary;
 
 class Contact extends Controller
 {
@@ -13,6 +14,12 @@ class Contact extends Controller
      */
     public function sendAction()
     {
+        // If Recaptcha fails, Warn and use JS to reload.
+        if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {
+            // Retrigger: grecaptcha.reset() in JS
+            return $this->output(0, 'Recaptcha is invalid, please try again.');
+        }
+
         // Make sure recaptcha called and all
         if( ! $this->session->has('recaptcha')) {
             return $this->output(0, 'Recaptcha is required.');

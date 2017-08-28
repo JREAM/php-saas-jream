@@ -19,6 +19,7 @@ class ApiController extends Controller
      */
     public function initialize()
     {
+        // No views are used in API, all JSON calls
         $this->view->disable();
         $this->tokenManager = new TokenManager();
     }
@@ -70,31 +71,27 @@ class ApiController extends Controller
      * JSON Output
      *
      * @param  int   $result
-     * @param  mixed $data (Optional)
+     * @param  str   $msg    (Optional)
+     * @param  array $data   (Optional) Additional Data to pass to Client
      *
      * @return string JSON
      */
-    protected function output(int $result, $data = null)
+    protected function output(int $result, $msg = '', $data = [])
     {
-        $output = [];
-        $output['result'] = (boolean) (int) $result;
+        $output = [
+            'result' => (boolean) (int) $result,
+            'msg' => (string) $msg,
+            'data' => (array) $data
+        ];
 
-        if($result == 0) {
-            $output['data'] = null;
-            $output['error'] = $data;
-        }
-        else {
-            $output['data'] = $data;
-            $output['error'] = null;
-        }
+        $output = json_encode($output);
 
-        // CSRF Tokens for every call, though they do not change per user session, we may need them if expired (?)
-        //$output['tokenKey'] = $this->tokenManager->getTokens()['tokenKey'];
-        //$output['token']    = $this->tokenManager->getTokens()['token'];
         $response = new Response();
         $response->setStatusCode(200, "OK");
-        $response->setContent(json_encode($output));
-        $response->send();
+        $response->setContent($output);
+        return $response->send();
+
+        // Kill Everything Else, just incase.
         exit;
     }
 

@@ -5,9 +5,6 @@ namespace Controllers\Dashboard;
 use \Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard/support")
- */
 class SupportController extends BaseController
 {
 
@@ -19,8 +16,6 @@ class SupportController extends BaseController
         'support' => 'General Support',
     ];
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -29,8 +24,6 @@ class SupportController extends BaseController
         parent::initialize();
         Tag::setTitle('Support | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -44,8 +37,6 @@ class SupportController extends BaseController
 
         $this->view->pick("dashboard/support");
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -107,5 +98,4 @@ class SupportController extends BaseController
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
 }

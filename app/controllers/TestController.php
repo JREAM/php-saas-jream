@@ -5,12 +5,8 @@ namespace Controllers;
 
 use \Phalcon\Tag;
 
-/**
- * @RoutePrefix("/test")
- */
 class TestController extends BaseController
 {
-
     /**
      * @return void
      */
@@ -62,8 +58,6 @@ class TestController extends BaseController
         $this->view->pick('test/key.volt');
     }
 
-    // --------------------------------------------------------------
-
     public function flashAction()
     {
         echo 'flash?';
@@ -75,8 +69,6 @@ class TestController extends BaseController
         $z = $this->flash->getMessages('formData');
         print_r($z);
     }
-
-    // --------------------------------------------------------------
 
     public function dbAction()
     {

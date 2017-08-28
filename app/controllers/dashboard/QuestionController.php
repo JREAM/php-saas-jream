@@ -5,17 +5,11 @@ namespace Controllers\Dashboard;
 use \Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard/question")
- */
 class QuestionController extends BaseController
 {
-
     const REDIRECT_SUCCESS = 'dashboard/question/index/';
     const REDIRECT_FAILURE = 'dashboard/question/index/';
     const REDIRECT_FAILURE_PERMISSION = 'dashboard/';
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -25,8 +19,6 @@ class QuestionController extends BaseController
         parent::initialize();
         Tag::setTitle('Questions | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -53,8 +45,6 @@ class QuestionController extends BaseController
 
         $this->view->pick('dashboard/question');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -123,8 +113,6 @@ class QuestionController extends BaseController
         return true;
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Reply Action
      *
@@ -184,5 +172,4 @@ class QuestionController extends BaseController
         return $this->redirect(self::REDIRECT_SUCCESS . $productId);
     }
 
-    // --------------------------------------------------------------
 }

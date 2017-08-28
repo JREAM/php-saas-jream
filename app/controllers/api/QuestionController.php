@@ -5,12 +5,8 @@ namespace Controllers\Api;
 
 use \Product;
 
-/**
- * @RoutePrefix("/api/question")
- */
 class QuestionController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -18,8 +14,6 @@ class QuestionController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -83,8 +77,6 @@ class QuestionController extends ApiController
             'redirect' => getBaseUrl(self::REDIRECT_SUCCESS . $productId)
         ]);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Reply Action
@@ -152,4 +144,5 @@ class QuestionController extends ApiController
     {
         $user_id = $this->session->get('user_id');
     }
+
 }

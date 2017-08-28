@@ -5,17 +5,11 @@ namespace Controllers\Dashboard;
 use \Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard/course")
- */
 class CourseController extends BaseController
 {
-
     const REDIRECT_SUCCESS = '';
     const REDIRECT_FAILURE = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'course/index/';
-
-    // --------------------------------------------------------------
 
     protected $sectionTitle = 'My Courses';
 
@@ -27,8 +21,6 @@ class CourseController extends BaseController
         parent::initialize();
         Tag::setTitle($this->sectionTitle . ' | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -61,8 +53,6 @@ class CourseController extends BaseController
 
         $this->view->pick("dashboard/course");
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -160,8 +150,6 @@ class CourseController extends BaseController
         $this->view->pick("dashboard/course-view");
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return mixed
      */
@@ -204,5 +192,4 @@ class CourseController extends BaseController
         }
     }
 
-    // --------------------------------------------------------------
 }

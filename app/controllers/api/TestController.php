@@ -6,12 +6,8 @@ namespace Controllers\Api;
 use \User;
 use \Promotion;
 
-/**
- * @RoutePrefix("/api/test")
- */
 class TestController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -19,8 +15,6 @@ class TestController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     public function indexAction()
     {

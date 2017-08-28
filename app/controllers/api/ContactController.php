@@ -48,7 +48,7 @@ class Contact extends Controller
         $name      = $this->request->getPost('name');
         $recatcha = $this->request->getPost('g-recaptcha-response');
 
-        if ()
+        // if ()
 
         // Create the Message from a template
         $content = $this->component->email->create('contact', [

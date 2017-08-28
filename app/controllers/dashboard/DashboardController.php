@@ -5,9 +5,6 @@ namespace Controllers\Dashboard;
 use Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard")
- */
 class DashboardController extends BaseController
 {
 
@@ -19,8 +16,6 @@ class DashboardController extends BaseController
         parent::initialize();
         Tag::setTitle('Dashboard | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -65,5 +60,4 @@ class DashboardController extends BaseController
         $this->view->pick("dashboard/dashboard");
     }
 
-    // --------------------------------------------------------------
 }

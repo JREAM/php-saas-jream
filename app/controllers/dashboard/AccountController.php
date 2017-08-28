@@ -5,18 +5,12 @@ namespace Controllers\Dashboard;
 use \Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard/account")
- */
 class AccountController extends BaseController
 {
-
     const REDIRECT_SUCCESS = "dashboard/account";
     const REDIRECT_FAILURE = "dashboard/account";
     const REDIRECT_DELETE = "dashboard/account/delete";
     const REDIRECT_LOGOUT = "user/logout";
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -26,8 +20,6 @@ class AccountController extends BaseController
         parent::initialize();
         Tag::setTitle('Account | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -45,8 +37,6 @@ class AccountController extends BaseController
         $this->view->pick("dashboard/account");
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -58,8 +48,6 @@ class AccountController extends BaseController
 
         $this->view->pick("dashboard/account-delete");
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -99,8 +87,6 @@ class AccountController extends BaseController
         return $this->redirect(self::REDIRECT_LOGOUT);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -125,8 +111,6 @@ class AccountController extends BaseController
         $this->flash->success("Timezone updated");
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -195,8 +179,6 @@ class AccountController extends BaseController
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -240,8 +222,6 @@ class AccountController extends BaseController
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
-
     public function doEmailSettingsUpdateAction()
     {
         $this->view->disable();
@@ -264,5 +244,4 @@ class AccountController extends BaseController
         return $this->redirect(self::REDIRECT_FAILURE);
     }
 
-    // --------------------------------------------------------------
 }

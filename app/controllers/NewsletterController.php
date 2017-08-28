@@ -10,7 +10,6 @@ use \Phalcon\Tag;
  */
 class NewsletterController extends BaseController
 {
-
     // Flash Messages
     const SUBSCRIBE_REDIRECT_SUCCESS = 'newsletter/subscribe';
     const SUBSCRIBE_REDIRECT_FAILURE = 'newsletter/subscribe';
@@ -24,8 +23,6 @@ class NewsletterController extends BaseController
         Tag::setTitle('Newsletter | ' . $this->di['config']['title']);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -37,20 +34,6 @@ class NewsletterController extends BaseController
 
         $this->view->pick('newsletter/index');
     }
-
-    // --------------------------------------------------------------
-
-    /**
-     * @Post(
-     *     "/"
-     * )
-     * @return void
-     */
-    public function doSubscribeAction()
-    {
-    }
-
-    // --------------------------------------------------------------
 
     /**
      * Verifies a users email address.
@@ -76,8 +59,6 @@ class NewsletterController extends BaseController
         $this->view->pick('newsletter/subscribe-verify');
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -86,5 +67,4 @@ class NewsletterController extends BaseController
         $this->view->pick('newsletter/unsubscribe');
     }
 
-    // --------------------------------------------------------------
 }

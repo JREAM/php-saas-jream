@@ -6,17 +6,12 @@ namespace Controllers;
 use \Phalcon\Tag;
 use \Omnipay\Omnipay;
 
-/**
- * @RoutePrefix("/checkout")
- */
 class CheckoutController extends BaseController
 {
     const REDIRECT_SUCCESS = 'checkout/';
     const REDIRECT_FAILURE = 'checkout/';
 
     public $promotion_code = null;
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -33,8 +28,6 @@ class CheckoutController extends BaseController
         $this->paypal = $this->di->get('paypal');
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -48,8 +41,6 @@ class CheckoutController extends BaseController
 
         $this->view->pick('checkout/checkout');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Stripe Payment
@@ -174,8 +165,6 @@ class CheckoutController extends BaseController
         return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Paypal Payment
      *
@@ -226,8 +215,6 @@ class CheckoutController extends BaseController
 
         $response->redirect();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Paypal Confirmation after returning from payment
@@ -297,8 +284,6 @@ class CheckoutController extends BaseController
 
         return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Create a Purchase Record
@@ -388,5 +373,4 @@ class CheckoutController extends BaseController
         }
     }
 
-    // --------------------------------------------------------------
 }

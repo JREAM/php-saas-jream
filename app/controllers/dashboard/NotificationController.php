@@ -5,12 +5,8 @@ namespace Controllers\Dashboard;
 use \Phalcon\Tag;
 use Controllers\BaseController;
 
-/**
- * @RoutePrefix("/dashboard/notification")
- */
 class NotificationController extends BaseController
 {
-
     /**
      * @return void
      */
@@ -19,8 +15,6 @@ class NotificationController extends BaseController
         parent::initialize();
         Tag::setTitle('Notifications | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -36,5 +30,4 @@ class NotificationController extends BaseController
         $this->view->pick("dashboard/notification");
     }
 
-    // --------------------------------------------------------------
 }

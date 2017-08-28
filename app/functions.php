@@ -20,8 +20,6 @@ function getBaseUrl($append = false)
     return $url . rtrim($base_url, '/') . '/' . ltrim($append);
 }
 
-// --------------------------------------------------------------
-
 /**
  * Cleans up a source name for display
  *
@@ -34,8 +32,6 @@ function formatName($name)
     $name = ucwords($name);
     return $name;
 }
-
-// --------------------------------------------------------------
 
 /**
  * Set form Data for a page refresh.
@@ -56,8 +52,6 @@ function formData($name) {
     return false;
 }
 
-// --------------------------------------------------------------
-
 /**
  * Clear Form Data
  *
@@ -77,8 +71,6 @@ function formDataClear()
     return false;
 }
 
-// --------------------------------------------------------------
-
 /**
  * Get the current DateTime (SQL Friendly)
  *
@@ -88,8 +80,6 @@ function getDateTime()
 {
     return date('Y-m-d H:i:s');
 }
-
-// --------------------------------------------------------------
 
 function getTimeElapsed($datetime, $full = false) {
     $now = new \DateTime;
@@ -125,8 +115,6 @@ function getTimeElapsed($datetime, $full = false) {
 }
 
 
-// --------------------------------------------------------------
-
 /**
  * A simple print_r Shortcut
  *
@@ -140,8 +128,6 @@ function pr($data)
     print_r($data);
     die('</pre>');
 }
-
-// --------------------------------------------------------------
 
 /**
  * A simple var_dump Shortcut

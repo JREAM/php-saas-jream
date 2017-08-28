@@ -5,9 +5,6 @@ namespace Controllers;
 
 use \Phalcon\Tag;
 
-/**
- * @RoutePrefix("/promotion")
- */
 class PromotionController extends BaseController
 {
 
@@ -20,12 +17,7 @@ class PromotionController extends BaseController
         Tag::setTitle('Promotions | ' . $this->di['config']['title']);
     }
 
-    // --------------------------------------------------------------
-
     /**
-     * @Get(
-     *     "/"
-     * )
      * @return void
      */
     public function indexAction()
@@ -73,8 +65,6 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/promotion');
     }
 
-    // --------------------------------------------------------------
-
     public function viewAction($promotionId)
     {
         $promotion = \Promotion::findFirst(['is_delete = 0 AND NOW() < expires_at AND id = :id:'], [
@@ -92,8 +82,6 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/view');
     }
 
-    // --------------------------------------------------------------
-
     public function selectItemAction()
     {
         $this->view->disable();
@@ -101,4 +89,5 @@ class PromotionController extends BaseController
         // Array of Items
         $items = $this->input->post('item');
     }
+
 }

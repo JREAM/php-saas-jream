@@ -23,8 +23,6 @@ class ContactController extends BaseController
         Tag::setTitle('Contact | ' . $this->di['config']['title']);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -37,8 +35,6 @@ class ContactController extends BaseController
         $this->view->pick('contact/contact');
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -48,5 +44,4 @@ class ContactController extends BaseController
         $this->view->pick('contact/thanks');
     }
 
-    // --------------------------------------------------------------
 }

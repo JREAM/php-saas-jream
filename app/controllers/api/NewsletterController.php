@@ -6,12 +6,8 @@ namespace Controllers\Api;
 use \User;
 use \NewsletterSubscription;
 
-/**
- * @RoutePrefix("/api/newsletter")
- */
 class NewsletterController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -19,8 +15,6 @@ class NewsletterController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -82,6 +76,23 @@ class NewsletterController extends ApiController
     /**
      * @return string JSON
      */
+    public function verifyAction()
+    {
+        $token = $this->input->getPost('token');
+        $newsletter = NewsletterSubscription::findFirstByToken($token);
+        if (!$newsletter) {
+            return $this->output(0, 'Token not found.');
+        }
+        $newsletter->is_verified = 1;
+        $newsletter->is_subscribed = 1;
+        $newsletter->save();
+
+        return $this->output(1, 'Verified.');
+    }
+
+    /**
+     * @return string JSON
+     */
     public function unsubscribeAction()
     {
         $email = $this->input->getPost('email');
@@ -97,23 +108,6 @@ class NewsletterController extends ApiController
         }
 
         return $this->output(1, 'Unsubscribed');
-    }
-
-    /**
-     * @return string JSON
-     */
-    public function verifyAction()
-    {
-        $token = $this->input->getPost('token');
-        $newsletter = NewsletterSubscription::findFirstByToken($token);
-        if (!$newsletter) {
-            return $this->output(0, 'Token not found.');
-        }
-        $newsletter->is_verified = 1;
-        $newsletter->is_subscribed = 1;
-        $newsletter->save();
-
-        return $this->output(1, 'Verified.');
     }
 
     /**

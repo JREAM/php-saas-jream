@@ -4,9 +4,6 @@ namespace Controllers;
 
 use \Phalcon\Tag;
 
-/**
- * @RoutePrefix("/user")
- */
 class UserController extends BaseController
 {
     const LOGIN_REDIRECT_SUCCESS = 'dashboard';
@@ -22,8 +19,6 @@ class UserController extends BaseController
     const PASSWORD_REDIRECT_FAILURE = 'user/password';
     const PASSWORD_REDIRECT_FAILURE_PASSWD = 'user/passwordcreate/';
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -32,8 +27,6 @@ class UserController extends BaseController
         parent::initialize();
 //        $this->google_auth = $this->di->get('google_auth');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Displays Login
@@ -56,8 +49,6 @@ class UserController extends BaseController
 
         $this->view->pick('user/login');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Handles Login
@@ -123,8 +114,6 @@ class UserController extends BaseController
         return $this->redirect(self::LOGIN_REDIRECT_FAILURE);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Displays Facebook Login
      *
@@ -135,8 +124,6 @@ class UserController extends BaseController
 //        $auth_url = $google_auth->createAuthUrl();
 //        $google_auth->setRedirectUri();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Displays Facebook Login
@@ -259,8 +246,6 @@ class UserController extends BaseController
         return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Handles Confirm Email Change
      *
@@ -301,8 +286,6 @@ class UserController extends BaseController
         return $this->redirect(self::LOGIN_REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Displays Register
      *
@@ -332,8 +315,6 @@ class UserController extends BaseController
             'fbLoginUrl' => $fbLoginUrl,
         ]);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Handles Register
@@ -445,8 +426,6 @@ class UserController extends BaseController
         return $this->redirect(self::REGISTER_REDIRECT_SUCCESS);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Handles Register as AJAX)
      *
@@ -543,27 +522,6 @@ class UserController extends BaseController
         $this->output(1, [$message]);
     }
 
-    // --------------------------------------------------------------
-
-    // private function _subscribeMailingList($email, $updateExisting = false)
-    // {
-    //     try {
-    //         $data = $this->mailchimp->lists->subscribe(
-    //            getenv('MAILCHIMP_LIST_ID'),
-    //            ['email' => $email],
-    //            null,
-    //            'html',
-    //            false, // Disable Double Opt in
-    //            (bool) $updateExisting
-    //        );
-    //     } catch (\Exception $e) {
-    //         // MailChimp Exceptions, maybe if a user is already in here.
-    //         $this->sentry->captureException($e);
-    //     }
-    // }
-
-    // --------------------------------------------------------------
-
     /**
      * Displays Reset Password
      *
@@ -576,8 +534,6 @@ class UserController extends BaseController
             'form' => new \ForgotPasswordForm(),
         ]);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Handles Password Reset
@@ -640,8 +596,6 @@ class UserController extends BaseController
         return $this->redirect(self::PASSWORD_REDIRECT_FAILURE);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Displays Password Create
      *
@@ -672,8 +626,6 @@ class UserController extends BaseController
 
         $this->view->pick('user/password-create');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Handles Password Create
@@ -731,8 +683,6 @@ class UserController extends BaseController
         return $this->redirect(self::PASSWORD_REDIRECT_FAILURE);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Retrieves Facebook Login URL
      *
@@ -751,5 +701,4 @@ class UserController extends BaseController
         );
     }
 
-    // --------------------------------------------------------------
 }

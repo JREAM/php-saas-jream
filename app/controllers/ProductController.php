@@ -15,8 +15,6 @@ class ProductController extends BaseController
 
     public $promotion_code = null;
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -31,8 +29,6 @@ class ProductController extends BaseController
         $this->paypal = $this->di->get('paypal');
     }
 
-    // --------------------------------------------------------------
-
     /**
      * @return void
      */
@@ -44,8 +40,6 @@ class ProductController extends BaseController
             'products' => $products,
         ]);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Displays a Product based on the slug
@@ -142,14 +136,10 @@ class ProductController extends BaseController
         ]);
     }
 
-    // --------------------------------------------------------------
-
     private function doPromotionAction()
     {
         // USES The ApiController (Because it is used on the Promotions page as well).
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Preview a Course
@@ -191,8 +181,6 @@ class ProductController extends BaseController
 
         $this->view->pick('product/preview');
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Stripe Payment
@@ -380,8 +368,6 @@ class ProductController extends BaseController
         return $this->redirect(self::REDIRECT_FAILURE . $product->slug);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Paypal Payment
      *
@@ -431,8 +417,6 @@ class ProductController extends BaseController
 
         $response->redirect();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Paypal Confirmation after returning from payment
@@ -503,8 +487,6 @@ class ProductController extends BaseController
         return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
     }
 
-    // --------------------------------------------------------------
-
     /**
      * Add a free course (No Purchase Required)
      *
@@ -525,8 +507,6 @@ class ProductController extends BaseController
 
         return $this->redirect(self::REDIRECT_SUCCESS . $product->id);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Create a Purchase Record
@@ -615,5 +595,4 @@ class ProductController extends BaseController
         }
     }
 
-    // --------------------------------------------------------------
 }

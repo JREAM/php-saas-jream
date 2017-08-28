@@ -3,23 +3,15 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-/**
- * @RoutePrefix("/apilegacy/")
- */
 class ApiLegacyController extends BaseController
 {
-
     /**
      * ApiController constructor.
      */
     public function onConstruct()
     {
         parent::initialize();
-        // From the config/services.php We can use our custom Cookie Wrapper
-//        $this->components->cookie;
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Renders a markdown preview
@@ -41,10 +33,6 @@ class ApiLegacyController extends BaseController
         return $this->output(1, $content);
     }
 
-    // --------------------------------------------------------------
-
-    // --------------------------------------------------------------
-
     /**
      * Updates a single field.
      * @param  [type] $table [description]
@@ -59,11 +47,4 @@ class ApiLegacyController extends BaseController
         }
     }
 
-    // --------------------------------------------------------------
-
-    public function fakeAction()
-    {
-        echo json_encode('Fake Output for Testing');
-        exit;
-    }
 }

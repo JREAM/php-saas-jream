@@ -9,12 +9,8 @@ use \Promotion;
 use \Transaction;
 use \Product;
 
-/**
- * @RoutePrefix("/api/purchase")
- */
 class PurchaseController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -22,8 +18,6 @@ class PurchaseController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -317,8 +311,6 @@ class PurchaseController extends ApiController
 
         return $this->output(1, ['redirect' => $product->id]);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * Create a Purchase Record

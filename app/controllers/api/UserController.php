@@ -3,12 +3,8 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
-/**
- * @RoutePrefix("/api/user")
- */
 class UserController extends ApiController
 {
-
     /**
      * @return void
      */
@@ -16,8 +12,6 @@ class UserController extends ApiController
     {
         parent::initialize();
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @return string JSON

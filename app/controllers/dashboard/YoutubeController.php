@@ -5,17 +5,12 @@ namespace Controllers\Dashboard;
 use Controllers\BaseController;
 use \Phalcon\Tag;
 
-/**
- * @RoutePrefix("/dashboard/youtube")
- */
 class YoutubeController extends BaseController
 {
 
     const REDIRECT_SUCCESS = '';
     const REDIRECT_FAILURE = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'dashboard';
-
-    // --------------------------------------------------------------
 
     /**
      * @return void
@@ -25,8 +20,6 @@ class YoutubeController extends BaseController
         parent::initialize();
         Tag::setTitle('Youtube Videos | ' . $this->di['config']['title']);
     }
-
-    // --------------------------------------------------------------
 
     /**
      * @param int $youtubeId

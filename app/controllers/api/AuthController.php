@@ -5,12 +5,8 @@ namespace Controllers\Api;
 
 use \User;
 
-/**
- * @RoutePrefix("/api/auth")
- */
 class AuthController extends ApiController
 {
-
     /**
      * @return void
      */

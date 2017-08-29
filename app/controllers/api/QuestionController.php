@@ -22,8 +22,6 @@ class QuestionController extends ApiController
      */
     public function createAction(int $productId)
     {
-        $this->component->helper->csrf($productId);
-
         $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
@@ -88,8 +86,6 @@ class QuestionController extends ApiController
      */
     public function replyAction(int $productId, int $threadId)
     {
-        $this->component->helper->csrf(self::REDIRECT_FAILURE . $productId);
-
         $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {

@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator;
 
-class PurchaseForm extends \Phalcon\Forms\Form
+class PurchaseForm extends BaseForm
 {
 
     public function initialize()
@@ -16,6 +18,7 @@ class PurchaseForm extends \Phalcon\Forms\Form
             'class'       => 'form-control',
             'value'       => formData('name'),
         ]);
+
 
         $card = new Text('password', [
             'placeholder' => 'New Password',

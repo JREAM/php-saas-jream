@@ -54,8 +54,8 @@
                 <a class="course-list" href="{{ url('dashboard/course/view/') }}{{ product.id }}/{{ course.id }}"><?=ucwords($name)?></a>
                 <div class="pull-right">
 
-                    <a {% if !hasComplete %}style="display:none;"{% endif %} data-value="0" data-content-id="{{ course.id }}" id="btn-course-complete-{{ course.id }}" class="course-mark course-action label btn-mini btn-success" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok"></span> <span class="action-text">Completed</span></a>
-                    <a {% if hasComplete %}style="display:none;"{% endif %} data-value="1" data-content-id="{{ course.id }}" id="btn-course-mark-complete-{{ course.id }}" class="course-unmark course-action text-muted" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok-sign"></span> <span class="action-text">Mark Complete</span></a>
+                    <a {% if !hasComplete %}style="display:none;"{% endif %} data-value="0" data-content-id="{{ course.id }}" id="btn-course-complete-{{ course.id }}" class="course-mark course-action label btn-mini btn-success" href="{{ url('api/course/updateprogress') }}"><span class="glyphicon glyphicon-ok"></span> <span class="action-text">Completed</span></a>
+                    <a {% if hasComplete %}style="display:none;"{% endif %} data-value="1" data-content-id="{{ course.id }}" id="btn-course-mark-complete-{{ course.id }}" class="course-unmark course-action text-muted" href="{{ url('api/course/updateprogress') }}"><span class="glyphicon glyphicon-ok-sign"></span> <span class="action-text">Mark Complete</span></a>
 
                 </div>
             </div>

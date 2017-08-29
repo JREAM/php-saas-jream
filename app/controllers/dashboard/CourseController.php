@@ -150,46 +150,4 @@ class CourseController extends BaseController
         $this->view->pick("dashboard/course-view");
     }
 
-    /**
-     * @return mixed
-     */
-    public function actionAction()
-    {
-        $this->view->disable();
-
-        $productCourseId = (int)$this->request->getPost('contentId');
-        $productId = (int)$this->request->getPost('productId');
-        $action = $this->request->getPost('action');
-        $value = (int)$this->request->getPost('value');
-
-        $userAction = new \UserAction();
-        $userAction = $userAction->getAction(
-            $action,
-            $this->session->get('id'),
-            $productCourseId
-        );
-
-        if ($userAction) {
-            $userAction->value = (int)$value;
-            $userAction->save();
-            $this->output(1, ['value' => $value]);
-        }
-
-        $userAction = new \UserAction();
-        $userAction->action = $action;
-        $userAction->user_id = $this->session->get('id');
-        $userAction->product_id = $productId;
-        $userAction->product_course_id = $productCourseId;
-        $userAction->value = $value;
-        $userAction->save();
-
-        if ($userAction->getMessages() == false) {
-            $this->output(1, ['value' => $value]);
-            return true;
-        } else {
-            $this->output(0, $userAction->getMessagesString());
-            return false;
-        }
-    }
-
 }

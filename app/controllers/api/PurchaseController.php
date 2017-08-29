@@ -95,7 +95,7 @@ class PurchaseController extends ApiController
             }
 
             // Make sure to check this DURING the checkout
-            if ($promo->expires_at > $this->helper->getLocaleTimestamp()) {
+            if ($promo->expires_at > \User::getLocaleTimestamp()) {
                 return $this->output(0, 'Sorry, this promotion expired on ' . $promo->expires_at);
             }
 

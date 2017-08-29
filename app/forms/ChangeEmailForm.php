@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
-class ChangeEmailForm extends \Phalcon\Forms\Form
+class ChangeEmailForm extends BaseForm
 {
 
     public function initialize()

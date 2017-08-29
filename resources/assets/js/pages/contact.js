@@ -1,4 +1,4 @@
-import axios from "./../components/axios";
+import axios from "../components/interceptors";
 import formUtil from "./../components/forms";
 import swal from "sweetalert2";
 

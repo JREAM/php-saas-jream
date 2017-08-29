@@ -29,7 +29,7 @@ class Contact extends Controller
             return $this->output(0, 'Recaptcha was invalid');
         }
 
-        $form = new \ContactForm();
+        $form = new \Forms\ContactForm();
 
         // Make sure the form is valid
         if( ! $form->isValid($_POST)) {

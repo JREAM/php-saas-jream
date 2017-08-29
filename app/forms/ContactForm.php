@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
-class ContactForm extends \Phalcon\Forms\Form
+class ContactForm extends BaseForm
 {
 
     public function initialize()
@@ -21,6 +23,11 @@ class ContactForm extends \Phalcon\Forms\Form
             new Validator\PresenceOf([
                 'message' => 'Your name is required.',
             ]),
+            new Validator\StringLength([
+                'min'   => 1,
+                'max'   => 255,
+                ''
+            ])
         ]);
 
         $email = new Text('email', [

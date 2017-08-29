@@ -17,30 +17,23 @@ $(() => {
     let postData = $(this).serialize();
 
     axios.post(url, postData).then(function (response) {
-      console.log(response);
-        swal({
-          title: 'Success',
-          text: 'Logging In..',
-          type: 'success',
-          timer: 2000
-        })
-        .then(function () {},
-          // handling the promise rejection
-          function (dismiss) {
-            if (dismiss === 'timer') {
-              window.location = '/dashboard';
-            }
+      swal({
+        title: 'Success',
+        text: 'Logging In..',
+        type: 'success',
+        timer: 2000
+      })
+      .then(function () {},
+        // When Timer is Complete, or item Closed
+        function (dismiss) {
+          if (dismiss === 'timer') {
             window.location = '/dashboard';
-        });
-    }).catch(function (error) {
-      console.log(error);
-        swal({
-          title: 'Error',
-          text: error.msg,
-          type: 'error',
-          showCancelButton: true,
-          cancelButtonText: 'Close'
-        });
+          }
+        window.location = '/dashboard';
+      });
+    })
+    .catch(function (error) {
+        popError(error.msg);
     });
 
   });
@@ -52,8 +45,24 @@ $(() => {
     const url = $(this).attr("action");
 
     axios.post(url, postData).then(function (response) {
-
-    });
+      swal({
+        title: 'Success',
+        text: 'Logging In..',
+        type: 'success',
+        timer: 2000
+      })
+      .then(function () {},
+        // When Timer is Complete, or item Closed
+        function (dismiss) {
+          if (dismiss === 'timer') {
+            window.location = '/dashboard';
+          }
+          window.location = '/dashboard';
+        });
+      })
+      .catch(function (error) {
+        popError(error.msg);
+      });
 
   });
 
@@ -65,7 +74,14 @@ $(() => {
     const url = $(this).attr("action");
 
     axios.post(url, postData).then(function (response) {
-
+      swal({
+        title: 'Success',
+        text: 'Please Check your Email',
+        type: 'success',
+      })
+    })
+    .catch(function (error) {
+      popError(error.msg);
     });
 
   });
@@ -77,7 +93,7 @@ $(() => {
     const url = $(this).attr("action");
 
     axios.get(url, postData).then(function (response) {
-
+      window.location = '/';
     });
 
   });

@@ -77,5 +77,4 @@ class UserAction extends BaseModel
         $this->save();
     }
 
-    // --------------------------------------------------------------
 }

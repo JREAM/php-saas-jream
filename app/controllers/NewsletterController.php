@@ -10,10 +10,6 @@ use \Phalcon\Tag;
  */
 class NewsletterController extends BaseController
 {
-    // Flash Messages
-    const SUBSCRIBE_REDIRECT_SUCCESS = 'newsletter/subscribe';
-    const SUBSCRIBE_REDIRECT_FAILURE = 'newsletter/subscribe';
-
     /**
      * @return void
      */
@@ -29,34 +25,10 @@ class NewsletterController extends BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'form'     => new \NewsletterForm(),
+            'form'     => new \Forms\NewsletterForm(),
         ]);
 
         $this->view->pick('newsletter/index');
-    }
-
-    /**
-     * Verifies a users email address.
-     *
-     * @param string    $token
-     *
-     * @return void
-     */
-    public function doVerifyAction(string $token)
-    {
-        $newsletterSubscription = \NewsletterSubscription::findFirstByVerifyKey($token);
-
-        // If Key Not Found
-        if (!$newsletterSubscription) {
-            $this->view->setVars([
-                'result' => 'Oops! Your verification token could not be found! Are you sure you registered for the newsletter?'
-            ]);
-        } else {
-            $newsletterSubscription->verified = 1;
-            $newsletterSubscription->updated_at = getDateTime();
-        }
-
-        $this->view->pick('newsletter/subscribe-verify');
     }
 
     /**

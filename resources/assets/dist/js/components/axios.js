@@ -1,19 +1,16 @@
-/**
- * @requires jQuery
- */
-import axios from "axios";
+"use strict";
 
 /**
  * Loads all settings on DOM Load
  */
-$(() => {
+$(function () {
 
   /**
    * Tokens for XHR Calls
    */
-  const csrfSelector = $("meta[name='csrf']");
-  const tokenKey = csrfSelector.attr("data-key");
-  const token = csrfSelector.attr("data-token");
+  var csrfSelector = $("meta[name='csrf']");
+  var tokenKey = csrfSelector.attr("data-key");
+  var token = csrfSelector.attr("data-token");
 
   /**
    * Call when DOM is loaded to pass the tokenKey and token
@@ -23,10 +20,10 @@ $(() => {
    *
    * @return object axios
    */
-    axios.defaults.headers.common = {
-      "X-Requested-With": "XMLHttpRequest",
-      "X-CSRFToken": `${tokenKey}|${token}`
-    };
+  axios.defaults.headers.common = {
+    "X-Requested-With": "XMLHttpRequest",
+    "X-CSRFToken": tokenKey + "|" + token
+  };
 
   /**
    * Interceptor AJAX Error Handler for:
@@ -50,7 +47,9 @@ $(() => {
    *   505 - HTTP Version Not Accepted
    *   508 - Loop Detected
    */
-  axios.interceptors.response.use(response => response, error => {
+  axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
 
     switch (error.response.status) {
 
@@ -84,7 +83,7 @@ $(() => {
           title: "Unauthorized; Your Session has expired.",
           text: "Your session has expired, You must login again.",
           closeOnConfirm: false
-        }, () => {
+        }, function () {
           window.location = "/user/login";
         });
         break;
@@ -159,13 +158,12 @@ $(() => {
         swal({
           type: "warning",
           title: "General Error",
-          text: `An unknown error occured with the status of ${error.response.status}`
+          text: "An unknown error occured with the status of " + error.response.status
         });
         return Promise.reject(error);
     }
-
   });
-
 });
 
 // export default { axios };
+//# sourceMappingURL=interceptors.js.map

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element;
 use Phalcon\Validation\Validator;
 use Phalcon\Forms\Form;

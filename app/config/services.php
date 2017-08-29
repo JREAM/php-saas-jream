@@ -165,8 +165,6 @@ $di->setShared('dispatcher', function () use ($di, $eventsManager) {
  */
 $di->setShared('component', function () {
     $obj = new \stdClass();
-    $obj->cookies = new CookieComponent();
-    $obj->helper = new HelperComponent();
     $obj->email = new EmailComponent();
 
     return $obj;

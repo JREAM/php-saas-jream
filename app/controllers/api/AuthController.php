@@ -76,6 +76,11 @@ class AuthController extends ApiController
         return $this->output(0, 'Incorrect Credentials');
     }
 
+    public function loginGoogle()
+    {
+
+    }
+
     /**
      * Does the Login via Facebook Auth
      *
@@ -230,12 +235,6 @@ class AuthController extends ApiController
             );
         }
 
-        if(strlen($password) < 4 || strlen($password) > 128) {
-            return $this->output(0,
-                'Your password must be 4-128 characters.'
-            );
-        }
-
         if(\User::findFirstByAlias($alias)) {
             return $this->output(0,
                 'Your alias cannot be used.'
@@ -330,11 +329,8 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordResetAction()
+    public function passwordForgotAction()
     {
-        $user_id = $this->session->get('user_id');
-        $this->component->helper->csrf(self::PASSWORD_REDIRECT_FAILURE);
-
         $email = $this->request->getPost('email');
         $user = User::findFirstByEmail($email);
 
@@ -382,12 +378,10 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordResetConfirmAction()
+    public function passwordForgotConfirmAction()
     {
         $confirmEmail = $this->request->getPost('email');
         $resetKey = $this->request->getPost('reset_key');
-
-        $this->component->helper->csrf(self::PASSWORD_REDIRECT_FAILURE_PASSWD . $resetKey);
 
         $user = User::findFirst([
             "email = :email: AND password_reset_key = :key: AND password_reset_expires_at > :date:",

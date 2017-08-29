@@ -1,8 +1,7 @@
-import _ from "lodash";
-import axios from "axios";
-import './components/axios'
-import swal from "sweetalert2";
-const Promise = require('es6-promise').Promise;
+window._ = require('lodash');
+window.axios = require('axios');
+window.swal = require('sweetalert2');
+window.Promise = require('es6-promise').Promise;
 
 
 /**
@@ -13,25 +12,44 @@ const Promise = require('es6-promise').Promise;
 $(() => {
 
   /**
+   * Tokens for XHR Calls
+   */
+  const csrfSelector = $('meta[name=\'csrf\']');
+  const tokenKey = csrfSelector.attr('data-key');
+  const token = csrfSelector.attr('data-token');
+
+  /**
+   * Call when DOM is loaded to pass the tokenKey and token
+   *
+   * @param  {string} tokenKey
+   * @param  {string} token
+   *
+   * @return object axios
+   */
+  axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRFToken': `${tokenKey}|${token}`
+  };
+
+  /**
    * =======================================================================
    * Load Pages and Elements
    * -----------------------------------------------------------------------
    */
-  require("./components/forms");
+  require('./components/interceptors');
+  require('./components/notifications');
+  require('./components/forms');
 
-  require("./pages/auth");
-  require("./pages/checkout");
-  require("./pages/contact");
-  require("./pages/dashboard");
-  require("./pages/newsletter");
-  require("./pages/promotion");
-  require("./pages/purchase");
-  require("./pages/question");
-  require("./pages/user");
-
-
+  require('./pages/auth');
+  require('./pages/checkout');
+  require('./pages/contact');
+  require('./pages/dashboard');
+  require('./pages/newsletter');
+  require('./pages/promotion');
+  require('./pages/purchase');
+  require('./pages/question');
+  require('./pages/user');
 });
-
 
 
 /**
@@ -40,7 +58,7 @@ $(() => {
  * -----------------------------------------------------------------------
  */
 if (!Modernizr.svg) {
-  const imgs = $("img");
+  const imgs = $('img');
   const svgExtension = /.*\.svg$/;
 
   for (let i = 0; i < imgs.length; i++) {
@@ -63,60 +81,60 @@ if (!Modernizr.svg) {
 
 function toggleLogo() {
   if ($(window).width() < 980) {
-    $("#logo").addClass("hide");
-    $("#logo-ico").removeClass("hide");
+    $('#logo').addClass('hide');
+    $('#logo-ico').removeClass('hide');
   } else {
-    $("#logo").removeClass("hide");
-    $("#logo-ico").addClass("hide");
+    $('#logo').removeClass('hide');
+    $('#logo-ico').addClass('hide');
   }
 }
 
 
 $(() => {
 
-  $("[data-toggle=tooltip]").tooltip();
-  $("[data-toggle=popover]").popover({
-    trigger: "hover"
+  $('[data-toggle=tooltip]').tooltip();
+  $('[data-toggle=popover]').popover({
+    trigger: 'hover'
   });
 
-  $("a[href='#top']").click(() => {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
+  $('a[href=\'#top\']').click(() => {
+    $('html, body').animate({scrollTop: 0}, 'slow');
     return false;
   });
 
   if ($.isFunction($.fn.autosize)) {
-    $("textarea .autosize").autosize();
+    $('textarea .autosize').autosize();
   }
 
   if ($.isFunction($.fn.expander)) {
-    $("div.expandable").expander({
+    $('div.expandable').expander({
       slicePoint: 150,
-      expandPrefix: " ",
-      expandText: "(more)",
+      expandPrefix: ' ',
+      expandText: '(more)',
       collapseTimer: 5000,
-      userCollapseText: "(less)",
-      expandEffect: "slideDown",
-      collapseEffect: "slideUp",
+      userCollapseText: '(less)',
+      expandEffect: 'slideDown',
+      collapseEffect: 'slideUp',
       preserveWords: true
     });
   }
 
-  $(".disable-click").click(function() {
-    $(this).addClass("disabled");
+  $('.disable-click').click(function () {
+    $(this).addClass('disabled');
     return true;
   });
 
   if ($.isFunction($.fn.dataTable)) {
-    $(".data-table").dataTable();
+    $('.data-table').dataTable();
   }
 
-  $(document).scroll(function() {
+  $(document).scroll(function () {
     const scroll = $(this).scrollTop();
 
     if (scroll > 600) {
-      $("#goto-top").removeClass("hide");
+      $('#goto-top').removeClass('hide');
     } else {
-      $("#goto-top").addClass("hide");
+      $('#goto-top').addClass('hide');
     }
   });
 
@@ -128,21 +146,21 @@ $(() => {
   });
 
   // For the Dashboard/Account
-  $("#toggle-timezone").click(evt => {
+  $('#toggle-timezone').click(evt => {
     evt.preventDefault();
-    $("#form-timezone").toggleClass("hide");
+    $('#form-timezone').toggleClass('hide');
   });
 
 
   // Course-View, Lights Off
-  $(".toggle-lights").click(evt => {
+  $('.toggle-lights').click(evt => {
     evt.preventDefault();
-    const overlay = $(".overlay");
+    const overlay = $('.overlay');
 
-    if (overlay.hasClass("hide")) {
-      $(".overlay").removeClass("hide");
+    if (overlay.hasClass('hide')) {
+      $('.overlay').removeClass('hide');
     } else {
-      $(".overlay").addClass("hide");
+      $('.overlay').addClass('hide');
     }
   });
 

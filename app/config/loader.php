@@ -12,6 +12,7 @@ $loader->registerNamespaces([
     'Controllers\Api'       => $config->get('controllersDir') . 'api/',
     'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
     'Library'               => $config->get('libraryDir'),
+    'Forms'                 => $config->get('formsDir'),
     'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
 ]);
@@ -23,7 +24,6 @@ $loader->registerClasses([
 $registerDirs = [
     $config->get('componentsDir'),
     $config->get('configDir'),
-    $config->get('formsDir'),
     $config->get('pluginsDir'),
     $config->get('modelsDir'),
     $config->get('tasksDir'),

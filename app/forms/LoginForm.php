@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator;
 
-class LoginForm extends \Phalcon\Forms\Form
+class LoginForm extends BaseForm
 {
 
     public function initialize()

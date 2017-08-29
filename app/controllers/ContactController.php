@@ -29,7 +29,7 @@ class ContactController extends BaseController
     public function indexAction()
     {
         $this->view->setVars([
-            'form'     => new \ContactForm(),
+            'form'     => new \Forms\ContactForm(),
         ]);
 
         $this->view->pick('contact/contact');

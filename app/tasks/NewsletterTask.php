@@ -62,6 +62,7 @@ class NewsletterTask extends Task
      */
     public function createListAction()
     {
+        // @TODO Exclude from newsletter_unsubscribed, remove the row in users.newsletter_subscribed too
         $users = \User::find("is_deleted = 0 AND is_banned = 0");
 
         if (!$users) {
@@ -109,6 +110,7 @@ class NewsletterTask extends Task
         // Load AWS SES.. only send to ppl that didnt receive email id X
 //        $subscribers = \NewsletterSubscription::get();
 
+        //
         // Create the Transport
         $transport = Swift_SmtpTransport::newInstance(
             getenv('AWS_SES_HOST'),

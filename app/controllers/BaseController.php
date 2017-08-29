@@ -39,13 +39,6 @@ class BaseController extends Controller
         $this->tokenManager = new TokenManager();
     }
 
-    public function onConstruct()
-    {
-        // This has a bug duplicating the title
-        // Tag::setTitleSeparator(' / ');
-        // Tag::appendTitle($this->di['config']['title']);
-    }
-
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         // --------------------------------------------------------------
@@ -83,18 +76,6 @@ class BaseController extends Controller
             'token'     => $this->tokenManager->getTokens()['token'],
         ]);
 
-    }
-
-    /**
-     * Check CSRF Session Token
-     * @return string   JSON
-     */
-    public function validateTokens()
-    {
-        $csrfTokens = $this->request->getHeader('X-CSRFToken');
-        if ($this->tokenManager->validate($csrfTokens) === false) {
-            return $this->output(0, 'Invalid CSRF Token.');
-        }
     }
 
     /**
@@ -136,34 +117,6 @@ class BaseController extends Controller
         }
 
         return $this->response->redirect($url, false);
-    }
-
-    /**
-     * JSON Output
-     *
-     * @param  boolean $result
-     * @param  array|object|string $data (Optional)
-     *
-     * @return string
-     */
-    protected function output($result, $data = null)
-    {
-        $output = [];
-        $output['result'] = (int) $result;
-
-        if ($result == 0) {
-            $output['data']  = null;
-            $output['error'] = $data;
-        } else {
-            $output['data']  = $data;
-            $output['error'] = null;
-        }
-
-        $response = new \Phalcon\Http\Response();
-        $response->setStatusCode(200, "OK");
-        $response->setContent(json_encode($output));
-        $response->send();
-        exit;
     }
 
     /**

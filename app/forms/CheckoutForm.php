@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
-class CheckoutForm extends \Phalcon\Forms\Form
+class CheckoutForm extends BaseForm
 {
 
     public function initialize()

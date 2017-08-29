@@ -1,12 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Controllers;
+namespace Controllers\Api;
 
-class ApiLegacyController extends BaseController
+use \User;
+use \Promotion;
+
+class UtilsController extends ApiController
 {
     /**
-     * ApiController constructor.
+     * @return void
      */
     public function onConstruct()
     {
@@ -32,19 +35,4 @@ class ApiLegacyController extends BaseController
 
         return $this->output(1, $content);
     }
-
-    /**
-     * Updates a single field.
-     * @param  [type] $table [description]
-     * @param  [type] $field [description]
-     * @param  [type] $value [description]
-     * @return [type]        [description]
-     */
-    public function adminUpdate($model, $primary_key, $column, $value)
-    {
-        if (!$this->session->has('id') || $this->session->get('role') != 'admin') {
-            die;
-        }
-    }
-
 }

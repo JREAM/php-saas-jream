@@ -1,4 +1,7 @@
-const formUtil = {
+// --------------------------------------------------------------------------------
+// Form Utilities
+// --------------------------------------------------------------------------------
+const formUtils = {
   // Disable all Form Elements
   disable: function(id) {
     $(`#${id}`).find('input, textarea, button, select').attr('disabled', 'disabled');
@@ -9,5 +12,6 @@ const formUtil = {
   }
 };
 
-module.exports = formUtil;
+module.exports = formUtils;
 
+// --------------------------------------------------------------------------------

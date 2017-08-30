@@ -6,8 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Product extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'product';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -16,10 +15,13 @@ class Product extends BaseModel
     const STATUS_DEVELOPMENT = 'development';
     const STATUS_PUBLISHED = 'published';
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function initialize()
     {
+        /** DB Table Name */
+        $this->setSource('product');
+
         $this->addBehavior(new SoftDelete([
             'field' => 'is_deleted',
             'value' => 1,
@@ -27,30 +29,16 @@ class Product extends BaseModel
 
         $this->hasMany('id', 'UserPurchase', 'product_id');
         $this->hasMany('id', 'ProductCourse', 'product_id');
-
-        $this->setSource(self::SOURCE);
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function getTags()
     {
         return explode(',', $this->tags);
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Returns a list of Products in groups of tags
@@ -89,7 +77,7 @@ class Product extends BaseModel
         return $tag_list;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Has a user Purchased this product?
@@ -124,7 +112,7 @@ class Product extends BaseModel
         return true;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function getProductPercent()
     {
@@ -168,6 +156,6 @@ class Product extends BaseModel
         return $output;
     }
 
-
+    // ----------------------------------------------------------------------------
 
 }

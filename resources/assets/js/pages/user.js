@@ -1,6 +1,16 @@
-import axios from "../components/interceptors";
-
+// --------------------------------------------------------------------------------
+// Document Ready
+// --------------------------------------------------------------------------------
 $(() => {
+
+  // --------------------------------------------------------------------------------
+
+  $('#toggle-timezone').click(evt => {
+    evt.preventDefault();
+    $('#form-timezone').toggleClass('hide');
+  });
+
+  // --------------------------------------------------------------------------------
 
   $("#formUpdateTimezone").submit(function (evt) {
     evt.preventDefault();
@@ -8,7 +18,7 @@ $(() => {
     const url = $(this).attr("action");
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(function (response) {
+    axios.post(url, postData).then(response => {
       swal({
         title: 'Success',
         text: 'Your Timezone has been updated',
@@ -22,13 +32,15 @@ $(() => {
 
   });
 
+  // --------------------------------------------------------------------------------
+
   $("#formUpdateEmail").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(function (response) {
+    axios.post(url, postData).then(response => {
       swal({
         title: 'Success',
         text: 'Your email was updated',
@@ -42,13 +54,15 @@ $(() => {
 
   });
 
+  // --------------------------------------------------------------------------------
+
   $("#formUpdateNotificationsAction").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(function (response) {
+    axios.post(url, postData).then(response => {
       swal({
         title: 'Success',
         text: 'Your notification settings have been updated.',
@@ -61,5 +75,7 @@ $(() => {
     });
 
   });
+
+  // --------------------------------------------------------------------------------
 
 });

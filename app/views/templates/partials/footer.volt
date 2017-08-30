@@ -12,7 +12,7 @@
 
                 <div id="mc_embed_signup">
                     <small>Newsletter</small>
-                    <form class="form-inline validate" action="https://jream.us7.list-manage.com/subscribe/post?u=c15f3eb6b4d64a6cbdc77eb9b&amp;id=5a56a15329" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+                    <form id="newsletterFooterSubscribe" class="form-inline validate" action="{{ url('auth/newsletter/subscribe') }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
                         <div class="form-group">
                             <input type="email" value="" name="EMAIL" class="form-control input-sm" id="mce-EMAIL" placeholder="Email Address" required>
                         </div>

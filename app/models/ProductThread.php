@@ -7,54 +7,27 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductThread extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'product_thread';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     public function initialize()
     {
+        /** DB Table Name */
+        $this->setSource('product_thread');
+
         $this->addBehavior(new SoftDelete([
             'field' => 'is_deleted',
             'value' => 1,
         ]));
 
-        $this->setSource(self::SOURCE);
         $this->belongsTo("product_id", "Product", "id");
         $this->belongsTo("user_id", "User", "id");
         $this->hasMany("id", "ProductThreadReply", "product_thread_id");
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterCreate()
-    {
-        $this->created_at = getDateTime();
-        $this->save();
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterUpdate()
-    {
-        $this->created_at = getDateTime();
-        $this->save();
-    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     // @Thi is broken
     public function validationX()
@@ -80,5 +53,6 @@ class ProductThread extends BaseModel
         }
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+
 }

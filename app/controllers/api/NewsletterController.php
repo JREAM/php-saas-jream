@@ -25,6 +25,12 @@ class NewsletterController extends ApiController
             $this->output(0, "Oh that doesn't work, You must post the form!");
         }
 
+        // If Recaptcha fails, Warn and use JS to reload.
+        if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {
+            // Retrigger: grecaptcha.reset() in JS
+            return $this->output(0, 'Recaptcha is invalid, please try again.');
+        }
+
         //Check Recaptcha @TODO
         $email = $this->request->getPost('email');
 

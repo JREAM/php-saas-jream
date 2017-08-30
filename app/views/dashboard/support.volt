@@ -35,7 +35,7 @@
                         JREAM. This does not include any support for YouTube videos.
                         </small>
                     </p>
-                    <form id="form-support" method="post" action="{{ url('dashboard/support/do') }}">
+                    <form id="form-support" method="post" action="{{ url('api/support/send') }}">
                         <div class="form-group">
                             <input type="text" name="title" class="form-control" placeholder="Title" value="<?=formData('title')?>">
                         </div>

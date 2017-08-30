@@ -1,5 +1,8 @@
+// --------------------------------------------------------------------------------
+// Interceptor AJAX Error Handler
+// --------------------------------------------------------------------------------
 /**
- * Interceptor AJAX Error Handler for:
+ *   200 - Throws and exception if the result is 0 from the server.
  *
  *   301 - Moved Permanently
  *   308 - Permanent Redirect
@@ -23,6 +26,12 @@
 axios.interceptors.response.use(response => response, error => {
 
   switch (error.response.status) {
+
+    case 200:
+      if (response.data.result == 0) {
+        throw response.data;
+      }
+      break;
 
     // @ 300 Errors
     case 301:
@@ -137,3 +146,5 @@ axios.interceptors.response.use(response => response, error => {
   }
 
 });
+
+// --------------------------------------------------------------------------------

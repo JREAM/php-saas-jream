@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Controllers\Api;
 
@@ -35,7 +35,7 @@ class ApiController extends Controller
         // 1: Create a user-session CSRF Token Pair if one does NOT exist.
         // .. All Users signed in or not must have a CSRF token.
         // --------------------------------------------------------------
-        if( ! $this->tokenManager->hasToken()) {
+        if (!$this->tokenManager->hasToken()) {
             // Creates session data.
             $this->tokenManager->generate();
         }
@@ -52,7 +52,7 @@ class ApiController extends Controller
     public function validateTokens()
     {
         $csrfTokens = $this->request->getHeader('X-CSRFToken');
-        if($this->tokenManager->validate($csrfTokens) === false) {
+        if ($this->tokenManager->validate($csrfTokens) === false) {
             return $this->output(0, 'Invalid CSRF Token.');
         }
     }
@@ -71,27 +71,27 @@ class ApiController extends Controller
      * JSON Output
      *
      * @param  int   $result
-     * @param  str   $msg    (Optional)
-     * @param  array $data   (Optional) Additional Data to pass to Client
+     * @param  mixed   $msg  (Optional)
+     * @param  array $data (Optional) Additional Data to pass to Client
      *
      * @return string JSON
      */
     protected function output(int $result, $msg = '', $data = [])
     {
+
         $output = [
-            'result' => (boolean) (int) $result,
-            'msg' => (string) $msg,
-            'data' => (array) $data
+            'result' => (int)(boolean)$result,
+            'msg'    => (string)$msg,
+            'data'   => (array)$data,
         ];
 
-        $output = json_encode($output);
+        $this->response->setContentType('application/json', 'UTF-8');
+        $this->response->setStatusCode(200, "OK");
+        $this->response->setJsonContent($output);
 
-        $response = new Response();
-        $response->setStatusCode(200, "OK");
-        $response->setContent($output);
-        return $response->send();
+        return $this->response->send();
 
-        // Kill Everything Else, just incase.
+        // Kill Everything Else, just in case.
         exit;
     }
 

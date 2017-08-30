@@ -5,6 +5,8 @@ use Aws\Exception\AwsException;
 
 class CronTask extends Task
 {
+    // ----------------------------------------------------------------------------
+
     /**
      * @var object AWS SQS Client
      */
@@ -19,6 +21,8 @@ class CronTask extends Task
         'delivery'  => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-delivery-queue"
     ];
 
+    // ----------------------------------------------------------------------------
+
     /**
      * This is a Cron Task
      */
@@ -26,6 +30,8 @@ class CronTask extends Task
     {
         echo '... Cron Task ...' . PHP_EOL;
     }
+
+    // ----------------------------------------------------------------------------
 
     /**
      * Reads from AWS RSR
@@ -46,6 +52,8 @@ class CronTask extends Task
             $this->processSqs($enpointUrl);
         }
     }
+
+    // ----------------------------------------------------------------------------
 
     /**
      * Handles the SQS Results
@@ -78,6 +86,8 @@ class CronTask extends Task
             error_log($e->getMessage());
         }
     }
+
+    // ----------------------------------------------------------------------------
 
     protected function test()
     {
@@ -153,4 +163,7 @@ class CronTask extends Task
                 break;
         }
     }
+
+    // ----------------------------------------------------------------------------
+
 }

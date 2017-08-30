@@ -6,39 +6,28 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductCourse extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'product_course';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     public function initialize()
     {
+        /** DB Table Name */
+        $this->setSource('product_course');
+
         $this->addBehavior(new SoftDelete([
             'field' => 'is_deleted',
             'value' => 1,
         ]));
 
-        $this->setSource(self::SOURCE);
         $this->belongsTo("product_id", "Product", "id");
         $this->hasMany("id", "UserAction", "product_course_id");
         $this->hasMany("id", "ProductCourseMeta", "product_course_id");
         $this->hasMany("id", "ProductCourseSection", "product_id");
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Gets the Previous Course in a Product Series
@@ -54,7 +43,7 @@ class ProductCourse extends BaseModel
         return $this->_getSingleCourse('prev', $product_id, $section, $course);
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Gets the Next Course in a Product Series
@@ -70,9 +59,7 @@ class ProductCourse extends BaseModel
         return $this->_getSingleCourse('next', $product_id, $section, $course);
     }
 
-    // --------------------------------------------------------------
-
-        // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Create a RTMP Signed URL
@@ -116,7 +103,7 @@ class ProductCourse extends BaseModel
         return $signedUrl;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Gets the Next or Prev Course in a Product Series
@@ -189,5 +176,6 @@ class ProductCourse extends BaseModel
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+
 }

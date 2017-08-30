@@ -4,11 +4,16 @@ use Phalcon\Cli\Task;
 
 class MainTask extends Task
 {
+
+    // ----------------------------------------------------------------------------
+
     public function mainAction()
     {
         echo ' - Run with: php app/cli.php main {taskname} {param}' . PHP_EOL;
         echo '      - Example: php app/cli.php newsletter send' . PHP_EOL;
     }
+
+    // ----------------------------------------------------------------------------
 
     /**
      * @param array $params
@@ -23,4 +28,6 @@ class MainTask extends Task
 
         echo PHP_EOL;
     }
+
+    // ----------------------------------------------------------------------------
 }

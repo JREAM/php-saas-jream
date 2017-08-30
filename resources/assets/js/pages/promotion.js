@@ -1,7 +1,9 @@
 /**
+ * ----------------------------------------------------------------------------
  * Countdown for Promotion
  * @type {Number}
  * @depends moment.js
+ * ----------------------------------------------------------------------------
  */
 let countdown = function(expires_timestamp, now_timestamp) {
 
@@ -15,5 +17,6 @@ let countdown = function(expires_timestamp, now_timestamp) {
   }, interval);
 };
 
-
 module.exports = countdown;
+
+// --------------------------------------------------------------------------------

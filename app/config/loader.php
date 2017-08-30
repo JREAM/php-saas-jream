@@ -15,6 +15,7 @@ $loader->registerNamespaces([
     'Forms'                 => $config->get('formsDir'),
     'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
+    'Models\Traits'          => $config->get('modelsDir') . 'traits/',
 ]);
 
 $loader->registerClasses([
@@ -31,8 +32,7 @@ $registerDirs = [
 
 // 1: For running unit tests
 // 2: For the CLI Tasks
-if (strtolower(\PHP_SAPI) === 'cli')
-{
+if (strtolower(\PHP_SAPI) === 'cli') {
     // Auto Load the Tests Directory.
     $registerDirs[] = $config->get('testsDir');
 }

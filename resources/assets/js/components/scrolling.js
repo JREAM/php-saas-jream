@@ -1,25 +1,28 @@
 // --------------------------------------------------------------------------------
 // Document Ready
 // --------------------------------------------------------------------------------
-$(() => {
-
+(() => {
 
   // --------------------------------------------------------------------------------
-  // Customize the Popover to use HTML and a Header, it looks nice.
-  // Also see the multiline-tooltips.scss file
+  // Show scroll button at Distannce
   // --------------------------------------------------------------------------------
-  $('body').popover({
-    //Popover, activated by clicking
-    selector: '[data-toggle=\'popover\']',
-    container: 'body',
-    html: true,
+  $(document).scroll(function () {
+    const scroll = $(this).scrollTop();
+
+    if (scroll > 600) {
+      $('#goto-top').removeClass('hide');
+    } else {
+      $('#goto-top').addClass('hide');
+    }
   });
 
   // --------------------------------------------------------------------------------
-  // Only Show One at a Time
+  // Scroll to Top
   // --------------------------------------------------------------------------------
-  $('[data-toggle="popover"]').on('click', function(evt) {
-    $('[data-toggle="popover"]').not(this).popover('hide');
+
+  $('a[href=\'#top\']').click(() => {
+    $('html, body').animate({scrollTop: 0}, 'slow');
+    return false;
   });
 
   // --------------------------------------------------------------------------------

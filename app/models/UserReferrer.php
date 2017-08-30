@@ -4,44 +4,17 @@ declare(strict_types=1);
 class UserReferrer extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'user_referrer';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     public function initialize()
     {
-        $this->setSource(self::SOURCE);
+        /** DB Table Name */
+        $this->setSource('user_referrer');
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterCreate()
-    {
-        $this->created_at = getDateTime();
-        $this->save();
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterUpdate()
-    {
-        $this->created_at = getDateTime();
-        $this->save();
-    }
-
-    // --------------------------------------------------------------
 }

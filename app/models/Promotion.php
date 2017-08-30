@@ -6,35 +6,23 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Promotion extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'promotion';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     public function initialize()
     {
+        /** DB Table Name */
+        $this->setSource('promotion');
+
         $this->addBehavior(new SoftDelete([
             'field' => 'is_deleted',
             'value' => 1,
         ]));
-
-        $this->setSource(self::SOURCE);
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Check if a Promotion Code Is Available
@@ -167,5 +155,6 @@ class Promotion extends BaseModel
         ];
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+
 }

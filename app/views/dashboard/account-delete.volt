@@ -28,7 +28,7 @@
 
                     <hr>
 
-                    <form id="form-account-delete" class="form" method="post" action="{{ url('dashboard/account/doDelete') }}">
+                    <form id="form-account-delete" class="form" method="post" action="{{ url('api/user/deleteAccount') }}">
                         <div class="form-group">
                             <label class="control-label">To confirm type: <span class="txt-delete-confirm">&nbsp; delete {{ user.getAlias() }} &nbsp;</span></label>
                             <input type="text" class="form-control" name="confirm">

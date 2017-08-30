@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <h1>Newsletter Subscribe Verification</h1>
             <p>
-            {{ result }}
+            Checking your verification please wait!
             </p>
          </div>
      </div>

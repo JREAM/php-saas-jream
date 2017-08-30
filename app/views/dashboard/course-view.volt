@@ -48,8 +48,8 @@
 {% block content %}
 <div class="row above-video-buttons">
     <div class="col-md-6 course-view-buttons">
-        <a data-value="0" class="course-mark course-action margin-bottom btn btn-success" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok"></span> Completed</a>
-        <a data-value="1" class="course-unmark course-action margin-bottom btn btn-default" href="{{ url('dashboard/course/action') }}"><span class="glyphicon glyphicon-ok-sign"></span> Mark Complete</a>
+        <a data-value="0" class="course-mark course-action margin-bottom btn btn-success" href="#"><span class="glyphicon glyphicon-ok"></span> Completed</a>
+        <a data-value="1" class="course-unmark course-action margin-bottom btn btn-default" href="#"><span class="glyphicon glyphicon-ok-sign"></span> Mark Complete</a>
         <a class="margin-bottom btn btn-info toggle-lights"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Toggle Lights</a>
     </div>
     <div class="col-md-2">
@@ -130,7 +130,7 @@ $(function() {
 
     $('.course-action').click(function(e) {
         e.preventDefault();
-        var url = $(this).attr('href');
+        var url = '{{ url('api/course/updateProgress') }}';
         var postData = {
             'productId': '{{ productId }}',
             'contentId': '{{ contentId }}',

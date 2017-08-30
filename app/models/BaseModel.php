@@ -3,19 +3,25 @@ declare(strict_types=1);
 
 class BaseModel extends \Phalcon\Mvc\Model
 {
-    /** Trait **/
-    use Timestamp;
+    /**
+     * Changes the fields for 'created_at' and 'updated_at'
+     * which are required on every table.
+     */
+    use Models\Traits\TimestampTrait;
+
 
     /** @var object */
     public $parsedown = null;
 
+
     /** @var @var object */
     protected $config;
+
 
     /** @var @var object */
     protected $api;
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Returns a list of errors
@@ -31,7 +37,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function onConstruct()
     {
@@ -44,19 +50,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         $this->api = $this->di->get('api');
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return strtolower(__CLASS__);
-    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Returns a HTML formatted list of errors
@@ -78,7 +72,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $output;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Get the date offset
@@ -110,7 +104,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return date('F jS, Y h:ia', $userTime);
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function dateMDY($field = false)
     {
@@ -123,7 +117,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return date('m/d/y', $time);
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Parses markdown for any given field
@@ -132,7 +126,6 @@ class BaseModel extends \Phalcon\Mvc\Model
      *
      * @return  markdown
      */
-
     public function markdown($field)
     {
         if ($field && property_exists($this, $field)) {
@@ -147,18 +140,18 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $this->parsedown->parse($use);
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Return a Generic Result from custom Model Functions to use the same format.
      *
-     * @param int    $result    True/False as an int, it is forced so 2 will be 1 as in true. 0 for false.
-     * @param string $msg       String of error or success
-     * @param null   $data      Can be any type of data
+     * @param int    $result True/False as an int, it is forced so 2 will be 1 as in true. 0 for false.
+     * @param string $msg    String of error or success
+     * @param null   $data   Can be any type of data
      *
      * @return \stdClass
      */
-    protected function out(int $result, string $msg = '', $data = null) : stdClass
+    protected function out(int $result, string $msg = '', $data = null): stdClass
     {
         $output = new \stdClass();
         $output->data = $data;
@@ -174,32 +167,6 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $output;
     }
 
-    // --------------------------------------------------------------
-}
+    // ----------------------------------------------------------------------------
 
-trait TimeStamp
-{
-    public $dateFormat = 'Y-m-d H:i:s';
-
-    public function beforeCreate()
-    {
-        $this->created_at = date($this->dateFormat);
-    }
-
-    // --------------------------------------------------------------
-
-    public function beforeUpdate()
-    {
-        $this->updated_at = date($this->dateFormat);
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterDelete()
-    {
-        $this->is_deleted = (int)1;
-        $this->deleted_at = date($this->dateFormat);
-    }
-
-    // --------------------------------------------------------------
 }

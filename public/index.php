@@ -59,9 +59,11 @@ try {
      */
     $application = new Application($di);
 
+
     if (\APPLICATION_ENV === \APP_TEST) {
         return $application;
     }
+
 
     echo $application->handle()->getContent();
 
@@ -71,6 +73,7 @@ catch (\Exception $e) {
     if (PHP_SAPI === 'cli') {
         die($e->getMessage());
     }
+
 
     /**
      * ==============================================================
@@ -83,6 +86,7 @@ catch (\Exception $e) {
         exit;
     }
 
+
    /**
      * ==============================================================
      * Non Live: Show Local Error (Or Whoops Appears)
@@ -94,4 +98,6 @@ catch (\Exception $e) {
     echo "Line: {$e->getLine()}<br>";
     echo $e->getTraceAsString();
     echo '</pre>';
+
+
 }

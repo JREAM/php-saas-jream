@@ -14,7 +14,7 @@
             <li><a href="{{ url('dashboard/account') }}"><span class="glyphicon glyphicon-user opacity-50"></span> My Account</a></li>
             <li><a href="{{ url('contact') }}"><span class="glyphicon glyphicon-comment opacity-50"></span> Support</a></li>
             <li class="divider"></li>
-            <li><a href="{{ url('user/logout') }}"><span class="glyphicon glyphicon-log-out opacity-50"></span> Logout</a></li>
+            <li><a href="{{ url('api/auth/logout') }}"><span class="glyphicon glyphicon-log-out opacity-50"></span> Logout</a></li>
         </ul>
     </li>
 

@@ -7,7 +7,7 @@
 {% block breadcrumb %}
 <ol class="breadcrumb">
     <li><a href="{{ url('dashboard') }}">Dashboard</a></li>
-    <li><a href="{{ url('dashboard/') }}/course/index/{{ product.id }}">{{ product.title }}</a></li>
+    <li><a href="{{ url('dashboard/course/index/') }}/{{ product.id }}">{{ product.title }}</a></li>
     <li class="active">Questions</li>
 </ol>
 {% endblock %}
@@ -69,7 +69,7 @@
                 <div class="reply-container">
                     <a class="reply-btn btn btn-xs btn-info" href="#">Reply</a>
                     <a class="cancel-btn hide btn btn-xs btn-info" href="#">Cancel</a>
-                    <form class="hide reply-form" method="post" action="{{ url('dashboard/question/doreply') }}/{{ product.id }}/{{ thread.id }}">
+                    <form class="hide reply-form" method="post" action="{{ url('api/question/reply') }}/{{ product.id }}/{{ thread.id }}">
                         <div class="form-group">
                             <textarea name="content" class="autosize form-control" placeholder="Your Message" rows="5"></textarea>
                         </div>
@@ -90,7 +90,7 @@
     <div class="col-md-4">
         <h2>Ask</h2>
         <div id="ask-error"></div>
-        <form id="ask" method="post" action="{{ url('dashboard/question/do') }}/{{ product.id }}">
+        <form id="ask" method="post" action="{{ url('api/question/create') }}/{{ product.id }}">
             <div class="form-group">
                 <input type="text" name="title" class="form-control input-lg" value="<?=formData('title')?>" placeholder="Title">
             </div>

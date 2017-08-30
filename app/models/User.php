@@ -7,20 +7,21 @@ use \Phalcon\Mvc\Model\Validator;
 class User extends BaseModel
 {
 
-    /** @const SOURCE the table name */
-    const SOURCE = 'user';
+    // ----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     public function initialize()
     {
+        /** DB Table Name */
+        $this->setSource('user');
+
         $this->addBehavior(new SoftDelete([
             'field' => 'is_deleted',
             'value' => 1,
         ]));
 
-        $this->setSource(self::SOURCE);
         $this->skipAttributesOnCreate(['reset_key']);
         $this->hasMany('id', 'Project', 'user_id');
         $this->hasMany('id', 'UserAction', 'user_id');
@@ -31,45 +32,13 @@ class User extends BaseModel
         $this->hasOne('id', 'Newsletter', 'user_id');
     }
 
-    // --------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
-    }
-
-    // --------------------------------------------------------------
-
-    public function afterCreate()
-    {
-        if ($this->save() != false) {
-            $this->created_at = getDateTime();
-            $this->save();
-        }
-    }
-
-    // --------------------------------------------------------------
-
-    // @TODO This causes a bug and loop
-//    public function afterUpdate()
-//    {
-//        if ($this->save() != false) {
-//            $this->created_at = getDateTime();
-//            $this->save();
-//        }
-//    }
-
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Get the Exact Timestamp with the Applied Timezone
      *
      * @param string Timezone
+     *
      * @return string Timestamp
      */
     public static function getLocaleTimestamp($timezone = 'America/New_York')
@@ -79,10 +48,12 @@ class User extends BaseModel
         return $date->getTimestamp();
     }
 
+    // ----------------------------------------------------------------------------
+
     /**
      * Gets a users Email since there are multiple clients
      *
-     * @param  int $id (Optional) Will uses current session by default
+     * @param  mixed $id (Optional) Will uses current session by default
      *
      * @return string
      */
@@ -110,12 +81,12 @@ class User extends BaseModel
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Gets a users Alias since there are multiple clients
      *
-     * @param  int $id (Optional) Will uses current session by default
+     * @param  mixed $id (Optional) Will uses current session by default
      *
      * @return string
      */
@@ -136,13 +107,13 @@ class User extends BaseModel
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Gets a users Icon from a service
      *
-     * @param  int      $id   (Optional) Will uses current session by default
-     * @param  mixed    $size (Optional) Will change the HTML width
+     * @param  mixed $id   (Optional) Will uses current session by default
+     * @param  mixed $size (Optional) Will change the HTML width
      *
      * @return string
      */
@@ -174,12 +145,10 @@ class User extends BaseModel
         return "<img src='$url' alt='Gravatar' />";
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Is a user banned?
-     *
-     * @param  object $user
      *
      * @return boolean
      */
@@ -192,7 +161,7 @@ class User extends BaseModel
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Captures where the user signed up from
@@ -218,12 +187,13 @@ class User extends BaseModel
         return $referrer->save();
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     public function doLogin($email, $password)
     {
         if (!$email || !$password) {
             $this->flash->error('email and password field(s) are required.');
+
             return false;
         }
 
@@ -231,12 +201,14 @@ class User extends BaseModel
         if ($user) {
             if ($user->is_deleted == 1) {
                 $this->flash->error('This user has been permanently removed.');
+
                 return false;
             }
             // Prevent Spam logins
             if ($user->login_attempt >= 5) {
                 if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
                     $this->flash->error('Too many login attempts. Timed out for 10 minutes.');
+
                     return false;
                 }
                 // Clear the login attempts if time has expired
@@ -249,11 +221,13 @@ class User extends BaseModel
                 if ($user->isBanned()) {
                     $this->flash->error('Sorry, your account has been locked due to suspicious activity.
                                 For support, contact <strong>hello@jream.com</strong>.');
+
                     return false;
                 }
 
                 // $this->createSession($user, [], $remember_me);
                 $this->createSession($user);
+
                 return true;
             }
 
@@ -268,5 +242,6 @@ class User extends BaseModel
         return false;
     }
 
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+
 }

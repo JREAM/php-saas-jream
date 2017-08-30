@@ -378,7 +378,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotConfirmAction()
+    public function passwordForgotCreateAction()
     {
         $confirmEmail = $this->request->getPost('email');
         $resetKey = $this->request->getPost('reset_key');

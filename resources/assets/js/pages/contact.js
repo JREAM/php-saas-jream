@@ -1,27 +1,21 @@
-import axios from "../components/interceptors";
-import formUtil from "./../components/forms";
-import swal from "sweetalert2";
-
+// --------------------------------------------------------------------------------
+// Document Ready
+// --------------------------------------------------------------------------------
 $(() => {
+
+  // --------------------------------------------------------------------------------
 
   $("#formContact").on('submit', function (evt) {
     evt.preventDefault();
 
-    formUtil.disable(this.id);
+    formUtils.disable(this.id);
     let url = $(this).attr('action');
     let postData = $(this).serialize();
 
-    window.axios.post(url, postData).then(function (response) {
-
-
-      if (reponse.result == 0) {
-        throw Exception(response);
-      }
-
-
+    axios.post(url, postData).then(resp => {
       swal({
         title: 'Email Dispatched',
-        text: response.msg,
+        text: resp.msg,
         type: 'success',
         cancelButtonText: 'Close',
         timer: 2000
@@ -34,21 +28,17 @@ $(() => {
           window.location = '/contact/thanks';
       });
 
-    }).catch(function (error) {
+    }).catch(function (err) {
 
-      swal({
-        title: 'Error',
-        text: error.msg,
-        type: 'error',
-        showCancelButton: true,
-        cancelButtonText: 'Close'
-      });
+      popError(err.msg)
 
       // Reset Recaptcha
       grecaptcha.reset();
-      formUtil.enable(this.id);
+      formUtils.enable(this.id);
     })
 
   });
+
+  // --------------------------------------------------------------------------------
 
 });

@@ -13,6 +13,8 @@ use Phalcon\Acl;
 class PermissionPlugin extends Plugin
 {
 
+    // ----------------------------------------------------------------------------
+
     const REDIRECT_SUCCESS = '';
     const REDIRECT_FAILURE = 'user/login';
 
@@ -24,7 +26,7 @@ class PermissionPlugin extends Plugin
     const ADMIN = 'admin';
     const BOT   = 'bot'; // (For Testing Acceptance/Functional)
 
-    // -------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Accessible to everyone
@@ -69,7 +71,7 @@ class PermissionPlugin extends Plugin
         'admin' => ['*'],
     ];
 
-    // ------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Triggers before a route is successfully executed
@@ -113,7 +115,7 @@ class PermissionPlugin extends Plugin
 
     }
 
-    // ------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
     /**
      * Build the Session ACL list one time if it's not set
@@ -182,8 +184,13 @@ class PermissionPlugin extends Plugin
         return $this->persistent->acl;
     }
 
-    // ------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
+    /**
+     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     *
+     * @return bool
+     */
     private function _handleHttps(Dispatcher $dispatcher)
     {
 
@@ -216,7 +223,7 @@ class PermissionPlugin extends Plugin
 
     }
 
-    // ------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
 
 }
 

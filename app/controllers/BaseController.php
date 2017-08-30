@@ -119,63 +119,6 @@ class BaseController extends Controller
         return $this->response->redirect($url, false);
     }
 
-    /**
-     * Creates a Session
-     *
-     * @param  \User  $user       The user
-     * @param  array  $additional Add Session Data if desired
-     *
-     * @return void
-     */
-    public function createSession(\User $user, $additional = [])
-    {
-        // Clear the login attempts
-        $user->login_attempt    = null;
-        $user->login_attempt_at = null;
-
-        $this->session->set('id', $user->id);
-        $this->session->set('role', $user->role);
-        $this->session->set('alias', $user->getAlias());
-
-        if (property_exists($user, 'timezone')) {
-            $this->session->set('timezone', $user->timezone);
-        } else {
-            $this->session->set('timezone', 'utc');
-        }
-
-        if (is_array($additional)) {
-            foreach ($additional as $_key => $_value) {
-                $this->session->set($_key, $_value);
-            }
-        }
-
-        // Delete old session so multiple logins aren't allowed
-        session_regenerate_id(true);
-
-        $user->session_id = $this->session->getId();
-        $user->save();
-
-        // If the user changes web browsers, prevent a hijacking attempt
-        $this->session->set('agent', $_SERVER['HTTP_USER_AGENT']);
-    }
-
-    /**
-     * Logs a user out here and with a service if applicable
-     *
-     * @return void
-     */
-    public function destroySession()
-    {
-        if ($this->session->has('facebook_id')) {
-            $this->session->destroy();
-            $this->facebook->destroySession();
-            $this->facebook->setAccessToken('');
-            return $this->response->redirect($this->facebook->getLogoutUrl(), true);
-        }
-
-        $this->session->destroy();
-    }
-
 }
 
 

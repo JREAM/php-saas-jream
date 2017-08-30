@@ -86,7 +86,8 @@ class ProductCourse extends BaseModel
             // 'webm'    => sprintf('%s/webmhd/%s.webmhd.webm', $productPath, $courseName)
         ];
 
-        $api = $this->di->get('api');
+        $di = \Phalcon\Di::getDefault();
+        $api = $di->get('api');
 
         $signedUrl = [];
         foreach ($resourceUris as $key => $value) {

@@ -248,7 +248,7 @@ $di->set('db', function () use ($di, $config, $eventsManager) {
  */
 $redis = new \Redis();
 $redis->connect("localhost", 6379);
-
+$redis->select(10);  // Use Database 10
 
 /**
  * ==============================================================

@@ -6,9 +6,17 @@ namespace Controllers\Api;
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 use Library\TokenManager;
+use Library\Output;
 
 class ApiController extends Controller
 {
+    /**
+     * CSRF Exempt Routes
+     * controller => name (lowercase)
+     */
+    protected $csrfExempt = [
+        'auth::logout',
+    ];
     /**
      * @var TokenManager
      */
@@ -35,6 +43,12 @@ class ApiController extends Controller
         // 1: Create a user-session CSRF Token Pair if one does NOT exist.
         // .. All Users signed in or not must have a CSRF token.
         // --------------------------------------------------------------
+
+
+        if ($this->isCsrfExempt()) {
+            return true;
+        }
+
         if (!$this->tokenManager->hasToken()) {
             // Creates session data.
             $this->tokenManager->generate();
@@ -58,6 +72,28 @@ class ApiController extends Controller
     }
 
     /**
+     * Check if call is CSRF Exempt
+     *
+     * @return boolean
+     */
+    protected function isCsrfExempt() : bool
+    {
+        // Only working in API Controllers so Disregard Namespaces.
+        // This produces:  controller::name
+        $currentRoute = sprintf("%s::%s",
+            strtolower($this->router->getControllerName()),
+            strtolower($this->router->getActionName())
+        );
+
+        // See if it matches with the top of our exempt values.
+        if (in_array($currentRoute, $this->csrfExempt)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Default output for /api route.
      *
      * @return string   JSON
@@ -76,23 +112,9 @@ class ApiController extends Controller
      *
      * @return string JSON
      */
-    protected function output(int $result, $msg = '', $data = [])
+    protected function output(int $result, $msg, $data = [])
     {
-
-        $output = [
-            'result' => (int)(boolean)$result,
-            'msg'    => (string)$msg,
-            'data'   => (array)$data,
-        ];
-
-        $this->response->setContentType('application/json', 'UTF-8');
-        $this->response->setStatusCode(200, "OK");
-        $this->response->setJsonContent($output);
-
-        return $this->response->send();
-
-        // Kill Everything Else, just in case.
-        exit;
+        return (new Output($result, $msg))->setData($data)->send();
     }
 
 }

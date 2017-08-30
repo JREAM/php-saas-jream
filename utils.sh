@@ -9,6 +9,7 @@ echo "====================================================================="
 echo ""
 
 CACHE_PATH=$PWD/cache/
+ACL_DATA_FILE=$PWD/app/security/acl.data
 
 while true; do
     cat <<- command_list
@@ -53,6 +54,8 @@ read -p "Type a Command: " cmd
             echo "( + ) Removing Recursive Cache.."
             find $CACHE_PATH -type f -name '*.volt.php' -delete
             find $CACHE_PATH -type f -name '*.volt_e_.php' -delete
+            echo "( + ) Removing ACL Data File.."
+            rm $ACL_DATA_FILE
             echo "( + ) Removing Flat Cache.."
             rm -rf $CACHE_PATH*%%.php
             rm -rf $CACHE_PATH*.volt.php
@@ -69,6 +72,8 @@ read -p "Type a Command: " cmd
                 echo "( + ) Removing Recursive Cache.."
                 find $CACHE_PATH -type f -name '*.volt.php' -delete
                 find $CACHE_PATH -type f -name '*.volt_e_.php' -delete
+                echo "( + ) Removing ACL Data File.."
+                rm $ACL_DATA_FILE
                 echo "( + ) Removing Flat Cache.."
                 rm -rf $CACHE_PATH*%%.php
                 rm -rf $CACHE_PATH*.volt.php

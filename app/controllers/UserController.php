@@ -18,6 +18,19 @@ class UserController extends BaseController
     }
 
     /**
+     * Redirect a user to the Login or Dashboard
+     *
+     * @return void
+     */
+    public function indexAction()
+    {
+        if ($this->session->has('id')) {
+            return $this->redirect('dashboard');
+        }
+        return $this->redirect('user/login');
+    }
+
+    /**
      * Displays Login
      *
      * @return void

@@ -30,7 +30,7 @@ $api = new \Phalcon\Config([
             'url'       => 'http://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
             'rtmpUrl'   => 'rtmp://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
             // constants.php is loaded first, so CONFIG_DIR will be set dynamically.
-            'privateKeyLocation' => $config->get('configDir') . '/config/keys/aws-cloudfront-pk.pem',
+            'privateKeyLocation' => $config->get('configDir') . 'keys/aws-cloudfront-pk.pem',
             'expiration' => strtotime(getenv('AWS_CLOUDFRONT_EXPIRATION')),
             // Credentials In: .env / .env.sample
             // ----------------------------------

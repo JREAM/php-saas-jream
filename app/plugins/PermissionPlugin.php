@@ -4,6 +4,9 @@ use Phalcon\Mvc\User\Plugin;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Acl;
+use Phalcon\Acl\Role;
+use Phalcon\Acl\Resource;
+use Phalcon\Acl\Adapter\Memory as AclList;
 
 /**
  * Permission
@@ -15,12 +18,19 @@ class PermissionPlugin extends Plugin
 
     // ----------------------------------------------------------------------------
 
-    const REDIRECT_SUCCESS = '';
-    const REDIRECT_FAILURE = 'user/login';
+    /**
+     * @param const String to check for ACL a user having a role set
+    */
+    const ACL_SESSION_ID  = 'role';
 
     /**
-     * Constants to prevent a typo
-     */
+     * @param const Non Ajax Calls are redirected to the Login
+    */
+    const REDIRECT_DENIED = '/user/login';
+
+    /**
+     * @param const User Roles  These come from the Database (users)
+    */
     const GUEST = 'guest';
     const USER  = 'user';
     const ADMIN = 'admin';
@@ -33,17 +43,19 @@ class PermissionPlugin extends Plugin
      *
      * @var array
      */
-    protected $_publicResources = [
-        'api'        => '*',
-        'contact'    => '*',
-        'devtools'   => '*',
-        'index'      => '*',
-        'newsletter' => '*',
-        'product'    => '*',
-        'promotion'  => '*',
-        'test'       => '*',
-        'user'       => '*',
-        'checkout'   => '*',
+    protected $publicResources = [
+        // API Controllers (Dynamically Added), eg:
+        // 'Controllers\Api:*'        => ['*'],
+
+        // Formal Controllers
+        'Controllers:contact'    => ['*'],
+        'Controllers:index'      => ['*'],
+        'Controllers:newsletter' => ['*'],
+        'Controllers:product'    => ['*'],
+        'Controllers:promotion'  => ['*'],
+        'Controllers:test'       => ['*'],
+        'Controllers:user'       => ['*'],
+        'Controllers:checkout'   => ['*'],
     ];
 
     /**
@@ -51,15 +63,14 @@ class PermissionPlugin extends Plugin
      *
      * @var array
      */
-    protected $_userResources = [
-        'account'      => ['*'],
-        'course'       => ['*'],
-        'dashboard'    => ['*'],
-        'notification' => ['*'],
-        'search'       => ['*'],
-        'support'      => ['*'],
-        'question'     => ['*'],
-        'youtube'      => ['*'],
+    protected $userResources = [
+        'Controllers\Dashboard:account'      => ['*'],
+        'Controllers\Dashboard:course'       => ['*'],
+        'Controllers\Dashboard:dashboard'    => ['*'],
+        'Controllers\Dashboard:notification' => ['*'],
+        'Controllers\Dashboard:support'      => ['*'],
+        'Controllers\Dashboard:question'     => ['*'],
+        'Controllers\Dashboard:youtube'      => ['*'],
     ];
 
     /**
@@ -67,14 +78,14 @@ class PermissionPlugin extends Plugin
      *
      * @var array
      */
-    protected $_adminResources = [
-        'admin' => ['*'],
+    protected $adminResources = [
+        'Controllers\Admin:admin' => ['*'],
     ];
 
     // ----------------------------------------------------------------------------
 
     /**
-     * Triggers before a route is successfully executed
+     * Triggers before a route is dispatched
      *
      * @param  Event      $event
      * @param  Dispatcher $dispatcher
@@ -86,31 +97,34 @@ class PermissionPlugin extends Plugin
         // Debug:
         // $this->session->destroy();
 
-        $this->_handleHttps($dispatcher);
-
-        // Get the current role
-        $role = $this->session->get('role');
-
-        if (!$role) {
-            $role = self::GUEST;
+        // Get the current role, If none is set they are a Guest.
+        $currentRole = $this->session->get(self::ACL_SESSION_ID);
+        if (!$currentRole) {
+            $currentRole = self::GUEST;
         }
 
-        // Get the current Controller/Action from the Dispatcher
+        // Get the current Namespace/Controller/Action from the Dispatcher
+        $namespace  = $dispatcher->getNamespaceName();
         $controller = $dispatcher->getControllerName();
         $action     = $dispatcher->getActionName();
 
         // Get the ACL Rule List
         $acl = $this->_getACL();
 
+        // (To Debug, Go to the bottom of the file and copy/paste the commented out code)
+
+
         // See if they have permission
-        $allowed = $acl->isAllowed($role, $controller, $action);
+        // @important Notice we are checking the namespace!
+        if ($acl->isAllowed($currentRole, "$namespace:$controller", $action) != Acl::ALLOW)
+        {
 
-        if ($allowed != Acl::ALLOW) {
-            $this->flash->error("We cannot access your request. Please try logging in.");
-            $this->response->redirect(self::REDIRECT_FAILURE);
+            if ($this->request->isAjax()) {
+                return (new \Library\Output(0, 'Permission Denied for this area (ACL)'))->send();
+            }
 
-            // Stop the dispatcher at the current operation
-            return false;
+            $this->flash->error("Permission Denied for this area (ACL).");
+            // return $this->response->redirect(self::REDIRECT_DENIED);
         }
 
     }
@@ -120,20 +134,29 @@ class PermissionPlugin extends Plugin
     /**
      * Build the Session ACL list one time if it's not set
      *
-     * @return object
+     * @return object   Persistent Session Data
      */
     protected function _getACL()
     {
         if (!isset($this->persistent->acl)) {
-            $acl = new Acl\Adapter\Memory();
+            $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
 
             $roles = [
-                self::GUEST => new Acl\Role(self::GUEST),
-                self::USER  => new Acl\Role(self::USER),
-                self::ADMIN => new Acl\Role(self::ADMIN),
-                self::BOT   => new Acl\Role(self::BOT),
+                self::GUEST => new Role(self::GUEST),
+                self::USER  => new Role(self::USER),
+                self::ADMIN => new Role(self::ADMIN),
+                self::BOT   => new Role(self::BOT),
             ];
+
+            // Sets the Api Controllers to Public Resources, Only run
+            // when ACL is not persistently set.
+            // @important (! ! !) Site will not work without this (! ! !)
+            $this->setApiControllers();
+
+            // @TODO
+            // $this->setPermissionsFromDirectory('api', 'publicResources');
+            // $this->setPermissionsFromDirectory('dashboard', 'userResources');
 
             // Place all the roles inside the ACL Object
             foreach ($roles as $role) {
@@ -141,29 +164,29 @@ class PermissionPlugin extends Plugin
             }
 
             // Public Resources
-            foreach ($this->_publicResources as $resource => $action) {
-                $acl->addResource(new Acl\Resource($resource), $action);
+            foreach ($this->publicResources as $resource => $action) {
+                $acl->addResource(new Resource($resource), $action);
             }
 
             // User Resources
-            foreach ($this->_userResources as $resource => $action) {
-                $acl->addResource(new Acl\Resource($resource), $action);
+            foreach ($this->userResources as $resource => $action) {
+                $acl->addResource(new Resource($resource), $action);
             }
 
             // Admin Resources
-            foreach ($this->_adminResources as $resource => $action) {
-                $acl->addResource(new Acl\Resource($resource), $action);
+            foreach ($this->adminResources as $resource => $action) {
+                $acl->addResource(new Resource($resource), $action);
             }
 
             // Allow ALL Roles to access the Public Resources
             foreach ($roles as $role) {
-                foreach ($this->_publicResources as $resource => $action) {
+                foreach ($this->publicResources as $resource => $action) {
                     $acl->allow($role->getName(), $resource, '*');
                 }
             }
 
-            // Allow User & Admin & Bot to access the User Resources
-            foreach ($this->_userResources as $resource => $actions) {
+            // Allow User/Admin/Bot to access the User Resources
+            foreach ($this->userResources as $resource => $actions) {
                 foreach ($actions as $action) {
                     $acl->allow(self::USER, $resource, $action);
                     $acl->allow(self::ADMIN, $resource, $action);
@@ -172,7 +195,7 @@ class PermissionPlugin extends Plugin
             }
 
             // Allow Admin to access the Admin Resources
-            foreach ($this->_adminResources as $resource => $actions) {
+            foreach ($this->adminResources as $resource => $actions) {
                 foreach ($actions as $action) {
                     $acl->allow(self::ADMIN, $resource, $action);
                 }
@@ -187,43 +210,89 @@ class PermissionPlugin extends Plugin
     // ----------------------------------------------------------------------------
 
     /**
-     * @param \Phalcon\Mvc\Dispatcher $dispatcher
+     * Loads all API Controllers as Public Resources.
+     * They are self-protected so this file need not be updated so often.
      *
-     * @return bool
+     * @return array
      */
-    private function _handleHttps(Dispatcher $dispatcher)
+    protected function setApiControllers()
     {
+        $di = \Phalcon\Di::getDefault();
+        $config = $di->get('config');
 
-        if (\APPLICATION_ENV !== \APP_PRODUCTION) {
-            return false;
+        $dir = new \DirectoryIterator( $config->controllersDir . 'api/');
+
+        // Iterate the API Controllers
+        foreach ($dir as $file)
+        {
+            if ($file->isDot() == false && $file->isFile())
+            {
+                // Filename only without extension, case insensitive replace
+                $info = pathinfo($file->getBaseName());
+                $file = strtolower(str_ireplace('controller', '', $info['filename']));
+
+                // Turn it into Controllers\Api\Auth => [*]
+                $namespacedController = sprintf('Controllers\Api:%s', $file);
+
+                // Append to Permissions
+                $this->publicResources[$namespacedController] = ['*'];
+            }
         }
+    }
 
-        // HTTPs Required Areas
-        $https = array_merge(
-            [
-                'login',
-                'password',
-                'register',
-                'product',
-            ],
-            array_keys($this->_userResources),
-            array_keys($this->_adminResources)
-        );
-
-        // Dispatch to HTTPs version
-        if (in_array($dispatcher->getControllerName(), $https)
-            && !$this->request->isSecure()) {
-            $redirect = sprintf("Location: https://%s%s",
-                \URL,
-                $_SERVER['REQUEST_URI']
+    /**
+     * Sets all permissions for controllers within a namespace that must match the directory (PSR)
+     *
+     * @param str $namespace       This must match the folder name and namespace under /controllers
+     * @param str $applyToResource This must be one the the <public|user|admin>Resources
+     */
+    protected function setPermissionsFromDirectory($namespace, $applyToResource)
+    {
+        $validResources = ['publicResources', 'userResources', 'adminResources'];
+        if (!in_array($applyToResource, $validResources)) {
+            throw new \InvalidArgumentException("
+                You setPermissionsFrom ($applyToResource) and they must be one of: " . explode(',', $validResources)
             );
-            header($redirect);
-            exit;
         }
 
+        $di = \Phalcon\Di::getDefault();
+        $config = $di->get('config');
+
+        $dir = new \DirectoryIterator( $config->controllersDir . strtolower($namespace) . '/');
+
+        // Iterate the API Controllers
+        foreach ($dir as $file)
+        {
+            if ($file->isDot() == false && $file->isFile())
+            {
+                // Filename only without extension, case insensitive replace
+                $info = pathinfo($file->getBaseName());
+                $file = strtolower(str_ireplace('controller', '', $info['filename']));
+
+                // Turn it into Controllers\Api\Auth => [*]
+                $namespacedController = sprintf('Controllers\%s:%s', $namespace, $file);
+                PC::Debug($namespacedController);
+                // Append to Permissions
+                $this->{$applyToResource}[$namespacedController] = ['*'];
+            }
+        }
+
+        // The class property, eg: $this->publicResources.
+        // $this->{$validResources}
     }
 
     // ----------------------------------------------------------------------------
 
-}
+    // For Debugging ACL Permissions with PHP Console + Chome Extension
+    // \PC::debug([
+    //     'currentRole' => $currentRole,
+    //     'Namespace_Controller_Action' => sprintf("%s\%s::%s", $namespace, $controller, $action),
+    //     'IsResource' => $acl->isResource($namespace . ":" . $controller),
+    //     'action' => $action,
+    //     'isAllowed' => $acl->isAllowed($currentRole, $namespace . ":" . $controller, $action),
+    //     'Acl::ALLOW Code' => Acl::ALLOW,
+    // ]);
 
+    // ----------------------------------------------------------------------------
+    //
+}

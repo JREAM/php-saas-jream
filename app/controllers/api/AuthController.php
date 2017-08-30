@@ -63,7 +63,7 @@ class AuthController extends ApiController
             // $this->createSession($user, [], $remember_me);
             $this->createSession($user);
 
-            return $this->output(1, [
+            return $this->output(1, null, [
                 'redirect' => $this->router->getRouteByName('dashboard'),
             ]);
         }

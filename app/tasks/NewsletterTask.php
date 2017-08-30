@@ -5,14 +5,14 @@ use Phalcon\Cli\Task;
 class NewsletterTask extends Task
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     public function mainAction()
     {
         echo 'This can be used to send emails to all users' . PHP_EOL;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * @param int $newsletterId  Id of the newsletter to send
@@ -60,7 +60,7 @@ class NewsletterTask extends Task
         }
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * This creates the initial email list.
@@ -110,7 +110,7 @@ class NewsletterTask extends Task
         }
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     // @TODO: This is a loop, email everybody..
     // @TODO: Read template from database, update database everytim eemail sent so it doesnt double send.
@@ -145,5 +145,5 @@ class NewsletterTask extends Task
         print_r($result);
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

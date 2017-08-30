@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class UserAction extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -16,7 +16,7 @@ class UserAction extends BaseModel
         'hasCompleted',
     ];
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     public function initialize()
     {
@@ -32,7 +32,7 @@ class UserAction extends BaseModel
         $this->hasOne("product_course_id", "ProductCourse", "id");
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     public function getAction($action, $userId, $productCourseId)
     {
@@ -50,6 +50,6 @@ class UserAction extends BaseModel
         return $userAction;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

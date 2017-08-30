@@ -9,6 +9,9 @@ use Phalcon\Mvc\User\Component;
  */
 class EmailComponent extends Component
 {
+
+    // -----------------------------------------------------------------------------
+
     /**
      * Creates an email based on templates
      *
@@ -38,6 +41,8 @@ class EmailComponent extends Component
         return str_replace('{%content%}', $tpl_inner, $tpl_base);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Fetches a file
      *
@@ -57,5 +62,7 @@ class EmailComponent extends Component
 
         return false;
     }
+
+    // -----------------------------------------------------------------------------
 
 }

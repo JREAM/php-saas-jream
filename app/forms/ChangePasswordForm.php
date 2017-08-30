@@ -10,6 +10,8 @@ use Phalcon\Validation\Validator;
 class ChangePasswordForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $currentPassword = new Text('current_password', [
@@ -56,5 +58,5 @@ class ChangePasswordForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

@@ -11,6 +11,8 @@ use Phalcon\Validation\Validator;
 class RegisterForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $alias = new Text('alias', [
@@ -82,5 +84,5 @@ class RegisterForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

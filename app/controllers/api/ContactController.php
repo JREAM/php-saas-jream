@@ -7,6 +7,7 @@ use Library\RecaptchaLibrary;
 
 class Contact extends Controller
 {
+
     /**
      * Return some JSON stuff
      *

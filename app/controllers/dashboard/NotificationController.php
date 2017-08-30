@@ -16,6 +16,8 @@ class NotificationController extends BaseController
         Tag::setTitle('Notifications | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */

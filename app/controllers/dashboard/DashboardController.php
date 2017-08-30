@@ -17,6 +17,8 @@ class DashboardController extends BaseController
         Tag::setTitle('Dashboard | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */

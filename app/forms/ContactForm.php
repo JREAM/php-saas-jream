@@ -11,6 +11,8 @@ use Phalcon\Validation\Validator;
 class ContactForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
 
@@ -65,5 +67,5 @@ class ContactForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

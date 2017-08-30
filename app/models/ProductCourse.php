@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductCourse extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -27,7 +27,7 @@ class ProductCourse extends BaseModel
         $this->hasMany("id", "ProductCourseSection", "product_id");
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Gets the Previous Course in a Product Series
@@ -43,7 +43,7 @@ class ProductCourse extends BaseModel
         return $this->_getSingleCourse('prev', $product_id, $section, $course);
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * Gets the Next Course in a Product Series
@@ -59,7 +59,7 @@ class ProductCourse extends BaseModel
         return $this->_getSingleCourse('next', $product_id, $section, $course);
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * Create a RTMP Signed URL
@@ -104,7 +104,7 @@ class ProductCourse extends BaseModel
         return $signedUrl;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * Gets the Next or Prev Course in a Product Series
@@ -177,6 +177,6 @@ class ProductCourse extends BaseModel
         return false;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

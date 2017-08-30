@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class UserSupport extends BaseModel
 {
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -24,7 +24,7 @@ class UserSupport extends BaseModel
         $this->belongsTo("user_id", "User", "id");
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     public function validationX()
     {
@@ -49,6 +49,6 @@ class UserSupport extends BaseModel
         }
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

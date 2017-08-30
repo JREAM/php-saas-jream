@@ -22,6 +22,8 @@ class ApiController extends Controller
      */
     protected $tokenManager;
 
+    // -----------------------------------------------------------------------------
+
     /**
      * All Views are Disabled, only Output Text
      */
@@ -31,6 +33,8 @@ class ApiController extends Controller
         $this->view->disable();
         $this->tokenManager = new TokenManager();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -58,6 +62,8 @@ class ApiController extends Controller
         $this->validateTokens();
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Check CSRF Session Token
      *
@@ -70,6 +76,8 @@ class ApiController extends Controller
             return $this->output(0, 'Invalid CSRF Token.');
         }
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Check if call is CSRF Exempt
@@ -93,6 +101,8 @@ class ApiController extends Controller
         return false;
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Default output for /api route.
      *
@@ -102,6 +112,8 @@ class ApiController extends Controller
     {
         return $this->output(0, 'Invalid usage of the API.');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * JSON Output

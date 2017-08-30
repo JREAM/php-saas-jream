@@ -12,6 +12,8 @@ class YoutubeController extends BaseController
     const REDIRECT_FAILURE = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'dashboard';
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -21,8 +23,10 @@ class YoutubeController extends BaseController
         Tag::setTitle('Youtube Videos | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
-     * @param int $youtubeId
+     * @param mixed $youtubeId
      *
      * @return mixed
      */
@@ -41,4 +45,5 @@ class YoutubeController extends BaseController
 
         $this->view->pick("dashboard/youtube");
     }
+
 }

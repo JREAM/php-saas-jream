@@ -16,6 +16,8 @@ class SupportController extends BaseController
         'support' => 'General Support',
     ];
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -24,6 +26,8 @@ class SupportController extends BaseController
         parent::initialize();
         Tag::setTitle('Support | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

@@ -21,7 +21,7 @@ class BaseModel extends \Phalcon\Mvc\Model
     /** @var @var object */
     protected $api;
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Returns a list of errors
@@ -37,7 +37,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return false;
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     public function onConstruct()
     {
@@ -50,7 +50,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         $this->api = $this->di->get('api');
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Returns a HTML formatted list of errors
@@ -72,7 +72,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $output;
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Get the date offset
@@ -104,7 +104,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return date('F jS, Y h:ia', $userTime);
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     public function dateMDY($field = false)
     {
@@ -117,7 +117,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return date('m/d/y', $time);
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Parses markdown for any given field
@@ -140,7 +140,7 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $this->parsedown->parse($use);
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
     /**
      * Return a Generic Result from custom Model Functions to use the same format.
@@ -167,6 +167,6 @@ class BaseModel extends \Phalcon\Mvc\Model
         return $output;
     }
 
-    // ----------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
 
 }

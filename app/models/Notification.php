@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Notification extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -24,5 +24,5 @@ class Notification extends BaseModel
         $this->hasOne("product_id", "Product", "id");
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

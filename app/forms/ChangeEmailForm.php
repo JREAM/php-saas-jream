@@ -10,6 +10,8 @@ use Phalcon\Validation\Validator;
 class ChangeEmailForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $email = new Text('email', [
@@ -50,5 +52,5 @@ class ChangeEmailForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

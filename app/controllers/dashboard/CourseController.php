@@ -13,6 +13,8 @@ class CourseController extends BaseController
 
     protected $sectionTitle = 'My Courses';
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -21,6 +23,8 @@ class CourseController extends BaseController
         parent::initialize();
         Tag::setTitle($this->sectionTitle . ' | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -53,6 +57,8 @@ class CourseController extends BaseController
 
         $this->view->pick("dashboard/course");
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @param int $productId

@@ -24,6 +24,8 @@ class ProductController extends BaseController
         $this->paypal = $this->di->get('paypal');
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -35,6 +37,8 @@ class ProductController extends BaseController
             'products' => $products,
         ]);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Displays a Product based on the slug
@@ -130,6 +134,8 @@ class ProductController extends BaseController
             'years'          => range(date('Y'), date('Y') + 5),
         ]);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Preview a Course

@@ -15,6 +15,7 @@ while true; do
     cat <<- command_list
     CMD         PROCESS
     ----        --------------------------------
+    writable    Make Cache/Security Writable By Group with Permissions (NOT 777)
     phpcs       PHP Codesniffer (based on phpcs.xml)
     phpcbf      PHP Codesniffer Fixer (Fixes based on phpcs.xml)
     rmcache     Removes Cache
@@ -34,7 +35,7 @@ read -p "Type a Command: " cmd
     case $cmd in
         phpcs)
           echo "( + ) Running PHP Code Sniffer"
-          ./vendor/bin/phpcs
+          ./vendor/bin/phpcsW
           echo "( + ) Finished"
           echo ""
           echo "====================================================================="
@@ -105,6 +106,17 @@ read -p "Type a Command: " cmd
           mysql -u root -proot jream_unit_test < /tmp/jream.sql
           echo "( + ) Removing [/tmp/jream.sql] file"
           rm /tmp/jream.sql
+          echo ""
+          echo "====================================================================="
+          echo ""
+          ;;
+        writable)
+          echo "( + ) Setting ./cache & ./app/security to group: www-data"
+          sudo chgrp -R www-data ./cache
+          sudo chgrp -R www-data ./app/security
+          echo "( + ) Settings ./cache & ./app/security to chmod g+rw"
+          sudo chmod -R g+rw ./cache
+          sudo chmod -R g+rw ./app/security
           echo ""
           echo "====================================================================="
           echo ""

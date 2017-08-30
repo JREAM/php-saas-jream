@@ -5,6 +5,7 @@ namespace Controllers\Api;
 
 class UserController extends ApiController
 {
+
     /**
      * @return void
      */
@@ -12,6 +13,8 @@ class UserController extends ApiController
     {
         parent::initialize();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -34,6 +37,8 @@ class UserController extends ApiController
         $this->flash->success("Timezone updated");
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -99,6 +104,8 @@ class UserController extends ApiController
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return string JSON
      */
@@ -129,6 +136,8 @@ class UserController extends ApiController
         return $this->output(0, $user->getMessagesList());
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return string JSON
      */
@@ -151,6 +160,7 @@ class UserController extends ApiController
         return $this->redirect(self::REDIRECT_FAILURE);
     }
 
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -192,8 +202,7 @@ class UserController extends ApiController
         return $this->redirect(self::REDIRECT_SUCCESS);
     }
 
-
-
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

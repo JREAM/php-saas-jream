@@ -17,6 +17,8 @@ class TestController extends BaseController
         Tag::setTitle('Test');
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -25,4 +27,5 @@ class TestController extends BaseController
         $u = new \User;
         echo $u->getSource();
     }
+
 }

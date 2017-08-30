@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Newsletter extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -25,6 +25,6 @@ class Newsletter extends BaseModel
         // Some won't have accounts, but if they do associate them with the newsletter.
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

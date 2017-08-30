@@ -13,6 +13,8 @@ class CheckoutController extends BaseController
 
     public $promotion_code = null;
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -27,6 +29,8 @@ class CheckoutController extends BaseController
         // Paypal Express
         $this->paypal = $this->di->get('paypal');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

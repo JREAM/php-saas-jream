@@ -10,6 +10,8 @@ use Phalcon\Validation\Validator;
 class CheckoutForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $email = new Text('email', [
@@ -34,5 +36,5 @@ class CheckoutForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

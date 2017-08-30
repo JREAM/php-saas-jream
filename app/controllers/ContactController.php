@@ -14,6 +14,8 @@ class ContactController extends BaseController
     const CONTACT_REDIRECT_FAILURE = 'contact';
     const CONTACT_REDIRECT_SUCCESS = 'contact/thanks';
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -22,6 +24,8 @@ class ContactController extends BaseController
         parent::initialize();
         Tag::setTitle('Contact | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void
@@ -34,6 +38,8 @@ class ContactController extends BaseController
 
         $this->view->pick('contact/contact');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

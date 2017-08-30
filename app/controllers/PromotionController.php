@@ -17,6 +17,8 @@ class PromotionController extends BaseController
         Tag::setTitle('Promotions | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -64,6 +66,8 @@ class PromotionController extends BaseController
 
         $this->view->pick('promotion/promotion');
     }
+
+    // -----------------------------------------------------------------------------
 
     public function viewAction($promotionId)
     {

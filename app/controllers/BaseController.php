@@ -9,6 +9,7 @@ use Phalcon\Mvc\Controller;
 
 class BaseController extends Controller
 {
+
     /**
      * @var \Phalcon\Filter
      */
@@ -18,6 +19,8 @@ class BaseController extends Controller
      * @var TokenManager
      */
     protected $tokenManager;
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Initializes all the base items for a page
@@ -39,6 +42,8 @@ class BaseController extends Controller
         $this->tokenManager = new TokenManager();
     }
 
+    // -----------------------------------------------------------------------------
+
     public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         // --------------------------------------------------------------
@@ -57,6 +62,8 @@ class BaseController extends Controller
             $this->validateTokens();
         }
     }
+
+    // -----------------------------------------------------------------------------
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
@@ -78,6 +85,8 @@ class BaseController extends Controller
 
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Used for the Views, sets a PageID variable
      *
@@ -97,6 +106,8 @@ class BaseController extends Controller
 
         return strtolower($pageId);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Redirection
@@ -121,6 +132,7 @@ class BaseController extends Controller
 
 }
 
+// -----------------------------------------------------------------------------
 
 /**
  * Batch Mockup
@@ -148,6 +160,8 @@ class Batch
     /** @var array */
     public $values = [];
 
+    // -----------------------------------------------------------------------------
+
     public function __construct($table = false)
     {
         if ($table) {
@@ -159,6 +173,8 @@ class Batch
 
         return $this;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Set the Rows
@@ -174,6 +190,8 @@ class Batch
 
         return $this;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Set the values
@@ -216,6 +234,8 @@ class Batch
         return $this;
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Insert into the Database
      *
@@ -243,6 +263,8 @@ class Batch
 
         $this->db->execute($query, $this->valuesFlattened);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Validates the data before calling SQL

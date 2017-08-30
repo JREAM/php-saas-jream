@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Transaction extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -25,7 +25,7 @@ class Transaction extends BaseModel
         $this->hasOne("product_id", "Product", "id");
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * This fixes an odd bug.
@@ -37,6 +37,6 @@ class Transaction extends BaseModel
         return self::SOURCE;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

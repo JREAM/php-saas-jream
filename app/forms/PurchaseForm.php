@@ -11,6 +11,8 @@ use Phalcon\Validation\Validator;
 class PurchaseForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $name = new Text('name', [
@@ -42,5 +44,5 @@ class PurchaseForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

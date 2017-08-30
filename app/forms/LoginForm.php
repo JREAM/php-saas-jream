@@ -12,6 +12,8 @@ use Phalcon\Validation\Validator;
 class LoginForm extends BaseForm
 {
 
+    // -----------------------------------------------------------------------------
+
     public function initialize()
     {
         $email = new Text('email', [
@@ -49,5 +51,5 @@ class LoginForm extends BaseForm
         ]));
     }
 
-    // --------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 }

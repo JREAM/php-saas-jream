@@ -25,7 +25,7 @@ class ApiController extends Controller
     /**
      * All Views are Disabled, only Output Text
      */
-    public function initialize()
+    public function initialize() : void
     {
         // No views are used in API, all JSON calls
         $this->view->disable();
@@ -47,10 +47,7 @@ class ApiController extends Controller
 
         if ($this->isCsrfExempt()) {
             return true;
-        }
-
-        if (!$this->tokenManager->hasToken()) {
-            // Creates session data.
+        }hasToken
             $this->tokenManager->generate();
         }
 
@@ -76,7 +73,7 @@ class ApiController extends Controller
      *
      * @return boolean
      */
-    protected function isCsrfExempt() : bool
+    protected function isCsrfExempt() : boolean
     {
         // Only working in API Controllers so Disregard Namespaces.
         // This produces:  controller::name

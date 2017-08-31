@@ -11,7 +11,7 @@ class UserController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
 //        $this->google_auth = $this->di->get('google_auth');
@@ -22,7 +22,7 @@ class UserController extends BaseController
      *
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         if ($this->session->has('id')) {
             return $this->redirect('dashboard');
@@ -87,7 +87,7 @@ class UserController extends BaseController
      *
      * @return void
      */
-    public function passwordAction()
+    public function passwordAction() : void
     {
         Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
         $this->view->setVars([
@@ -102,7 +102,7 @@ class UserController extends BaseController
      *
      * @return mixed
      */
-    public function passwordCreateAction($resetKey)
+    public function passwordCreateAction($resetKey) : void
     {
         $user = \User::findFirst([
             "password_reset_key = :key: AND password_reset_expires_at > :date:",

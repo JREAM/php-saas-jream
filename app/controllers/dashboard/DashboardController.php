@@ -11,7 +11,7 @@ class DashboardController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Dashboard | ' . $this->di['config']['title']);
@@ -20,7 +20,7 @@ class DashboardController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $userPurchases = \UserPurchase::findByUserId($this->session->get('id'));
 

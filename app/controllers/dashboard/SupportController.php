@@ -19,7 +19,7 @@ class SupportController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Support | ' . $this->di['config']['title']);
@@ -28,7 +28,7 @@ class SupportController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $this->view->setVars([
             // Make sure the type is a forced

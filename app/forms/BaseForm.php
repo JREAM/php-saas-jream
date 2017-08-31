@@ -13,7 +13,7 @@ class BaseForm extends \Phalcon\Forms\Form
     /** The ID for the DOM Form */
     protected $_formId;
 
-    public function initialize()
+    public function initialize() : void
     {
     }
 
@@ -24,7 +24,7 @@ class BaseForm extends \Phalcon\Forms\Form
      *
      * @return [type] [description]
      */
-    public function fullRender()
+    public function fullRender() : void
     {
         // $form = new Form();
         echo "<form id='{$this->_formId}'>";

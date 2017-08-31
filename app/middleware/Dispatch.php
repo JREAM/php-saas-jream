@@ -25,14 +25,14 @@ class Dispatch
      *
      * @return void
      */
-    public function beforeExecuteRoute(Event $dispatcher)
+    public function beforeExecuteRoute(Event $dispatcher) : Event
     {
         // --------------------------------------------------------------
         // Handle Session/Form Data
         // @TODO Convert this to $this->>session probably?
         // --------------------------------------------------------------
         if (!isset($_SESSION)) {
-            return;
+            return $dispatcher;
         }
 
         // Clear the form data once the page reloads and it's viewable
@@ -65,7 +65,7 @@ class Dispatch
 
     // -------------------------------------------------------------
 
-    public function afterExecuteRoute(Event $dispatcher)
+    public function afterExecuteRoute(Event $dispatcher) : Event
     {
         return $dispatcher;
     }
@@ -81,7 +81,7 @@ class Dispatch
      *
      * @return bool
      */
-    public function beforeException($event, $dispatcher, $exception)
+    public function beforeException($event, $dispatcher, $exception) : boolean
     {
         error_log($exception->getMessage(), 0);
 

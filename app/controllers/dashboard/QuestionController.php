@@ -14,7 +14,7 @@ class QuestionController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Questions | ' . $this->di['config']['title']);
@@ -25,7 +25,7 @@ class QuestionController extends BaseController
      *
      * @return void
      */
-    public function indexAction(int $productId)
+    public function indexAction(int $productId) : void
     {
         $product = \Product::findFirstById($productId);
 

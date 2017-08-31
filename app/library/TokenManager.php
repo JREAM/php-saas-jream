@@ -32,7 +32,7 @@ class TokenManager extends Component
      *
      * @return void
      */
-    public function generate()
+    public function generate() : void
     {
         $this->session->set($this->session_key, [
             'tokenKey'   => $this->security->getTokenKey(),
@@ -45,7 +45,7 @@ class TokenManager extends Component
         }
     }
 
-    public function regenerate()
+    public function regenerate() : void
     {
         $this->generate();
     }
@@ -56,9 +56,9 @@ class TokenManager extends Component
      * @param string $tokenKey Can be the full tokenKey+token (As with AJAX Post), or only one
      * @param string $token
      *
-     * @return bool
+     * @return boolean
      */
-    public function validate(string $tokenKey, string ...$token): bool
+    public function validate(string $tokenKey, string ...$token) : boolean
     {
         if (!$this->session->has($this->session_key)) {
             return false;
@@ -86,15 +86,15 @@ class TokenManager extends Component
     /**
      * Checks if user have token or not
      *
-     * @return bool
+     * @return boolean
      */
-    public function hasToken()
+    public function hasToken() : boolean
     {
         if ($this->session->has($this->session_key)) {
-            return true;
+            return (boolean) true;
         }
 
-        return false;
+        return (boolean) false;
     }
 
     /**

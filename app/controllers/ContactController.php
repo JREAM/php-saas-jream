@@ -17,7 +17,7 @@ class ContactController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Contact | ' . $this->di['config']['title']);
@@ -26,7 +26,7 @@ class ContactController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $this->view->setVars([
             'form'     => new \Forms\ContactForm(),
@@ -38,7 +38,7 @@ class ContactController extends BaseController
     /**
      * @return void
      */
-    public function thanksAction()
+    public function thanksAction() : void
     {
         Tag::setTitle('Contact Email Sent | ' . $this->di['config']['title']);
         $this->view->pick('contact/thanks');

@@ -16,7 +16,7 @@ class CheckoutController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Checkout | ' . $this->di['config']['title']);
@@ -31,7 +31,7 @@ class CheckoutController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 

@@ -11,9 +11,8 @@ use Phalcon\Validation\Validator;
 class ContactForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
-
         $name = new Text('name', [
             'placeholder' => 'Name',
             'class'       => 'form-control input-lg',

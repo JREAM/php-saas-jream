@@ -13,7 +13,7 @@ class NewsletterController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Newsletter | ' . $this->di['config']['title']);
@@ -22,7 +22,7 @@ class NewsletterController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $this->view->setVars([
             'form'     => new \Forms\NewsletterForm(),
@@ -34,7 +34,7 @@ class NewsletterController extends BaseController
     /**
      * @return void
      */
-    public function unsubscribeAction()
+    public function unsubscribeAction() : void
     {
         $this->view->pick('newsletter/unsubscribe');
     }

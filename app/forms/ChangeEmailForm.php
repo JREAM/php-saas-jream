@@ -10,7 +10,7 @@ use Phalcon\Validation\Validator;
 class ChangeEmailForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $email = new Text('email', [
             'placeholder' => 'New Email',

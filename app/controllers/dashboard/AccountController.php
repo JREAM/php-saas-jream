@@ -15,7 +15,7 @@ class AccountController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Account | ' . $this->di['config']['title']);
@@ -24,7 +24,7 @@ class AccountController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $this->view->setVars([
             'changeEmailForm'    => new \Forms\ChangeEmailForm(),
@@ -40,7 +40,7 @@ class AccountController extends BaseController
     /**
      * @return void
      */
-    public function deleteAction()
+    public function deleteAction() : void
     {
         $this->view->setVars([
             'user'     => \User::findFirstById($this->session->get('id')),

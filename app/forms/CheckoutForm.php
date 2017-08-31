@@ -10,7 +10,7 @@ use Phalcon\Validation\Validator;
 class CheckoutForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $email = new Text('email', [
             'placeholder' => 'Email',

@@ -28,9 +28,9 @@ class RecaptchaLibrary
     /**
      * Validates Google Recaptcha for Spam Prevention
      *
-     * @return bool|string
+     * @return bool
      */
-    public function recaptchaAction()
+    public function recaptchaAction() : boolean
     {
         // Success, Already Has it Set
         if($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
@@ -59,9 +59,9 @@ class RecaptchaLibrary
     /**
      * @param $recaptcha  string  For Google POST
      *
-     * @return bool
+     * @return boolean
      */
-    protected function verify(str $recaptcha)
+    protected function verify(str $recaptcha) : boolean
     {
         $client = new Client([
             'base_uri' => 'https://google.com/recaptcha/api/',

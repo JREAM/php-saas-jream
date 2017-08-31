@@ -20,7 +20,7 @@ class PromotionController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         // Is a Promotion Enabled?
         $has_promotion = true;
@@ -65,7 +65,7 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/promotion');
     }
 
-    public function viewAction($promotionId)
+    public function viewAction($promotionId) : void
     {
         $promotion = \Promotion::findFirst(['is_delete = 0 AND NOW() < expires_at AND id = :id:'], [
             'id' => $promotionId,
@@ -82,7 +82,7 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/view');
     }
 
-    public function selectItemAction()
+    public function selectItemAction() : void
     {
         $this->view->disable();
 

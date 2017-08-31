@@ -54,7 +54,8 @@ class Output extends DiInjectable
      *
      * @return Output
      */
-    public function setData(array $data) {
+    public function setData(array $data) : Output
+    {
         $this->outgoing->data = $data;
         return $this;
     }

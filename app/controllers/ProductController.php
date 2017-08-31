@@ -13,7 +13,7 @@ class ProductController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Products | ' . $this->di['config']['title']);
@@ -27,7 +27,7 @@ class ProductController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
@@ -43,7 +43,7 @@ class ProductController extends BaseController
      *
      * @return void
      */
-    public function courseAction(string $slug)
+    public function courseAction(string $slug) : void
     {
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
@@ -137,7 +137,7 @@ class ProductController extends BaseController
      * @param string $productSlug
      * @param int    $courseId
      */
-    public function coursePreviewAction(string $productSlug, int $courseId)
+    public function coursePreviewAction(string $productSlug, int $courseId) : void
     {
         $rtmpSignedUrl = null;
         $error = null;

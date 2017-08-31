@@ -7,19 +7,19 @@ class Database
 
     // -------------------------------------------------------------
 
-    public function afterConnect()
+    public function afterConnect() : void
     {
     }
 
     // -------------------------------------------------------------
 
-    public function beforeQuery()
+    public function beforeQuery() : void
     {
     }
 
     // -------------------------------------------------------------
 
-    public function afterQuery()
+    public function afterQuery() : void
     {
     }
 

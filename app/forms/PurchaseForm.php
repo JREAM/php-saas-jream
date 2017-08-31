@@ -11,7 +11,7 @@ use Phalcon\Validation\Validator;
 class PurchaseForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $name = new Text('name', [
             'placeholder' => 'Name on Card',

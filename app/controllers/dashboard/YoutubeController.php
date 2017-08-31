@@ -15,7 +15,7 @@ class YoutubeController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Youtube Videos | ' . $this->di['config']['title']);
@@ -26,7 +26,7 @@ class YoutubeController extends BaseController
      *
      * @return mixed
      */
-    public function indexAction($youtubeId = false)
+    public function indexAction($youtubeId = false) : void
     {
         $video = \Youtube::findFirstById($youtubeId);
 

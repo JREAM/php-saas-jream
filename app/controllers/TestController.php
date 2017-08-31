@@ -11,7 +11,7 @@ class TestController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle('Test');
@@ -20,11 +20,9 @@ class TestController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $hashids = $this->di->get('hashids');
-        echo $hashids->encodeHex(25);
-
-
+        echo $hashids->encodeHex(2);
     }
 }

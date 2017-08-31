@@ -16,7 +16,7 @@ class CourseController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         Tag::setTitle($this->sectionTitle . ' | ' . $this->di['config']['title']);
@@ -25,9 +25,9 @@ class CourseController extends BaseController
     /**
      * @param int $productId
      *
-     * @return mixed
+     * @return void
      */
-    public function indexAction($productId = false)
+    public function indexAction($productId = false) : void
     {
         $product = \Product::findFirstById($productId);
 
@@ -58,9 +58,9 @@ class CourseController extends BaseController
      * @param int $productId
      * @param int $contentId
      *
-     * @return mixed
+     * @return void
      */
-    public function viewAction(int $productId, int $contentId)
+    public function viewAction(int $productId, int $contentId) : void
     {
         $product = \Product::findFirstById($productId);
 

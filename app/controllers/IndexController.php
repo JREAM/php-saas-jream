@@ -12,7 +12,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct()
+    public function onConstruct() : void
     {
         parent::initialize();
         // new \Library\Obj;
@@ -22,7 +22,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function indexAction()
+    public function indexAction() : void
     {
         $products = \Product::find(["is_deleted = 0"]);
 
@@ -37,7 +37,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function labAction()
+    public function labAction() : void
     {
         Tag::setTitle('Lab | ' . $this->di['config']['title']);
     }
@@ -45,7 +45,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function updatesAction()
+    public function updatesAction() : void
     {
         # Updates
         $parsedown = new \Parsedown();
@@ -60,7 +60,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function termsAction()
+    public function termsAction() : void
     {
         Tag::setTitle('Terms and Privacy | ' . $this->di['config']['title']);
     }
@@ -68,7 +68,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show404Action()
+    public function show404Action() : void
     {
         Tag::setTitle('404 Not Found | ' . $this->di['config']['title']);
     }
@@ -76,7 +76,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show503Action()
+    public function show503Action() : void
     {
         Tag::setTitle('503 Service Error | ' . $this->di['config']['title']);
     }
@@ -84,7 +84,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show500Action(\Exception $exception)
+    public function show500Action(\Exception $exception) : void
     {
     }
 

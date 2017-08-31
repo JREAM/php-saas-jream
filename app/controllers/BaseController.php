@@ -86,7 +86,7 @@ class BaseController extends Controller
      *
      * @return string
      */
-    protected function generateBodyPageId()
+    protected function generateBodyPageId() : string
     {
         $pageId = $this->di->get('router')->getControllerName();
         $action_name = $this->di->get('router')->getActionName();
@@ -170,7 +170,7 @@ class Batch
      *
      * @return object Batch
      */
-    public function setRows($rows)
+    public function setRows($rows) : Batch
     {
         $this->rows = $rows;
         $this->rowsString = sprintf('`%s`', implode('`,`', $this->rows));
@@ -181,11 +181,11 @@ class Batch
     /**
      * Set the values
      *
-     * @param $values Array of Arrays
+     * @param array $values Array of Arrays
      *
-     * @return object Batch
+     * @return Batch
      */
-    public function setValues($values)
+    public function setValues($values) : Batch
     {
         if (!$this->rows) {
             throw new \Exception('You must setRows() before setValues');
@@ -226,7 +226,7 @@ class Batch
      *
      * @return void
      */
-    public function insert($ignore = false)
+    public function insert($ignore = false) : void
     {
         $this->_validate();
 
@@ -252,7 +252,7 @@ class Batch
      *
      * @return void
      */
-    private function _validate()
+    private function _validate() : void
     {
         if (!$this->table) {
             throw new \Exception('Batch Table must be defined');

@@ -12,7 +12,7 @@ use Phalcon\Validation\Validator;
 class LoginForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $email = new Text('email', [
             'placeholder' => 'Email',

@@ -10,7 +10,7 @@ use Phalcon\Validation\Validator;
 class ChangePasswordForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $currentPassword = new Text('current_password', [
             'placeholder' => 'Current Password',

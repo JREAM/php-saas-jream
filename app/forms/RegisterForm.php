@@ -11,7 +11,7 @@ use Phalcon\Validation\Validator;
 class RegisterForm extends BaseForm
 {
 
-    public function initialize()
+    public function initialize() : void
     {
         $alias = new Text('alias', [
             'placeholder' => 'Alias',

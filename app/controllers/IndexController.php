@@ -19,6 +19,8 @@ class IndexController extends BaseController
         Tag::setTitle('Learn to Code | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -34,6 +36,8 @@ class IndexController extends BaseController
         $this->view->pick('index/index');
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -41,6 +45,8 @@ class IndexController extends BaseController
     {
         Tag::setTitle('Lab | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void
@@ -57,6 +63,8 @@ class IndexController extends BaseController
         ]);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -64,6 +72,8 @@ class IndexController extends BaseController
     {
         Tag::setTitle('Terms and Privacy | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void
@@ -73,6 +83,8 @@ class IndexController extends BaseController
         Tag::setTitle('404 Not Found | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -80,6 +92,8 @@ class IndexController extends BaseController
     {
         Tag::setTitle('503 Service Error | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

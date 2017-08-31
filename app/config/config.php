@@ -51,6 +51,7 @@ $config = new \Phalcon\Config([
     'middlewareDir'  => APP_PATH . 'middleware/',
     'modelsDir'      => APP_PATH . 'models/',
     'pluginsDir'     => APP_PATH . 'plugins/',
+    'securityDir'    => APP_PATH . 'security/',
     'resourcesDir'   => DOCROOT . 'resources/',
     'tasksDir'       => APP_PATH . 'tasks/',
     'testsDir'       => DOCROOT . 'tests/',

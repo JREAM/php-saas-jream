@@ -11,6 +11,8 @@ class RecaptchaLibrary
     protected $request;
     protected $output; // #TODO where to get this? Im duplicating code several placed
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Pass the Session and Recaptcha String
      *
@@ -24,6 +26,8 @@ class RecaptchaLibrary
         $this->post = $post;
         $this->session = $session;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Validates Google Recaptcha for Spam Prevention
@@ -55,6 +59,8 @@ class RecaptchaLibrary
 
         return true;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @param $recaptcha  string  For Google POST
@@ -88,5 +94,7 @@ class RecaptchaLibrary
 
         return false;
     }
+
+    // -----------------------------------------------------------------------------
 
 }

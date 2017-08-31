@@ -7,6 +7,7 @@ use \User;
 
 class AuthController extends ApiController
 {
+
     /**
      * @return void
      */
@@ -14,6 +15,8 @@ class AuthController extends ApiController
     {
         parent::initialize();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -76,10 +79,14 @@ class AuthController extends ApiController
         return $this->output(0, 'Incorrect Credentials');
     }
 
+    // -----------------------------------------------------------------------------
+
     public function loginGoogle()
     {
 
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Does the Login via Facebook Auth
@@ -215,6 +222,8 @@ class AuthController extends ApiController
         return $this->output(1, ['redirect' => 'dashboard']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return string JSON
      */
@@ -306,6 +315,8 @@ class AuthController extends ApiController
         return $this->output(1, $message);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return callable
      */
@@ -325,6 +336,8 @@ class AuthController extends ApiController
 
         return $this->response->redirect($this->router->getRouteByName('home'));
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -370,10 +383,11 @@ class AuthController extends ApiController
 
         return $this->output(0, 'A reset link has been sent to your email.
             You have 10 minutes to change your
-            password before the link expires.
-        '
+            password before the link expires.'
         );
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -416,6 +430,8 @@ class AuthController extends ApiController
 
         return $this->output(1, 'Your password has changed, please login.');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Creates a User Session

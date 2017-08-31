@@ -8,6 +8,8 @@ class UserController extends BaseController
 {
     const PASSWORD_REDIRECT_SUCCESS = 'user/login';
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -16,6 +18,8 @@ class UserController extends BaseController
         parent::initialize();
 //        $this->google_auth = $this->di->get('google_auth');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Redirect a user to the Login or Dashboard
@@ -29,6 +33,8 @@ class UserController extends BaseController
         }
         return $this->redirect('user/login');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Displays Login
@@ -51,6 +57,8 @@ class UserController extends BaseController
 
         $this->view->pick('user/login');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Displays Register
@@ -82,6 +90,8 @@ class UserController extends BaseController
         ]);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Displays Reset Password
      *
@@ -94,6 +104,8 @@ class UserController extends BaseController
             'form' => new \Forms\ForgotPasswordForm(),
         ]);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Displays Password Create
@@ -125,6 +137,9 @@ class UserController extends BaseController
 
         $this->view->pick('user/password-create');
     }
+
+    // -----------------------------------------------------------------------------
+
 
     /**
      * Retrieves Facebook Login URL

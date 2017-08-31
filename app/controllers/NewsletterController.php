@@ -19,6 +19,8 @@ class NewsletterController extends BaseController
         Tag::setTitle('Newsletter | ' . $this->di['config']['title']);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -30,6 +32,8 @@ class NewsletterController extends BaseController
 
         $this->view->pick('newsletter/index');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

@@ -13,6 +13,8 @@ class TokenManager extends Component
 {
     protected $session_key = 'sessionToken';
 
+    // -----------------------------------------------------------------------------
+
     /**
      * TokenManager constructor.
      *
@@ -24,6 +26,8 @@ class TokenManager extends Component
             $this->session->start();
         }
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Generates token per session
@@ -46,10 +50,6 @@ class TokenManager extends Component
     }
 
     public function regenerate() : void
-    {
-        $this->generate();
-    }
-
     /**
      * Checks token given values against session values
      *
@@ -83,6 +83,8 @@ class TokenManager extends Component
         return false;
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Checks if user have token or not
      *
@@ -96,6 +98,8 @@ class TokenManager extends Component
 
         return (boolean) false;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Gets token values from session
@@ -115,5 +119,7 @@ class TokenManager extends Component
 
         return false;
     }
+
+    // -----------------------------------------------------------------------------
 
 }

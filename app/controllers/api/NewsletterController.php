@@ -16,6 +16,8 @@ class NewsletterController extends ApiController
         parent::initialize();
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return string JSON
      */
@@ -79,6 +81,8 @@ class NewsletterController extends ApiController
         ");
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return string JSON
      */
@@ -95,6 +99,8 @@ class NewsletterController extends ApiController
 
         return $this->output(1, 'Verified.');
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -116,6 +122,8 @@ class NewsletterController extends ApiController
         return $this->output(1, 'Unsubscribed');
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return bool
      */
@@ -129,4 +137,5 @@ class NewsletterController extends ApiController
         }
         return false;
     }
+
 }

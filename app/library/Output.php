@@ -22,6 +22,8 @@ class Output extends DiInjectable
         'data'   => [],
     ];
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Constructs an outgoing JSON Response
      *
@@ -47,6 +49,8 @@ class Output extends DiInjectable
         return $this;
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Apply Data array to the output
      *
@@ -59,6 +63,8 @@ class Output extends DiInjectable
         $this->outgoing->data = $data;
         return $this;
     }
+
+    // -----------------------------------------------------------------------------
 
     public function send()
     {
@@ -76,5 +82,7 @@ class Output extends DiInjectable
         // Kill all other activities
         exit;
     }
+
+    // -----------------------------------------------------------------------------
 
 }

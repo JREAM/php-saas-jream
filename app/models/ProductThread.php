@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductThread extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -27,7 +27,7 @@ class ProductThread extends BaseModel
         $this->hasMany("id", "ProductThreadReply", "product_thread_id");
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     // @Thi is broken
     public function validationX()
@@ -53,6 +53,6 @@ class ProductThread extends BaseModel
         }
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

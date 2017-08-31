@@ -6,7 +6,7 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductCourseMeta extends BaseModel
 {
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -24,7 +24,7 @@ class ProductCourseMeta extends BaseModel
         $this->belongsTo("product_course_id", "ProductCourse", "id");
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     public function getTypeIcon($type)
     {
@@ -41,6 +41,6 @@ class ProductCourseMeta extends BaseModel
         }
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

@@ -39,6 +39,11 @@ class PermissionPlugin extends Plugin
     // ----------------------------------------------------------------------------
 
     /**
+     * @var resource Path to the ACL file to save/read for Permissions
+     */
+    protected $saveAclFile;
+
+    /**
      * Accessible to everyone
      *
      * @var array
@@ -84,6 +89,14 @@ class PermissionPlugin extends Plugin
 
     // ----------------------------------------------------------------------------
 
+    public function initialize()
+    {
+        $config = $this->di->get('config');
+        $this->saveAclFile = $config->get('securityDir') . 'acl.data';
+    }
+
+    // ----------------------------------------------------------------------------
+
     /**
      * Triggers before a route is dispatched
      *
@@ -94,6 +107,10 @@ class PermissionPlugin extends Plugin
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
+
+        echo '<pre>';
+        var_dump($this->persistent->acl);
+die;
         // Debug:
         // $this->session->destroy();
 
@@ -138,6 +155,8 @@ class PermissionPlugin extends Plugin
      */
     protected function _getACL()
     {
+        // This is for writing the /app/security/acl.data file
+
         if (!isset($this->persistent->acl)) {
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
@@ -202,12 +221,13 @@ class PermissionPlugin extends Plugin
             }
 
             $this->persistent->acl = $acl;
+            file_put_contents("app/security/acl.data", serialize($acl));
         }
 
         return $this->persistent->acl;
     }
 
-    // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
     /**
      * Loads all API Controllers as Public Resources.

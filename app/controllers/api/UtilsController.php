@@ -8,6 +8,7 @@ use \Promotion;
 
 class UtilsController extends ApiController
 {
+
     /**
      * @return void
      */
@@ -15,6 +16,8 @@ class UtilsController extends ApiController
     {
         parent::initialize();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Renders a markdown preview

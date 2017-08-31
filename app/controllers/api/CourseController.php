@@ -15,6 +15,8 @@ class CourseController extends ApiController
         parent::initialize();
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @Route(
      *     "/api/course/update-progress/{id:[0-9]+}",
@@ -59,4 +61,5 @@ class CourseController extends ApiController
 
         return $this->output(0, $userAction->getMessagesString());
     }
+
 }

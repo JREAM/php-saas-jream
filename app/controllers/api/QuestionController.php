@@ -7,6 +7,7 @@ use \Product;
 
 class QuestionController extends ApiController
 {
+
     /**
      * @return void
      */
@@ -14,6 +15,8 @@ class QuestionController extends ApiController
     {
         parent::initialize();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @param int $productId
@@ -76,6 +79,8 @@ class QuestionController extends ApiController
         ]);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Reply Action
      *
@@ -132,6 +137,8 @@ class QuestionController extends ApiController
 
         return $this->redirect(self::REDIRECT_SUCCESS . $productId);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON

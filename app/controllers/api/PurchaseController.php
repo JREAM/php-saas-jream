@@ -11,6 +11,7 @@ use \Product;
 
 class PurchaseController extends ApiController
 {
+
     /**
      * @return void
      */
@@ -18,6 +19,8 @@ class PurchaseController extends ApiController
     {
         parent::initialize();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string JSON
@@ -32,6 +35,8 @@ class PurchaseController extends ApiController
         $promotion = new Promotion();
         $result = $promotion->check($code, $productId);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @param int   $productId
@@ -51,6 +56,8 @@ class PurchaseController extends ApiController
 
         return $this->output(0, $do->msg);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string   JSON
@@ -204,6 +211,8 @@ class PurchaseController extends ApiController
         return $this->output(0, 'Sorry, your Stripe API Payment was not returned as paid.');
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @param int   $productId
      *
@@ -248,6 +257,8 @@ class PurchaseController extends ApiController
         // How to handle this? @TODO
         $response->redirect();
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @TODO If I change this make sure i change in paypal if i need to
@@ -311,6 +322,8 @@ class PurchaseController extends ApiController
 
         return $this->output(1, ['redirect' => $product->id]);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Create a Purchase Record
@@ -403,4 +416,5 @@ class PurchaseController extends ApiController
             Your should receive an email confirmation shortly to: \" . $user->getEmail());"
         ];
     }
+
 }

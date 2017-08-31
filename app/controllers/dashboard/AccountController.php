@@ -12,6 +12,8 @@ class AccountController extends BaseController
     const REDIRECT_DELETE = "dashboard/account/delete";
     const REDIRECT_LOGOUT = "user/logout";
 
+    // -----------------------------------------------------------------------------
+
     /**
      * @return void
      */
@@ -20,6 +22,8 @@ class AccountController extends BaseController
         parent::initialize();
         Tag::setTitle('Account | ' . $this->di['config']['title']);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void
@@ -36,6 +40,8 @@ class AccountController extends BaseController
 
         $this->view->pick("dashboard/account");
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * @return void

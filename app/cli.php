@@ -66,13 +66,30 @@ $di->setShared('api', function () use ($api) {
     return $api;
 });
 
-$di->setShared('session', function () {
-    $session = new \Phalcon\Session\Adapter\Files();
 
+/**
+ * ==============================================================
+ * Session
+ * @note Hopefully I can clear the injectable
+ * =============================================================
+ */
+$di->setShared('session', function () use ($di) {
+    // Start a new Session for every user.
+    $session = new SessionFiles();
     $session->start();
 
     return $session;
 });
+
+
+/**
+ * ==============================================================
+ * Redis (For Caching)
+ * =============================================================
+ */
+$redis = new \Redis();
+$redis->connect("localhost", 6379);
+$redis->select(10);  // Use Database 10
 
 /**
  * ==============================================================

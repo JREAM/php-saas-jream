@@ -2,6 +2,7 @@
 
 namespace Controllers\Api;
 
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
 use Library\RecaptchaLibrary;
 
@@ -9,11 +10,9 @@ class Contact extends Controller
 {
 
     /**
-     * Return some JSON stuff
-     *
      * @return mixed (JSON)
      */
-    public function sendAction()
+    public function sendAction() : string
     {
         // If Recaptcha fails, Warn and use JS to reload.
         if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {

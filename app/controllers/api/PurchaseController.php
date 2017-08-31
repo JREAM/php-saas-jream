@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
-use \User;
-use \UserPurchase;
-use \Promotion;
-use \Transaction;
-use \Product;
+use Phalcon\Http\Response;
+use User;
+use UserPurchase;
+use Promotion;
+use Transaction;
+use Product;
 
 class PurchaseController extends ApiController
 {
@@ -25,7 +26,7 @@ class PurchaseController extends ApiController
     /**
      * @return string JSON
      */
-    public function applyPromotionAction()
+    public function applyPromotionAction() : string
     {
         $code = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
@@ -34,6 +35,7 @@ class PurchaseController extends ApiController
 
         $promotion = new Promotion();
         $result = $promotion->check($code, $productId);
+        return '';
     }
 
     // -----------------------------------------------------------------------------
@@ -42,7 +44,7 @@ class PurchaseController extends ApiController
      * @param int   $productId
      * @return string JSON
      */
-    public function freeAction(int $productId)
+    public function freeAction(int $productId) : string
     {
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
@@ -62,7 +64,7 @@ class PurchaseController extends ApiController
     /**
      * @return string   JSON
      */
-    public function stripeAction($productId)
+    public function stripeAction($productId) : string
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -218,7 +220,7 @@ class PurchaseController extends ApiController
      *
      * @return string   JSON
      */
-    public function paypalAction(int $productId)
+    public function paypalAction(int $productId) : string
     {
         $product = \Product::findFirstById($productId);
 
@@ -266,7 +268,7 @@ class PurchaseController extends ApiController
      * @param  int $productId
      * @return string   JSON
      */
-    public function doPaypalConfirmAction(int $productId)
+    public function doPaypalConfirmAction(int $productId) : string
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {

@@ -2,7 +2,9 @@
 
 namespace Controllers;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 
 class UserController extends BaseController
 {
@@ -24,9 +26,9 @@ class UserController extends BaseController
     /**
      * Redirect a user to the Login or Dashboard
      *
-     * @return void
+     * @return Response
      */
-    public function indexAction() : void
+    public function indexAction() : Response
     {
         if ($this->session->has('id')) {
             return $this->redirect('dashboard');
@@ -39,9 +41,9 @@ class UserController extends BaseController
     /**
      * Displays Login
      *
-     * @return void
+     * @return View
      */
-    public function loginAction()
+    public function loginAction() : View
     {
         if ($this->session->has('id')) {
             return $this->redirect('dashboard');
@@ -55,7 +57,7 @@ class UserController extends BaseController
 //            'googleLogin' => $this->google_auth->createAuthUrl(),
         ]);
 
-        $this->view->pick('user/login');
+        return $this->view->pick('user/login');
     }
 
     // -----------------------------------------------------------------------------
@@ -63,9 +65,9 @@ class UserController extends BaseController
     /**
      * Displays Register
      *
-     * @return mixed
+     * @return View
      */
-    public function registerAction()
+    public function registerAction() : View
     {
         if ($this->session->has('id')) {
             $this->response->redirect('dashboard');
@@ -84,7 +86,7 @@ class UserController extends BaseController
         // End Facebook
         // ---------------------------
 
-        $this->view->setVars([
+        return $this->view->setVars([
             'form'       => new \Forms\RegisterForm(),
             'fbLoginUrl' => $fbLoginUrl,
         ]);
@@ -95,12 +97,13 @@ class UserController extends BaseController
     /**
      * Displays Reset Password
      *
-     * @return void
+     * @return View
      */
-    public function passwordAction() : void
+    public function passwordAction() : View
     {
         Tag::setTitle('Forgot Password | ' . $this->di['config']['title']);
-        $this->view->setVars([
+
+        return $this->view->setVars([
             'form' => new \Forms\ForgotPasswordForm(),
         ]);
     }
@@ -110,11 +113,11 @@ class UserController extends BaseController
     /**
      * Displays Password Create
      *
-     * @param  $resetKey  Generated key to confirm the user is asking for a reset
+     * @param  string $resetKey  Generated key to confirm the user is asking for a reset
      *
-     * @return mixed
+     * @return View
      */
-    public function passwordCreateAction($resetKey) : void
+    public function passwordCreateAction(string $resetKey) : ?View
     {
         $user = \User::findFirst([
             "password_reset_key = :key: AND password_reset_expires_at > :date:",
@@ -135,7 +138,7 @@ class UserController extends BaseController
             'reset_key' => $resetKey,
         ]);
 
-        $this->view->pick('user/password-create');
+        return $this->view->pick('user/password-create');
     }
 
     // -----------------------------------------------------------------------------
@@ -146,7 +149,7 @@ class UserController extends BaseController
      *
      * @return string
      */
-    private function _getFacebookLoginUrl()
+    private function _getFacebookLoginUrl() : string
     {
         // ---------------------------
         // Facebook Login

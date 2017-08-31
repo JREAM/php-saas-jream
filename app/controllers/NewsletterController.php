@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 
 /**
  * @RoutePrefix("/newsletter")
@@ -22,25 +24,25 @@ class NewsletterController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $this->view->setVars([
             'form'     => new \Forms\NewsletterForm(),
         ]);
 
-        $this->view->pick('newsletter/index');
+        return $this->view->pick('newsletter/index');
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function unsubscribeAction() : void
+    public function unsubscribeAction() : View
     {
-        $this->view->pick('newsletter/unsubscribe');
+        return $this->view->pick('newsletter/unsubscribe');
     }
 
 }

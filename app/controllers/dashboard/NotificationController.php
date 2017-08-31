@@ -2,7 +2,9 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class NotificationController extends BaseController
@@ -19,9 +21,9 @@ class NotificationController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $notifications = \UserNotification::findByUserId($this->session->get('id'));
 
@@ -29,7 +31,7 @@ class NotificationController extends BaseController
             'notifications' => $notifications,
         ]);
 
-        $this->view->pick("dashboard/notification");
+        return $this->view->pick("dashboard/notification");
     }
 
 }

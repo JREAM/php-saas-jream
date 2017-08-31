@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
-use \User;
-use \NewsletterSubscription;
+use Phalcon\Http\Response;
+use User;
+use NewsletterSubscription;
 
 class NewsletterController extends ApiController
 {
@@ -21,7 +22,7 @@ class NewsletterController extends ApiController
     /**
      * @return string JSON
      */
-    public function subscribeAction()
+    public function subscribeAction() : string
     {
         if (!$this->request->isPost()) {
             $this->output(0, "Oh that doesn't work, You must post the form!");
@@ -86,7 +87,7 @@ class NewsletterController extends ApiController
     /**
      * @return string JSON
      */
-    public function verifyAction()
+    public function verifyAction() : string
     {
         $token = $this->input->getPost('token');
         $newsletter = NewsletterSubscription::findFirstByToken($token);
@@ -105,7 +106,7 @@ class NewsletterController extends ApiController
     /**
      * @return string JSON
      */
-    public function unsubscribeAction()
+    public function unsubscribeAction() : string
     {
         $email = $this->input->getPost('email');
         $newsletter = NewsletterSubscription::findFirstByEmail($email);
@@ -115,7 +116,7 @@ class NewsletterController extends ApiController
         $newsletter->is_subscribed = 0;
         $newsletter->save();
 
-        if ($newsleter->user_id) {
+        if ($newsletter->user_id) {
             $this->updateUserRow($newsletter->user_id, 0);
         }
 
@@ -125,13 +126,16 @@ class NewsletterController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
+     * @param integer $user_id
+     * @param integer $value
+     *
      * @return bool
      */
-    protected function updateUserRow($user_id, $boolean)
+    protected function updateUserRow(integer $user_id, integer $value) : bool
     {
         $user = User::findFirstById($user_id);
         if ($user) {
-            $user->newsletter_subscribed = $boolean;
+            $user->newsletter_subscribed = $value;
             $user->save();
             return true;
         }

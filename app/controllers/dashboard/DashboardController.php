@@ -3,6 +3,8 @@
 namespace Controllers\Dashboard;
 
 use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class DashboardController extends BaseController
@@ -20,9 +22,9 @@ class DashboardController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $userPurchases = \UserPurchase::findByUserId($this->session->get('id'));
 
@@ -59,7 +61,7 @@ class DashboardController extends BaseController
         ]);
 
 
-        $this->view->pick("dashboard/dashboard");
+        return $this->view->pick("dashboard/dashboard");
     }
 
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use \Phalcon\Tag;
-use \Omnipay\Omnipay;
+use Phalcon\Http\Response;
+use Phalcon\Mvc\View;
+use Phalcon\Tag;
+use Omnipay\Omnipay;
 
 class ProductController extends BaseController
 {
@@ -27,15 +29,17 @@ class ProductController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
         $this->view->setVars([
             'products' => $products,
         ]);
+
+        return $this->view->pick('product/product');
     }
 
     // -----------------------------------------------------------------------------
@@ -45,9 +49,9 @@ class ProductController extends BaseController
      *
      * @param  string   $slug  URL Friendly Slug
      *
-     * @return void
+     * @return View
      */
-    public function courseAction(string $slug) : void
+    public function courseAction(string $slug) : View
     {
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
@@ -133,6 +137,8 @@ class ProductController extends BaseController
             'months'         => $months,
             'years'          => range(date('Y'), date('Y') + 5),
         ]);
+
+        return $this->view->pick('product/course');
     }
 
     // -----------------------------------------------------------------------------
@@ -175,7 +181,7 @@ class ProductController extends BaseController
             'courseName'    => formatName($productCourse->name),
         ]);
 
-        $this->view->pick('product/preview');
+        return $this->view->pick('product/preview');
     }
 
 }

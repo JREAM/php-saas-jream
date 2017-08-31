@@ -3,7 +3,8 @@ declare(strict_types = 1);
 
 namespace Controllers\Api;
 
-use \User;
+use Phalcon\Http\Response;
+use User;
 
 class AuthController extends ApiController
 {
@@ -21,7 +22,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function loginAction()
+    public function loginAction() : string
     {
         // POST Data
         $email = $this->request->getPost('email');
@@ -93,7 +94,7 @@ class AuthController extends ApiController
      *
      * @return string   JSON
      */
-    public function loginFacebookAction()
+    public function loginFacebookAction() : string
     {
         $helper = $this->facebook->getRedirectLoginHelper();
 
@@ -227,7 +228,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function registerAction()
+    public function registerAction() : string
     {
         $alias = $this->request->getPost('alias');
         $email = $this->request->getPost('email');
@@ -318,7 +319,7 @@ class AuthController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return callable
+     * @return string|Response
      */
     public function logoutAction()
     {
@@ -342,7 +343,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotAction()
+    public function passwordForgotAction() : string
     {
         $email = $this->request->getPost('email');
         $user = User::findFirstByEmail($email);
@@ -392,7 +393,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotCreateAction()
+    public function passwordForgotCreateAction() : string
     {
         $confirmEmail = $this->request->getPost('email');
         $resetKey = $this->request->getPost('reset_key');
@@ -441,7 +442,7 @@ class AuthController extends ApiController
      *
      * @return void
      */
-    protected function createSession(\User $user, array $additional = [])
+    protected function createSession(\User $user, array $additional = []) : void
     {
         // Clear the login attempts
         $user->login_attempt = null;

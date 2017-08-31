@@ -2,8 +2,10 @@
 declare(strict_types=1);
 
 namespace Controllers;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
 
 class PromotionController extends BaseController
 {

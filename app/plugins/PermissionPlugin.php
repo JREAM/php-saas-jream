@@ -1,12 +1,12 @@
 <?php
 
-use Phalcon\Mvc\User\Plugin;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Events\Event;
 use Phalcon\Acl;
-use Phalcon\Acl\Role;
-use Phalcon\Acl\Resource;
 use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Acl\Resource;
+use Phalcon\Acl\Role;
+use Phalcon\Events\Event;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\User\Plugin;
 
 /**
  * Permission
@@ -103,14 +103,14 @@ class PermissionPlugin extends Plugin
      * @param  Event      $event
      * @param  Dispatcher $dispatcher
      *
-     * @return boolean|void
+     * @return null|string
      */
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher) : ?string
     {
 
-        echo '<pre>';
-        var_dump($this->persistent->acl);
-die;
+//        echo '<pre>';
+//        var_dump($this->persistent->acl);
+//die;
         // Debug:
         // $this->session->destroy();
 
@@ -144,6 +144,7 @@ die;
             // return $this->response->redirect(self::REDIRECT_DENIED);
         }
 
+        return null;
     }
 
     // ----------------------------------------------------------------------------
@@ -151,13 +152,16 @@ die;
     /**
      * Build the Session ACL list one time if it's not set
      *
-     * @return object   Persistent Session Data
+     * @return \Phalcon\Acl\Adapter\Memory  Persistent Session Data
      */
-    protected function _getACL()
+    protected function _getACL() : \Phalcon\Acl\Adapter\Memory
     {
-        // This is for writing the /app/security/acl.data file
+        if (isset($this->persistent->acl)) {
+            return $this->persistent->acl;
+        }
 
-        if (!isset($this->persistent->acl)) {
+        if (!isset($this->persistent->acl))
+        {
             $acl = new AclList();
             $acl->setDefaultAction(Acl::DENY);
 
@@ -220,11 +224,9 @@ die;
                 }
             }
 
-            $this->persistent->acl = $acl;
-            file_put_contents("app/security/acl.data", serialize($acl));
+            return $acl;
         }
 
-        return $this->persistent->acl;
     }
 
     // -----------------------------------------------------------------------------
@@ -233,9 +235,9 @@ die;
      * Loads all API Controllers as Public Resources.
      * They are self-protected so this file need not be updated so often.
      *
-     * @return array
+     * @return void
      */
-    protected function setApiControllers()
+    protected function setApiControllers() : void
     {
         $di = \Phalcon\Di::getDefault();
         $config = $di->get('config');
@@ -265,13 +267,17 @@ die;
      *
      * @param str $namespace       This must match the folder name and namespace under /controllers
      * @param str $applyToResource This must be one the the <public|user|admin>Resources
+     *
+     * @return void
      */
-    protected function setPermissionsFromDirectory($namespace, $applyToResource)
+    protected function setPermissionsFromDirectory($namespace, $applyToResource) : void
     {
         $validResources = ['publicResources', 'userResources', 'adminResources'];
+
         if (!in_array($applyToResource, $validResources)) {
             throw new \InvalidArgumentException("
-                You setPermissionsFrom ($applyToResource) and they must be one of: " . explode(',', $validResources)
+                You setPermissionsFrom ($applyToResource) and they must be one of: " .
+                explode(',', $validResources)
             );
         }
 
@@ -291,6 +297,7 @@ die;
 
                 // Turn it into Controllers\Api\Auth => [*]
                 $namespacedController = sprintf('Controllers\%s:%s', $namespace, $file);
+
                 PC::Debug($namespacedController);
                 // Append to Permissions
                 $this->{$applyToResource}[$namespacedController] = ['*'];

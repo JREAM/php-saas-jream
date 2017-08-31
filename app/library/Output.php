@@ -2,6 +2,7 @@
 
 namespace Library;
 
+use Phalcon\Http\Response;
 use Phalcon\Di\Injectable as DiInjectable;
 
 /**
@@ -32,7 +33,7 @@ class Output extends DiInjectable
      *
      * @return Output
      */
-    public function __construct(int $result, $msg = null)
+    public function __construct(int $result, $msg = null) : Output
     {
         // Do not allow anything besides string or null
         if (!is_string($msg)) {
@@ -66,7 +67,10 @@ class Output extends DiInjectable
 
     // -----------------------------------------------------------------------------
 
-    public function send()
+    /**
+     * @return Response
+     */
+    public function send() : Response
     {
         // Get the DI Response Method
         $response = $this->di->get('response');
@@ -77,7 +81,7 @@ class Output extends DiInjectable
         $response->setJsonContent($this->outgoing);
 
         // Deliver the response
-        $this->response->send();
+        return $this->response->send();
 
         // Kill all other activities
         exit;

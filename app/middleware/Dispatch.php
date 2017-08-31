@@ -3,7 +3,9 @@
 namespace Middleware;
 
 use Phalcon\Events\Event;
+use Phalcon\Http\Response;
 use Phalcon\DI\FactoryDefault;
+use Phalcon\Exception as PhalconException;
 
 class Dispatch
 {
@@ -21,9 +23,9 @@ class Dispatch
     /**
      * Handle Any jobs before a route is executed
      *
-     * @param  \Phalcon\Events\Event $dispatcher
+     * @param Event $dispatcher
      *
-     * @return void
+     * @return Event
      */
     public function beforeExecuteRoute(Event $dispatcher) : Event
     {
@@ -65,6 +67,12 @@ class Dispatch
 
     // -----------------------------------------------------------------------------
 
+    /**
+     *
+     * @param Event $dispatcher
+     *
+     * @return Event
+     */
     public function afterExecuteRoute(Event $dispatcher) : Event
     {
         return $dispatcher;
@@ -75,13 +83,13 @@ class Dispatch
     /**
      * Handle Exceptions Locally and LIve
      *
-     * @param  object $event
-     * @param  object $dispatcher
-     * @param  object $exception
+     * @param  Event $event
+     * @param  Response $dispatcher
+     * @param  PhalconException $exception
      *
      * @return bool
      */
-    public function beforeException($event, $dispatcher, $exception) : boolean
+    public function beforeException(Event $event, Response $dispatcher, PhalconException $exception) : bool
     {
         error_log($exception->getMessage(), 0);
 

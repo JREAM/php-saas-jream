@@ -2,7 +2,9 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class AccountController extends BaseController
@@ -26,9 +28,9 @@ class AccountController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $this->view->setVars([
             'changeEmailForm'    => new \Forms\ChangeEmailForm(),
@@ -38,21 +40,21 @@ class AccountController extends BaseController
             'timezones'          => \DateTimeZone::listIdentifiers(),
         ]);
 
-        $this->view->pick("dashboard/account");
+        return $this->view->pick("dashboard/account");
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function deleteAction() : void
+    public function deleteAction() : View
     {
         $this->view->setVars([
             'user'     => \User::findFirstById($this->session->get('id')),
         ]);
 
-        $this->view->pick("dashboard/account-delete");
+        return $this->view->pick("dashboard/account-delete");
     }
 
 }

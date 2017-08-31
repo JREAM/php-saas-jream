@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
-use \Product;
+use Phalcon\Http\Response;
+use Product;
 
 class QuestionController extends ApiController
 {
@@ -23,7 +24,7 @@ class QuestionController extends ApiController
      *
      * @return string   JSON
      */
-    public function createAction(int $productId)
+    public function createAction(int $productId) : string
     {
         $product = \Product::findFirstById($productId);
 
@@ -87,9 +88,9 @@ class QuestionController extends ApiController
      * @param  int $productId
      * @param  int $threadId
      *
-     * @return
+     * @return string
      */
-    public function replyAction(int $productId, int $threadId)
+    public function replyAction(int $productId, int $threadId) : string
     {
         $product = \Product::findFirstById($productId);
 
@@ -143,7 +144,7 @@ class QuestionController extends ApiController
     /**
      * @return string JSON
      */
-    public function deleteAction()
+    public function deleteAction() : void
     {
         $user_id = $this->session->get('user_id');
     }

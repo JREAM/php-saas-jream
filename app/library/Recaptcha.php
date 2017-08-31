@@ -34,7 +34,7 @@ class RecaptchaLibrary
      *
      * @return bool
      */
-    public function recaptchaAction() : boolean
+    public function recaptchaAction() : bool
     {
         // Success, Already Has it Set
         if($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
@@ -67,7 +67,7 @@ class RecaptchaLibrary
      *
      * @return boolean
      */
-    protected function verify(str $recaptcha) : boolean
+    protected function verify(str $recaptcha) : bool
     {
         $client = new Client([
             'base_uri' => 'https://google.com/recaptcha/api/',

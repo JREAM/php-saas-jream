@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use Library\TokenManager;
-use Phalcon\Tag;
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\View;
+use Phalcon\Tag;
+use Library\TokenManager;
 
 class BaseController extends Controller
 {

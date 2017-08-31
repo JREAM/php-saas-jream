@@ -49,16 +49,15 @@ class TokenManager extends Component
         }
     }
 
-    public function regenerate() : void
     /**
      * Checks token given values against session values
      *
      * @param string $tokenKey Can be the full tokenKey+token (As with AJAX Post), or only one
-     * @param string $token
+     * @param mixed $token
      *
      * @return boolean
      */
-    public function validate(string $tokenKey, string ...$token) : boolean
+    public function validate(string $tokenKey, string ...$token) : bool
     {
         if (!$this->session->has($this->session_key)) {
             return false;
@@ -88,15 +87,15 @@ class TokenManager extends Component
     /**
      * Checks if user have token or not
      *
-     * @return boolean
+     * @return bool
      */
-    public function hasToken() : boolean
+    public function hasToken() : bool
     {
         if ($this->session->has($this->session_key)) {
-            return (boolean) true;
+            return true;
         }
 
-        return (boolean) false;
+        return false;
     }
 
     // -----------------------------------------------------------------------------

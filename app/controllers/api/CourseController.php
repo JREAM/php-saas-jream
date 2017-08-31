@@ -3,7 +3,8 @@ declare(strict_types = 1);
 
 namespace Controllers\Api;
 
-use \UserAction;
+use Phalcon\Http\Response;
+use UserAction;
 
 class CourseController extends ApiController
 {
@@ -18,14 +19,9 @@ class CourseController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @Route(
-     *     "/api/course/update-progress/{id:[0-9]+}",
-     *     methods="POST",
-     * )
-     *
      * @return string JSON
      */
-    public function updateProgressAction()
+    public function updateProgressAction() : string
     {
         $user_id = $this->session->get('user_id');
 

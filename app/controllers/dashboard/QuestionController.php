@@ -2,7 +2,9 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class QuestionController extends BaseController
@@ -27,7 +29,7 @@ class QuestionController extends BaseController
      *
      * @return void
      */
-    public function indexAction(int $productId) : void
+    public function indexAction(int $productId) : View\
     {
         $product = \Product::findFirstById($productId);
 
@@ -45,7 +47,7 @@ class QuestionController extends BaseController
             ]),
         ]);
 
-        $this->view->pick('dashboard/question');
+        return $this->view->pick('dashboard/question');
     }
 
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use \Phalcon\Tag;
-use \Omnipay\Omnipay;
+use Phalcon\Http\Response;
+use Phalcon\Mvc\View;
+use Phalcon\Tag;
+use Omnipay\Omnipay;
 
 class CheckoutController extends BaseController
 {
@@ -33,9 +35,9 @@ class CheckoutController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 
@@ -43,7 +45,7 @@ class CheckoutController extends BaseController
             'products' => $products,
         ]);
 
-        $this->view->pick('checkout/checkout');
+        return $this->view->pick('checkout/checkout');
     }
 
 

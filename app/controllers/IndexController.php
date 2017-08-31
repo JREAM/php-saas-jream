@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Controllers;
 
 use \Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 
 class IndexController extends BaseController
 {
@@ -22,9 +24,9 @@ class IndexController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $products = \Product::find(["is_deleted = 0"]);
 
@@ -33,44 +35,49 @@ class IndexController extends BaseController
             'tags'     => \Product::getAllByTags(),
         ]);
 
-        $this->view->pick('index/index');
+        return $this->view->pick('index/index');
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function labAction() : void
+    public function labAction() : View
     {
-        Tag::setTitle('Lab | ' . $this->di['config']['title']);
+        return Tag::setTitle('Lab | ' . $this->di['config']['title']);
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function updatesAction() : void
+    public function updatesAction() : View
     {
         # Updates
         $parsedown = new \Parsedown();
         $updates = file_get_contents(__DIR__ . '/../updates.md');
 
         Tag::setTitle('Updates | ' . $this->di['config']['title']);
+
         $this->view->setVars([
             'updates' => $parsedown->parse($updates),
         ]);
+
+        return $this->view->pick('index/updates');
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function termsAction() : void
+    public function termsAction() : View
     {
         Tag::setTitle('Terms and Privacy | ' . $this->di['config']['title']);
+
+        return $this->view->pick('index/terms');
     }
 
     // -----------------------------------------------------------------------------

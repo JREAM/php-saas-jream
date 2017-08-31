@@ -2,8 +2,10 @@
 
 namespace Controllers\Dashboard;
 
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
-use \Phalcon\Tag;
 
 class YoutubeController extends BaseController
 {
@@ -43,7 +45,7 @@ class YoutubeController extends BaseController
             'youtube'  => $video,
         ]);
 
-        $this->view->pick("dashboard/youtube");
+        return $this->view->pick("dashboard/youtube");
     }
 
 }

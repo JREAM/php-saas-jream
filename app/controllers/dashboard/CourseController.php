@@ -2,7 +2,9 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class CourseController extends BaseController
@@ -29,9 +31,9 @@ class CourseController extends BaseController
     /**
      * @param int $productId
      *
-     * @return void
+     * @return View
      */
-    public function indexAction($productId = false) : void
+    public function indexAction($productId = false) : View
     {
         $product = \Product::findFirstById($productId);
 
@@ -55,7 +57,7 @@ class CourseController extends BaseController
             'percent'    => $product->getProductPercent(),
         ]);
 
-        $this->view->pick("dashboard/course");
+        return $this->view->pick("dashboard/course");
     }
 
     // -----------------------------------------------------------------------------
@@ -64,9 +66,9 @@ class CourseController extends BaseController
      * @param int $productId
      * @param int $contentId
      *
-     * @return void
+     * @return View
      */
-    public function viewAction(int $productId, int $contentId) : void
+    public function viewAction(int $productId, int $contentId) : View
     {
         $product = \Product::findFirstById($productId);
 
@@ -153,7 +155,7 @@ class CourseController extends BaseController
             'prev'              => $prev,
         ]);
 
-        $this->view->pick("dashboard/course-view");
+        return $this->view->pick("dashboard/course-view");
     }
 
 }

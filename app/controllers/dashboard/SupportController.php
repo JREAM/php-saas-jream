@@ -2,7 +2,9 @@
 
 namespace Controllers\Dashboard;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 use Controllers\BaseController;
 
 class SupportController extends BaseController
@@ -30,16 +32,16 @@ class SupportController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $this->view->setVars([
             // Make sure the type is a forced
             'types'    => $this->_types,
         ]);
 
-        $this->view->pick("dashboard/support");
+       return  $this->view->pick("dashboard/support");
     }
 
 }

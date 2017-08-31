@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
-use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
+use Phalcon\Mvc\Controller;
 use Library\TokenManager;
 use Library\Output;
 
@@ -66,7 +66,7 @@ class ApiController extends Controller
      *
      * @return string   JSON
      */
-    public function validateTokens()
+    public function validateTokens() : string
     {
         $csrfTokens = $this->request->getHeader('X-CSRFToken');
         if ($this->tokenManager->validate($csrfTokens) === false) {
@@ -81,7 +81,7 @@ class ApiController extends Controller
      *
      * @return boolean
      */
-    protected function isCsrfExempt() : boolean
+    protected function isCsrfExempt() : bool
     {
         // Only working in API Controllers so Disregard Namespaces.
         // This produces:  controller::name
@@ -105,7 +105,7 @@ class ApiController extends Controller
      *
      * @return string   JSON
      */
-    public function indexAction()
+    public function indexAction() : string
     {
         return $this->output(0, 'Invalid usage of the API.');
     }
@@ -119,9 +119,9 @@ class ApiController extends Controller
      * @param  mixed   $msg  (Optional)
      * @param  array $data (Optional) Additional Data to pass to Client
      *
-     * @return string JSON
+     * @return Output Renderings string JSON
      */
-    protected function output(int $result, $msg, $data = [])
+    protected function output(int $result, $msg, $data = []) : Output
     {
         return (new Output($result, $msg))->setData($data)->send();
     }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
+use Phalcon\Http\Response;
+
 class UserController extends ApiController
 {
 

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use \Phalcon\Tag;
+use Phalcon\Tag;
+use Phalcon\Mvc\View;
+use Phalcon\Http\Response;
 
 /**
  * @RoutePrefix("/contact")
@@ -28,26 +30,27 @@ class ContactController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function indexAction() : void
+    public function indexAction() : View
     {
         $this->view->setVars([
             'form'     => new \Forms\ContactForm(),
         ]);
 
-        $this->view->pick('contact/contact');
+        return $this->view->pick('contact/contact');
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @return void
+     * @return View
      */
-    public function thanksAction() : void
+    public function thanksAction() : View
     {
         Tag::setTitle('Contact Email Sent | ' . $this->di['config']['title']);
-        $this->view->pick('contact/thanks');
+
+        return $this->view->pick('contact/thanks');
     }
 
 }

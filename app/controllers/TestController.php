@@ -22,7 +22,9 @@ class TestController extends BaseController
      */
     public function indexAction()
     {
-        $u = new \User;
-        echo $u->getSource();
+        $hashids = $this->di->get('hashids');
+        echo $hashids->encodeHex(25);
+
+
     }
 }

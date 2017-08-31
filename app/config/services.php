@@ -173,6 +173,23 @@ $di->setShared('component', function () {
 
 /**
  * ==============================================================
+ * HashID's (Encode/Decode, primarily for JS resp/req)
+ * =============================================================
+ */
+$di->setShared('hashids', function () use ($config) {
+    // Passing a unique string makes items unique
+    $hashids = new Hashids\Hashids($config->get('hashids_hash'));
+
+    // Sample Usage:
+    // encode(1); encode(1, 2, 3), encodeHex('507f1f77bcf86cd799439011')
+    // decode(value), decode(hex_value)
+
+    return $hashids;
+});
+
+
+/**
+ * ==============================================================
  * View component
  * =============================================================
  */

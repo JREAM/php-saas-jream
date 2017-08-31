@@ -74,6 +74,9 @@ class BaseController extends Controller
         $this->view->setVars([
             'tokenKey'  => $this->tokenManager->getTokens()['tokenKey'],
             'token'     => $this->tokenManager->getTokens()['token'],
+            'prefs'     => [
+                'user_id'      => $this->session->get('id')
+            ]
         ]);
 
     }

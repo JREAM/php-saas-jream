@@ -49,6 +49,11 @@
     </div>
 </div>
 
+<script>
+window.prefs = {
+    'id': '{% if prefs.user_id is defined %}{{ prefs.user_id }}{% endif %}',
+}
+</script>
 <!-- Dependencies -->
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
 {#<script src="{{ url('vendor/validator.min.js') }} "></script>#}

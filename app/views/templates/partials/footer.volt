@@ -12,14 +12,13 @@
 
                 <div id="mc_embed_signup">
                     <small>Newsletter</small>
-                    <form id="newsletterFooterSubscribe" class="form-inline validate" action="{{ url('auth/newsletter/subscribe') }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+                    <form id="formFooterNewsletterSubscribe" class="form-inline validate" action="{{ url('auth/newsletter/subscribe') }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
                         <div class="form-group">
-                            <input type="email" value="" name="EMAIL" class="form-control input-sm" id="mce-EMAIL" placeholder="Email Address" required>
+                            <input type="email" value="" name="email" class="form-control input-sm" id="mce-EMAIL" placeholder="Email Address" required>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Subscribe" name="Subscribe" id="mc-embedded-subscribe" class="btn btn-primary">
+                            <input type="submit" value="Subscribe" name="Subscribe" class="btn btn-primary">
                         </div>
-                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_c15f3eb6b4d64a6cbdc77eb9b_5a56a15329" value=""></div>
                     </form>
                 </div>
 

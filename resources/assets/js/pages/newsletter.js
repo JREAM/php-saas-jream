@@ -49,7 +49,7 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formNewsletterUnSubscribe").submit(function (evt) {
+  $("#formNewsletterUnsubscribe").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");

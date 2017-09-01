@@ -12,7 +12,7 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formUpdateTimezone").submit(function (evt) {
+  $("#formDashboardTimezone").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");
@@ -34,7 +34,7 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formUpdateEmail").submit(function (evt) {
+  $("#formDashboardEmail").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");
@@ -56,7 +56,7 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formUpdateNotificationsAction").submit(function (evt) {
+  $("#formDashboardNotification").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");

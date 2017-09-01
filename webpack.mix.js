@@ -51,6 +51,7 @@ mix.copyDirectory("./resources/images", "./public/images", false);
 // -----------------------------------------------------------------------
 mix.copy("node_modules/jquery/dist/jquery.min.js", "public/vendor/jquery.min.js", false)
   .copy("resources/vendor/modernizr-custom.js", "public/vendor/modernizr-custom.js", false)
+  .copy("resources/vendor/notify.js", "public/vendor/notify.js")
   .copy("node_modules/moment/min/moment-with-locales.min.js", "public/vendor/moment.min.js", false)
   .copy("node_modules/jquery-expander/jquery.expander.min.js", "public/vendor/jquery.expander.min.js", false);
 

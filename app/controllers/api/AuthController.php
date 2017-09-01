@@ -22,7 +22,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function loginAction() : string
+    public function loginAction() : Response
     {
         // POST Data
         $email = $this->request->getPost('email');
@@ -94,7 +94,7 @@ class AuthController extends ApiController
      *
      * @return string   JSON
      */
-    public function loginFacebookAction() : string
+    public function loginFacebookAction() : Response
     {
         $helper = $this->facebook->getRedirectLoginHelper();
 
@@ -228,7 +228,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function registerAction() : string
+    public function registerAction() : Response
     {
         $alias = $this->request->getPost('alias');
         $email = $this->request->getPost('email');
@@ -343,7 +343,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotAction() : string
+    public function passwordForgotAction() : Response
     {
         $email = $this->request->getPost('email');
         $user = User::findFirstByEmail($email);
@@ -393,7 +393,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotCreateAction() : string
+    public function passwordForgotCreateAction() : Response
     {
         $confirmEmail = $this->request->getPost('email');
         $resetKey = $this->request->getPost('reset_key');

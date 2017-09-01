@@ -9,9 +9,6 @@ use Product;
 class QuestionController extends ApiController
 {
 
-    /**
-     * @return void
-     */
     public function onConstruct()
     {
         parent::initialize();
@@ -22,9 +19,9 @@ class QuestionController extends ApiController
     /**
      * @param int $productId
      *
-     * @return string   JSON
+     * @return Response
      */
-    public function createAction(int $productId) : string
+    public function createAction(int $productId) : Response
     {
         $product = \Product::findFirstById($productId);
 
@@ -88,9 +85,9 @@ class QuestionController extends ApiController
      * @param  int $productId
      * @param  int $threadId
      *
-     * @return string
+     * @return Response
      */
-    public function replyAction(int $productId, int $threadId) : string
+    public function replyAction(int $productId, int $threadId) : Response
     {
         $product = \Product::findFirstById($productId);
 
@@ -142,9 +139,9 @@ class QuestionController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return @TODO
      */
-    public function deleteAction() : void
+    public function deleteAction()
     {
         $user_id = $this->session->get('user_id');
     }

@@ -9,9 +9,7 @@ use NewsletterSubscription;
 
 class NewsletterController extends ApiController
 {
-    /**
-     * @return void
-     */
+
     public function onConstruct()
     {
         parent::initialize();
@@ -20,9 +18,9 @@ class NewsletterController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return Response
      */
-    public function subscribeAction() : string
+    public function subscribeAction() : Response
     {
         if (!$this->request->isPost()) {
             $this->output(0, "Oh that doesn't work, You must post the form!");
@@ -85,9 +83,9 @@ class NewsletterController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return Response
      */
-    public function verifyAction() : string
+    public function verifyAction() : Response
     {
         $token = $this->input->getPost('token');
         $newsletter = NewsletterSubscription::findFirstByToken($token);
@@ -104,9 +102,9 @@ class NewsletterController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return Response
      */
-    public function unsubscribeAction() : string
+    public function unsubscribeAction() : Response
     {
         $email = $this->input->getPost('email');
         $newsletter = NewsletterSubscription::findFirstByEmail($email);

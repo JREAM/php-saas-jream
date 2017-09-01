@@ -8,9 +8,7 @@ use UserAction;
 
 class CourseController extends ApiController
 {
-    /**
-     * @return void
-     */
+
     public function onConstruct()
     {
         parent::initialize();
@@ -19,9 +17,9 @@ class CourseController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return Response
      */
-    public function updateProgressAction() : string
+    public function updateProgressAction() : Response
     {
         $user_id = $this->session->get('user_id');
 

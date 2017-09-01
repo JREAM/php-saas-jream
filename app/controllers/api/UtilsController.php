@@ -4,15 +4,10 @@ declare(strict_types=1);
 namespace Controllers\Api;
 
 use Phalcon\Http\Response;
-use User;
-use Promotion;
 
 class UtilsController extends ApiController
 {
 
-    /**
-     * @return void
-     */
     public function onConstruct()
     {
         parent::initialize();
@@ -25,9 +20,9 @@ class UtilsController extends ApiController
      *
      * @throws \DomainException
      *
-     * @return  string  json
+     * @return  Response
      */
-    public function markdownAction() : string
+    public function markdownAction() : Response
     {
         if (!$this->session->has('id')) {
             throw new \DomainException('Only Logged in users can do this.');

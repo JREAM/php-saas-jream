@@ -2,7 +2,8 @@
 declare(strict_types=1);
 
 use \Phalcon\Mvc\Model\Behavior\SoftDelete;
-use \Phalcon\Mvc\Model\Validator;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator;
 
 class User extends BaseModel
 {

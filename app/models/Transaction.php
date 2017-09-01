@@ -2,11 +2,11 @@
 declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator;
 
 class Transaction extends BaseModel
 {
-
-    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -23,18 +23,6 @@ class Transaction extends BaseModel
 
         $this->belongsTo("user_id", "User", "id");
         $this->hasOne("product_id", "Product", "id");
-    }
-
-    // -----------------------------------------------------------------------------
-
-    /**
-     * This fixes an odd bug.
-     *
-     * @return string Class Name in lowercase
-     */
-    public function getSource()
-    {
-        return self::SOURCE;
     }
 
     // -----------------------------------------------------------------------------

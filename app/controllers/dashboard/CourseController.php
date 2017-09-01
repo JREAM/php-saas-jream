@@ -9,7 +9,6 @@ use Controllers\BaseController;
 
 class CourseController extends BaseController
 {
-    const REDIRECT_SUCCESS = '';
     const REDIRECT_FAILURE = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'course/index/';
 
@@ -30,6 +29,8 @@ class CourseController extends BaseController
 
     /**
      * @param int $productId
+     *
+     * @TODO this aint right View or Response here
      *
      * @return View
      */

@@ -9,12 +9,6 @@ use Controllers\BaseController;
 
 class AccountController extends BaseController
 {
-    const REDIRECT_SUCCESS = "dashboard/account";
-    const REDIRECT_FAILURE = "dashboard/account";
-    const REDIRECT_DELETE = "dashboard/account/delete";
-    const REDIRECT_LOGOUT = "user/logout";
-
-    // -----------------------------------------------------------------------------
 
     /**
      * @return void

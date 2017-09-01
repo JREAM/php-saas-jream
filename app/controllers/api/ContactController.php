@@ -10,9 +10,9 @@ class Contact extends Controller
 {
 
     /**
-     * @return mixed (JSON)
+     * @return Response
      */
-    public function sendAction() : string
+    public function sendAction() : Response
     {
         // If Recaptcha fails, Warn and use JS to reload.
         if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {

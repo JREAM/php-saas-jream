@@ -5,7 +5,7 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formLogin").on('submit', function (evt) {
+  $("#formUserLogin").on('submit', function (evt) {
     evt.preventDefault();
 
     let url = $(this).attr('action');
@@ -25,30 +25,36 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formRegister").submit(function (evt) {
+  $("#formUserRegister").submit(function (evt) {
     evt.preventDefault();
 
     const postData = $(this).serialize();
     const url = $(this).attr("action");
 
     axios.post(url, postData).then(resp => {
-      swal({
-        title: 'Success',
-        text: 'Logging In..',
-        type: 'success',
-        timer: 2000
-      }).then(function () {
-        },
-        // When Timer is Complete, or item Closed
-        function (dismiss) {
-          if (dismiss === 'timer') {
-            window.location = '/dashboard';
-          }
-          window.location = '/dashboard';
-        });
+
+    $(this).notify("Logging In", "success").then(dismiss => {
+      window.location = '/dashboard';
+    })
+
+      // swal({
+      //   title: 'Success',
+      //   text: 'Logging In..',
+      //   type: 'success',
+      //   timer: 2000
+      // }).then(function () {
+      //   },
+      //   // When Timer is Complete, or item Closed
+      //   function (dismiss) {
+      //     if (dismiss === 'timer') {
+      //       window.location = '/dashboard';
+      //     }
+      //     window.location = '/dashboard';
+      //   });
     })
       .catch(err => {
-        popError(err.msg)
+        $(this).notify(err.msg, "error");
+        // popError(err.msg)
       });
 
   });
@@ -56,7 +62,7 @@ $(() => {
   // -----------------------------------------------------------------------------
 
 
-  $("#formPasswordResetConfirm").submit(function (evt) {
+  $("#formUserPasswordResetConfirm").submit(function (evt) {
     evt.preventDefault();
 
     const postData = $(this).serialize();

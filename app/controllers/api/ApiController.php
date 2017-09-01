@@ -49,14 +49,14 @@ class ApiController extends Controller
         // --------------------------------------------------------------
 
 
-        if ($this->isCsrfExempt()) {
-            return true;
-        }hasToken
-            $this->tokenManager->generate();
-        }
+        //if ($this->isCsrfExempt()) {
+        //    return true;
+        //} else {
+        //    $this->tokenManager->generate();
+        //}
 
         // Validate the Session Data for ALL Ajax calls
-        $this->validateTokens();
+        //$this->validateTokens();
     }
 
     // -----------------------------------------------------------------------------
@@ -64,14 +64,16 @@ class ApiController extends Controller
     /**
      * Check CSRF Session Token
      *
-     * @return string   JSON
+     * @return Output JSON
      */
-    public function validateTokens() : string
+    public function validateTokens() : ?Output
     {
-        $csrfTokens = $this->request->getHeader('X-CSRFToken');
-        if ($this->tokenManager->validate($csrfTokens) === false) {
+        $tokens = $this->request->getHeader('X-CSRFToken');
+        if ($this->tokenManager->validate($tokens) === false) {
             return $this->output(0, 'Invalid CSRF Token.');
         }
+
+        return null;
     }
 
     // -----------------------------------------------------------------------------
@@ -79,7 +81,7 @@ class ApiController extends Controller
     /**
      * Check if call is CSRF Exempt
      *
-     * @return boolean
+     * @return bool
      */
     protected function isCsrfExempt() : bool
     {
@@ -103,9 +105,9 @@ class ApiController extends Controller
     /**
      * Default output for /api route.
      *
-     * @return string   JSON
+     * @return Output
      */
-    public function indexAction() : string
+    public function indexAction() : Output
     {
         return $this->output(0, 'Invalid usage of the API.');
     }
@@ -119,11 +121,13 @@ class ApiController extends Controller
      * @param  mixed   $msg  (Optional)
      * @param  array $data (Optional) Additional Data to pass to Client
      *
-     * @return Output Renderings string JSON
+     * @return JSON
      */
-    protected function output(int $result, $msg, $data = []) : Output
+    protected function output(int $result, $msg, $data = [])
     {
-        return (new Output($result, $msg))->setData($data)->send();
+        $outgoing = new Output($result, $msg);
+        return $outgoing->setData($data)
+                 ->send();
     }
 
 }

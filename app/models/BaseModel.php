@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use Phalcon\Validation;
+use Phalcon\Validation\Validator;
+
 class BaseModel extends \Phalcon\Mvc\Model
 {
     /**

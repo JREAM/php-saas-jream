@@ -12,7 +12,7 @@
  *
  * @return string
  */
-function getBaseUrl($append = false)
+function getBaseUrl($append = false) : string
 {
     $base_url = preg_replace('/(^https?)+(:\/{2})/i', '', URL);
     $url = \HTTPS ? 'https://' : 'http://';
@@ -40,7 +40,8 @@ function formatName($name)
  *
  * @return mixed
  */
-function formData($name) {
+function formData($name)
+{
     if (!isset($_SESSION)) {
         return false;
     }
@@ -57,7 +58,7 @@ function formData($name) {
  *
  * @return bool
  */
-function formDataClear()
+function formDataClear() : bool
 {
     if (!isset($_SESSION)) {
         return false;
@@ -76,12 +77,19 @@ function formDataClear()
  *
  * @return string
  */
-function getDateTime()
+function getDateTime() : string
 {
     return date('Y-m-d H:i:s');
 }
 
-function getTimeElapsed($datetime, $full = false) {
+/**
+ * @param      $datetime
+ * @param bool $full
+ *
+ * @return string
+ */
+function getTimeElapsed($datetime, $full = false) : string
+{
     $now = new \DateTime;
     $ago = new \DateTime($datetime);
     $diff = $now->diff($ago);

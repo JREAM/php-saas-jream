@@ -22,7 +22,7 @@ class BaseForm extends \Phalcon\Forms\Form
     /**
      * Render the Entire Form is BS3
      *
-     * @return [type] [description]
+     * @return void
      */
     public function fullRender() : void
     {

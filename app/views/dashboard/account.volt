@@ -38,7 +38,7 @@
                 <div class="list-group-item">
                     Timezone <strong>{{ session.get('timezone') }}</strong> <a href="#" id="toggle-timezone" class="pull-right">(change timezone)</a>
 
-                    <form id="form-timezone" class="form-inline pull-right hide" method="post" action="{{ url('api/user/updateTimezone') }}">
+                    <form id="formDashboardAccountTimezone" class="form-inline pull-right hide" method="post" action="{{ url('api/user/updateTimezone') }}">
                         <div class="form-group">
                             <select name="timezone" class="form-control">
                             {% for timezone in timezones %}
@@ -72,7 +72,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><span class="glyphicon glyphicon-envelope opacity-50" aria-hidden="true"></span> Change Email</h4></div>
                 <div class="panel-body">
-                    <form id="form-email-update" method="post" action="{{ url('api/user/updateEmail') }}">
+                    <form id="formDashboardAccountEmail" method="post" action="{{ url('api/user/updateEmail') }}">
                         <div class="form-group">
                             {{ changeEmailForm.render('email') }}
                         </div>
@@ -98,7 +98,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-key opacity-50" aria-hidden="true"></i> Change Password</h4></div>
                 <div class="panel-body">
-                    <form id="form-password-update" method="post" action="{{ url('api/user/updatePassword') }}">
+                    <form id="formDashboardAccountPassword="post" action="{{ url('api/user/updatePassword') }}">
                         <div class="form-group">
                             {{ changePasswordForm.render('current_password') }}
                         </div>
@@ -126,7 +126,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-cog opacity-50" aria-hidden="true"></i> Email Settings</h4></div>
                 <div class="panel-body">
-                    <form id="form-email-settings-update"  class="form" method="post" action="{{ url('api/user/updateNotifications') }}">
+                    <form id="formDashboardAccountNotification"  class="form" method="post" action="{{ url('api/user/updateNotifications') }}">
                         <div class="form-group">
                             <label class="control-label">Email Notifications</label>
                                 <select class="form-control" name="email_notifications">

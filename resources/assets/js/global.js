@@ -70,7 +70,7 @@ function toggleLogo() {
   // Footer Newsletter Subscribe
   // -----------------------------------------------------------------------------
 
-  $("#newsletterFooterSubscribe").on("submit", function(evt) {
+  $("#formFooterNewsletterSubscribe").on("submit", function(evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");

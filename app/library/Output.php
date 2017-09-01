@@ -31,9 +31,8 @@ class Output extends DiInjectable
      * @param int $result 0 to fail, 1 to succeed
      * @param mixed $msg (default null)
      *
-     * @return Output
      */
-    public function __construct(int $result, $msg = null) : Output
+    public function __construct(int $result, $msg = null)
     {
         // Do not allow anything besides string or null
         if (!is_string($msg)) {

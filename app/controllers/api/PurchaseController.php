@@ -13,9 +13,6 @@ use Product;
 class PurchaseController extends ApiController
 {
 
-    /**
-     * @return void
-     */
     public function onConstruct()
     {
         parent::initialize();
@@ -24,9 +21,9 @@ class PurchaseController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
+     * @return Response
      */
-    public function applyPromotionAction() : string
+    public function applyPromotionAction() : Response
     {
         $code = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
@@ -42,9 +39,10 @@ class PurchaseController extends ApiController
 
     /**
      * @param int   $productId
-     * @return string JSON
+     *
+     * @return Response
      */
-    public function freeAction(int $productId) : string
+    public function freeAction(int $productId) : Response
     {
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
@@ -62,9 +60,9 @@ class PurchaseController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string   JSON
+     * @return Response
      */
-    public function stripeAction($productId) : string
+    public function stripeAction($productId) : Response
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -218,9 +216,9 @@ class PurchaseController extends ApiController
     /**
      * @param int   $productId
      *
-     * @return string   JSON
+     * @return Response
      */
-    public function paypalAction(int $productId) : string
+    public function paypalAction(int $productId) : Response
     {
         $product = \Product::findFirstById($productId);
 
@@ -266,9 +264,10 @@ class PurchaseController extends ApiController
      * @TODO If I change this make sure i change in paypal if i need to
      *
      * @param  int $productId
-     * @return string   JSON
+     *
+     * @return Response
      */
-    public function doPaypalConfirmAction(int $productId) : string
+    public function doPaypalConfirmAction(int $productId) : Response
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -349,6 +348,7 @@ class PurchaseController extends ApiController
         $use_price = $product->price;
 
         $promo_applied = false;
+
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
             $use_price = $this->session->get('discount_price');
@@ -367,7 +367,6 @@ class PurchaseController extends ApiController
         }
 
         $transaction->save();
-
 
         // Insert the user record
         $userPurchase = new UserPurchase();
@@ -389,7 +388,6 @@ class PurchaseController extends ApiController
         ]);
 
         $user = User::findFirstById($this->session->get('id'));
-
 
         // Send email regarding purchase
         $mail_result = $this->di->get('email', [

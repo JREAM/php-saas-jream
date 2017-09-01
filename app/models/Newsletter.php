@@ -2,11 +2,11 @@
 declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator;
 
 class Newsletter extends BaseModel
 {
-
-    // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
     public static $_cache;
@@ -21,7 +21,6 @@ class Newsletter extends BaseModel
             'value' => 1,
         ]));
 
-        $this->setSource(self::SOURCE);
         // Some won't have accounts, but if they do associate them with the newsletter.
     }
 

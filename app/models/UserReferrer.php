@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator;
+
 class UserReferrer extends BaseModel
 {
 

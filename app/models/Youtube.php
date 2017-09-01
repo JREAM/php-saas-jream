@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use Phalcon\Validation;
 
 class Youtube extends BaseModel
 {

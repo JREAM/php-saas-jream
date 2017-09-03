@@ -11,9 +11,10 @@ $(() => {
 
     if (overlay.hasClass('hide')) {
       $('.overlay').removeClass('hide');
-    } else {
-      $('.overlay').addClass('hide');
+      return;
     }
+
+    $('.overlay').addClass('hide');
   });
 
   // -----------------------------------------------------------------------------

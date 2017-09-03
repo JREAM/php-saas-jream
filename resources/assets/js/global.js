@@ -70,7 +70,7 @@ function toggleLogo() {
   // Footer Newsletter Subscribe
   // -----------------------------------------------------------------------------
 
-  $("#formFooterNewsletterSubscribe").on("submit", function(evt) {
+  $("#formFooterNewsletterSubscribe").on("submit", function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");
@@ -88,9 +88,9 @@ function toggleLogo() {
       });
 
     })
-    .catch(err => {
-      popError(err.msg);
-    });
+      .catch(err => {
+        $(this).notify(err.msg, "error");
+      });
 
   });
 

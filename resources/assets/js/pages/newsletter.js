@@ -12,15 +12,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      swal({
-        title: 'Success',
-        text: 'Your email has been registered, please verify you email address in your inbox!',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your email has been registered, please verify you email address in your inbox!', "success");
     })
     .catch(err => {
-      popError(err.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });
@@ -34,15 +29,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      swal({
-        title: 'Success',
-        text: 'Your email has been validated',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your email has been validated', "success");
     })
     .catch(err => {
-      popError(err.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });
@@ -56,15 +46,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      swal({
-        title: 'Success',
-        text: 'Your email has been unsubscribed from future newsletters!',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your email has been unsubscribed from future newsletters!', "success");
     })
     .catch(err => {
-      popError(err.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });

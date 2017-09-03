@@ -30,7 +30,7 @@ $(() => {
 
     }).catch(function (err) {
 
-      popError(err.msg)
+      $(this).notify(err.msg, "error");
 
       // Reset Recaptcha
       grecaptcha.reset();

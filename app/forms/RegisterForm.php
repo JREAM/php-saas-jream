@@ -13,24 +13,32 @@ class RegisterForm extends BaseForm
 
     public function initialize() : void
     {
+        $di = \Phalcon\Di\FactoryDefault::getDefault();
+        $fakerData = $di->get('fakerData');
+
         $alias = new Text('alias', [
             'placeholder' => 'Alias',
             'class'       => 'form-control input-lg',
+            'value'       =>  $fakerData->alias
         ]);
 
         $alias->addValidators([
             new Validator\StringLength([
-                "max"            => 18,
                 "min"            => 5,
-                "messageMaximum" => "Your alias must be less than or equal to 18 characters.",
+                "max"            => 18,
                 "messageMinimum" => "Your alias must be atleast 5 characters",
+                "messageMaximum" => "Your alias must be less than or equal to 18 characters.",
             ]),
+            new Validator\Alpha([
+                'message' => 'Your name must be alphabetical only'
+            ])
         ]);
 
 
         $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
+            'value'       =>  $fakerData->email
         ]);
 
         $email->addValidators([
@@ -42,9 +50,12 @@ class RegisterForm extends BaseForm
             ]),
         ]);
 
+        $fakerPassword = $fakerData->password;
+
         $password = new Password('password', [
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',
+            'value'       =>  $fakerPassword
         ]);
 
         $password->addValidators([
@@ -62,12 +73,17 @@ class RegisterForm extends BaseForm
         $confirmPassword = new Password('confirm_password', [
             'placeholder' => 'Confirm Password',
             'class'       => 'form-control input-lg',
+            'value'       =>  $fakerPassword
         ]);
 
         $confirmPassword->addValidators([
             new Validator\PresenceOf([
                 'message' => 'Confirm Password is required.',
             ]),
+            new Validator\Identical([
+                'accepted' => $this->getUserOption('confirm_password'),
+                'message' => 'Your passwords must match.'
+            ])
         ]);
 
         $this->add($alias);

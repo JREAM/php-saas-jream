@@ -235,14 +235,17 @@ class AuthController extends ApiController
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if($password != $confirm_password) {
-            return $this->output(0, 'Your passwords do not match.');
-        }
+        // GOTTA TEST THIS
+        // @TODO this is NOT VALID but its not working
+        //$form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
+        $form = new \Forms\RegisterForm($_POST);
+        if (!$form->isValid($_POST)) {
+            print_r($_POST);
+            print_r($form->getMessages());
+            die;
 
-        if(strlen($alias) < 4 || ! ctype_alpha($alias)) {
-            return $this->output(0,
-                'Alias must be atleast 4 characters and only alphabetical.'
-            );
+            //print_r($_POST);die;
+            return $this->output(0, $form->getMessages());
         }
 
         if(\User::findFirstByAlias($alias)) {

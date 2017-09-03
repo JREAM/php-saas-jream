@@ -29,7 +29,7 @@ class Output extends DiInjectable
      * Constructs an outgoing JSON Response
      *
      * @param int $result 0 to fail, 1 to succeed
-     * @param mixed $msg (default null)
+     * @param mixed $msg (default null), It can be a string or array of messages
      *
      */
     public function __construct(int $result, $msg = null)

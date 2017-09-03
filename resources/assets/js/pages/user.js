@@ -19,15 +19,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
-      swal({
-        title: 'Success',
-        text: 'Your Timezone has been updated',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Timezone Updated', "success");
     })
     .catch(function (error) {
-      popError(error.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });
@@ -41,15 +36,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
-      swal({
-        title: 'Success',
-        text: 'Your email was updated',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your email was updated.', "success");
     })
     .catch(function (error) {
-      popError(error.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });
@@ -63,15 +53,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
-      swal({
-        title: 'Success',
-        text: 'Your notification settings have been updated.',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your notification settings have been updated.', "success");
     })
     .catch(function (error) {
-      popError(error.msg);
+      $(this).notify(err.msg, "error");
     });
 
   });

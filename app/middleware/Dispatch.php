@@ -4,6 +4,7 @@ namespace Middleware;
 
 use Phalcon\Events\Event;
 use Phalcon\Http\Response;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Exception as PhalconException;
 
@@ -84,12 +85,12 @@ class Dispatch
      * Handle Exceptions Locally and LIve
      *
      * @param  Event $event
-     * @param  Response $dispatcher
-     * @param  PhalconException $exception
+     * @param  Dispatcher $dispatcher
+     * @param  PhalconException|WhoopsException|Exception $exception
      *
      * @return bool
      */
-    public function beforeException(Event $event, Response $dispatcher, PhalconException $exception) : bool
+    public function beforeException(Event $event, Dispatcher $dispatcher, $exception) : bool
     {
         error_log($exception->getMessage(), 0);
 

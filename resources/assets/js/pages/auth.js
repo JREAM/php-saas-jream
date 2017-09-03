@@ -12,13 +12,10 @@ $(() => {
     let postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      if (resp.data.result == 0) {
-        throw resp.data;
-      }
       window.location = '/dashboard';
     })
       .catch(err => {
-        popError(err.msg)
+        $(this).notify(err.msg, "error");
       });
 
   });
@@ -33,9 +30,9 @@ $(() => {
 
     axios.post(url, postData).then(resp => {
 
-    $(this).notify("Logging In", "success").then(dismiss => {
-      window.location = '/dashboard';
-    })
+      $(this).notify("Logging In", "success").then(dismiss => {
+        window.location = '/dashboard';
+      })
 
       // swal({
       //   title: 'Success',
@@ -54,7 +51,6 @@ $(() => {
     })
       .catch(err => {
         $(this).notify(err.msg, "error");
-        // popError(err.msg)
       });
 
   });
@@ -69,14 +65,10 @@ $(() => {
     const url = $(this).attr("action");
 
     axios.post(url, postData).then(resp => {
-      swal({
-        title: 'Success',
-        text: 'Please Check your Email',
-        type: 'success',
-      })
+      $(this).notify('Great! Next, please confirm your email.', "warning");
     })
       .catch(err => {
-        popError(err.msg)
+        $(this).notify(err.msg, "error");
       });
 
   });

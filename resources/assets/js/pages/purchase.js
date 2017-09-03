@@ -14,7 +14,7 @@ $(() => {
 
     })
       .catch(err => {
-        popError(err.msg)
+        $(this).notify(err.msg, "error");
       });
 
   });

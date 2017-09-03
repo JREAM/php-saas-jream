@@ -12,19 +12,13 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      if (resp.result == 0) {
-        throw resp.data;
-      }
-      swal({
-        title: 'Success',
-        text: 'Your Question was Posted',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your question was posted', "success");
+      // Clear textarea
+      $('textarea', this).val('');
     })
-    .catch(err => {
-      popError(err.msg);
-    });
+      .catch(err => {
+        $(this).notify(err.msg, "error");
+      });
   });
 
   // -----------------------------------------------------------------------------
@@ -36,19 +30,13 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      if (resp.result == 0) {
-        throw resp.data;
-      }
-      swal({
-        title: 'Success',
-        text: 'Your reply was Posted.',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your reply was posted.', "success");
+      // Clear textarea
+      $('textarea', this).val('');
     })
-    .catch(err => {
-      popError(err.msg);
-    });
+      .catch(err => {
+        $(this).notify(err.msg, "error");
+      });
   });
 
   // -----------------------------------------------------------------------------
@@ -60,20 +48,11 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      if (resp.result == 0) {
-        throw resp.data;
-      }
-
-      swal({
-        title: 'Success',
-        text: 'Your question was removed.',
-        type: 'success',
-        timer: 3000
-      })
+      $(this).notify('Your question was removed', "success");
     })
-    .catch(err => {
-      popError(err.msg);
-    });
+      .catch(err => {
+        $(this).notify(err.msg, "error");
+      });
   });
 
   // -----------------------------------------------------------------------------

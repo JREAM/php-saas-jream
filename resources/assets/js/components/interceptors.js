@@ -29,6 +29,21 @@ axios.interceptors.response.use(response => response, error => {
 
     case 200:
       if (response.data.result == 0) {
+        // @TODO: Do i want a global thing like tihs? Then remove the other catches
+        // List of Errors
+        if (Array.isArray(response.data.data) && response.data.data.length > 0) {
+          // Create a list to output
+          let error_list = String('<ul>');
+          for (var error of response.data.data) {
+            error_list += `<li>${error}</li>`;
+          }
+          error_list += String('</ul>');
+
+          $.notify(error_list, 'error');
+        } else {
+          $.notify(reponse.data.msg, 'error');
+        }
+        // And throw anyways
         throw response.data;
       }
       break;

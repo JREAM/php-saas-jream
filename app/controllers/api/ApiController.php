@@ -118,12 +118,12 @@ class ApiController extends Controller
      * JSON Output
      *
      * @param  int   $result
-     * @param  mixed   $msg  (Optional)
-     * @param  array $data (Optional) Additional Data to pass to Client
+     * @param  mixed $msg  (Optional)
+     * @param  array $data (Optional) Additional Data, or multiple error messages to pass to Client
      *
-     * @return JSON
+     * @return Response JSON
      */
-    protected function output(int $result, $msg, $data = [])
+    protected function output(int $result, $msg, $data = []) : Response
     {
         $outgoing = new Output($result, $msg);
         return $outgoing->setData($data)

@@ -6,6 +6,26 @@ JREAM (Jesus Rules Everything Around Me) is a website for streaming videos I've 
 The system is built to serve people content on the fly after they purchase a product. Reliablity
 is important since JREAM LLC provides a serve. To solve this, AWS is utilized for fall-back servers, Redundant Storage, Geolocalized CDN, and Multi A-Z DB.
 
+## Using Mailcatcher
+
+For localhost testing use mailcatcher with Ruby:
+
+```
+gem install mailcatcher
+mailcatcher
+```
+
+PHP settings
+```
+Mailpath: /usr/bin/sendmail
+Protocol: smtp
+Host: localhost
+Port: 1025
+```
+
+- Go to http://localhost:1080/
+- Send mail through smtp://localhost:1025
+
 ##TODO
 
 - [ ] (Skip) Middleware CSRF Token.

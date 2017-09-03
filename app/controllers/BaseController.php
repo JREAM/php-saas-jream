@@ -1,5 +1,6 @@
 <?php
-declare(strict_types=1);
+
+declare( strict_types=1 );
 
 namespace Controllers;
 
@@ -33,20 +34,20 @@ class BaseController extends Controller
     {
         getBaseUrl('/');
 
-        if ($this->session->has('agent')) {
-            if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT']) {
+        if ( $this->session->has('agent') ) {
+            if ( $this->session->get('agent') != $_SERVER[ 'HTTP_USER_AGENT' ] ) {
                 $this->flash->error('Please re-login. For your security, we\'ve detected you\'re using a different browser.');
                 $this->response->redirect("user/login");
             }
         }
 
-        $this->filter = $this->di->get('filter');
+        $this->filter       = $this->di->get('filter');
         $this->tokenManager = new TokenManager();
     }
 
     // -----------------------------------------------------------------------------
 
-    public function beforeExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    public function beforeExecuteRoute( \Phalcon\Mvc\Dispatcher $dispatcher )
     {
         // --------------------------------------------------------------
         // Generate User Sessions CSRF Tokens
@@ -54,12 +55,12 @@ class BaseController extends Controller
         // 1: Create a user-session CSRF Token Pair if one does NOT exist.
         // .. All Users signed in or not must have a CSRF token.
         // --------------------------------------------------------------
-        if (!$this->tokenManager->hasToken()) {
+        if ( ! $this->tokenManager->hasToken() ) {
             // Creates session data.
             $this->tokenManager->generate();
         }
 
-        if ($this->request->isMethod('post')) {
+        if ( $this->request->isMethod('post') ) {
             // Check every POST (Non-XHR and XHR) to have CSRF
             $this->validateTokens();
         }
@@ -67,24 +68,24 @@ class BaseController extends Controller
 
     // -----------------------------------------------------------------------------
 
-    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
+    public function afterExecuteRoute( \Phalcon\Mvc\Dispatcher $dispatcher )
     {
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));
 
         // Create a random number for   cache busting in non-production
         $cacheBust = false;
-        if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+        if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
             $cacheBust = '?v=' . random_int(100000, 999999);
         }
         $this->view->setVar('cacheBust', $cacheBust);
 
         // Set the CSRF for every request (It uses a unique key/pair token per user session)
         $this->view->setVars([
-            'tokenKey'  => $this->tokenManager->getTokens()['tokenKey'],
-            'token'     => $this->tokenManager->getTokens()['token'],
-            'prefs'     => [
-                'user_id'      => $this->session->get('id')
+            'tokenKey' => $this->tokenManager->getTokens()[ 'tokenKey' ],
+            'token'    => $this->tokenManager->getTokens()[ 'token' ],
+            'prefs'    => [
+                'user_id' => $this->session->get('id'),
             ]
         ]);
 
@@ -97,15 +98,16 @@ class BaseController extends Controller
      *
      * @return string
      */
-    protected function generateBodyPageId() : string
+    protected function generateBodyPageId()
+    : string
     {
-        $pageId = $this->di->get('router')->getControllerName();
+        $pageId      = $this->di->get('router')->getControllerName();
         $action_name = $this->di->get('router')->getActionName();
-        if ($action_name !==  '') {
+        if ( $action_name !== '' ) {
             $pageId .= '-' . $this->di->get('router')->getActionName();
         }
         // Remove the "Index" or default home page.
-        if (strpos($pageId, '-index') !== -1) {
+        if ( strpos($pageId, '-index') !== -1 ) {
             $pageId = str_replace('-index', '', $pageId);
         }
 
@@ -117,14 +119,14 @@ class BaseController extends Controller
     /**
      * Redirection
      *
-     * @param  string   $append  Add the the full URL
+     * @param  string $append Add the the full URL
      *
      * @return void
      */
-    public function redirect($append)
+    public function redirect( $append )
     {
         $url = rtrim(\URL, '/');
-        if (strlen($append) !== 0) {
+        if ( strlen($append) !== 0 ) {
             $url .= '/' . ltrim($append, '/');
 
             // Ensure there are no trailing slashes.
@@ -167,13 +169,13 @@ class Batch
 
     // -----------------------------------------------------------------------------
 
-    public function __construct($table = false)
+    public function __construct( $table = false )
     {
-        if ($table) {
+        if ( $table ) {
             $this->table = (string) $table;
         }
 
-        $di = \Phalcon\DI::getDefault();
+        $di       = \Phalcon\DI::getDefault();
         $this->db = $di->get('db');
 
         return $this;
@@ -188,9 +190,10 @@ class Batch
      *
      * @return object Batch
      */
-    public function setRows($rows) : Batch
+    public function setRows( $rows )
+    : Batch
     {
-        $this->rows = $rows;
+        $this->rows       = $rows;
         $this->rowsString = sprintf('`%s`', implode('`,`', $this->rows));
 
         return $this;
@@ -205,9 +208,10 @@ class Batch
      *
      * @return Batch
      */
-    public function setValues($values) : Batch
+    public function setValues( $values )
+    : Batch
     {
-        if (!$this->rows) {
+        if ( ! $this->rows ) {
             throw new \Exception('You must setRows() before setValues');
         }
         $this->values = $values;
@@ -217,16 +221,16 @@ class Batch
 
         // Build the Placeholder String
         $placeholders = [];
-        for ($i = 0; $i < $valueCount; $i++) {
+        for ( $i = 0; $i < $valueCount; $i++ ) {
             $placeholders[] = '(' . rtrim(str_repeat('?,', $fieldCount), ',') . ')';
         }
         $this->bindString = implode(',', $placeholders);
 
         // Build the Flat Value Array
         $valueList = [];
-        foreach ($values as $value) {
-            if (is_array($value)) {
-                foreach ($value as $v) {
+        foreach ( $values as $value ) {
+            if ( is_array($value) ) {
+                foreach ( $value as $v ) {
                     $valueList[] = $v;
                 }
             } else {
@@ -248,12 +252,13 @@ class Batch
      *
      * @return void
      */
-    public function insert($ignore = false) : void
+    public function insert( $ignore = false )
+    : void
     {
         $this->_validate();
 
         // Optional ignore string
-        if ($ignore) {
+        if ( $ignore ) {
             $insertString = "INSERT IGNORE INTO `%s` (%s) VALUES %s";
         } else {
             $insertString = "INSERT INTO `%s` (%s) VALUES %s";
@@ -276,20 +281,21 @@ class Batch
      *
      * @return void
      */
-    private function _validate() : void
+    private function _validate()
+    : void
     {
-        if (!$this->table) {
+        if ( ! $this->table ) {
             throw new \Exception('Batch Table must be defined');
         }
 
         $requiredCount = count($this->rows);
 
-        if ($requiredCount == 0) {
+        if ( $requiredCount == 0 ) {
             throw new \Exception('Batch Rows cannot be empty');
         }
 
-        foreach ($this->values as $value) {
-            if (count($value) !== $requiredCount) {
+        foreach ( $this->values as $value ) {
+            if ( count($value) !== $requiredCount ) {
                 throw new \Exception('Batch Values must match the same column count of ' . $requiredCount);
             }
         }

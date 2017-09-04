@@ -12,10 +12,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your email has been registered, please verify you email address in your inbox!', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
     })
     .catch(err => {
-      $(this).notify(err.msg, "error");
+      $(this).notify(err.msg, err.type);
     });
 
   });
@@ -29,10 +29,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your email has been validated', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
     })
     .catch(err => {
-      $(this).notify(err.msg, "error");
+      $(this).notify(err.msg, err.type);
     });
 
   });
@@ -46,10 +46,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your email has been unsubscribed from future newsletters!', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
     })
     .catch(err => {
-      $(this).notify(err.msg, "error");
+      $(this).notify(err.msg, err.type);
     });
 
   });

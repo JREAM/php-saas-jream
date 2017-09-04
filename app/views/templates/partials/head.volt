@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="OwyLkMsH9jv5qjWXoHjuS21Vhrcuz1qy1GstT02l8Sg">
-    <meta name="csrf" id="csrf" data-key="{% if tokenKey is defined %}{{ tokenKey }}{% endif %}" data-token="{% if token is defined %}{{ token }}{% endif %}" content="">
+    <meta name="csrf" id="csrf" data-key="{% if jsGlobal['csrf']['tokenKey'] is defined %}{{ jsGloba['csrf']['tokenKey'] }}{% endif %}" data-token="{% if jsGlobal['csrf']['token'] is defined %}{{ jsGlobal['csrf']['token'] }}{% endif %}" content="">
     {{ get_title() }}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url('images/favicon/apple-touch-icon.png') }}">
@@ -21,3 +21,13 @@
     <!-- JS Dependencies (Must Come First) -->
     <script src="{{ url('vendor/modernizr-custom.js') }} "></script>
     <script src="{{ url('vendor/jquery.min.js') }} "></script>
+
+    <script>
+        window.user_id = '{{ jsGlobal['user_id'] }}';
+        window.notifications = {
+            'error': '{{ jsGlobal['notifications']['error'] }}',
+            'success': '{{ jsGlobal['notifications']['success'] }}',
+            'info': '{{ jsGlobal['notifications']['info'] }}',
+            'warn': '{{ jsGlobal['notifications']['warn'] }}',
+        };
+    </script>

@@ -47,7 +47,7 @@ $(() => {
    */
   axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRFToken': `${tokenKey}|${token}`
+    // 'X-CSRFToken': `${tokenKey}|${token}`
   };
   axios.defaults.responseType = 'json';
 

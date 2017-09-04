@@ -67,8 +67,8 @@ class AuthController extends ApiController
             // $this->createSession($user, [], $remember_me);
             $this->createSession($user);
 
-            return $this->output(1, null, [
-                'redirect' => $this->router->getRouteByName('dashboard'),
+            return $this->output(1, 'Logging In!', [
+                'redirect' => getBaseUrl('dashboard'),
             ]);
         }
 
@@ -237,15 +237,15 @@ class AuthController extends ApiController
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
-        //$form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
-        $form = new \Forms\RegisterForm($_POST);
+        $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
         if (!$form->isValid($_POST)) {
-            print_r($_POST);
+            //print_r($_POST);
             print_r($form->getMessages());
-            die;
+            $errors = is_array($form->getMessages()) ?: [$form->getMessages()];
+            //die;
 
             //print_r($_POST);die;
-            return $this->output(0, $form->getMessages());
+            return $this->output(0, $errors);
         }
 
         if(\User::findFirstByAlias($alias)) {

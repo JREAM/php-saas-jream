@@ -220,7 +220,8 @@ $di->setShared('view', function () use ( $config, $di ) {
                 ->addFunction('is_a', 'is_a')
                 ->addFunction('pageid', function ( $str, $expr ) {
                     return str_replace('-page', '', $str);
-                });
+                })
+            ;
 
             // Use Cache for live site
             if ( \APPLICATION_ENV == \APP_PRODUCTION ) {
@@ -402,20 +403,22 @@ $di->setShared('s3', function () {
  * happen. Regardless, Ill attempt to protect it anyways.
  * =============================================================
  */
-$di->set('faker', function() {
-    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+$di->set('faker', function () {
+    if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
         return \Faker\Factory::create();
     }
+
     return false;
 });
 
 $di->set('fakerData', function () {
     // Allows me to get data and have it empty if I like with one rule check
     $faker = false;
-    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+    if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
         $faker = \Faker\Factory::create();
     }
-   return (object) [
+
+    return (object) [
         'NOTE'           => 'This is ALL completely FAKE data for TESTING.',
         'alias'          => $faker ? sprintf('faker%s%s%s', str_replace('.', '', $faker->title), $faker->firstName, $faker->lastName) : null,
         'email'          => $faker ? 'faker_' . $faker->safeEmail : null,

@@ -2,20 +2,19 @@
 // Document Ready
 // -----------------------------------------------------------------------------
 $(() => {
-
   // -----------------------------------------------------------------------------
-
-  $("#formUserLogin").on('submit', function (evt) {
+  $("#formUserLogin").hide()
+  $("#formUserLogin").submit(function (evt) {
     evt.preventDefault();
 
-    let url = $(this).attr('action');
-    let postData = $(this).serialize();
+    const url = $(this).attr("action");
+    const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      window.location = '/dashboard';
+      window.location = resp.data.data.redirect;
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
 
   });
@@ -30,27 +29,12 @@ $(() => {
 
     axios.post(url, postData).then(resp => {
 
-      $(this).notify("Logging In", "success").then(dismiss => {
-        window.location = '/dashboard';
-      })
-
-      // swal({
-      //   title: 'Success',
-      //   text: 'Logging In..',
-      //   type: 'success',
-      //   timer: 2000
-      // }).then(function () {
-      //   },
-      //   // When Timer is Complete, or item Closed
-      //   function (dismiss) {
-      //     if (dismiss === 'timer') {
-      //       window.location = '/dashboard';
-      //     }
-      //     window.location = '/dashboard';
-      //   });
+      $(this).notify(resp.data.msg, resp.data.type).then(dismiss => {
+        window.location = "/dashboard";
+      });
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
 
   });
@@ -65,10 +49,10 @@ $(() => {
     const url = $(this).attr("action");
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Great! Next, please confirm your email.', "warning");
+      $(this).notify(resp.data.msg, resp.data.type);
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
 
   });

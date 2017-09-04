@@ -13,12 +13,19 @@ use Phalcon\Di\Injectable as DiInjectable;
  */
 class Output extends DiInjectable
 {
+    const ERROR   = 0x00;
+    const SUCCESS = 0x01;
+    const INFO    = 0x02;
+    const WARN    = 0x05;
+
     /**
      * Outgoing Data as JSON
+     *
      * @var array
      */
     private $outgoing = [
         'result' => 0,
+        'type'   => null,
         'msg'    => null,
         'data'   => [],
     ];
@@ -28,14 +35,14 @@ class Output extends DiInjectable
     /**
      * Constructs an outgoing JSON Response
      *
-     * @param int $result 0 to fail, 1 to succeed
-     * @param mixed $msg (default null), It can be a string or array of messages
+     * @param int   $result 0 to fail, 1 to succeed
+     * @param mixed $msg    (default null), It can be a string or array of messages
      *
      */
-    public function __construct(int $result, $msg = null)
+    public function __construct( int $result, $msg = null )
     {
         // Do not allow anything besides string or null
-        if (!is_string($msg)) {
+        if ( ! is_string($msg) ) {
             $msg = null;
         }
 
@@ -45,6 +52,17 @@ class Output extends DiInjectable
         // Set the results
         $this->outgoing->result = $result;
         $this->outgoing->msg    = $msg;
+
+        switch ($result) {
+            case self::ERROR:
+                $this->type = 'error';
+            case self::SUCCESS:
+                $this->type = 'success';
+            case self::INFO:
+                $this->type = 'info';
+            case self::WARN:
+                $this->type = 'warn';
+        }
 
         return $this;
     }
@@ -58,9 +76,11 @@ class Output extends DiInjectable
      *
      * @return Output
      */
-    public function setData(array $data) : Output
+    public function setData( array $data )
+    : Output
     {
         $this->outgoing->data = $data;
+
         return $this;
     }
 
@@ -69,7 +89,8 @@ class Output extends DiInjectable
     /**
      * @return Response
      */
-    public function send() : Response
+    public function send()
+    : Response
     {
         // Get the DI Response Method
         $response = $this->di->get('response');

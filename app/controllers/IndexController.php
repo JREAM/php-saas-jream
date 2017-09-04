@@ -32,7 +32,6 @@ class IndexController extends BaseController
 
         $this->view->setVars([
             'products' => $products,
-            'tags'     => \Product::getAllByTags(),
         ]);
 
         return $this->view->pick('index/index');

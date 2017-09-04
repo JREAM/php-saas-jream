@@ -13,6 +13,7 @@ class RegisterForm extends BaseForm
 
     public function initialize() : void
     {
+        // Faker Data is used to save time going through areas manually
         $di = \Phalcon\Di\FactoryDefault::getDefault();
         $fakerData = $di->get('fakerData');
 
@@ -73,7 +74,7 @@ class RegisterForm extends BaseForm
         $confirmPassword = new Password('confirm_password', [
             'placeholder' => 'Confirm Password',
             'class'       => 'form-control input-lg',
-            'value'       =>  $fakerPassword
+            'value'       =>  &$fakerPassword
         ]);
 
         $confirmPassword->addValidators([

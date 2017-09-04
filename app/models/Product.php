@@ -43,45 +43,6 @@ class Product extends BaseModel
     // -----------------------------------------------------------------------------
 
     /**
-     * Returns a list of Products in groups of tags
-     *
-     * @return [type] [description]
-     */
-    public static function getAllByTags()
-    {
-        // \Product::find(["is_deleted = 0"]);
-        // $tags = \Product::find(["is_deleted = 0"]);
-        $products = \Product::find([
-            'conditions' => 'is_deleted = 0',
-            'columns'    => 'id, title, slug, tags, img_sm, img_md',
-        ])
-        ->toArray();
-
-        $tag_list = [];
-        foreach ($products as $product) {
-            if (!$product['tags']) {
-                continue;
-            }
-            $tags = explode(',', $product['tags']);
-            foreach ($tags as $tag) {
-                if (!isset($tag_list[$tag])) {
-                    $tag_list[$tag] = [];
-                }
-                $tag_list[$tag][] = (object)$product;
-            }
-        }
-
-        // echo '<pre>';
-        // print_r($tag_list);
-        // echo '<hr>';
-        // die;
-
-        return $tag_list;
-    }
-
-    // -----------------------------------------------------------------------------
-
-    /**
      * Has a user Purchased this product?
      *
      * @param bool $userId Default is the user ID

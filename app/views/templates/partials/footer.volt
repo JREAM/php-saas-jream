@@ -48,20 +48,12 @@
     </div>
 </div>
 
-<script>
-window.prefs = {
-    'id': '{% if prefs.user_id is defined %}{{ prefs.user_id }}{% endif %}',
-}
-</script>
 <!-- Dependencies -->
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
 {#<script src="{{ url('vendor/validator.min.js') }} "></script>#}
 {#<script src="{{ url('vendor/moment.min.js') }} "></script>#}
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 
-<script>
-window.CSRF = "{% if tokenKey is defined %}{{ tokenKey }},{% endif %}{% if token is defined %}{{ token }}{% endif %}";
-</script>
 <!-- CDN -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 

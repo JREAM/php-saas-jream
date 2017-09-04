@@ -12,12 +12,12 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your question was posted', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
       // Clear textarea
       $('textarea', this).val('');
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
   });
 
@@ -30,12 +30,12 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your reply was posted.', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
       // Clear textarea
       $('textarea', this).val('');
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
   });
 
@@ -48,10 +48,10 @@ $(() => {
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(resp => {
-      $(this).notify('Your question was removed', "success");
+      $(this).notify(resp.data.msg, resp.data.type);
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
   });
 

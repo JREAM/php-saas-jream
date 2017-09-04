@@ -30,7 +30,7 @@ $(() => {
 
     }).catch(function (err) {
 
-      $(this).notify(err.msg, "error");
+      $(this).notify(err.msg, err.type);
 
       // Reset Recaptcha
       grecaptcha.reset();

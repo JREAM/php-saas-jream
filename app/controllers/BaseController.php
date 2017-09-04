@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace Controllers;
 
+use Library\Output;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
@@ -80,13 +81,25 @@ class BaseController extends Controller
         }
         $this->view->setVar('cacheBust', $cacheBust);
 
+
         // Set the CSRF for every request (It uses a unique key/pair token per user session)
+        $hashid = $this->di->get('hashids');
         $this->view->setVars([
-            'tokenKey' => $this->tokenManager->getTokens()[ 'tokenKey' ],
-            'token'    => $this->tokenManager->getTokens()[ 'token' ],
-            'prefs'    => [
-                'user_id' => $this->session->get('id'),
-            ]
+            // This is for JS to pickup
+            'jsGlobal' => [
+                'user_id'       => $hashid->encodeHex($this->session->get('id')),
+                'csrf'          => [
+                    $this->tokenManager->getTokens()[ 'tokenKey' ],
+                    $this->tokenManager->getTokens()[ 'token' ],
+                ],
+                'notifications' => [
+                    'error'   => Output::ERROR,
+                    'success' => Output::SUCCESS,
+                    'info'    => Output::INFO,
+                    'warn'    => Output::WARN,
+                ],
+
+            ],
         ]);
 
     }

@@ -28,7 +28,6 @@ class LoginForm extends BaseForm
             ]),
         ]);
 
-
         $password = new Password('password', [
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',

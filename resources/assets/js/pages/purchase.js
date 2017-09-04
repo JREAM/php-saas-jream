@@ -14,7 +14,7 @@ $(() => {
 
     })
       .catch(err => {
-        $(this).notify(err.msg, "error");
+        $(this).notify(err.msg, err.type);
       });
 
   });

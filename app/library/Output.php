@@ -13,10 +13,12 @@ use Phalcon\Di\Injectable as DiInjectable;
  */
 class Output extends DiInjectable
 {
-    const ERROR   = 0x00;
-    const SUCCESS = 0x01;
-    const INFO    = 0x02;
-    const WARN    = 0x05;
+    protected static $codes = [
+        'error'   => 0,
+        'warn'    => -1,
+        'success' => 1,
+        'info'    => 2,
+    ];
 
     /**
      * Outgoing Data as JSON
@@ -53,18 +55,37 @@ class Output extends DiInjectable
         $this->outgoing->result = $result;
         $this->outgoing->msg    = $msg;
 
-        switch ($result) {
-            case self::ERROR:
-                $this->type = 'error';
-            case self::SUCCESS:
-                $this->type = 'success';
-            case self::INFO:
-                $this->type = 'info';
-            case self::WARN:
-                $this->type = 'warn';
-        }
+        $this->type = array_search($result, $this->codes);
 
         return $this;
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Get Status Codes
+     *
+     * @return array
+     */
+    public static function getCodes() : array
+    {
+        return self::$codes;
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * @param string $name
+     *
+     * @throws \InvalidArgumentException
+     * @return int
+     */
+    public static function getCode(string $name) : int
+    {
+        if (!isset(self::$codes[$name])) {
+            throw new \InvalidArgumentException('Invalid Code called for Output.');
+        }
+        return (int) self::$codes[$name];
     }
 
     // -----------------------------------------------------------------------------

@@ -43,6 +43,10 @@ class ChangePasswordForm extends BaseForm
             new Validator\PresenceOf([
                 'message' => 'Confirm Password is required.',
             ]),
+            new Validator\Identical([
+                'accepted' => $this->getUserOption('password'),
+                'message' => 'Your passwords must match.'
+            ])
         ]);
 
 

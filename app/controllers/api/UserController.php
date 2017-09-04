@@ -45,12 +45,9 @@ class UserController extends ApiController
         $email = $this->request->getPost('email');
         $confirm_email = $this->request->getPost('confirm_email');
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return $this->output(0, 'You must provide a valid email.');
-        }
-
-        if ($email != $confirm_email) {
-            return $this->output(0, 'Your emails do not match.');
+        $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
+        if (!$form->isvalid) {
+            return $this->response(0, $form->getMessages())l
         }
 
         $emailExists = \User::findFirstByEmail($email);
@@ -101,6 +98,11 @@ class UserController extends ApiController
      */
     public function updateEmailConfirmAction(string $resetKey) : Response
     {
+        //$form = new \Forms\ChangeEmailForm(null, ['email' => $this->request->getPost('email')]);
+        //if (!$form->isValid()) {
+        //    return $this->output(0, $form->getMessages());
+        //}
+
         $user = \User::findFirst([
             "email_change_key = :key: AND email_change_expires_at > :date:",
             "bind" => [
@@ -159,12 +161,9 @@ class UserController extends ApiController
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if ($password != $confirm_password) {
-            return $this->output(0,'Your passwords do not match.');
-        }
-
-        if (strlen($password) < 4 || strlen($password) > 128) {
-            return $this->output(0,'Your password must be 4-128 characters.');
+        $form = new \Forms\ChangePasswordForm(null, ['confirm_password' => $confirm_password]);
+        if (!$form->isValid()) {
+            return $this->output(0, $form->getMessages());
         }
 
         $user = \User::findFirstById($this->session->get('id'));

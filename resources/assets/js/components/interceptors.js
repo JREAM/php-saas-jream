@@ -28,7 +28,9 @@ axios.interceptors.response.use(response => response, error => {
   switch (error.response.status) {
 
     case 200:
-      if (response.data.result == 0) {
+
+      // If Error/Warn, handle it specially
+      if ($.inArray(response.data.result, [window.notifications.error, window.notifications.warn])) {
         // @TODO: Do i want a global thing like tihs? Then remove the other catches
         // List of Errors
         if (Array.isArray(response.data.data) && response.data.data.length > 0) {
@@ -39,9 +41,9 @@ axios.interceptors.response.use(response => response, error => {
           }
           error_list += String('</ul>');
 
-          $.notify(error_list, 'error');
+          $.notify(error_list, response.data.type);
         } else {
-          $.notify(reponse.data.msg, 'error');
+          $.notify(reponse.data.msg, response.data.type);
         }
         // And throw anyways
         throw response.data;

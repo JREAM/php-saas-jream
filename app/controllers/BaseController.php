@@ -86,6 +86,8 @@ class BaseController extends Controller
         $hashid = $this->di->get('hashids');
         $this->view->setVars([
             // This is for JS to pickup
+            'tokenKey' => $this->tokenManager->getTokens()[ 'tokenKey' ],
+            'token' => $this->tokenManager->getTokens()[ 'token' ],
             'jsGlobal' => [
                 'user_id'       => $hashid->encodeHex($this->session->get('id')),
                 'csrf'          => [
@@ -93,10 +95,10 @@ class BaseController extends Controller
                     $this->tokenManager->getTokens()[ 'token' ],
                 ],
                 'notifications' => [
-                    'error'   => Output::ERROR,
-                    'success' => Output::SUCCESS,
-                    'info'    => Output::INFO,
-                    'warn'    => Output::WARN,
+                    'error'   => Output::getCode('error'),
+                    'success' => Output::getCode('success'),
+                    'info'    => Output::getCode('info'),
+                    'warn'    => Output::getCode('warn'),
                 ],
 
             ],

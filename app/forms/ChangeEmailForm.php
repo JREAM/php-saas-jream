@@ -39,6 +39,10 @@ class ChangeEmailForm extends BaseForm
             new Validator\Email([
                 'message' => 'Your email is not valid.',
             ]),
+            new Validator\Identical([
+                'accepted' => $this->getUserOption('email'),
+                'message' => 'Your confirmation email address must match.'
+            ])
         ]);
 
         $this->add($email);

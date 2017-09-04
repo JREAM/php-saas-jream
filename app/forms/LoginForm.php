@@ -37,6 +37,11 @@ class LoginForm extends BaseForm
             new Validator\PresenceOf([
                 'message' => 'Your password is required.',
             ]),
+            new Validator\StringLength([
+                'min': 5,
+                'minMessage': 'Your password must be at least 5 characters'
+
+            ])
         ]);
 
         $this->add($email);

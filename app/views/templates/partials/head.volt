@@ -25,9 +25,9 @@
     <script>
         window.user_id = '{{ jsGlobal['user_id'] }}';
         window.notifications = {
-            'error': '{{ jsGlobal['notifications']['error'] }}',
-            'success': '{{ jsGlobal['notifications']['success'] }}',
-            'info': '{{ jsGlobal['notifications']['info'] }}',
-            'warn': '{{ jsGlobal['notifications']['warn'] }}',
+            'error': {{ jsGlobal['notifications']['error'] }},
+            'success': {{ jsGlobal['notifications']['success'] }},
+            'info': {{ jsGlobal['notifications']['info'] }},
+            'warn': {{ jsGlobal['notifications']['warn'] }}
         };
     </script>

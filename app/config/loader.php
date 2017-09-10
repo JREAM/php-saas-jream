@@ -13,9 +13,10 @@ $loader->registerNamespaces([
     'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
     'Library'               => $config->get('libraryDir'),
     'Forms'                 => $config->get('formsDir'),
+    'Forms\Traits'          => $config->get('formsDir') . 'traits/',
     'Middleware'            => $config->get('middlewareDir'),
     'Migrations'            => $config->get('migrationsDir'),
-    'Models\Traits'          => $config->get('modelsDir') . 'traits/',
+    'Models\Traits'         => $config->get('modelsDir') . 'traits/',
 ]);
 
 $loader->registerClasses([

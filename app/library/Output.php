@@ -13,7 +13,7 @@ use Phalcon\Di\Injectable as DiInjectable;
  */
 class Output extends DiInjectable
 {
-    protected static $codes = [
+    public static $codes = [
         'error'   => 0,
         'warn'    => -1,
         'success' => 1,
@@ -55,9 +55,7 @@ class Output extends DiInjectable
         $this->outgoing->result = $result;
         $this->outgoing->msg    = $msg;
 
-        $this->type = array_search($result, $this->codes);
-
-        return $this;
+        $this->type = array_search($result, self::$codes);
     }
 
     // -----------------------------------------------------------------------------

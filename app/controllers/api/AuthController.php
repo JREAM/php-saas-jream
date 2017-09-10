@@ -239,13 +239,15 @@ class AuthController extends ApiController
         // @TODO this is NOT VALID but its not working
         $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
         if (!$form->isValid($_POST)) {
-            //print_r($_POST);
-            print_r($form->getMessages());
-            $errors = is_array($form->getMessages()) ?: [$form->getMessages()];
-            //die;
-
-            //print_r($_POST);die;
-            return $this->output(0, $errors);
+            foreach ($form->getMessages() as $msg) {
+                print_r($msg);
+                echo $msg->getField();
+                echo $msg->getCode();
+                echo $msg->getType();
+                echo $msg->getMessage();
+            }
+            die;
+            return $this->output(0, null, $form->getMessagesArray());
         }
 
         if(\User::findFirstByAlias($alias)) {

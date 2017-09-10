@@ -17,7 +17,7 @@ require('./components/interceptors');
 
 
 // -----------------------------------------------------------------------------
-// Scrolling Features
+// Scrolling/Effects Features
 // -----------------------------------------------------------------------------
 require('./components/scrolling');
 
@@ -47,7 +47,6 @@ $(() => {
    */
   axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    // 'X-CSRFToken': `${tokenKey}|${token}`
   };
   axios.defaults.responseType = 'json';
 

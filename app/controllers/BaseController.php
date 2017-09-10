@@ -90,6 +90,7 @@ class BaseController extends Controller
             'token' => $this->tokenManager->getTokens()[ 'token' ],
             'jsGlobal' => [
                 'user_id'       => $hashid->encodeHex($this->session->get('id')),
+                'base_url'      => getBaseUrl(),
                 'csrf'          => [
                     $this->tokenManager->getTokens()[ 'tokenKey' ],
                     $this->tokenManager->getTokens()[ 'token' ],
@@ -136,9 +137,9 @@ class BaseController extends Controller
      *
      * @param  string $append Add the the full URL
      *
-     * @return void
+     * @return Response
      */
-    public function redirect( $append )
+    public function redirect( $append ) : Response
     {
         $url = rtrim(\URL, '/');
         if ( strlen($append) !== 0 ) {
@@ -203,7 +204,7 @@ class Batch
      *
      * @param array $rows
      *
-     * @return object Batch
+     * @return Batch
      */
     public function setRows( $rows )
     : Batch
@@ -220,6 +221,7 @@ class Batch
      * Set the values
      *
      * @param array $values Array of Arrays
+     * @throws \Exception
      *
      * @return Batch
      */
@@ -293,6 +295,8 @@ class Batch
 
     /**
      * Validates the data before calling SQL
+     *
+     * @throws \Exception
      *
      * @return void
      */

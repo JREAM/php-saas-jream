@@ -24,6 +24,7 @@
 
     <script>
         window.user_id = '{{ jsGlobal['user_id'] }}';
+        window.base_url = '{{ jsGlobal['base_url'] }}';
         window.notifications = {
             'error': {{ jsGlobal['notifications']['error'] }},
             'success': {{ jsGlobal['notifications']['success'] }},

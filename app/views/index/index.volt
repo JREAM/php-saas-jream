@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-sm-12 inner">
                 <div class="col-sm-8">
-                    <h1 class="title">Programming Courses</h1>
-                    <h2 class="subtitle">Taught by a Developer</h2>
+                    <h1 class="title">Want to Learn Programming?</h1>
+                    <h2 class="subtitle">Learn Straight from a Developer</h2>
 
                     <ul class="list-unstyled">
                         <li><i class="fa fa-check"></i> Sceencasts by a Developer</li>

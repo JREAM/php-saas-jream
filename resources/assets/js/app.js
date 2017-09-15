@@ -5,7 +5,7 @@ window._ = require('lodash');
 window.axios = require('axios');
 window.swal = require('sweetalert2');
 window.Promise = require('es6-promise').Promise;
-window.formUtils = require("./components/forms");
+window.formUtils = require('./components/forms');
 
 // -----------------------------------------------------------------------------
 // Axios Interceptor
@@ -15,12 +15,10 @@ window.formUtils = require("./components/forms");
 // -----------------------------------------------------------------------------
 require('./components/interceptors');
 
-
 // -----------------------------------------------------------------------------
 // Scrolling/Effects Features
 // -----------------------------------------------------------------------------
 require('./components/scrolling');
-
 
 // -----------------------------------------------------------------------------
 // Document Ready
@@ -36,7 +34,6 @@ $(() => {
   const tokenKey = csrfSelector.attr('data-key');
   const token = csrfSelector.attr('data-token');
 
-
   /**
    * Call when DOM is loaded to pass the tokenKey and token
    *
@@ -51,7 +48,6 @@ $(() => {
   axios.defaults.responseType = 'json';
 
 });
-
 
 /**
  * =======================================================================
@@ -71,7 +67,6 @@ require('./pages/purchase');
 require('./pages/question');
 require('./pages/user');
 require('./global');
-
 
 /**
  * =======================================================================

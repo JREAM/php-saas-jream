@@ -1,6 +1,6 @@
 const mix = require("laravel-mix");
 const LiveReloadPlugin = require("webpack-livereload-plugin");
-
+const CleanWebpackPlugin = require("clean-webpack-plugin")
 mix.options({
   processCssUrls: false, // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
   publicPath: 'public'
@@ -8,7 +8,14 @@ mix.options({
 
 mix.webpackConfig({
   plugins: [
-    new LiveReloadPlugin()
+    new LiveReloadPlugin(),
+    new CleanWebpackPlugin([
+      'public/css',
+      'public/js',
+      'public/vendor',
+      'public/fonts',
+      'public/images'
+    ])
   ]
 });
 

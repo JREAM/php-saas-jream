@@ -12,7 +12,7 @@ trait GetMessageTrait {
     {
         // Determine if this is a form, use t
         $useFieldKeys = false;
-        if (method_exists($message, 'getField') {
+        if (method_exists($message, 'getField')) {
             $useFieldKeys = true;
         }
 

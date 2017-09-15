@@ -55,7 +55,7 @@
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 
 <!-- CDN -->
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='//www.google.com/recaptcha/api.js'></script>
 
 <!-- App -->
 <script src="{{ url('js/app.js') }}{{ cacheBust }}"></script>

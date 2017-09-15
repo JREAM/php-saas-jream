@@ -308,6 +308,7 @@ class PermissionPlugin extends Plugin
         // $this->{$validResources}
     }
 
+
     // ----------------------------------------------------------------------------
 
     // For Debugging ACL Permissions with PHP Console + Chome Extension

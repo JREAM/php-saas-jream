@@ -24,7 +24,6 @@ require('./components/scrolling');
 // Document Ready
 // -----------------------------------------------------------------------------
 $(() => {
-
   /**
    * =======================================================================
    * Set the users unique CSRF tokenKey/token for all Ajax Calls

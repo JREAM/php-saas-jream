@@ -139,7 +139,7 @@ $(function() {
             '{{ tokenKey }}': '{{ token }}'
         };
         $.post(url, postData, function(obj) {
-            if (obj.result == 1) {
+            if (obj.result === 1) {
                 if (obj.data.value == 1) {
                     $(".course-unmark").hide();
                     $(".course-mark").show();

@@ -1,18 +1,20 @@
--- Todo
 
+-- Todo
+- fix qustion page loading?
+- fix product page not loading?
 - make sure is_free is listing correctly.
 - make sure the user registration works with proper inserting to newsletter table.
-- test outgoing emails SES..
+- test outgoing emails SES.. how to get SQS to work?
 - need to flag if an email was sent.
+- test payments
 
 - make site look nicer
 - sort scss
-- make sure coupons work.
-- player runs html5, then fallback to flash,
+- make sure coupons work...
+- (SKIP) player runs html5, then fallback to flash,
     they can download videos if wanted but oh well.
 
 - unit tests // later
-- test payments
 - test on dev site
 
 // newsletter less improtant

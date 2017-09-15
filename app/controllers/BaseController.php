@@ -193,8 +193,6 @@ class Batch
 
         $di       = \Phalcon\DI::getDefault();
         $this->db = $di->get('db');
-
-        return $this;
     }
 
     // -----------------------------------------------------------------------------

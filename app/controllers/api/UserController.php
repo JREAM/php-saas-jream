@@ -46,8 +46,8 @@ class UserController extends ApiController
         $confirm_email = $this->request->getPost('confirm_email');
 
         $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
-        if (!$form->isvalid) {
-            return $this->response(0, $form->getMessages())l
+        if (!$form->isValid()) {
+            return $this->response(0, $form->getMessages());
         }
 
         $emailExists = \User::findFirstByEmail($email);

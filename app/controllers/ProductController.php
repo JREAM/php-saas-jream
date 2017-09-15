@@ -149,7 +149,7 @@ class ProductController extends BaseController
      * @param string $productSlug
      * @param int    $courseId
      */
-    public function coursePreviewAction(string $productSlug, int $courseId) : void
+    public function coursePreviewAction(string $productSlug, int $courseId)
     {
         $rtmpSignedUrl = null;
         $error = null;

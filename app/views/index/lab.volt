@@ -24,15 +24,15 @@
             <p>
                 A storage facility containing remnants of code written for your convenience.
                 All other open-source code can be found at:
-                <ul>
-                    <li>
-                        <a href="https://bitbucket.org/JREAM" target="_blank"><i class="fa fa-bitbucket"></i> BitBucket</a>.
-                    </li>
-                    <li>
-                        <a href="https://github.com/JREAM" target="_blank"><i class="fa fa-github"></i> Github (Primary)</a>.
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li>
+                    <a href="https://bitbucket.org/JREAM" target="_blank"><i class="fa fa-bitbucket"></i> BitBucket</a>.
+                </li>
+                <li>
+                    <a href="https://github.com/JREAM" target="_blank"><i class="fa fa-github"></i> Github (Primary)</a>.
+                </li>
+            </ul>
             <p>
                 The code below is not maintained and it's fairly old. However, it can be useful for
                 beginners to learn and practice. Those were done as learning examples with video links

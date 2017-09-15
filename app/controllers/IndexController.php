@@ -44,7 +44,7 @@ class IndexController extends BaseController
      */
     public function labAction() : View
     {
-        return Tag::setTitle('Lab | ' . $this->di['config']['title']);
+        Tag::setTitle('Lab | ' . $this->di['config']['title']);
     }
 
     // -----------------------------------------------------------------------------

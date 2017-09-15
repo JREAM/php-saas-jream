@@ -98,7 +98,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-key opacity-50" aria-hidden="true"></i> Change Password</h4></div>
                 <div class="panel-body">
-                    <form id="formDashboardAccountPassword="post" action="{{ url('api/user/updatePassword') }}">
+                    <form id="formDashboardAccountPassword" method="post" action="{{ url('api/user/updatePassword') }}">
                         <div class="form-group">
                             {{ changePasswordForm.render('current_password') }}
                         </div>

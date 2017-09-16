@@ -204,7 +204,7 @@ class AuthController extends ApiController
             $user->save();
         }
 
-        if($user->isBanned($user)) {
+        if($user->isBanned()) {
             return $this->output(0,
                 'Sorry, your account has been locked due to suspicious activity.
                         For support, contact <b>hello@jream.com</b>.'
@@ -305,14 +305,12 @@ class AuthController extends ApiController
         ]);
 
         // If email error, oh well still success
-        if( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        $message = 'You have successfully registered!';
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = 'You have successfully registered!
                                  However, there was a problem sending
                                  your welcome email.
                 ';
-        }
-        else {
-            $message = 'You have successfully registered!';
         }
 
         // Create the User Session

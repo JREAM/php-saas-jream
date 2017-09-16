@@ -118,6 +118,7 @@ class Promotion extends BaseModel
             $method = 'percent_off';
             $success = sprintf(
                 "Price marked down from %s to %s at %s percent off using promotional code %s.",
+                $product->price,
                 number_format($product->price - ($product->price * $result->percent_off), 2),
                 $result->percent_off,
                 $result->code

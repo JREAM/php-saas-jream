@@ -8,10 +8,15 @@ use Phalcon\Validation\Validator;
 class Notification extends BaseModel
 {
 
-    // -----------------------------------------------------------------------------
-
     /** @var array Saves on Memcached Queries */
     public static $_cache;
+
+    public $id;
+    public $product_id;
+    public $user_id;
+    public $has_read;
+    public $content;
+
 
     public function initialize()
     {

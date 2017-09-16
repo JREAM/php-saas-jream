@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JscsProjectComponent">
+    <option name="jscsrcFile" value="$USER_HOME$/.jscsrc" />
+    <option name="jscsExecutable" value="$USER_HOME$/.nvm/versions/node/v8.5.0/bin/jscs" />
+    <option name="nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v8.5.0/bin/node" />
+    <option name="pluginEnabled" value="true" />
+    <option name="esnext" value="true" />
+    <option name="esprima" value="" />
+  </component>
+</project>

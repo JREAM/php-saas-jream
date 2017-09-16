@@ -30,12 +30,12 @@
 
                     <form id="formDashboardAccountDelete" class="form" method="post" action="{{ url('api/user/deleteAccount') }}">
                         <div class="form-group">
-                            <label class="control-label">To confirm type: <span class="txt-delete-confirm">&nbsp; delete {{ user.getAlias() }} &nbsp;</span></label>
-                            <input type="text" class="form-control" name="confirm">
+                            <label class="control-label" for=="delete-confirm">To confirm type: <span class="txt-delete-confirm">&nbsp; delete {{ user.getAlias() }} &nbsp;</span></label>
+                            <input type="text" class="form-control" name="confirm" id="delete-confirm">
                         </div>
                         <div class="form-group">
-                            <label></label>
-                            <input type="checkbox" name="understand"> <small> I have read the warning(s) above and agree.</small>
+                            <label for="delete-checkbox"></label>
+                            <input type="checkbox" name="understand" id="delete-checkbox"> <small> I have read the warning(s) above and agree.</small>
                         </div>
                         <div class="form-group">
                             <input class="disable-click btn btn-lg btn-danger pull-right" type="submit" value="Delete Account">

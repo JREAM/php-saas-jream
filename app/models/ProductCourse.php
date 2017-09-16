@@ -8,10 +8,19 @@ use Phalcon\Validation\Validator;
 class ProductCourse extends BaseModel
 {
 
-    // ------------------------------------------------------------------------------
-
     /** @var array Saves on Memcached Queries */
     public static $_cache;
+
+    public $id;
+    public $product_id;
+    public $name;
+    public $free_preview;
+    public $promo; // @ todo delete aftre live, other things break if i do now
+    public $section;
+    public $course;
+    public $description;
+    public $sort;
+
 
     public function initialize()
     {
@@ -123,17 +132,17 @@ class ProductCourse extends BaseModel
 
         $nextOrPrev = strtolower($nextOrPrev);
 
-        if (!in_array($nextOrPrev, ['next', 'prev'])) {
+        if (!in_array($nextOrPrev, ['next', 'prev'], true)) {
             throw new \InvalidArgumentException('ProductCourse Model must supply string: next or prev only.');
         }
 
         if ($nextOrPrev === 'next') {
-            $try_section += 1;
-            $try_course += 1;
+            ++$try_section;
+            ++$try_course;
             $order_mode = 'ASC'; // lowest ID first [Going Forwards]
         } elseif ($nextOrPrev === 'prev') {
-            $try_section -= 1;
-            $try_course -= 1;
+            --$try_section;
+            --$try_course;
             $order_mode = 'DESC'; //highest ID first [Going Backwards]
         }
 

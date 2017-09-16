@@ -58,6 +58,8 @@ class NewsletterTask extends Task
                 'Message'  => "$key / $i: Hello Test @ " . time()
             ]);
         }
+
+        return;
     }
 
     // -----------------------------------------------------------------------------
@@ -108,6 +110,8 @@ class NewsletterTask extends Task
             // Plural Next (Whole Result)
             $users->next();
         }
+
+        return;
     }
 
     // -----------------------------------------------------------------------------
@@ -143,6 +147,8 @@ class NewsletterTask extends Task
         // Send the message
         $result = $mailer->send($message);
         print_r($result);
+
+        return;
     }
 
     // -----------------------------------------------------------------------------

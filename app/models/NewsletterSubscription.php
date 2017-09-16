@@ -8,10 +8,15 @@ use Phalcon\Validation\Validator;
 class NewsletterSubscription extends BaseModel
 {
 
-    // -----------------------------------------------------------------------------
-
     /** @var array Saves on Memcached Queries */
     public static $_cache;
+
+    public $id;
+    public $user_id;
+    public $token;
+    public $email;
+    public $is_verified;
+    public $is_subscribed;
 
     public function initialize()
     {

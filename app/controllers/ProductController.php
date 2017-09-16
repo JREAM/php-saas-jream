@@ -147,6 +147,8 @@ class ProductController extends BaseController
      *
      * @param string $productSlug
      * @param int    $courseId
+     *
+     * @return View|Response
      */
     public function coursePreviewAction(string $productSlug, int $courseId)
     {

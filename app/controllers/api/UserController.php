@@ -81,7 +81,7 @@ class UserController extends ApiController
             ]
         ]);
 
-        if (! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 

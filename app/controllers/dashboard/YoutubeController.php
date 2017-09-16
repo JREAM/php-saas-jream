@@ -32,7 +32,7 @@ class YoutubeController extends BaseController
      *
      * @return mixed
      */
-    public function indexAction($youtubeId = false) : void
+    public function indexAction($youtubeId = false)
     {
         $video = \Youtube::findFirstById($youtubeId);
 

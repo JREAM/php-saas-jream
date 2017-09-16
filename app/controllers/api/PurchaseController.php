@@ -255,7 +255,7 @@ class PurchaseController extends ApiController
         ])->send();
 
         // How to handle this? @TODO
-        $response->redirect();
+        return $response->redirect();
     }
 
     // -----------------------------------------------------------------------------

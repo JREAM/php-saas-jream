@@ -8,14 +8,28 @@ use Phalcon\Validation\Validator;
 class Product extends BaseModel
 {
 
-    // -----------------------------------------------------------------------------
-
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
     const STATUS_PLANNED = 'planned';
     const STATUS_DEVELOPMENT = 'development';
     const STATUS_PUBLISHED = 'published';
+
+    public $id;
+    public $slug;
+    public $type;
+    public $title;
+    public $description;
+    public $tags;
+    public $difficulty;
+    public $duration;
+    public $img_sm;
+    public $img_md;
+    public $img_lg;
+    public $path;
+    public $price;
+    public $status;
+    public $is_free;
 
     // -----------------------------------------------------------------------------
 

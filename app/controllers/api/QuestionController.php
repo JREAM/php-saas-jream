@@ -144,6 +144,8 @@ class QuestionController extends ApiController
     public function deleteAction()
     {
         $user_id = $this->session->get('user_id');
+
+        return;
     }
 
 }

@@ -37,31 +37,6 @@ class ApiController extends Controller
     // -----------------------------------------------------------------------------
 
     /**
-     * @return string JSON
-     */
-    public function beforeExecuteRoute()
-    {
-        // --------------------------------------------------------------
-        // Generate User Sessions CSRF Tokens
-        // --------------------------------------------------------------
-        // 1: Create a user-session CSRF Token Pair if one does NOT exist.
-        // .. All Users signed in or not must have a CSRF token.
-        // --------------------------------------------------------------
-
-
-        //if ($this->isCsrfExempt()) {
-        //    return true;
-        //} else {
-        //    $this->tokenManager->generate();
-        //}
-
-        // Validate the Session Data for ALL Ajax calls
-        //$this->validateTokens();
-    }
-
-    // -----------------------------------------------------------------------------
-
-    /**
      * Check CSRF Session Token
      *
      * @return Output JSON

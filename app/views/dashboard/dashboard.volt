@@ -116,7 +116,7 @@ $(function(){
 
     // @TODO Add to main JS
     $('.nav-tabs a').click((evt) => {
-        evt.preventDefault()
+        evt.preventDefault();
         $(this).tab('show');
         var scrollmem = $('body').scrollTop();
         window.location.hash = this.hash;

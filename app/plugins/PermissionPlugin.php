@@ -160,72 +160,69 @@ class PermissionPlugin extends Plugin
             return $this->persistent->acl;
         }
 
-        if (!isset($this->persistent->acl))
-        {
-            $acl = new AclList();
-            $acl->setDefaultAction(Acl::DENY);
+        $acl = new AclList();
+        $acl->setDefaultAction(Acl::DENY);
 
-            $roles = [
-                self::GUEST => new Role(self::GUEST),
-                self::USER  => new Role(self::USER),
-                self::ADMIN => new Role(self::ADMIN),
-                self::BOT   => new Role(self::BOT),
-            ];
+        $roles = [
+            self::GUEST => new Role(self::GUEST),
+            self::USER  => new Role(self::USER),
+            self::ADMIN => new Role(self::ADMIN),
+            self::BOT   => new Role(self::BOT),
+        ];
 
-            // Sets the Api Controllers to Public Resources, Only run
-            // when ACL is not persistently set.
-            // @important (! ! !) Site will not work without this (! ! !)
-            $this->setApiControllers();
+        // Sets the Api Controllers to Public Resources, Only run
+        // when ACL is not persistently set.
+        // @important (! ! !) Site will not work without this (! ! !)
+        $this->setApiControllers();
 
-            // @TODO
-            // $this->setPermissionsFromDirectory('api', 'publicResources');
-            // $this->setPermissionsFromDirectory('dashboard', 'userResources');
+        // @TODO
+        // $this->setPermissionsFromDirectory('api', 'publicResources');
+        // $this->setPermissionsFromDirectory('dashboard', 'userResources');
 
-            // Place all the roles inside the ACL Object
-            foreach ( (array) $roles as $role) {
-                $acl->addRole($role);
-            }
-
-            // Public Resources
-            foreach ( (array) $this->publicResources as $resource => $action) {
-                $acl->addResource(new Resource($resource), $action);
-            }
-
-            // User Resources
-            foreach ( (array) $this->userResources as $resource => $action) {
-                $acl->addResource(new Resource($resource), $action);
-            }
-
-            // Admin Resources
-            foreach ( (array) $this->adminResources as $resource => $action) {
-                $acl->addResource(new Resource($resource), $action);
-            }
-
-            // Allow ALL Roles to access the Public Resources
-            foreach ($roles as $role) {
-                foreach ( (array) $this->publicResources as $resource => $action) {
-                    $acl->allow($role->getName(), $resource, '*');
-                }
-            }
-
-            // Allow User/Admin/Bot to access the User Resources
-            foreach ($this->userResources as $resource => $actions) {
-                foreach ( (array) $actions as $action) {
-                    $acl->allow(self::USER, $resource, $action);
-                    $acl->allow(self::ADMIN, $resource, $action);
-                    $acl->allow(self::BOT, $resource, $action);
-                }
-            }
-
-            // Allow Admin to access the Admin Resources
-            foreach ( (array) $this->adminResources as $resource => $actions) {
-                foreach ($actions as $action) {
-                    $acl->allow(self::ADMIN, $resource, $action);
-                }
-            }
-
-            return $acl;
+        // Place all the roles inside the ACL Object
+        foreach ( (array) $roles as $role) {
+            $acl->addRole($role);
         }
+
+        // Public Resources
+        foreach ( (array) $this->publicResources as $resource => $action) {
+            $acl->addResource(new Resource($resource), $action);
+        }
+
+        // User Resources
+        foreach ( (array) $this->userResources as $resource => $action) {
+            $acl->addResource(new Resource($resource), $action);
+        }
+
+        // Admin Resources
+        foreach ( (array) $this->adminResources as $resource => $action) {
+            $acl->addResource(new Resource($resource), $action);
+        }
+
+        // Allow ALL Roles to access the Public Resources
+        foreach ($roles as $role) {
+            foreach ( (array) $this->publicResources as $resource => $action) {
+                $acl->allow($role->getName(), $resource, '*');
+            }
+        }
+
+        // Allow User/Admin/Bot to access the User Resources
+        foreach ($this->userResources as $resource => $actions) {
+            foreach ( (array) $actions as $action) {
+                $acl->allow(self::USER, $resource, $action);
+                $acl->allow(self::ADMIN, $resource, $action);
+                $acl->allow(self::BOT, $resource, $action);
+            }
+        }
+
+        // Allow Admin to access the Admin Resources
+        foreach ( (array) $this->adminResources as $resource => $actions) {
+            foreach ($actions as $action) {
+                $acl->allow(self::ADMIN, $resource, $action);
+            }
+        }
+
+        return $acl;
 
     }
 
@@ -274,7 +271,7 @@ class PermissionPlugin extends Plugin
     {
         $validResources = ['publicResources', 'userResources', 'adminResources'];
 
-        if (!in_array($applyToResource, $validResources)) {
+        if (!in_array($applyToResource, $validResources, true)) {
             throw new \InvalidArgumentException("
                 You setPermissionsFrom ($applyToResource) and they must be one of: " .
                 explode(',', $validResources)

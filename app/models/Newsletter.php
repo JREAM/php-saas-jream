@@ -11,6 +11,11 @@ class Newsletter extends BaseModel
     /** @var array Saves on Memcached Queries */
     public static $_cache;
 
+    public $id;
+    public $subject;
+    public $body;
+    public $is_sent;
+
     public function initialize()
     {
         /** DB Table Name */

@@ -27,9 +27,9 @@ class QuestionController extends BaseController
     /**
      * @param int $productId
      *
-     * @return void
+     * @return View
      */
-    public function indexAction(int $productId) : View\
+    public function indexAction(int $productId) : View
     {
         $product = \Product::findFirstById($productId);
 

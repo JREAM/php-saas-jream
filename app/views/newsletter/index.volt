@@ -70,6 +70,13 @@
 
 
 {% block script %}
+
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
+
 <script>
 //var url_recaptcha = "{{ url('apilegacy/recaptcha') }}";
 //var url_action = "{{ url('newsletter/dosubscribe') }}";

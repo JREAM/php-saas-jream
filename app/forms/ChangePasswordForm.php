@@ -10,7 +10,7 @@ use Phalcon\Validation\Validator;
 class ChangePasswordForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         $currentPassword = new Text('current_password', [
             'placeholder' => 'Current Password',
@@ -45,8 +45,8 @@ class ChangePasswordForm extends BaseForm
             ]),
             new Validator\Identical([
                 'accepted' => $this->getUserOption('password'),
-                'message' => 'Your passwords must match.'
-            ])
+                'message'  => 'Your passwords must match.',
+            ]),
         ]);
 
 

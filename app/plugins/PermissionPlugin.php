@@ -182,35 +182,35 @@ class PermissionPlugin extends Plugin
             // $this->setPermissionsFromDirectory('dashboard', 'userResources');
 
             // Place all the roles inside the ACL Object
-            foreach ($roles as $role) {
+            foreach ( (array) $roles as $role) {
                 $acl->addRole($role);
             }
 
             // Public Resources
-            foreach ($this->publicResources as $resource => $action) {
+            foreach ( (array) $this->publicResources as $resource => $action) {
                 $acl->addResource(new Resource($resource), $action);
             }
 
             // User Resources
-            foreach ($this->userResources as $resource => $action) {
+            foreach ( (array) $this->userResources as $resource => $action) {
                 $acl->addResource(new Resource($resource), $action);
             }
 
             // Admin Resources
-            foreach ($this->adminResources as $resource => $action) {
+            foreach ( (array) $this->adminResources as $resource => $action) {
                 $acl->addResource(new Resource($resource), $action);
             }
 
             // Allow ALL Roles to access the Public Resources
             foreach ($roles as $role) {
-                foreach ($this->publicResources as $resource => $action) {
+                foreach ( (array) $this->publicResources as $resource => $action) {
                     $acl->allow($role->getName(), $resource, '*');
                 }
             }
 
             // Allow User/Admin/Bot to access the User Resources
             foreach ($this->userResources as $resource => $actions) {
-                foreach ($actions as $action) {
+                foreach ( (array) $actions as $action) {
                     $acl->allow(self::USER, $resource, $action);
                     $acl->allow(self::ADMIN, $resource, $action);
                     $acl->allow(self::BOT, $resource, $action);
@@ -218,7 +218,7 @@ class PermissionPlugin extends Plugin
             }
 
             // Allow Admin to access the Admin Resources
-            foreach ($this->adminResources as $resource => $actions) {
+            foreach ( (array) $this->adminResources as $resource => $actions) {
                 foreach ($actions as $action) {
                     $acl->allow(self::ADMIN, $resource, $action);
                 }
@@ -250,7 +250,7 @@ class PermissionPlugin extends Plugin
             if ($file->isDot() == false && $file->isFile())
             {
                 // Filename only without extension, case insensitive replace
-                $info = pathinfo($file->getBaseName());
+                $info = pathinfo($file->getBasename());
                 $file = strtolower(str_ireplace('controller', '', $info['filename']));
 
                 // Turn it into Controllers\Api\Auth => [*]
@@ -289,10 +289,10 @@ class PermissionPlugin extends Plugin
         // Iterate the API Controllers
         foreach ($dir as $file)
         {
-            if ($file->isDot() == false && $file->isFile())
+            if ($file->isDot() === false && $file->isFile())
             {
                 // Filename only without extension, case insensitive replace
-                $info = pathinfo($file->getBaseName());
+                $info = pathinfo($file->getBasename());
                 $file = strtolower(str_ireplace('controller', '', $info['filename']));
 
                 // Turn it into Controllers\Api\Auth => [*]

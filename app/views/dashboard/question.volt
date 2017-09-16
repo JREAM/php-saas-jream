@@ -126,6 +126,13 @@
 {% endblock %}
 
 {% block script %}
+
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
+
 <script>
 $(function() {
 

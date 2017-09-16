@@ -90,7 +90,8 @@ class CourseController extends BaseController
         $next = false;
         $prev = false;
         $productCourse = false;
-        foreach ($courses as $key => $course) {
+
+        foreach ( (object) $courses as $key => $course) {
             if ($course->id == $contentId) {
                 // The course being viewed
                 $productCourse = $course;

@@ -190,6 +190,12 @@ class User extends BaseModel
 
     // -----------------------------------------------------------------------------
 
+    /**
+     * @param $email
+     * @param $password
+     *
+     * @return bool
+     */
     public function doLogin($email, $password)
     {
         if (!$email || !$password) {
@@ -233,7 +239,7 @@ class User extends BaseModel
             }
 
             // Track the login attempts
-            $user->login_attempt = $user->login_attempt + 1;
+            ++$user->login_attempt;
             $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
             $user->save();
         }

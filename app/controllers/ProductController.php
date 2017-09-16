@@ -34,7 +34,6 @@ class ProductController extends BaseController
     public function indexAction() : View
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
-
         $this->view->setVars([
             'products' => $products,
         ]);
@@ -47,7 +46,7 @@ class ProductController extends BaseController
     /**
      * Displays a Product based on the slug
      *
-     * @param  string   $slug  URL Friendly Slug
+     * @param  string $slug URL Friendly Slug
      *
      * @return View
      */
@@ -56,7 +55,7 @@ class ProductController extends BaseController
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
-        if (!$product) {
+        if ( !$product) {
             return $this->redirect(self::REDIRECT_MAIN);
         }
 
@@ -156,7 +155,7 @@ class ProductController extends BaseController
 
         $product = \Product::findFirstBySlug($productSlug);
         $productCourse = \ProductCourse::findFirstById($courseId);
-        if (!$product || !$productCourse) {
+        if ( !$product || !$productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
             return $this->redirect(self::REDIRECT_MAIN);

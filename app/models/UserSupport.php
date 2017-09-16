@@ -49,6 +49,8 @@ class UserSupport extends BaseModel
         if ($this->validationHasFailed() == true) {
             return false;
         }
+
+        return true;
     }
 
     // -----------------------------------------------------------------------------

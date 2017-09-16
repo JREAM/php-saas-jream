@@ -73,7 +73,9 @@ $di->set('cookies', function () {
 $di->setShared('session', function () use ( $di ) {
     // Start a new Session for every user.
     $session = new SessionFiles();
-    $session->start();
+    if (!$session->isStarted()) {
+        $session->start();
+    }
 
     return $session;
 });
@@ -358,7 +360,7 @@ $di->setShared('sentry', function () use ( $api ) {
 if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
     // This is ONLY used locally
 
-    $whoops = new \Whoops\Run;
+    $whoops = new \Whoops\Run();
 
     // This is so it is accessible in the global Middleware Dispatcher
     $di->setShared('whoops', function () use ( $whoops ) {

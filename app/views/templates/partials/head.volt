@@ -30,5 +30,5 @@
             'success': {{ jsGlobal['notifications']['success'] }},
             'info': {{ jsGlobal['notifications']['info'] }},
             'warn': {{ jsGlobal['notifications']['warn'] }}
-        };
+        }
     </script>

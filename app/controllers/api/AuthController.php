@@ -73,7 +73,7 @@ class AuthController extends ApiController
         }
 
         // Track the login attempts
-        $user->login_attempt = $user->login_attempt + 1;
+        ++$user->login_attempt;
         $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
         $user->save();
 

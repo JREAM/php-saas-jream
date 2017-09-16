@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block hero %}
+<!--suppress ALL -->
 <div id="hero">
     <div class="container container-fluid">
         <div class="row">
@@ -168,6 +169,13 @@
 {% endblock %}
 
 {% block script %}
+
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
+
 <script>
 $(function() {
 

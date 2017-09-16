@@ -1,7 +1,7 @@
 {% extends "templates/full.volt" %}
 
 {% block head %}
-<script src="https://apis.google.com/js/platform.js"></script>
+<script src="//apis.google.com/js/platform.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -98,7 +98,15 @@
 
 
 {% block script %}
+
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
 <script>
+
+
 /**
  * Remember the Hash
  */
@@ -106,7 +114,9 @@ $(function(){
     var hash = window.location.hash;
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 
-    $('.nav-tabs a').click(function (e) {
+    // @TODO Add to main JS
+    $('.nav-tabs a').click((evt) => {
+        evt.preventDefault()
         $(this).tab('show');
         var scrollmem = $('body').scrollTop();
         window.location.hash = this.hash;

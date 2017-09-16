@@ -31,7 +31,7 @@ class DashboardController extends BaseController
         $productStatus = [];
         $purchaseIds = [];
 
-        foreach ($userPurchases as $purchase) {
+        foreach ( (object) $userPurchases as $purchase) {
             $purchaseIds[] = $purchase->product_id;
             $product = \Product::findFirstById($purchase->product_id);
 

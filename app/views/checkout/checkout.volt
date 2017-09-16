@@ -94,6 +94,13 @@
 {% endblock %}
 
 {% block script %}
+
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
+<!--suppress BadExpressionStatementJS -->
 <script>
 $(function() {
 

@@ -121,6 +121,11 @@
 <script>
 $(function() {
 
+{#
+###########################
+    @TODO Move JS to File
+###########################
+#}
 
 {% if hasCompleted %}
     $(".course-unmark").hide();

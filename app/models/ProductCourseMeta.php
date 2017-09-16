@@ -40,6 +40,8 @@ class ProductCourseMeta extends BaseModel
             case 'link':
                 return '<span class="glyphicon glyphicon-link"></span>';
                 break;
+            default:
+                return '[icon-missing]';
         }
     }
 

@@ -138,7 +138,7 @@ class ProductCourse extends BaseModel
         }
 
         // [1] First see if a course is next within this section
-        $result = $this->findFirst([
+        $result = self::findFirst([
             'product_id = :product_id:
             AND section = :section:
             AND course = :course:
@@ -158,7 +158,7 @@ class ProductCourse extends BaseModel
         }
 
         // [2] Otherwise check a different Section with
-        $result = $this->findFirst([
+        $result = self::findFirst([
             'product_id = :product_id:
             AND section = :section:
             ORDER BY course :order_mode:

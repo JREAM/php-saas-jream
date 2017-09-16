@@ -12,8 +12,6 @@
 .buildpath
 .DS_Store
 .env
-.env
-.idea
 .phpintel
 .project
 .settings
@@ -33,4 +31,3 @@ public/sass/.sass-cache*
 tests/_output/
 Thumbs.db
 Vagrantfile
-vendor/*

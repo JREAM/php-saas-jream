@@ -61,7 +61,7 @@
 <script src="{{ url('js/app.js') }}{{ cacheBust }}"></script>
 
 {% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}
-    <script src="http://localhost:35729/livereload.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
 {% else %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -61,6 +61,7 @@ class PermissionPlugin extends Plugin
         'Controllers:test'       => ['*'],
         'Controllers:user'       => ['*'],
         'Controllers:checkout'   => ['*'],
+        'Controllers:webhook'    => ['*'],
     ];
 
     /**

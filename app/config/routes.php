@@ -78,24 +78,6 @@ $router->add('/api', [
 
 /**
  * ==============================================================
- * Webhook Routes
- * =============================================================
- */
-$router->add('/webhook/:action/:params', [
-    'controller' => 'webhook',
-    'action' => 1,
-    'params' => 2
-]);
-$router->add('/webhook/:action', [
-    'controller' => 'webhook',
-    'action' => 1
-]);
-$router->add('/webhook', [
-    'controller' => 'webhook'
-])->setName('webhook');
-
-/**
- * ==============================================================
  * User Routes
  * =============================================================
  */

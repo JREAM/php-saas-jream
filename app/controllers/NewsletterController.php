@@ -35,14 +35,5 @@ class NewsletterController extends BaseController
         return $this->view->pick('newsletter/index');
     }
 
-    // -----------------------------------------------------------------------------
-
-    /**
-     * @return View
-     */
-    public function unsubscribeAction() : View
-    {
-        return $this->view->pick('newsletter/unsubscribe');
-    }
 
 }

@@ -8,9 +8,6 @@ use Phalcon\Http\Response;
 
 class UserController extends BaseController
 {
-    const PASSWORD_REDIRECT_SUCCESS = 'user/login';
-
-    // -----------------------------------------------------------------------------
 
     /**
      * @return void
@@ -140,7 +137,7 @@ class UserController extends BaseController
         if (!$user) {
             $this->flash->error('Invalid key, or time has expired.');
 
-            return $this->redirect(self::PASSWORD_REDIRECT_SUCCESS);
+            return $this->redirect('user/login');
         }
 
         Tag::setTitle('Create New Password | ' . $this->di['config']['title']);

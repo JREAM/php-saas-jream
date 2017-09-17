@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  rabbit:
+     container_name: rabbit
+       hostname: rabbit
+       image: rabbitmq:3.6-alpine
+       environment:
+          - RABBITMQ_DEFAULT_USER = jesse
+          - RABBITMQ_DEFAULT_PASS = efixir
+       ports:
+          - "5672:5672"
+          - "15672:15672"

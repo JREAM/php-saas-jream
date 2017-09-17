@@ -7,7 +7,7 @@ use Phalcon\Http\Response;
 
 use Phalcon\Tag;
 
-class WebookController extends BaseController
+class WebhookController extends BaseController
 {
 
     /**
@@ -22,6 +22,16 @@ class WebookController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
+     * @return View
+     */
+    public function unsubscribeAction() : View
+    {
+        return $this->view->pick('newsletter/unsubscribe');
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
      * @return void
      */
     public function indexAction() : void
@@ -29,8 +39,9 @@ class WebookController extends BaseController
       echo "Webhook";
     }
 
-    public function awsSQSAction() {
+    public function SQSAction() {
       // Hit by SQS and then updates DB.
+        echo "SQS";
     }
 
 }

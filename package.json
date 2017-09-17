@@ -34,6 +34,7 @@
     "fs": "0.0.1-security",
     "fs.realpath": "^1.0.0",
     "glob": "^7.1.2",
+    "hash.js": "^1.1.3",
     "imagemin-webpack-plugin": "^1.4.4",
     "jscookie": "^1.1.0",
     "laravel-mix": "^1.4.2",

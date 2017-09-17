@@ -5,7 +5,10 @@ window._ = require('lodash');
 window.axios = require('axios');
 window.swal = require('sweetalert2');
 window.Promise = require('es6-promise').Promise;
+
+// Custom Components
 window.formUtils = require('./components/forms');
+window.system = require('./components/system');
 
 // -----------------------------------------------------------------------------
 // Axios Interceptor

@@ -33,6 +33,17 @@ class CronTask extends Task
 
     // -----------------------------------------------------------------------------
 
+    public function deliverNewsletter()
+    {
+        // Check Redis for Queue
+        // I could save the Rendered email in redis?
+        // Send Email Rendered..
+
+
+    }
+
+    // -----------------------------------------------------------------------------
+
     /**
      * Reads from AWS RSR
      */

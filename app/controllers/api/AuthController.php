@@ -82,8 +82,45 @@ class AuthController extends ApiController
 
     // -----------------------------------------------------------------------------
 
-    public function loginGoogle()
+    public function loginGoogleAction()
     {
+        $client = $this->getService('google');
+        $plus = new Google_Service_Plus_Person($client);
+
+        // Check if an auth token exists for the required scopes
+        $tokenSessionKey = 'token-' . $client->prepareScopes();
+
+        // If Code, Forward to Request Access Token
+        if (isset($_GET['code']))
+        {
+          if (strval($_SESSION['state']) !== strval($_GET['state'])) {
+            die('The session state did not match.');
+          }
+          $client->authenticate($_GET['code']);
+          $_SESSION[$tokenSessionKey] = $client->getAccessToken();
+          header('Location: ' . $redirect);
+        }
+
+        // If Access Token (from previous) is set, set in client
+        if (isset($_SESSION[$tokenSessionKey])) {
+          $client->setAccessToken($_SESSION[$tokenSessionKey]);
+        }
+
+        // Check to ensure that the access token was successfully acquired.
+        if ($client->getAccessToken()) {
+            try {
+
+            } catch (Google_Service_Exception $e) {
+                $this->output(0, $e->getMessage());
+            } catch (Google_Exception $e) {
+                $this->output(0, $e->getMessage());
+            }
+        } else {
+            $state = mt_rand();
+            $client->setState($state);
+            $_SESSION['state'] = $state;
+            $authUrl = $client->createAuthUrl();
+        }
 
     }
 

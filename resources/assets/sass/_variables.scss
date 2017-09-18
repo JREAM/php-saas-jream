@@ -1,5 +1,16 @@
 /**
  -------------------------------------------------------------------
+  Bootstrap override
+ -------------------------------------------------------------------
+ */
+$brand-primary:         #212121;
+$brand-success:         #80c51d;
+$brand-info:            #3498db;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f;
+
+/**
+ -------------------------------------------------------------------
   Global Sizes
  -------------------------------------------------------------------
  */
@@ -69,6 +80,7 @@ $font-size-xl3: 72px;
 $font-size-xl2: 60px;
 $font-size-xl: 48px;
 $font-size-lg: 40px;
+$font-size-md3: 32px; // regular
 $font-size-md2: 24px; // regular
 $font-size-md: 19px; // regular
 $font-size-default: 16px;

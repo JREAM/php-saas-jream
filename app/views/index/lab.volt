@@ -4,7 +4,6 @@
 <span class="title">Lab</span>
 {% endblock %}
 
-
 {% block breadcrumb %}
 <ol class="breadcrumb">
     <li><a href="{{ url() }}">Home</a></li>

@@ -20,7 +20,7 @@
                 <span class="glyphicon glyphicon-film"></span> <?=ucwords($name)?>
                 {% if !session.has('id') and !session.has('fb_user_id') %}
                     {% if course.free_preview == 1 %}
-                        <a href="{{ url('product/course/preview/') }}/{{ course.getProduct().slug }}/{{ course.id }}" class="pull-right label label-warning">Preview</a>
+                        <a href="{{ url('product/course') }}/{{ course.getProduct().slug }}/preview/{{ course.id }}" class="pull-right label label-warning">Preview</a>
                     {% endif %}
                 {% endif %}
                 {% if course.getProductCourseMeta()|length !== 0 %}

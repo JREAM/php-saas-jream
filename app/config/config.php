@@ -46,6 +46,7 @@ $config = new \Phalcon\Config([
     'controllersDir' => APP_PATH . 'controllers/',
     'emailsDir'      => DOCROOT . 'emails/',
     'formsDir'       => APP_PATH . 'forms/',
+    'logsDir'        => APP_PATH . 'logs/',
     'libraryDir'     => APP_PATH . 'library/',
     'migrationsDir'  => APP_PATH . 'migrations/',
     'middlewareDir'  => APP_PATH . 'middleware/',

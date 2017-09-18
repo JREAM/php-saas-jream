@@ -28,6 +28,7 @@ $(function() {
 <!-- Used to reference smaller screens href# -->
 <div id="checkout-area"></div>
 
+{% if user %}
 <div class="panel panel-default panel-primary checkout-purchase-paypal">
     <div class="panel-heading">
         <strong>PayPal</strong>
@@ -124,6 +125,7 @@ $(function() {
 
     </div>
 </div>
+{% endif %}
 
 <ul class="text-right" style="list-style-type: none;">
     <li><a href="#course-content">Course Content</a></li>

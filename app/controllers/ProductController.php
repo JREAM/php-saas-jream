@@ -10,7 +10,6 @@ use Omnipay\Omnipay;
 
 class ProductController extends BaseController
 {
-    const REDIRECT_MAIN = 'product';
 
     /**
      * @return void
@@ -19,7 +18,6 @@ class ProductController extends BaseController
     {
         parent::initialize();
         Tag::setTitle('Products | ' . $this->di['config']['title']);
-
         // Stripe key already set in services.php
 
         // Paypal Express
@@ -33,12 +31,12 @@ class ProductController extends BaseController
      */
     public function indexAction() : View
     {
+
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
         $this->view->setVars([
             'products' => $products,
         ]);
-
-        return $this->view->pick('product/product');
+        return $this->view->pick('product/index');
     }
 
     // -----------------------------------------------------------------------------
@@ -50,13 +48,21 @@ class ProductController extends BaseController
      *
      * @return View
      */
-    public function courseAction(string $slug) : View
+    public function courseAction(string $slug)
     {
+        // Work Around for the preview route to match this
+        // Cast lowercase params first for URL case-insensitive to check fo r'preview'
+        $params = array_map('strtolower', $this->router->getParams());
+        if (in_array('preview', $params, true)) {
+            $course_id = (int) end($params);
+            return $this->coursePreview($slug, $course_id);
+        }
+
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
 
         if ( !$product) {
-            return $this->redirect(self::REDIRECT_MAIN);
+            return $this->redirect('product');
         }
 
         $discount = null;
@@ -143,14 +149,14 @@ class ProductController extends BaseController
     // -----------------------------------------------------------------------------
 
     /**
-     * Preview a Course
+     * Preview a Course (This is loaded via courseAction, to make the route pretty.
      *
      * @param string $productSlug
      * @param int    $courseId
      *
      * @return View|Response
      */
-    public function coursePreviewAction(string $productSlug, int $courseId)
+    public function coursePreview(string $productSlug, int $courseId)
     {
         $rtmpSignedUrl = null;
         $error = null;
@@ -160,7 +166,7 @@ class ProductController extends BaseController
         if ( !$product || !$productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
-            return $this->redirect(self::REDIRECT_MAIN);
+            return $this->redirect('product');
         }
 
         if ($productCourse->free_preview == 1) {

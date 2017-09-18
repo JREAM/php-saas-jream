@@ -82,6 +82,17 @@ a.btn-facebook,
   }
 }
 
+a.btn-google,
+.btn-google {
+  color: $lightest !important;
+  background: #F90101 !important;
+  &:hover,
+  &:active,
+  &:focus {
+    color: $lightest;
+  }
+}
+
 a.btn-jream,
 .btn-jream {
   color: $lightest;

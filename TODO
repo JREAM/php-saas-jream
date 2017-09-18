@@ -1,12 +1,13 @@
 
 -- Todo
 
+- Remove these: PRODUCT_PLANNED (Model i think)
 - make function for getting url in JS same as phalcoy
 - Check the TODO items eg in jetbrains ( some in views, {# @TODO Move JS to File #} )
     I want to put all global items into JS, anything else comes from the window.set from php like dropzone i did
 
 - fix qustion page loading?
-- fix product page not loading?
+- [X] fix product page not loading?
 - make sure is_free is listing correctly.
 - make sure the user registration works with proper inserting to newsletter table.
 - test outgoing emails SES.. how to get SQS to work?

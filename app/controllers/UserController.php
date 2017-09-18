@@ -15,7 +15,6 @@ class UserController extends BaseController
     public function onConstruct() : void
     {
         parent::initialize();
-//        $this->google_auth = $this->di->get('google_auth');
     }
 
     // -----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ class UserController extends BaseController
         $this->view->setVars([
             'form'       => new \Forms\LoginForm(),
             'fbLoginUrl' => $this->_getFacebookLoginUrl(),
-//            'googleLogin' => $this->google_auth->createAuthUrl(),
+            'googleLoginUrl' => $this->_getGoogleLoginUrl(),
         ]);
 
         return $this->view->pick('user/login');
@@ -84,18 +83,10 @@ class UserController extends BaseController
 
         Tag::setTitle('Register | ' . $this->di['config']['title']);
 
-        // ---------------------------
-        // Facebook Login
-        // ---------------------------
-        $fbLoginUrl = $this->_getFacebookLoginUrl();
-
-        // ---------------------------
-        // End Facebook
-        // ---------------------------
-
         return $this->view->setVars([
             'form'       => new \Forms\RegisterForm(),
-            'fbLoginUrl' => $fbLoginUrl,
+            'fbLoginUrl' => $this->_getFacebookLoginUrl(),
+            'googleLoginUrl' => $this->_getGoogleLoginUrl(),
         ]);
     }
 
@@ -167,6 +158,14 @@ class UserController extends BaseController
             $this->api->fb->redirectUri,
             (array)$this->api->fb->scope
         );
+    }
+
+    private function _getGoogleLoginUrl() {
+        $client = $this->di->getShared('google');
+        $state = mt_rand();
+        $client->setState($state);
+        $_SESSION['state'] = $state;
+        return $client->createAuthUrl();
     }
 
 }

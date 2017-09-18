@@ -167,12 +167,12 @@
             options <a href="https://tools.google.com/dlpage/gaoptout/" target="_blank">here</a>.
             </p>
 
-            <h2 id="facebook-privacy">
-                Facebook Privacy
+            <h2 id="social-network-privacy">
+                Social Network Privacy
             </h2>
             <p>
-            If you choose to login through the Facebook API, we will store a minimal amount of data
-            to securely log you in. Your Facebook privacy and security is managed by <a href="http://facebook.com" target="_blank">Facebook</a>.
+                If you choose to login through a Social Network API such as: Facebook, Google, etc. We will store a minimal amount of data
+                to allow you to securely log in. Your privacy and security through the social network is managed by <a href="http://facebook.com" target="_blank">Facebook</a> or <a href="http://accounts.google.com" target="_blank">Google (Accounts)</a>.
             </p>
 
             <ul>
@@ -180,14 +180,27 @@
                     <ul>
                         <li>UID (Unique User ID)</li>
                         <li>Email</li>
-                        <li>Nickname</li>
+                        <li>Nickname (or Firstname if no alias is available)</li>
+                    </ul>
+                </li>
+                <li><strong>Anything Else?</strong>
+                    <ul>
+                        <li>Your profile photo is displayed as an icon in the Questions area. This is <b>not</b> saved JREAM servers, it is only referenced. On JREAM accounts this will reference your Gravatar icon if you use one.</li>
+                        <li>Your "alias" (name you appear as) is based off of your unique Facebook ID or Google ID to prevent naming conflicts.</li>
                     </ul>
                 </li>
             </ul>
 
             <p>
-            Note: If you choose to disable the JREAM Facebook Application
-            you will have to re-approve it through Facebook in order to login back into your account.
+                <ul>
+                    <li>
+                        <b>Disabling API Access</b>: If you choose to disable the JREAM Google or Facebook Application you will have to re-approve it through in order to log into your account.
+                    </li>
+                    <li>
+                        <b>Deleting Account</b>: If you choose to delete your account, you will have your data purged in 30 days. However, for accounts who have purchased they will be flagged as deleted, opted out of everything, but
+                        minimal data will remain so that the possibility to return and use the purchase remains.
+                    </li>
+                </ul>
             </p>
 
             <h2 id="purchase-security">Purchase Security</h2>

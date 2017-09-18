@@ -1,8 +1,9 @@
 #page-product,
+#page-product-course,
 #page-product-view {
   #hero {
-    background: $hero-bg-color url('../../images/bg/hero-laptop.jpg') no-repeat;
     height: $hero-height-md;
+    background: $hero-bg-color url('../../images/bg/hero-laptop.jpg') no-repeat;
   }
 
   .product-row {
@@ -12,6 +13,10 @@
 
     div.inner {
       padding: 20px;
+    }
+
+    .difficulty {
+      margin-top: 10px;
     }
 
     .product-header {
@@ -42,13 +47,14 @@
 
       .price {
         font-size: $font-size-md;
+        font-family: $font-stack;
         text-align: right;
       }
     }
 
     .product-content {
       background: $bg-color-alt;
-      border: 1px solid red;
+      //border: 1px solid red;
     }
 
     a.full-product {
@@ -56,6 +62,7 @@
       font-weight: bold;
       margin-top: 10px;
     }
+
   }
 
   .container-product-row.purchased {
@@ -67,6 +74,31 @@
     h3 {
       opacity: 0.7;
     }
+  }
+
+}
+
+
+#page-product-course {
+
+  div.price-and-status {
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-top: 0;
+
+    .price,
+    .purchased,
+    .free {
+      font-size: $font-size-md3;
+      font-family: $font-stack;
+      line-height: 85%;
+    }
+  }
+
+  .promotion-container {
+    margin: 20px 0 0 0;
   }
 
 }

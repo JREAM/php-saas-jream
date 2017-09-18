@@ -1,8 +1,5 @@
 {% extends "templates/full.volt" %}
 
-{% block head %}
-{% endblock %}
-
 {% block hero %}
 <div id="hero">
     <div class="container container-fluid">
@@ -42,25 +39,27 @@
         {% endif %}
 
         <div class="row product-header">
-            <div class="col-sm-offset-4 col-sm-3">
-                <a href="{{ url('product/course/') }}{{ product.slug}}">{{ product.title }}</a>
-            </div>
-            <div class="col-sm-3">
-                <span class="price">
-                    {% if product.hasPurchased() %}
+            <div class="col-sm-offset-4 col-sm-8">
+                <div class="inline-block">
+                    <a href="{{ url('product/course/') }}{{ product.slug}}">{{ product.title }}</a>
+                </div>
+                <div class="inline-block flright">
+                    <span class="price">
+                        {% if product.hasPurchased() %}
 
-                    {% else %}
-                        {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
-                            <sup>$</sup>{{ product.price }} &mdash; Development
-                        {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
-                            Planned
-                        {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
-                            <sup>$</sup>{{ product.price }}
                         {% else %}
-                            Free
+                            {% if product.status == constant('\Product::STATUS_DEVELOPMENT') %}
+                                <sup>$</sup>{{ product.price }} &mdash; Development
+                            {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
+                                Planned
+                            {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
+                                <sup>$</sup>{{ product.price }}
+                            {% else %}
+                                Free
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                </span>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row product-content">
@@ -74,8 +73,12 @@
                     <img src="{{ product.img_sm }}" alt="{{ product.title }}" />
                 </a>
                 {% endif %}
-                <br>
-                <span class="label label-difficulty">Difficulty</span> {{ product.getDifficulty() }}
+                <div class="difficulty">
+                    <span class="label label-lg label-difficulty">Difficulty</span> {{ product.getDifficulty() }}
+                </div>
+                <div>
+                    <span class="label label-lg label-duration">{{ product.getDuration() }}</span>
+                </div>
             </div>
             <div class="col-sm-8 relative public-product-description inner">
                 <p class="expandable">

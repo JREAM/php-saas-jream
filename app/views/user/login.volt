@@ -52,11 +52,17 @@
                 <div class="panel-body">
                     <p class="text-center">
                         <a href="{{ fbLoginUrl }}" class="btn btn-block btn-lg btn-social btn-facebook">
-                            <i class="fa fa-facebook"></i> Sign in with Facebook
+                            <i class="fa fa-facebook"></i> <span>Sign in with Facebook</span>
                         </a>
                     </p>
                     <p class="text-center">
-                        <a href="{{ url('index/terms#facebook-privacy') }}"><small>Facebook Privacy</small></a>
+                        <a href="{{ googleLoginUrl }}" class="btn btn-block btn-lg btn-social btn-google">
+                            <i class="fa fa-google"></i> <span>Sign in with Google</span>
+                        </a>
+                    </p>
+
+                    <p class="text-center">
+                        <a href="{{ url('index/terms#social-network-privacy') }}"><small>Social Network Privacy</small></a>
                     </p>
                 </div>
             </div>

@@ -11,8 +11,8 @@ $icon-font-path: '../fonts/';
 @import 'node_modules/sweetalert2/dist/sweetalert2';
 
 // Third Party: Bootstrap
-@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'variables';
+@import 'node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 
 // Core Items
 @import 'core/mixins';
@@ -24,6 +24,7 @@ $icon-font-path: '../fonts/';
 @import 'components/forms';
 @import 'components/modal';
 @import 'components/nav';
+@import 'components/labels';
 @import 'components/buttons'; // The order is important
 @import 'components/panels_listsgroup';
 @import 'components/ribbons';

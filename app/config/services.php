@@ -10,6 +10,8 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Forms\Manager as FormsManager;
 use Phalcon\Db\Adapter\Pdo\Mysql as MySQL;
 use Phalcon\Filter;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 /**
  * ==============================================================
@@ -21,6 +23,25 @@ $di = new \Phalcon\DI\FactoryDefault();
 
 $eventsManager = new EventsManager;
 $di->setShared('eventsManager', $eventsManager);
+
+
+/**
+ * ==============================================================
+ * Set the Security for Usage
+ *
+ * @important This comes before the Session
+ * =============================================================
+ */
+$di->setShared('logger', function () use ($config) {
+
+    $log = new Logger('error_log');
+    $log->pushHandler(new StreamHandler(
+        $config->get('logsDir') . '/error.log',
+        Logger::WARNING
+    ));
+
+    return $log;
+});
 
 
 /**
@@ -505,21 +526,15 @@ $di->setShared('facebook', function () use ( $api ) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google_auth', function () use ( $api ) {
+$di->setShared('google', function () use ( $api ) {
 
-    $middleware = \Google\Auth\ApplicationDefaultCredentials::getMiddleware(
-        $api->google->scope
-    );
+    $client = new Google_Client();
 
-    $stack = \GuzzleHttp\HandlerStack::create();
-    $stack->push($middleware);
-
-    return new \GuzzleHttp\Client([
-        'handler'  => $stack,
-        'base_uri' => 'https://www.googleapis.com',
-        'auth'     => 'google_auth'  // authorize all requests
-    ]);
-
+    // This has the JSON credentials for service account
+    $client->useApplicationDefaultCredentials();
+    $client->addScope($api->google->scope);
+    $client->setRedirectUri('https://jream.com/doGoogleLogin');
+    return $client;
 });
 
 

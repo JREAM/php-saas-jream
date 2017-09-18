@@ -99,27 +99,6 @@ $router->add('api/auth/register')
 $router->add('api/auth/password')
     ->setName('password');
 
-
-/**
- * ==============================================================
- * Product Routes
- * =============================================================
- */
-$router->add('product/course/preview/:params', [
-    'controller' => 'Product',
-    'action' => 'coursePreview',
-    'params' => 1,
-])->setName('course.preview');
-
-$router->add('product/course/:params', [
-    'controller' => 'Product',
-    'action' => 'course',
-    'params' => 1,
-])->setName('course');
-
-
-
-
 /**
  * ==============================================================
  * Old Routes ___

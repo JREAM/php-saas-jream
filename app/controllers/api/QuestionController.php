@@ -69,8 +69,6 @@ class QuestionController extends ApiController
             ],
         ]);
 
-        formDataClear();
-
         return $this->output(1, [
             'msg' => 'Your question has been added',
             'redirect' => getBaseUrl(self::REDIRECT_SUCCESS . $productId)

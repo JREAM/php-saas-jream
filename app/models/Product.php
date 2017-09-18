@@ -92,11 +92,11 @@ class Product extends BaseModel
     /**
      * Has a user Purchased this product?
      *
-     * @param bool $userId Default is the user ID
-     *
+     * @param bool|int $userId Default is the user ID
+     * @param bool|int $productID Default is the query made, otherwwise call manually
      * @return bool
      */
-    public function hasPurchased($userId = false)
+    public function hasPurchased($userId = false, $productId = false)
     {
         // Admin can go anywhere
         // if ($this->session->role === 'admin') {
@@ -107,10 +107,11 @@ class Product extends BaseModel
             $userId = $this->session->get('id');
         }
 
+        $checkId = ($productId) ?: $this->id;
         $userPurchase = \UserPurchase::findFirst([
             'product_id = :pid: AND user_id = :id:',
             'bind' => [
-                'pid' => $this->id,
+                'pid' => $checkId,
                 'id'  => $userId,
             ],
         ]);

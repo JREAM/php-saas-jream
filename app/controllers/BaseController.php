@@ -78,17 +78,23 @@ class BaseController extends Controller
 
 
         // Set the CSRF for every request (It uses a unique key/pair token per user session)
-        $hashid = $this->di->get('hashids');
+        $hashid     = $this->di->get('hashids');
+
+        // Token Data
+        $tokenData  = $this->tokenManager->getTokens();
+        $tokenKey   = $tokenData['tokenKey'];
+        $token      = $tokenData['token'];
+
         $this->view->setVars([
             // This is for JS to pickup
-            'tokenKey' => $this->tokenManager->getTokens()['tokenKey'],
-            'token'    => $this->tokenManager->getTokens()['token'],
+            'tokenKey' => $tokenKey,
+            'token'    => $token,
             'jsGlobal' => [
                 'user_id'       => $hashid->encodeHex($this->session->get('id')),
                 'base_url'      => getBaseUrl(),
                 'csrf'          => [
-                    $this->tokenManager->getTokens()['tokenKey'],
-                    $this->tokenManager->getTokens()['token'],
+                    $tokenKey,
+                    $token,
                 ],
                 'notifications' => [
                     'error'   => Output::getCode('error'),

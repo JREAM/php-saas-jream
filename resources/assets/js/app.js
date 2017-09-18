@@ -8,7 +8,7 @@ window.Promise = require('es6-promise').Promise;
 
 // Custom Components
 window.formUtils = require('./components/forms');
-window.system = require('./components/system');
+window.system = require('./components/window');
 
 // -----------------------------------------------------------------------------
 // Axios Interceptor

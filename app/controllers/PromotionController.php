@@ -69,23 +69,6 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/promotion');
     }
 
-    public function viewAction($promotionId) : void
-    {
-        $promotion = \Promotion::findFirst(['is_delete = 0 AND NOW() < expires_at AND id = :id:'], [
-            'id' => $promotionId,
-        ]);
-        if (!$promotion) {
-            $this->view->pick(404);
-        }
-
-        $this->view->setVars([
-            'has_promotion' => $has_promotion,
-            'promotion'     => $promotion,
-            'products'      => $products,
-        ]);
-        $this->view->pick('promotion/view');
-    }
-
     public function selectItemAction() : void
     {
         $this->view->disable();

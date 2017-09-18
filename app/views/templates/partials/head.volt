@@ -23,6 +23,7 @@
     <script src="{{ url('vendor/jquery.min.js') }} "></script>
 
     <script>
+        {# Passed into the main JS files #}
         window.user_id = '{{ jsGlobal['user_id'] }}';
         window.base_url = '{{ jsGlobal['base_url'] }}';
         window.notifications = {

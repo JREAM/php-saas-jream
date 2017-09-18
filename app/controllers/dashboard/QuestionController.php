@@ -9,10 +9,6 @@ use Controllers\BaseController;
 
 class QuestionController extends BaseController
 {
-    const REDIRECT_SUCCESS = 'dashboard/question/index/';
-    const REDIRECT_FAILURE = 'dashboard/question/index/';
-    const REDIRECT_FAILURE_PERMISSION = 'dashboard/';
-
     /**
      * @return void
      */
@@ -35,8 +31,7 @@ class QuestionController extends BaseController
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
-
-            return $this->redirect(self::REDIRECT_FAILURE_PERMISSION);
+            return $this->redirect($this->router->getRewriteUri());
         }
 
         $this->view->setVars([

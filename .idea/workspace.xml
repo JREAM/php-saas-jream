@@ -6,38 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/sass/components/labels.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/NewsletterAction.php" afterPath="$PROJECT_DIR$/app/models/NewsletterResult.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/product/view.volt" afterPath="$PROJECT_DIR$/app/views/product/course.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.php" afterPath="$PROJECT_DIR$/app/config/config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routes.php" afterPath="$PROJECT_DIR$/app/config/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/IndexController.php" afterPath="$PROJECT_DIR$/app/controllers/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ProductController.php" afterPath="$PROJECT_DIR$/app/controllers/ProductController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserController.php" afterPath="$PROJECT_DIR$/app/controllers/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/BaseController.php" afterPath="$PROJECT_DIR$/app/controllers/BaseController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/PromotionController.php" afterPath="$PROJECT_DIR$/app/controllers/PromotionController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/QuestionController.php" afterPath="$PROJECT_DIR$/app/controllers/api/QuestionController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Product.php" afterPath="$PROJECT_DIR$/app/models/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index/lab.volt" afterPath="$PROJECT_DIR$/app/views/index/lab.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/index/terms.volt" afterPath="$PROJECT_DIR$/app/views/index/terms.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/partials/course-list.volt" afterPath="$PROJECT_DIR$/app/views/partials/course-list.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" afterPath="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/product/index.volt" afterPath="$PROJECT_DIR$/app/views/product/index.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user/login.volt" afterPath="$PROJECT_DIR$/app/views/user/login.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user/register.volt" afterPath="$PROJECT_DIR$/app/views/user/register.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/app.css" afterPath="$PROJECT_DIR$/public/css/app.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/templates/partials/head.volt" afterPath="$PROJECT_DIR$/app/views/templates/partials/head.volt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/vendor/jquery.waypoints.min.js" afterPath="$PROJECT_DIR$/public/vendor/jquery.waypoints.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/__setup/schema.sql" afterPath="$PROJECT_DIR$/resources/__setup/schema.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/_variables.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/_variables.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/app.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/app.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/components/_ribbons.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/components/_ribbons.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/components/_utils.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/components/_utils.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/pages/product.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/pages/product.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/app.js" afterPath="$PROJECT_DIR$/resources/assets/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/components/system.js" afterPath="$PROJECT_DIR$/resources/assets/js/components/system.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/auth.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/auth.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -316,81 +296,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_buttons.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss">
+      <file leaf-file-name="AccountController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/AccountController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="87" column="21" lean-forward="false" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
+            <state relative-caret-position="-420">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_utils.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_utils.scss">
+      <file leaf-file-name="QuestionController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/QuestionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="264" column="17" lean-forward="false" selection-start-line="264" selection-start-column="17" selection-end-line="264" selection-end-column="17" />
+            <state relative-caret-position="364">
+              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
+      <file leaf-file-name="ContactController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/ContactController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+            <state relative-caret-position="-1848">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.volt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/user/login.volt">
+      <file leaf-file-name="CourseController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/CourseController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-252">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuestionController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Product.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="113" column="33" lean-forward="false" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PromotionController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/PromotionController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1876">
+              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PurchaseController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/PurchaseController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="169">
-              <caret line="64" column="103" lean-forward="false" selection-start-line="64" selection-start-column="103" selection-end-line="64" selection-end-column="103" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.volt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/user/register.volt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="78" column="43" lean-forward="true" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="services.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/services.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6636">
-              <caret line="535" column="63" lean-forward="false" selection-start-line="535" selection-start-column="63" selection-end-line="535" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="terms.volt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/index/terms.volt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="174" column="140" lean-forward="false" selection-start-line="174" selection-start-column="132" selection-end-line="174" selection-end-column="140" />
+              <caret line="270" column="20" lean-forward="false" selection-start-line="270" selection-start-column="20" selection-end-line="270" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/UserController.php">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="87" column="57" lean-forward="false" selection-start-line="87" selection-start-column="57" selection-end-line="87" selection-end-column="57" />
+            <state relative-caret-position="-504">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UtilsController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/UtilsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -400,12 +400,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.ribbon</find>
-      <find>red</find>
-      <find>bootstrap</find>
-      <find>inline-block</find>
-      <find>text-al</find>
-      <find>float: rig</find>
       <find>.clear</find>
       <find>79A70A</find>
       <find>sign</find>
@@ -425,11 +419,17 @@
       <find>google</find>
       <find>btn-face</find>
       <find>sign in with fa</find>
-      <find>regis</find>
       <find>facebook privacy</find>
-      <find>priv</find>
       <find>facebook</find>
       <find>social media pr</find>
+      <find>card</find>
+      <find>priv</find>
+      <find>regis</find>
+      <find>ca</find>
+      <find>&lt;script&gt;</find>
+      <find>session-&gt;set</find>
+      <find>REDIRECT_FAILURE_PERMISSION</find>
+      <find>haspur</find>
     </findStrings>
     <replaceStrings>
       <replace>getBasename</replace>
@@ -441,16 +441,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/models/Promotion.php" />
-        <option value="$PROJECT_DIR$/app/controllers/api/UserController.php" />
-        <option value="$PROJECT_DIR$/app/models/Newsletter.php" />
-        <option value="$PROJECT_DIR$/app/models/NewsletterAction.php" />
-        <option value="$PROJECT_DIR$/app/models/NewsletterSubscription.php" />
-        <option value="$PROJECT_DIR$/app/models/Notification.php" />
-        <option value="$PROJECT_DIR$/app/models/ProductCourse.php" />
-        <option value="$PROJECT_DIR$/resources/assets/js/components/system.js" />
-        <option value="$PROJECT_DIR$/resources/assets/js/app.js" />
-        <option value="$PROJECT_DIR$/resources/emails/newsletter.php" />
         <option value="$PROJECT_DIR$/app/controllers/NewsletterController.php" />
         <option value="$PROJECT_DIR$/docker-compose.yml" />
         <option value="$PROJECT_DIR$/resources/emails/newsletter-template.php" />
@@ -482,16 +472,26 @@
         <option value="$PROJECT_DIR$/app/models/NewsletterResult.php" />
         <option value="$PROJECT_DIR$/app/views/product/index.volt" />
         <option value="$PROJECT_DIR$/app/views/product/course.volt" />
-        <option value="$PROJECT_DIR$/app/models/Product.php" />
         <option value="$PROJECT_DIR$/resources/assets/sass/components/_utils.scss" />
         <option value="$PROJECT_DIR$/composer.json" />
-        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
         <option value="$PROJECT_DIR$/app/config/services.php" />
-        <option value="$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss" />
-        <option value="$PROJECT_DIR$/app/controllers/UserController.php" />
         <option value="$PROJECT_DIR$/app/views/index/terms.volt" />
         <option value="$PROJECT_DIR$/app/views/user/register.volt" />
+        <option value="$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss" />
         <option value="$PROJECT_DIR$/app/views/user/login.volt" />
+        <option value="$PROJECT_DIR$/resources/assets/js/components/interceptors.js" />
+        <option value="$PROJECT_DIR$/resources/assets/js/pages/auth.js" />
+        <option value="$PROJECT_DIR$/app/views/templates/partials/window.js.volt" />
+        <option value="$PROJECT_DIR$/app/views/templates/partials/head.volt" />
+        <option value="$PROJECT_DIR$/resources/assets/js/app.js" />
+        <option value="$PROJECT_DIR$/resources/assets/js/components/system.js" />
+        <option value="$PROJECT_DIR$/app/controllers/BaseController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php" />
+        <option value="$PROJECT_DIR$/app/models/Product.php" />
+        <option value="$PROJECT_DIR$/app/controllers/api/QuestionController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/PromotionController.php" />
       </list>
     </option>
   </component>
@@ -528,7 +528,7 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 7" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="59" />
     <option name="y" value="45" />
     <option name="width" value="1851" />
@@ -727,6 +727,13 @@
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="dashboard" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -752,7 +759,21 @@
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="dashboard" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="newsletter" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
@@ -773,6 +794,21 @@
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="partials" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="user" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -785,6 +821,29 @@
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
@@ -846,7 +905,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v8.5.0/bin/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
@@ -971,16 +1030,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="59" y="45" width="1920" height="1035" extended-state="7" />
+    <frame x="59" y="45" width="1920" height="1035" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="GfmBrowser" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291866" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19530416" sideWeight="0.60172415" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1017,179 +1076,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3696">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/NewsletterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/newsletter-template.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="22" column="28" lean-forward="true" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/question-thread.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/traits/TimestampTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/library/Recaptcha.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/NewsletterController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/plugins/PermissionPlugin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="277" column="33" lean-forward="false" selection-start-line="277" selection-start-column="33" selection-end-line="277" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/PurchaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3220">
-          <caret line="120" column="40" lean-forward="false" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/ChangePasswordForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="33" column="62" lean-forward="false" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/BaseModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1904">
-          <caret line="69" column="17" lean-forward="false" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/ContactController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="70" column="73" lean-forward="false" selection-start-line="70" selection-start-column="73" selection-end-line="70" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/tasks/CronTask.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="56" column="10" lean-forward="false" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/tasks/NewsletterTask.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="147" column="59" lean-forward="false" selection-start-line="147" selection-start-column="59" selection-end-line="147" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/QuestionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/forms/RegisterForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="69" column="62" lean-forward="false" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="48" column="40" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/WebhookController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/ProductController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="136" column="26" lean-forward="false" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/lab.volt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1310,26 +1196,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_utils.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="264" column="17" lean-forward="false" selection-start-line="264" selection-start-column="17" selection-end-line="264" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
           <caret line="24" column="33" lean-forward="true" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="81" column="51" lean-forward="false" selection-start-line="81" selection-start-column="43" selection-end-line="81" selection-end-column="51" />
           <folding />
         </state>
       </provider>
@@ -1366,14 +1236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/services.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6636">
@@ -1382,42 +1244,253 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss">
+    <entry file="file://$PROJECT_DIR$/app/views/index/terms.volt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="87" column="21" lean-forward="false" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="87" column="57" lean-forward="false" selection-start-line="87" selection-start-column="57" selection-end-line="87" selection-end-column="57" />
+        <state relative-caret-position="-598">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user/register.volt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="78" column="43" lean-forward="true" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
+        <state relative-caret-position="550">
+          <caret line="78" column="43" lean-forward="false" selection-start-line="78" selection-start-column="43" selection-end-line="78" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/terms.volt">
+    <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_utils.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="174" column="140" lean-forward="false" selection-start-line="174" selection-start-column="132" selection-end-line="174" selection-end-column="140" />
+        <state relative-caret-position="429">
+          <caret line="264" column="17" lean-forward="false" selection-start-line="264" selection-start-column="17" selection-end-line="264" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/sass/components/_buttons.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/question.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/components/interceptors.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="25" column="50" lean-forward="false" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1505727024075" expanded="true" signature="716:4299" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/course.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-504">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/newsletter/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="81" column="57" lean-forward="false" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/templates/partials/window.js.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/templates/full.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/templates/partials/head.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="25" column="42" lean-forward="false" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/components/system.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="85" column="39" lean-forward="false" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="28" selection-end-line="117" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/NewsletterController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-672">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4005">
+          <caret line="208" column="24" lean-forward="false" selection-start-line="208" selection-start-column="24" selection-end-line="208" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user/login.volt">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="113" column="33" lean-forward="false" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/QuestionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/PurchaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
-          <caret line="64" column="103" lean-forward="false" selection-start-line="64" selection-start-column="103" selection-end-line="64" selection-end-column="103" />
+          <caret line="270" column="20" lean-forward="false" selection-start-line="270" selection-start-column="20" selection-end-line="270" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-504">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/CourseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-252">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/ContactController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1848">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/UtilsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/PromotionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1876">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/AccountController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-420">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

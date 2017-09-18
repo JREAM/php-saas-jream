@@ -85,42 +85,50 @@ class AuthController extends ApiController
     public function loginGoogleAction()
     {
         $client = $this->getService('google');
-        $plus = new Google_Service_Plus_Person($client);
 
         // Check if an auth token exists for the required scopes
         $tokenSessionKey = 'token-' . $client->prepareScopes();
 
         // If Code, Forward to Request Access Token
-        if (isset($_GET['code']))
+        if (isset($this->request->get('code')))
         {
-          if (strval($_SESSION['state']) !== strval($_GET['state'])) {
-            die('The session state did not match.');
-          }
-          $client->authenticate($_GET['code']);
-          $_SESSION[$tokenSessionKey] = $client->getAccessToken();
-          header('Location: ' . $redirect);
+            if ($this->session->get('state') != $this->request->get('state')) {
+                throw new \RuntimeException('The session state did not match for Google.');
+            }
+            $client->authenticate($this->request->get('code'));
+            $this->session->set($tokenSessionKey, $client->getAccessToken());
+            // @TODO: WHERE IS THIS REDIRECT?
+            $this->response->redirect($redirect);
         }
 
         // If Access Token (from previous) is set, set in client
-        if (isset($_SESSION[$tokenSessionKey])) {
-          $client->setAccessToken($_SESSION[$tokenSessionKey]);
+        if ($this->session->has($tokenSessionKey)) {
+          $client->setAccessToken($this->session->get($tokenSessionKey));
         }
 
         // Check to ensure that the access token was successfully acquired.
         if ($client->getAccessToken()) {
             try {
-
+                // @TODO Service Here!!!
+                $plus = new Google_Service_Plus_Person($client);
+                // @TODO Save to DB if not exists, otherwise login, refresh token
+                return $this->output(1, 'Logged In', [
+                    'redirect' => getBaseUrl('dashboard')
+                ]);
             } catch (Google_Service_Exception $e) {
-                $this->output(0, $e->getMessage());
+                return $this->output(0, $e->getMessage());
             } catch (Google_Exception $e) {
-                $this->output(0, $e->getMessage());
+                return $this->output(0, $e->getMessage());
             }
-        } else {
-            $state = mt_rand();
-            $client->setState($state);
-            $_SESSION['state'] = $state;
-            $authUrl = $client->createAuthUrl();
         }
+
+        $state = mt_rand();
+        $client->setState($state);
+        $this->session->set('state', $state);
+
+        return $this->output(0, 'Not authenticated, login with the URL', [
+            'url' => $client->createAuthUrl()
+        ]);
 
     }
 
@@ -196,9 +204,9 @@ class AuthController extends ApiController
 
         // User is logged in with a long-lived access token.
         // You can redirect them to a members-only page.
-        $facebookEmail = $facebookUser->getEmail();
-        $facebookId = $facebookUser->getId();
-        $facebookUser = $response->getGraphUser();
+        $facebookEmail  = $facebookUser->getEmail();
+        $facebookId     = $facebookUser->getId();
+        $facebookUser   = $response->getGraphUser();
 
         // Generate the users name since it doesnt let you use a username anymore.
         $full_name = explode(' ', $facebookUser->getName());

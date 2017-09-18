@@ -116,6 +116,7 @@ class PurchaseController extends ApiController
                 $promo_method = 'percent_off';
                 $promo = sprintf(
                     "Price marked down from %s to %s at %s percent off using promotional code %s.",
+                    $product->price,
                     number_format($product->price - ($product->price * $promo->percent_off), 2),
                     $promo->percent_off,
                     $promo->code

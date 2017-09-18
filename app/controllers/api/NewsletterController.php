@@ -27,7 +27,7 @@ class NewsletterController extends ApiController
         }
 
         // If Recaptcha fails, Warn and use JS to reload.
-        if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {
+        if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response')) ) {
             // Retrigger: grecaptcha.reset() in JS
             return $this->output(0, 'Recaptcha is invalid, please try again.');
         }

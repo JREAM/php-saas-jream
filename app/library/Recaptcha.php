@@ -4,7 +4,7 @@ namespace Library;
 
 use \GuzzleHttp\Client;
 
-class RecaptchaLibrary
+class Recaptcha
 {
     protected $di;
     protected $session;

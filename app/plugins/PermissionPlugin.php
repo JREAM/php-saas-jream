@@ -274,7 +274,7 @@ class PermissionPlugin extends Plugin
 
         if (!in_array($applyToResource, $validResources, true)) {
             throw new \InvalidArgumentException("
-                You setPermissionsFrom ($applyToResource) and they must be one of: " .
+                You setPermissionsFrom (\$applyToResource) and they must be one of: " .
                 explode(',', $validResources)
             );
         }

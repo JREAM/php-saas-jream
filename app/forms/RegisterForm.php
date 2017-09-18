@@ -27,7 +27,7 @@ class RegisterForm extends BaseForm
             new Validator\StringLength([
                 "min"            => 5,
                 "max"            => 18,
-                "messageMinimum" => "Your alias must be atleast 5 characters",
+                "messageMinimum" => "Your alias must be at least 5 characters",
                 "messageMaximum" => "Your alias must be less than or equal to 18 characters.",
             ]),
             new Validator\Alpha([
@@ -67,7 +67,7 @@ class RegisterForm extends BaseForm
                 "max"            => 48,
                 "min"            => 6,
                 "messageMaximum" => "Your password must be less than or equal to 48 characters.",
-                "messageMinimum" => "Your password must be atleast 6 characters",
+                "messageMinimum" => "Your password must be at least 6 characters",
             ]),
         ]);
 

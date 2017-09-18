@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Forms;
 
-use Phalcon\Forms\Element\Text;
+use /** @noinspection PhpUndefinedClassInspection */
+    Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 
@@ -30,7 +31,7 @@ class ChangePasswordForm extends BaseForm
                 "max"            => 48,
                 "min"            => 6,
                 "messageMaximum" => "Your password must be less than or equal to 48 characters.",
-                "messageMinimum" => "Your password must be atleast 6 characters",
+                "messageMinimum" => "Your password must be at least 6 characters",
             ]),
         ]);
 

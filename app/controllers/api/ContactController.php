@@ -4,7 +4,7 @@ namespace Controllers\Api;
 
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
-use Library\RecaptchaLibrary;
+use Library\Recaptcha;
 
 class Contact extends Controller
 {
@@ -15,7 +15,7 @@ class Contact extends Controller
     public function sendAction() : Response
     {
         // If Recaptcha fails, Warn and use JS to reload.
-        if (!new RecaptchaLibrary($this->session, $this->request->getPost('g-recaptcha-response')) ) {
+        if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response')) ) {
             // Retrigger: grecaptcha.reset() in JS
             return $this->output(0, 'Recaptcha is invalid, please try again.');
         }
@@ -68,7 +68,7 @@ class Contact extends Controller
             ],
         ]);
 
-        if( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if( ! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'Error sending email');
         }
 

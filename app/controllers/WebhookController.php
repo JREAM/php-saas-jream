@@ -24,9 +24,10 @@ class WebhookController extends BaseController
     /**
      * @return View
      */
-    public function unsubscribeAction() : View
+    public function unsubscribeAction()
     {
-        return $this->view->pick('newsletter/unsubscribe');
+        echo $this->router->getRewriteUri();
+        //return $this->view->pick('newsletter/unsubscribe');
     }
 
     // -----------------------------------------------------------------------------

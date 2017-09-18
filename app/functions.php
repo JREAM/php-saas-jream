@@ -16,9 +16,10 @@ function getBaseUrl($append = false) : string
 {
     $base_url = preg_replace('/(^https?)+(:\/{2})/i', '', URL);
     $url = \HTTPS ? 'https://' : 'http://';
-
     return $url . rtrim($base_url, '/') . '/' . ltrim($append);
 }
+
+
 
 /**
  * Cleans up a source name for display
@@ -90,8 +91,8 @@ function getDateTime() : string
  */
 function getTimeElapsed($datetime, $full = false) : string
 {
-    $now = new \DateTime;
-    $ago = new \DateTime($datetime);
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);

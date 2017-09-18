@@ -58,9 +58,9 @@ class CronTask extends Task
             ]
         ]);
 
-        foreach ($this->sqsEndpoints as $endpointName => $enpointUrl) {
+        foreach ($this->sqsEndpoints as $endpointName => $endpointUrl) {
             printf("Checking SQS: %s", $endpointName);
-            $this->processSqs($enpointUrl);
+            $this->processSqs($endpointUrl);
         }
     }
 

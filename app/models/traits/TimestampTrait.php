@@ -5,7 +5,7 @@ namespace Models\Traits;
 /**
  * Trait TimeStamp
  */
-trait TimeStampTrait
+trait TimestampTrait
 {
     public $dateFormat = 'Y-m-d H:i:s';
 

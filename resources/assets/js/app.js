@@ -7,8 +7,8 @@ window.swal = require('sweetalert2');
 window.Promise = require('es6-promise').Promise;
 
 // Custom Components
+window.system = require('./components/system');
 window.formUtils = require('./components/forms');
-window.system = require('./components/window');
 
 // -----------------------------------------------------------------------------
 // Axios Interceptor

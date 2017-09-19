@@ -90,7 +90,7 @@ class AuthController extends ApiController
         $tokenSessionKey = 'token-' . $client->prepareScopes();
 
         // If Code, Forward to Request Access Token
-        if (isset($this->request->get('code')))
+        if ($this->request->get('code'))
         {
             if ($this->session->get('state') != $this->request->get('state')) {
                 throw new \RuntimeException('The session state did not match for Google.');

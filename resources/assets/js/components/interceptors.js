@@ -1,6 +1,17 @@
 // -----------------------------------------------------------------------------
 // Interceptor AJAX Error Handler
 // -----------------------------------------------------------------------------
+
+axios.interceptors.request.use(config => {
+  // (1) Show Ajax Loading for Forms
+  // (2) Disable Ajax Loading with Response
+  // console.log(config)
+
+  // You must return the axios configuration object so you don't interrupt
+  // the flow of going through with the request.
+  return config;
+});
+
 /**
  *   200 - Throws and exception if the result is 0 from the server.
  *

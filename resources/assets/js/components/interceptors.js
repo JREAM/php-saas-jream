@@ -2,16 +2,6 @@
 // Interceptor AJAX Error Handler
 // -----------------------------------------------------------------------------
 
-axios.interceptors.request.use(config => {
-  // (1) Show Ajax Loading for Forms
-  // (2) Disable Ajax Loading with Response
-  // console.log(config)
-
-  // You must return the axios configuration object so you don't interrupt
-  // the flow of going through with the request.
-  return config;
-});
-
 /**
  *   200 - Throws and exception if the result is 0 from the server.
  *
@@ -34,35 +24,46 @@ axios.interceptors.request.use(config => {
  *   505 - HTTP Version Not Accepted
  *   508 - Loop Detected
  */
-axios.interceptors.response.use(response => response, error => {
+axios.interceptors.response.use(response => {
+
+  // If JSON Output Error/Warn, handle it specially
+  let errors = [
+    window.notifications.error,
+    window.notifications.warn
+  ];
+
+  if (_.indexOf(errors, response.data.result) != -1) {
+
+    // List of Errors
+    if (_.has(response.data, 'data') && _.isArray(response.data.data) && response.data.data.length > 0) {
+      // Create a list to output
+      let error_list = String('<ul>');
+      for (var error of response.data.data) {
+        error_list += `<li>${error}</li>`;
+      }
+      error_list += String('</ul>');
+
+      $.notify(error_list, response.data.type);
+    } else {
+      $.notify(response.data.msg, response.data.type);
+    }
+    // And throw anyways
+    throw response.data;
+  }
+
+  return response;
+
+}, error => {
+
+  if (!error || !_.has(error, 'response')) {
+    return Promise.reject('No response found in the error, nevertheless one was thrown.');
+  }
 
   switch (error.response.status) {
 
-    case 200:
-
-      // If Error/Warn, handle it specially
-      if ($.inArray(response.data.result, [window.notifications.error, window.notifications.warn])) {
-        // @TODO: Do i want a global thing like tihs? Then remove the other catches
-        // List of Errors
-        if (Array.isArray(response.data.data) && response.data.data.length > 0) {
-          // Create a list to output
-          let error_list = String('<ul>');
-          for (var error of response.data.data) {
-            error_list += `<li>${error}</li>`;
-          }
-          error_list += String('</ul>');
-
-          $.notify(error_list, response.data.type);
-        } else {
-          $.notify(reponse.data.msg, response.data.type);
-        }
-        // And throw anyways
-        throw response.data;
-      }
-      break;
-
     // @ 300 Errors
     case 301:
+      console.log(301);
       swal({
         type: "warning",
         title: "Moved Permanently",
@@ -70,6 +71,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 302:
+      console.log(302);
       swal({
         type: "warning",
         title: "Permanent Redirect",
@@ -86,6 +88,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 401:
+      console.log(401);
       swal({
         type: "warning",
         title: "Unauthorized; Your Session has expired.",
@@ -96,6 +99,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 403:
+      console.log(403);
       swal({
         type: "warning",
         title: "Forbidden",
@@ -103,6 +107,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 404:
+      console.log(404);
       swal({
         type: "warning",
         title: "Not Found",
@@ -110,6 +115,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 405:
+      console.log(405);
       swal({
         type: "warning",
         title: "Method not Allowed",
@@ -117,6 +123,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 408:
+      console.log(408);
       swal({
         type: "warning",
         title: "Request Timeout",
@@ -126,6 +133,7 @@ axios.interceptors.response.use(response => response, error => {
 
     // @ 500 Errors
     case 500:
+      console.log(500);
       swal({
         type: "warning",
         title: "Internal Service Error",
@@ -133,6 +141,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 501:
+      console.log(501);
       swal({
         type: "warning",
         title: "Not Implemented",
@@ -140,6 +149,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 502:
+      console.log(502);
       swal({
         type: "warning",
         title: "Bad Gateway",
@@ -147,6 +157,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 503:
+      console.log(503);
       swal({
         type: "warning",
         title: "Service Unavailable",
@@ -154,6 +165,7 @@ axios.interceptors.response.use(response => response, error => {
       });
       break;
     case 504:
+      console.log(504);
       swal({
         type: "warning",
         title: "Gateway Timeout",
@@ -163,10 +175,11 @@ axios.interceptors.response.use(response => response, error => {
 
     // @ Unknown Error
     default:
+      console.log('default');
       swal({
         type: "warning",
         title: "General Error",
-        text: `An unknown error occured with the status of ${error.response.status}`
+        text: `An unknown error occured with the status of ${error}`
       });
 
     // Prevent a promise from occuring.

@@ -26,68 +26,88 @@ class Xhr {
    *        'beforeSubmit': function(evt) {
    *          console.log('Result!');
    *          console.log(evt);
- *          }
+   *        }
    *    });
    */
   static stdForm(id, callable = {}) {
 
     // Only accept strings, cleaner code to change
-    this.id = id;
-    if (!_.isString(this.id)) {
+    if (!_.isString(id)) {
       throw 'The id passed must be a string to XHRStandard.';
     }
 
     // Do not bind something non-existant
     this.element = $(id);
     if (this.element.length != 1) {
+      // console.log(id); // Debug if Missing, problem!
       return false;
     }
+
 
     // Bind to submit method
     this.element.submit((evt) => {
       evt.preventDefault();
 
+      // @TODO @DEBUG HERE Why i get no class blah blah error
+      //return false;
+
       // Run beforeXHR (optional)
-      if (_.has(callable, 'beforeSubmit') && _.isFunction(beforeSubmit)) {
-        callable.beforeSubmit(evt);
-      }
+      // if (_.has(callable, 'beforeSubmit') && _.isFunction(beforeSubmit)) {
+      //   callable.beforeSubmit(evt);
+      // }
 
       // Disable this when handling XHR
-      this.btnSubmit = this.element.find(':submit');
-      this.btnSubmit.prop('disabled', true);
+      this.btnSubmit = $(id).find(':submit');
+      if (this.btnSubmit.length > 0) {
+        this.btnSubmit.prop('disabled', true);
+      }
 
-      const url = this.element.attr('action');
-      const postData = this.element.serialize();
+      const url = $(id).attr('action');
+      const postData = $(id).serialize();
 
-      axios.post(url, postData).then(resp => {
-        $(this).notify(resp.data.msg, resp.data.type);
-
-        // (Optional) If Callback
-        if (_.has(callable, 'success') && _.isFunction(callable.success)) {
-          callable.success(resp, evt);
-        }
-      }).catch(function(err) {
-        $(this).notify(err.msg, err.type);
-
-        // (Optional) If Callback
-        if (_.has(callable, 'fail') && _.isFunction(callable.fail)) {
-          callable.fail(resp, evt);
-        }
-      });
+      if (!url) {
+        alert('Missing URL for Form!', 'error');
+        return false;
+      }
 
       axios.post(url, postData).then(resp => {
-        window.location = resp.data.data.redirect;
+
+        if (_.has(resp, 'msg')) {
+          $(id).notify(resp.msg, resp.type);
+        }
+
+        // If a redirect is returned in the 'data' from Phalcon
+        if (_.has(resp, 'data') && _.has(resp.data, 'redirect')) {
+          window.location = resp.data.redirect;
+          // @TODO: Does this one work?
+          //window.location = Url.create(resp.data.redirect);
+          return true;
+        }
+
+        // (Optional) If Callback
+        // if (_.has(callable, 'success') && _.isFunction(callable.success)) {
+        //   callable.success(resp, evt);
+        // }
       }).then(() => {
         // Aways re-enable the button
         this.btnSubmit.prop('disabled', false);
-      }).catch(err => {
-        $(this).notify(err.msg, err.type);
+      }).catch(error => {
+        if (_.has(error, error.msg)) {
+          $(id).notify(error.msg, error.type);
+        }
+
+        // (Optional) If Callback
+        // if (_.has(callable, 'fail') && _.isFunction(callable.fail)) {
+        //   callable.fail(resp, evt);
+        // }
+        // Aways re-enable the button
+        this.btnSubmit.prop('disabled', false);
       });
 
       // Run beforeXHR (optional)
-      if (_.has(callable, 'afterSubmit') && _.isFunction(callable.afterSubmit)) {
-        callable.afterSubmit(evt);
-      }
+      // if (_.has(callable, 'afterSubmit') && _.isFunction(callable.afterSubmit)) {
+      //   callable.afterSubmit(evt);
+      // }
 
     });
   }

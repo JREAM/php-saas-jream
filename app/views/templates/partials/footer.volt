@@ -53,6 +53,7 @@
 {#<script src="{{ url('vendor/validator.min.js') }} "></script>#}
 {#<script src="{{ url('vendor/moment.min.js') }} "></script>#}
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
+<script src="{{ url('vendor/notify.js') }} "></script>
 
 <!-- CDN -->
 <script src='//www.google.com/recaptcha/api.js'></script>

@@ -48,6 +48,7 @@
     "stable": "^0.1.6",
     "swiper": "^3.4.2",
     "urijs": "^1.18.12",
+    "vue": "^2.4.4",
     "waypoints": "^4.0.1",
     "webpack": "^3.5.5",
     "webpack-livereload-plugin": "^0.11.0"

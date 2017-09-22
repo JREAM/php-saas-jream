@@ -526,14 +526,21 @@ $di->setShared('facebook', function () use ( $api ) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google', function () use ( $api ) {
+$di->setShared('google', function () use ( $api, $config ) {
 
     $client = new Google_Client();
 
     // This has the JSON credentials for service account
-    $client->useApplicationDefaultCredentials();
-    $client->addScope($api->google->scope);
-    $client->setRedirectUri('https://jream.com/doGoogleLogin');
+    $client->setClientId(getenv('GOOGLE_CLIENT_ID'));
+    $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));
+
+    // Must cast to an array for Google to Accept it.
+    $client->setScopes((array) $api->google->scopes);
+    $client->setAccessToken('offline');
+
+    // The url always has a trailing /
+    $redirectUri = "{$config->url}api/auth/google";
+    $client->setRedirectUri($redirectUri);
     return $client;
 });
 

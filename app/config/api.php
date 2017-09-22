@@ -54,12 +54,15 @@ $api = new \Phalcon\Config([
         // FACEBOOK_APP_ID (env variable)
     ],
     'google' => [
-        'scope'       => [
-            'https://www.googleapis.com/auth/userinfo.email',
-            'https://www.googleapis.com/auth/userinfo.profile',
+        'scopes'       => [
+            Google_Service_Plus::USERINFO_EMAIL,
+            Google_Service_Plus::USERINFO_PROFILE,
         ],
+        // client_id and client_secret are ENV vars only
+        //'client_id' => getenv('GOOGLE_CLIENT_ID'),
+        //'client_secret' => getenv('GOOGLE_CLIENT_SECRET'),
         // Location for Credentials (Keep RealPath and use this)
-        'credentials' => realpath( getenv('GOOGLE_CREDENTIALS_LOCATION') ),
+        //'credentials' => realpath( getenv('GOOGLE_CREDENTIALS_LOCATION') ),
         // GOOGLE_RECAPTCHA_SECRET (env variable)
     ],
     'sendgrid' => [
@@ -77,10 +80,5 @@ $api = new \Phalcon\Config([
         // listId       (env variable)
     ]
 ]);
-
-
-// Google Oauth Credentials
-putenv("GOOGLE_APPLICATION_CREDENTIALS={$api->google->credentials}");
-
 
 return $api;

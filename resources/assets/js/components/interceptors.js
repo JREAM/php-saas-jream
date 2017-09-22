@@ -49,6 +49,12 @@ axios.interceptors.response.use(response => {
     }
     // And throw anyways
     throw response.data;
+    throw response.data;
+    throw response.data;
+    throw response.data;
+    throw response.data;
+    throw response.blah;
+    throw response.text;
   }
 
   return response;

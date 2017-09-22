@@ -36,10 +36,17 @@ $config = new \Phalcon\Config([
     ],
 
     /**
+     * URL Settings
+     * Always strip the trailing slash(es) if exists.
+     * baseUri is used by Phalcon (I believe)
+     */
+    'url'            => rtrim(getenv('URL'), '/') . '/',
+    'baseUri'        => rtrim(getenv('BASE_URI'), '/') . '/',
+
+    /**
      * Directories
      * These must ALWAYS have a trailing "/"
      */
-    'baseUri'        => getenv('BASE_URI'),
     'cacheDir'       => DOCROOT . 'cache/',
     'componentsDir'  => APP_PATH . 'components/',
     'configDir'      => APP_PATH . 'config/',

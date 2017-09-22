@@ -82,9 +82,9 @@ class AuthController extends ApiController
 
     // -----------------------------------------------------------------------------
 
-    public function loginGoogleAction()
+    public function googleAction()
     {
-        $client = $this->getService('google');
+        $client = $this->di->get('google');
 
         // Check if an auth token exists for the required scopes
         $tokenSessionKey = 'token-' . $client->prepareScopes();
@@ -139,7 +139,7 @@ class AuthController extends ApiController
      *
      * @return string   JSON
      */
-    public function loginFacebookAction() : Response
+    public function facebookAction() : Response
     {
         $helper = $this->facebook->getRedirectLoginHelper();
 

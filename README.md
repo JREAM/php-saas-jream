@@ -6,6 +6,45 @@ JREAM (Jesus Rules Everything Around Me) is a website for streaming videos I've 
 The system is built to serve people content on the fly after they purchase a product. Reliablity
 is important since JREAM LLC provides a serve. To solve this, AWS is utilized for fall-back servers, Redundant Storage, Geolocalized CDN, and Multi A-Z DB.
 
+## Dev Subdomain
+
+Make htpasswd:
+```sh
+cd /etc/apache2/htpasswd
+htpasswd -cB dev_jream.htpasswd jesse
+```
+
+Apahe Config:
+
+```apacheconfig
+<VirtualHost *:80>
+    ServerName dev.jream.com
+
+    ServerAdmin hello@jream.com
+    
+    DocumentRoot /var/www/dev/jream.com/public
+    DirectoryIndex index.php
+
+
+    <Directory /var/www/dev/jream.com/public>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    #Require all granted
+    
+    
+    AuthUserFile /etc/apache2/htpasswd/dev_jream.htpasswd
+    AuthType Basic
+    AuthName "Develop Area"
+    Require valid-user
+    
+    Order Allow,Deny
+    Deny from All
+
+    Satisfy Any
+    </Directory>
+
+</VirtualHost>
+```
 ## Using Mailcatcher
 
 For localhost testing use mailcatcher with Ruby:

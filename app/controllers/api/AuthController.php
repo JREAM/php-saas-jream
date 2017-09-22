@@ -112,8 +112,9 @@ class AuthController extends ApiController
             try {
                 // @TODO Service Here!!!
                 $plus = new \Google_Service_Plus_Person($client);
-
-                // @TODO Save to DB if not exists, otherwise login, refresh token
+                // @TODO Save to DB if not exists, otherwise login, refresh token?
+                print_r($plus);
+                die;
                 return $this->output(1, 'Logged In', [
                     'redirect' => getBaseUrl('dashboard')
                 ]);

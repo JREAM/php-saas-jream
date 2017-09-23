@@ -90,7 +90,7 @@ class AuthController extends ApiController
         if ($this->session->has('google_access_token')) {
             $client->setAccessToken($this->session->get('google_access_token'));
 
-            $drive = new Google_Service_Drive($client);
+            $drive = new \Google_Service_Drive($client);
             $files = $drive->files->listFiles(array())->getItems();
             print_r($files);
             die;

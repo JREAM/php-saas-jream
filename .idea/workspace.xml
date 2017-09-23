@@ -6,8 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api.php" afterPath="$PROJECT_DIR$/app/config/api.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -300,8 +298,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
+            <state relative-caret-position="240">
+              <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -1492,8 +1490,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
+        <state relative-caret-position="240">
+          <caret line="92" column="26" lean-forward="false" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
           <folding />
         </state>
       </provider>

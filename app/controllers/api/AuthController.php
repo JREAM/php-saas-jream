@@ -119,7 +119,7 @@ class AuthController extends ApiController
                 print_r($plus->getDisplayName());
                 print_r($plus->getId());
                 print_r($plus->getNickname());
-                print_r($plus->getCover();
+                print_r($plus->getCover());
                 die;
                 return $this->output(1, 'Logged In', [
                     'redirect' => getBaseUrl('dashboard')

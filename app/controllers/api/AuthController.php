@@ -105,14 +105,18 @@ class AuthController extends ApiController
 
             \PC::debug($tokenSessionKey, 'tokenSessionKey');
 
-                        $service = new \Google_Service_Plus_Person($client);
+            $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?
             echo '<pre>';
 
+            echo 'get ID';
             print_r($service->getId());
+            echo 'get nickname';
             print_r($service->getNickname());
+            echo 'get displayname';
             print_r($service->getDisplayName());
             //print_r($service->getCover()->getCoverPhoto()->getUrl());
+            echo 'get emails';
             print_r($service->getEmails());
             die;
 

@@ -127,7 +127,7 @@ class AuthController extends ApiController
                 print_r($service->getId());
                 print_r($service->getNickname());
                 print_r($service->getDisplayName());
-                print_r($service->getCover()->getCoverPhoto()->getUrl());
+                //print_r($service->getCover()->getCoverPhoto()->getUrl());
                 print_r($service->getEmails()->toSimpleObject());
                 die;
 

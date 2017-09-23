@@ -8,6 +8,29 @@ use Phalcon\Validation\Validator;
 class User extends BaseModel
 {
 
+    /**
+     * Constants for account types, accessible anywhere
+     */
+    const ACCOUNT_TYPE_JREAM = 'jream';
+    const ACCOUNT_TYPE_SOCIAL_GITHUB = 'github';
+    const ACCOUNT_TYPE_SOCIAL_GOOGLE = 'google';
+    const ACCOUNT_TYPE_SOCIAL_FACEBOOK = 'facebook';
+
+    /**
+     * @var array $accountTypes
+     */
+    protected $accountTypes = [
+        'local'  => [
+            self::ACCOUNT_TYPE_JREAM => ['exists' => 0],
+        ],
+        'social' => [
+            self::ACCOUNT_TYPE_SOCIAL_GITHUB => ['exists' => 0],
+            self::ACCOUNT_TYPE_SOCIAL_GOOGLE => ['exists' => 0],
+            self::ACCOUNT_TYPE_SOCIAL_FACEBOOK => ['exists' => 0],
+        ],
+    ];
+
+
     // -----------------------------------------------------------------------------
 
     /** @var array Saves on Memcached Queries */
@@ -103,9 +126,42 @@ class User extends BaseModel
             return $this->facebook_alias;
         } elseif ($this->google_alias) {
             return $this->google_alias;
+        } elseif ($this->github_alias) {
+            return $this->github_alias;
         }
 
         return false;
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /*
+     * After a user is fetched, set some class variables
+     */
+    public function afterFetch()
+    {
+        if ($this->email) {
+            $this->accountTypes['local'][self::ACCOUNT_TYPE_JREAM] = ['exists' => 1];
+        }
+        if ($this->github_id) {
+            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_GITHUB] = ['exists' => 1];
+        }
+        if ($this->google_id) {
+            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_GOOGLE] = ['exists' => 1];
+        }
+        if ($this->facebook_id) {
+            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_FACEBOOK] = ['exists' => 1];
+        }
+    }
+
+    // -----------------------------------------------------------------------------
+
+    public function getActiveAccounts()
+    {
+        $output = [];
+        if ($this->google_id) {
+            $output['google']
+        }
     }
 
     // -----------------------------------------------------------------------------

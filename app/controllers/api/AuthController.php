@@ -92,7 +92,6 @@ class AuthController extends ApiController
         // If Code, Forward to Request Access Token
         if ($this->request->get('code'))
         {
-            \PhpConsole\Helper::register();
             \PC::debug($this->session->get('state'), 'internal session_state');
             \PC::debug($this->request->get('state'), 'request session_state');
 

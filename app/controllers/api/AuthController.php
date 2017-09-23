@@ -97,7 +97,8 @@ class AuthController extends ApiController
             }
             $client->authenticate($this->request->get('code'));
             $this->session->set($tokenSessionKey, $client->getAccessToken());
-            // @TODO: WHERE IS THIS REDIRECT?
+
+            // Redirect to this same page
             $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
             $this->response->redirect($redirect);
         }
@@ -105,8 +106,6 @@ class AuthController extends ApiController
 
         // If Access Token (from previous) is set, set in client
         if ($this->session->has($tokenSessionKey)) {
-            echo 'TOKEN SET:';
-            print_r($tokenSessionKey);
             $client->setAccessToken($this->session->get($tokenSessionKey));
         }
 
@@ -125,7 +124,11 @@ class AuthController extends ApiController
                 // @TODO Save to DB if not exists, otherwise login, refresh token?
                 echo '<pre>';
 
-                print_r($service->toSimpleObject());
+                print_r($service->getId());
+                print_r($service->getNickname());
+                print_r($service->getDisplayName());
+                print_r($service->getCover()->getCoverPhoto()->getUrl());
+                print_r($service->getEmails()->toSimpleObject());
                 die;
 
                 return $this->output(1, 'Logged In', [
@@ -184,8 +187,7 @@ class AuthController extends ApiController
             if($helper->getError()) {
                 $this->di->get('sentry')->captureException($helper->getError());
                 header('HTTP/1.0 401 Unauthorized');
-                echo "
-}Error: " . $helper->getError() . "\n";
+                echo "Error: " . $helper->getError() . "\n";
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";

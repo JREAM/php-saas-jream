@@ -48,7 +48,7 @@ $api = new \Phalcon\Config([
     'fb' => [
         // Credentials In: .env / .env.sample
         // ----------------------------------
-        'redirectUri' => sprintf('https://%s/user/doFacebookLogin', 'jream.com'),
+        //'redirectUri' => sprintf('https://%s/user/doFacebookLogin', 'jream.com'),
         'scope'       => ['email','public_profile'],
         // FACEBOOK_APP_SECRET (env variable)
         // FACEBOOK_APP_ID (env variable)

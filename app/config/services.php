@@ -530,15 +530,20 @@ $di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
 
     $client = new Google_Client();
 
-    // This has the JSON credentials for service account
+    // OAuth Keys
     $client->setClientId(getenv('GOOGLE_CLIENT_ID'));
     $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));
 
-    // Must cast to an array for Google to Accept it.
+    // Simple API Key
+    $client->setDeveloperKey(getenv('GOOGLE_DEVELOPER_KEY'));
+
     $client->setApplicationName('JREAM');
 
+    // Scopes (aka Permissions)
     $client->setScopes((array) $api->google->scopes);
+    $client->setAccessType('offline');
 
+    // Optional to pass along an access token when instantiating
     if ($accessToken) {
         $client->setAccessToken($accessToken);
     }

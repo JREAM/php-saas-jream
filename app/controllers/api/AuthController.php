@@ -102,6 +102,8 @@ class AuthController extends ApiController
             $client->authenticate($this->request->get('code'));
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
+            PC::debug($tokenSessionKey, 'tokenSessionKey');
+
             // Redirect to this same page
             $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
             $this->response->redirect($redirect);

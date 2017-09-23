@@ -55,6 +55,7 @@ $api = new \Phalcon\Config([
     ],
     'google' => [
         'scopes'       => [
+            Google_Service_Plus::PLUS_LOGIN,
             Google_Service_Plus::USERINFO_EMAIL,
             Google_Service_Plus::USERINFO_PROFILE,
         ],

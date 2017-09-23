@@ -86,6 +86,8 @@ class AuthController extends ApiController
     {
         $client = $this->di->get('google');
 
+        // @TODO https://github.com/google/google-api-php-client/blob/master/examples/idtoken.php
+        // can just use a simple token ya?
         // debug
         if ($this->session->has('google_access_token')) {
             $client->setAccessToken($this->session->get('google_access_token'));

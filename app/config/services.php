@@ -535,6 +535,8 @@ $di->setShared('google', function () use ( $api, $config ) {
     $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));
 
     // Must cast to an array for Google to Accept it.
+    $client->setApplicationName('JREAM');
+
     $client->setScopes((array) $api->google->scopes);
     $client->setAccessToken('offline');
 

@@ -107,20 +107,49 @@ class AuthController extends ApiController
           $client->setAccessToken($this->session->get($tokenSessionKey));
         }
 
+        // @TODO I should refresh this somewhre
+        //$client->refreshToken($tokenSessionKey);
+
         // Check to ensure that the access token was successfully acquired.
         if ($client->getAccessToken()) {
             try {
+
                 // @TODO Service Here!!!
-                $plus = new \Google_Service_Plus_Person($client);
+                echo '|| GET URLS || ';
+                $plus = new \Google_Service_Plus_PersonImage($client);
+                print_r($plus->getUrl());
+
+                echo '|| GET PERSONNAME || ';
+                $plus = new \Google_Service_Plus_PersonName($client);
+                print_r([
+                    $plus->getFormatted(),
+                    $plus->getFamilyName(),
+                    $plus->getGivenName(),
+                ]);
+                $plus = new \Google_Service_Plus_PersonEmails($client);
+                echo '|| GET PERSONEMAILS || ';
+                print_r($plus->getType());
+                print_r($plus->getValue());
+
+                $person->getId();
+                $service = new \Google_Service_Plus_Person($client);
                 // @TODO Save to DB if not exists, otherwise login, refresh token?
+
                 echo '<pre>';
-                print_r($plus);
-                print_r($plus->getEmails());
-                print_r($plus->getDisplayName());
-                print_r($plus->getId());
-                print_r($plus->getNickname());
-                print_r($plus->getCover());
+                echo '|| GET EMAILS ||';
+                print_r($service->getEmails());
+                echo '|| GET DISPLAY NAME ||';
+                print_r($service->getDisplayName());
+                echo '|| GET ID ||';
+                print_r($service->getId());
+                echo '|| GET NICKNAME ||';
+                print_r($service->getNickname());
+                echo '|| GET COVER ||';
+                print_r($service->getCover());
+                echo '|| GET SERVICE ||';
+                print_r($service);
                 die;
+
                 return $this->output(1, 'Logged In', [
                     'redirect' => getBaseUrl('dashboard')
                 ]);

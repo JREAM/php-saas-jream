@@ -137,11 +137,7 @@
                     <img src="{{ config.url_static }}img/logo/icon-sm.svg" alt="JREAM"> Sign in with JREAM
                 </a>
             </p>
-            <p class="text-center">
-                <a href="{{ fbLoginUrl }}" class="btn btn-block btn-lg btn-social btn-facebook">
-                    <i class="fa fa-facebook"></i> Sign in with Facebook
-                </a>
-            </p>
+            {% include 'partials/social-login.volt' %}
             <hr>
         <p class="muted">
             <a href="{{ url('user/login') }}">Login</a> or <a href="{{ url('user/register') }}">Create an Account</a> to Purchase.

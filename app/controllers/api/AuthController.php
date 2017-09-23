@@ -92,8 +92,10 @@ class AuthController extends ApiController
         // If Code, Forward to Request Access Token
         if ($this->request->get('code'))
         {
-            print_r($this->session->get('state'));
-    die;
+            \PhpConsole\Helper::register();
+            \PC::debug($this->session->get('state'), 'internal session_state');
+            \PC::debug($this->request->get('state'), 'request session_state');
+
             if ($this->session->get('state') !== $this->request->get('state')) {
                 throw new \RuntimeException('The session state did not match for Google.');
             }

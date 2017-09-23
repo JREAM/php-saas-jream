@@ -86,15 +86,16 @@ class AuthController extends ApiController
     {
         $client = $this->di->get('google');
 
-        // Check if an auth token exists for the required scopes
+        // Check if an request token exists for the required scopes
         $tokenSessionKey = 'token-' . $client->prepareScopes();
 
         // If Code, Forward to Request Access Token
         if ($this->request->get('code'))
         {
-            if ($this->session->get('state') != $this->request->get('state')) {
+            if ($this->session->get('state') !== $this->request->get('state')) {
                 throw new \RuntimeException('The session state did not match for Google.');
             }
+
             $client->authenticate($this->request->get('code'));
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
@@ -102,54 +103,51 @@ class AuthController extends ApiController
             $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
             $this->response->redirect($redirect);
         }
-        echo '<pre>';
 
-        // If Access Token (from previous) is set, set in client
+        // Set a request token (This is not the real Access Token)
         if ($this->session->has($tokenSessionKey)) {
             $client->setAccessToken($this->session->get($tokenSessionKey));
         }
+        // Request an access Token
+        if (!$client->getAccessToken()) {
+            $state = mt_rand();
+            $client->setState($state);
+            $this->session->set('state', $state);
 
+            return $this->output(0, 'Not authenticated, login with the URL', [
+                'url' => $client->createAuthUrl()
+            ]);
+        }
         // @TODO I should refresh this somewhre
         //$client->refreshToken($tokenSessionKey);
 
-        // Check to ensure that the access token was successfully acquired.
-        if ($client->getAccessToken()) {
-            try {
+        try {
+            echo '<pre>';
 
-                print_r($client->getAccessToken());
-                print_r($this->session->get($tokenSessionKey));
+            print_r($client->getAccessToken());
+            print_r($this->session->get($tokenSessionKey));
 
 
-                $service = new \Google_Service_Plus_Person($client);
-                // @TODO Save to DB if not exists, otherwise login, refresh token?
-                echo '<pre>';
+            $service = new \Google_Service_Plus_Person($client);
+            // @TODO Save to DB if not exists, otherwise login, refresh token?
+            echo '<pre>';
 
-                print_r($service->getId());
-                print_r($service->getNickname());
-                print_r($service->getDisplayName());
-                //print_r($service->getCover()->getCoverPhoto()->getUrl());
-                print_r($service->getEmails());
-                die;
+            print_r($service->getId());
+            print_r($service->getNickname());
+            print_r($service->getDisplayName());
+            //print_r($service->getCover()->getCoverPhoto()->getUrl());
+            print_r($service->getEmails());
+            //die;
 
-                return $this->output(1, 'Logged In', [
-                    'redirect' => getBaseUrl('dashboard')
-                ]);
+            return $this->output(1, 'Logged In', [
+                'redirect' => getBaseUrl('dashboard')
+            ]);
 
-            } catch (Google_Service_Exception $e) {
-                return $this->output(0, $e->getMessage());
-            } catch (Google_Exception $e) {
-                return $this->output(0, $e->getMessage());
-            }
+        } catch (Google_Service_Exception $e) {
+            return $this->output(0, $e->getMessage());
+        } catch (Google_Exception $e) {
+            return $this->output(0, $e->getMessage());
         }
-
-        $state = mt_rand();
-        $client->setState($state);
-        $this->session->set('state', $state);
-
-        return $this->output(0, 'Not authenticated, login with the URL', [
-            'url' => $client->createAuthUrl()
-        ]);
-
     }
 
     // -----------------------------------------------------------------------------

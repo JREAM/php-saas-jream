@@ -97,14 +97,14 @@ $(function() {
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label>CVC <i class="fa fa-question-circle-o" data-toggle="tooltip" title="3 Digits on the back of your card. (Also known as CVV, CID, or CSC)."></i></label>
-                        <input data-stripe="cvc" class="form-control" value="{% if constant("\APPLICATION_ENV") != constant("\APP_DEVELOPMENT") %}100{% endif %}">
+                        <input data-stripe="cvc" class="form-control" value="<?=formData('cvc')?>">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <input class="btn btn-lg btn-primary btn-block popover-sm" type="submit" value="Purchase" data-toggle="popover" data-placement="top" data-original-title="Purchase for ${{ product.price }} USD" data-content="Please double check your information. If you enter incorrect information you will have to re-enter it. For security, no Credit Card data ever touches our servers.">
+F                        <input class="btn btn-lg btn-primary btn-block popover-sm" type="submit" value="Purchase" data-toggle="popover" data-placement="top" data-original-title="Purchase for ${{ product.price }} USD" data-content="Please double check your information. If you enter incorrect information you will have to re-enter it. For security, no Credit Card data ever touches our servers.">
                     </div>
                 </div>
             </div>

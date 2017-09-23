@@ -68,7 +68,7 @@ class AuthController extends ApiController
             $this->createSession($user);
 
             return $this->output(1, 'Logging In!', [
-                'redirect' => getBaseUrl('dashboard'),
+                'redirect' => \Url::get('dashboard'),
             ]);
         }
 
@@ -82,8 +82,30 @@ class AuthController extends ApiController
 
     // -----------------------------------------------------------------------------
 
+    public function githubAction()
+    {
+            $hybridauth = $this->di->get('hybridAuth');
+            $adapter = $hybridauth->authenticate('GitHub');
+            $isConnected = $adapter->isConnected();
+            $userProfile = $adapter->getUserProfile();
+            var_dump($userProfile);
+            $adapter->disconnect();
+
+        die;
+    }
+
+    // -----------------------------------------------------------------------------
+
     public function googleAction()
     {
+        $hybridauth = $this->di->get('hybridAuth');
+        $adapter = $hybridauth->authenticate('Google');
+        $isConnected = $adapter->isConnected();
+        $userProfile = $adapter->getUserProfile();
+        var_dump($userProfile);
+        $adapter->disconnect();
+        die;
+
         $client = $this->di->get('google');
 
         // @TODO https://github.com/google/google-api-php-client/blob/master/examples/idtoken.php
@@ -154,8 +176,7 @@ class AuthController extends ApiController
 
 
             // Redirect to this same page
-            $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
-            $this->response->redirect($redirect);
+            $this->response->redirect(\Url::getCurrent());
         }
 
         // Set a request token (This is not the real Access Token)
@@ -191,7 +212,7 @@ class AuthController extends ApiController
             //die;
 
             return $this->output(1, 'Logged In', [
-                'redirect' => getBaseUrl('dashboard')
+                'redirect' => \Url::get('dashboard')
             ]);
 
         } catch (Google_Service_Exception $e) {
@@ -210,6 +231,14 @@ class AuthController extends ApiController
      */
     public function facebookAction() : Response
     {
+        $hybridauth = $this->di->get('hybridAuth');
+        $adapter = $hybridauth->authenticate('facebook');
+        $isConnected = $adapter->isConnected();
+        $userProfile = $adapter->getUserProfile();
+        var_dump($userProfile);
+        $adapter->disconnect();
+        die;
+
         $helper = $this->facebook->getRedirectLoginHelper();
 
         try {
@@ -479,7 +508,7 @@ class AuthController extends ApiController
 
         // Email: Generate
         $content = $this->component->email->create('confirm-password-change', [
-            'reset_link' => getBaseUrl('user/passwordcreate/' . $user->password_reset_key),
+            'reset_link' => \Url::get('user/passwordcreate/' . $user->password_reset_key),
         ]);
 
         // Email: Send

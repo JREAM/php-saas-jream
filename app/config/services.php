@@ -15,6 +15,19 @@ use Monolog\Handler\StreamHandler;
 
 /**
  * ==============================================================
+ * Validate Correct Mode
+ * =============================================================
+ */
+if (APPLICATION_ENV === APP_PRODUCTION && (strpos(getenv('STRIPE_KEY'), 'test') !== false)) {
+    throw new Exception('In PRODUCTION < Stripe > is in the wrong MODE.');
+}
+
+if (APPLICATION_ENV === APP_PRODUCTION && getenv('PAYPAL_TESTMODE') == 1) {
+    throw new Exception('In PRODUCTION < Paypal > is in the wrong MODE.');
+}
+
+/**
+ * ==============================================================
  * Services
  * =============================================================
  */
@@ -64,7 +77,7 @@ $di->setShared('security', function () {
  * Set Encryption Token for all Cookies
  * =============================================================
  */
-$di->set('crypt', function () use ( $config ) {
+$di->set('crypt', function () use ($config) {
     $crypt = new Crypt();
     $crypt->setKey($config->get('cookie_hash'));
 
@@ -91,10 +104,10 @@ $di->set('cookies', function () {
  * Session
  * =============================================================
  */
-$di->setShared('session', function () use ( $di ) {
+$di->setShared('session', function () use ($di) {
     // Start a new Session for every user.
     $session = new SessionFiles();
-    if (!$session->isStarted()) {
+    if ( !$session->isStarted()) {
         $session->start();
     }
 
@@ -106,13 +119,13 @@ $di->setShared('session', function () use ( $di ) {
  * Session Flash Data
  * =============================================================
  */
-$di->setShared('flash', function ( $mode = 'session' ) {
+$di->setShared('flash', function ($mode = 'session') {
 
-    $mode       = strtolower(trim($mode));
-    $validModes = [ 'session', 'direct' ];
-    if ( ! in_array($mode, $validModes, true) ) {
+    $mode = strtolower(trim($mode));
+    $validModes = ['session', 'direct'];
+    if ( !in_array($mode, $validModes, true)) {
         throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
-                                            explode(',', $validModes));
+            explode(',', $validModes));
     }
 
     // There is a Direct, and a Session
@@ -132,11 +145,11 @@ $di->setShared('flash', function ( $mode = 'session' ) {
  * Make Config/Api Accessible where we have DI
  * =============================================================
  */
-$di->setShared('config', function () use ( $config ) {
+$di->setShared('config', function () use ($config) {
     return $config;
 });
 
-$di->setShared('api', function () use ( $api ) {
+$di->setShared('api', function () use ($api) {
     return $api;
 });
 
@@ -146,7 +159,7 @@ $di->setShared('api', function () use ( $api ) {
  * Apply the Router
  * =============================================================
  */
-$di->setShared('router', function () use ( $config ) {
+$di->setShared('router', function () use ($config) {
     return require $config->get('configDir') . 'routes.php';
 });
 
@@ -157,7 +170,7 @@ $di->setShared('router', function () use ( $config ) {
  *  in the application
  * =============================================================
  */
-$di->setShared('url', function () use ( $config ) {
+$di->setShared('url', function () use ($config) {
     $url = new \Phalcon\Mvc\Url();
     $url->setBaseUri($config->get('baseUri'));
 
@@ -170,7 +183,7 @@ $di->setShared('url', function () use ( $config ) {
  * Custom Dispatcher (Overrides the default)
  * =============================================================
  */
-$di->setShared('dispatcher', function () use ( $di, $eventsManager ) {
+$di->setShared('dispatcher', function () use ($di, $eventsManager) {
 
     $eventsManager->attach('dispatch', new PermissionPlugin());
     $eventsManager->attach('dispatch', new Middleware\Dispatch());
@@ -188,7 +201,7 @@ $di->setShared('dispatcher', function () use ( $di, $eventsManager ) {
  * =============================================================
  */
 $di->setShared('component', function () {
-    $obj        = new \stdClass();
+    $obj = new \stdClass();
     $obj->email = new EmailComponent();
 
     return $obj;
@@ -200,7 +213,7 @@ $di->setShared('component', function () {
  * HashID's (Encode/Decode, primarily for JS resp/req)
  * =============================================================
  */
-$di->setShared('hashids', function () use ( $config ) {
+$di->setShared('hashids', function () use ($config) {
     // Passing a unique string makes items unique
     $hashids = new Hashids\Hashids($config->get('hashids_hash'));
 
@@ -217,11 +230,11 @@ $di->setShared('hashids', function () use ( $config ) {
  * View component
  * =============================================================
  */
-$di->setShared('view', function () use ( $config, $di ) {
+$di->setShared('view', function () use ($config, $di) {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir($config->get('viewsDir'));
     $view->registerEngines([
-        '.volt'  => function ( $view, $di ) use ( $config ) {
+        '.volt'  => function ($view, $di) use ($config) {
 
             $path = APPLICATION_ENV == APP_TEST ? DOCROOT . 'tests/_cache/' : $config->get('cacheDir');
 
@@ -241,14 +254,13 @@ $di->setShared('view', function () use ( $config, $di ) {
                 ->addFunction('sprintf', 'sprintf')
                 ->addFunction('str_replace', 'str_replace')
                 ->addFunction('is_a', 'is_a')
-                ->addFunction('pageid', function ( $str, $expr ) {
+                ->addFunction('pageid', function ($str, $expr) {
                     return str_replace('-page', '', $str);
-                })
-            ;
+                });
 
             // Use Cache for live site
-            if ( \APPLICATION_ENV == \APP_PRODUCTION ) {
-                $voltOptions[ 'compileAlways' ] = false;
+            if (\APPLICATION_ENV == \APP_PRODUCTION) {
+                $voltOptions['compileAlways'] = false;
             }
 
             return $volt;
@@ -273,7 +285,7 @@ $di->setShared('view', function () use ( $config, $di ) {
  * Database Connection
  * =============================================================
  */
-$di->set('db', function () use ( $di, $config, $eventsManager ) {
+$di->set('db', function () use ($di, $config, $eventsManager) {
     $eventsManager->attach('db', new Middleware\Database());
 
     $database = new MySQL((array) $config->get('database'));
@@ -299,7 +311,7 @@ $redis->select(10);  // Use Database 10
  */
 $di->setShared('filter', function () {
     $filter = new Filter();
-    $filter->add('slug', function ( $value ) {
+    $filter->add('slug', function ($value) {
         return new Phalcon\Utils\Slug($value);
     });
 
@@ -312,7 +324,7 @@ $di->setShared('filter', function () {
  * =============================================================
  */
 $di->set('modelsManager', function () {
-    \Phalcon\Mvc\Model::setup([ 'ignoreUnknownColumns' => true ]);
+    \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
 
     return new \Phalcon\Mvc\Model\Manager();
 });
@@ -323,7 +335,7 @@ $di->set('modelsManager', function () {
  * Model Meta Data (Uses Redis)
  * =============================================================
  */
-$di->set('modelsMetadata', function () use ( $redis ) {
+$di->set('modelsMetadata', function () use ($redis) {
     return new \Phalcon\Mvc\Model\MetaData\Redis([
         "lifetime" => 3600,
         "redis"    => $redis,
@@ -336,7 +348,7 @@ $di->set('modelsMetadata', function () use ( $redis ) {
  * ORM And Front-end Caching
  * =============================================================
  */
-$di->set('modelsCache', function () use ( $redis ) {
+$di->set('modelsCache', function () use ($redis) {
 
     // Cache data for one day by default
     // It's cleared using fabfile for a deploy
@@ -355,22 +367,11 @@ $di->set('modelsCache', function () use ( $redis ) {
 
 /**
  * ==============================================================
- * PHP Console for Debugging (Requires Chrome Extension)
- * =============================================================
- */
-if ( APPLICATION_ENV !== APP_PRODUCTION ) {
-    // Register PhpConsole as PC::debug($foo), PC::tag($bar), PC::debug('msg')
-    PhpConsole\Helper::register();
-}
-
-
-/**
- * ==============================================================
  * Sentry Error Logging
  * =============================================================
  */
-$di->setShared('sentry', function () use ( $api ) {
-    return ( new Raven_Client(getenv('GET_SENTRY')) )->install();
+$di->setShared('sentry', function () use ($api) {
+    return (new Raven_Client(getenv('GET_SENTRY')))->install();
 });
 
 /**
@@ -378,13 +379,13 @@ $di->setShared('sentry', function () use ( $api ) {
  * Local Error Logging
  * =============================================================
  */
-if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
+if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
 
     $whoops = new \Whoops\Run();
 
     // This is so it is accessible in the global Middleware Dispatcher
-    $di->setShared('whoops', function () use ( $whoops ) {
+    $di->setShared('whoops', function () use ($whoops) {
         return $whoops;
     });
 
@@ -392,7 +393,7 @@ if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 
     // Push another handler if it is an AJAX call for JSON responses.
-    if ( \Whoops\Util\Misc::isAjaxRequest() ) {
+    if (\Whoops\Util\Misc::isAjaxRequest()) {
         $jsonHandler = new \Whoops\Handler\JsonResponseHandler();
         $jsonHandler->setJsonApi(true);
         $whoops->pushHandler($jsonHandler);
@@ -427,7 +428,7 @@ $di->setShared('s3', function () {
  * =============================================================
  */
 $di->set('faker', function () {
-    if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
+    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
         return \Faker\Factory::create();
     }
 
@@ -437,7 +438,7 @@ $di->set('faker', function () {
 $di->set('fakerData', function () {
     // Allows me to get data and have it empty if I like with one rule check
     $faker = false;
-    if ( \APPLICATION_ENV !== \APP_PRODUCTION ) {
+    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
         $faker = \Faker\Factory::create();
     }
 
@@ -468,33 +469,33 @@ $di->set('fakerData', function () {
  * Email Transport to send Mail
  * =============================================================
  */
-$di->setShared('email', function ( array $data ) use ( $di, $api ) {
+$di->setShared('email', function (array $data) use ($di, $api) {
 
     // For Debugging
-    if ( \APPLICATION_ENV != \APP_PRODUCTION && getenv('DEBUG_EMAIL') ) {
-        $transport = ( new Swift_SmtpTransport('localhost', 1025) );
-        $mailer    = new Swift_Mailer($transport);
+    if (\APPLICATION_ENV !== \APP_PRODUCTION && getenv('DEBUG_EMAIL')) {
+        $transport = (new Swift_SmtpTransport('localhost', 1025));
+        $mailer = new Swift_Mailer($transport);
 
         // Create a message
-        $message = ( new Swift_Message($data[ 'subject' ]) )
-            ->setFrom([ $data[ 'from_email' ] => $data[ 'from_name' ] ])
-            ->setTo([ $data[ 'to_email' ] => $data[ 'to_name' ] ])
+        $message = (new Swift_Message($data['subject']))
+            ->setFrom([$data['from_email'] => $data['from_name']])
+            ->setTo([$data['to_email'] => $data['to_name']])
             ->setBody($content);
 
         return $mailer->send($message);
     }
 
-    $to      = new \SendGrid\Email($data[ 'to_name' ], $data[ 'to_email' ]);
-    $from    = new \SendGrid\Email($data[ 'from_name' ], $data[ 'from_email' ]);
-    $content = new \SendGrid\Content("text/html", $data[ 'content' ]);
+    $to = new \SendGrid\Email($data['to_name'], $data['to_email']);
+    $from = new \SendGrid\Email($data['from_name'], $data['from_email']);
+    $content = new \SendGrid\Content("text/html", $data['content']);
 
-    $mail = new \SendGrid\Mail($from, $data[ 'subject' ], $to, $content);
+    $mail = new \SendGrid\Mail($from, $data['subject'], $to, $content);
 
-    $sg       = new \SendGrid(getenv('SENDGRID_KEY'));
+    $sg = new \SendGrid(getenv('SENDGRID_KEY'));
     $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
-    if ( ! in_array($response->statusCode(), [ 200, 201, 202 ], true) ) {
+    if ( !in_array($response->statusCode(), [200, 201, 202], true)) {
         $di->get('sentry')->captureMessage(
             sprintf("Headers: %s | ErrorCode: %s",
                 $response->headers(),
@@ -509,10 +510,30 @@ $di->setShared('email', function ( array $data ) use ( $di, $api ) {
 
 /**
  * ==============================================================
+ * API: Hybrid Auth (Social Login)
+ * @important Always place all calls within a try/catch
+ * =============================================================
+ */
+$di->setShared('hybridAuth', function() use ($api) {
+
+    return new \Hybridauth\Hybridauth(objectToArray($api->social_auth));
+    // Example:
+    //try {
+    //    $adapter = $hybridauth->authenticate('Twitter');
+    //    $isConnected = $adapter->isConnected();
+    //    $userProfile = $adapter->getUserProfile();
+    //    var_dump($userProfile);
+    //    $adapter->disconnect();
+    //} catch(\Exception $e) { ...}
+
+});
+
+/**
+ * ==============================================================
  * API: Facebook
  * =============================================================
  */
-$di->setShared('facebook', function () use ( $api ) {
+$di->setShared('facebook', function () use ($api) {
     return new \Facebook\Facebook([
         'app_id'                => getenv('FACEBOOK_APP_ID'),
         'app_secret'            => getenv('FACEBOOK_APP_SECRET'),
@@ -526,7 +547,7 @@ $di->setShared('facebook', function () use ( $api ) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
+$di->setShared('google', function ($accessToken = false) use ($api, $config) {
 
     $client = new Google_Client();
 
@@ -551,6 +572,7 @@ $di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
     // The url always has a trailing /
     $redirectUri = "{$config->url}api/auth/google";
     $client->setRedirectUri($redirectUri);
+
     return $client;
 });
 
@@ -575,12 +597,40 @@ $di->setShared('paypal', function () {
     $paypal->setPassword(getenv('PAYPAL_PASSWORD'));
     $paypal->setSignature(getenv('PAYPAL_SIGNATURE'));
 
-    if ( getenv('PAYPAL_TESTMODE') ) {
+    if (getenv('PAYPAL_TESTMODE')) {
         $paypal->setTestMode(true);
     }
 
     return $paypal;
 });
+
+
+/**
+ * ==============================================================
+ * PHP Console for Debugging (Requires Chrome Extension)
+ *
+ * @note:   I want this instantiated so it can go on/off without
+ *          adding many if statements. Done with the disable() call
+ * =============================================================
+ */
+if (APPLICATION_ENV !== APP_PRODUCTION) {
+    // Storage: Logs Debugging as it may become convoluted with Phalcons custom $_SESSION.
+    // @important: This must come before the getInstance()
+    $storage = new PhpConsole\Storage\File($config->logsDir . 'phpconsole.data');
+    PhpConsole\Connector::setPostponeStorage($storage);
+
+    // Register PhpConsole as PC::debug($foo), PC::tag($bar), PC::debug('msg')
+    $connector = PhpConsole\Connector::getInstance();
+
+    // Shorter Logging for Paths
+    $connector->setSourcesBasePath(DOCROOT);
+
+    // This will disable the PHP Console Calls regardless of where it is placed.
+    if ( !getenv('DEBUG_CONSOLE')) {
+        $connector->disable();
+    }
+    PhpConsole\Helper::register();
+}
 
 
 // Set a default dependency injection container

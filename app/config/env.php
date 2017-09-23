@@ -41,13 +41,23 @@ try {
     die('Missing required .env file.');
 }
 
+/**
+ * URL Constant, Not as fond of using it.
+ * Refer to \Url::get() and \Url::getCurrent()
+ */
 define('URL', getenv('URL'));
-define('HTTPS', getenv('HTTPS'));
 
 /**
  * @const DOCROOT Main application path
  */
 define('APP_PATH', DOCROOT . 'app' . DIRECTORY_SEPARATOR);
+
+/**
+ * Ensure APPLICATION_ENV is set, much relies on having things accurate with ith.
+ */
+if (!getenv('APPLICATION_ENV')) {
+    throw new Exception('APPLICATION_ENV is required, it MUST be set in the configuration.');
+}
 
 /**
  * @const APPLICATION_ENV The current environment

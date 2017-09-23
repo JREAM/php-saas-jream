@@ -43,7 +43,7 @@ class QuestionController extends ApiController
             return $this->output(0, $thread->getMessagesList());
         }
 
-        $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $thread->id);
+        $url = \Url::get('dashboard/question/index/' . $productId . '#thread-id-' . $thread->id);
 
         $product = \Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread', [
@@ -71,7 +71,7 @@ class QuestionController extends ApiController
 
         return $this->output(1, [
             'msg' => 'Your question has been added',
-            'redirect' => getBaseUrl(self::REDIRECT_SUCCESS . $productId)
+            'redirect' => \Url::get(self::REDIRECT_SUCCESS . $productId)
         ]);
     }
 
@@ -109,7 +109,7 @@ class QuestionController extends ApiController
             return $this->redirect(self::REDIRECT_FAILURE . $productId);
         }
 
-        $url = getBaseUrl('dashboard/question/index/' . $productId . '#thread-id-' . $threadId);
+        $url = \Url::get('dashboard/question/index/' . $productId . '#thread-id-' . $threadId);
 
         $product = \Product::findFirstById($productId);
         $content = $this->component->email->create('question-thread-reply', [

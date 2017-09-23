@@ -63,7 +63,7 @@ class UserController extends ApiController
 
         $content = $this->component->email->create('confirm-email-change', [
             'user_email_change' => $user->email_change,
-            'change_url' => getBaseUrl('user/doConfirmEmailChange/' . $user->email_change_key)
+            'change_url' => \Url::get('user/doConfirmEmailChange/' . $user->email_change_key)
         ]);
 
         if (!$content) {

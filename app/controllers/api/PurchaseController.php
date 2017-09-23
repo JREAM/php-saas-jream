@@ -248,8 +248,8 @@ class PurchaseController extends ApiController
         }
 
         $response = $this->paypal->purchase([
-            'cancelUrl'   => getBaseUrl('dashboard'),
-            'returnUrl'   => getBaseUrl('product/dopaypalconfirm/' . $product->id),
+            'cancelUrl'   => \Url::get('dashboard'),
+            'returnUrl'   => \Url::get('product/dopaypalconfirm/' . $product->id),
             'amount'      => $amount,
             'currency'    => 'usd',
             'description' => $product->title,

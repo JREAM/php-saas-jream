@@ -10,8 +10,6 @@ use Phalcon\Mvc\User\Component;
 class EmailComponent extends Component
 {
 
-    // -----------------------------------------------------------------------------
-
     /**
      * Creates an email based on templates
      *

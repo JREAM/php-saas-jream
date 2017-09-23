@@ -26,7 +26,6 @@ class ToolController extends BaseController
      */
     public function indexAction()
     {
-        echo $this->router->getRewriteUri();
         return $this->view->pick('tool/tool');
     }
 

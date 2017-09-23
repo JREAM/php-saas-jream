@@ -14,6 +14,7 @@ use Library\TokenManager;
 class BaseController extends Controller
 {
 
+
     /**
      * @var TokenManager
      */
@@ -28,8 +29,6 @@ class BaseController extends Controller
      */
     public function initialize()
     {
-        getBaseUrl('/');
-
         if ($this->session->has('agent')) {
             if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT']) {
                 $this->flash->error('Please re-login. For your security, we\'ve detected you\'re using a different browser.');
@@ -91,7 +90,7 @@ class BaseController extends Controller
             'token'    => $token,
             'jsGlobal' => [
                 'user_id'       => $hashid->encodeHex($this->session->get('id')),
-                'base_url'      => getBaseUrl(),
+                'base_url'      => \Url::get(),
                 'csrf'          => [
                     $tokenKey,
                     $token,

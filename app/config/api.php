@@ -13,51 +13,51 @@
  */
 
 $api = new \Phalcon\Config([
-    'stripe' => [
+    'stripe'       => [
         // Keep publishableKey, used in Views.
         'publishableKey' => getenv('STRIPE_KEY'),
         // secretKey    (env variable)
     ],
-    'paypal' => [
+    'paypal'       => [
         // username     (env variable)
         // password     (env variable)
         // signature    (env variable)
         // testMode     (env variable)
     ],
-    'aws' => [
+    'aws'          => [
         'cloudfront' => [
             // Keep URL's here, used in Views.
-            'url'       => 'http://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
-            'rtmpUrl'   => 'rtmp://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
+            'url'                => 'http://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
+            'rtmpUrl'            => 'rtmp://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
             // constants.php is loaded first, so CONFIG_DIR will be set dynamically.
             'privateKeyLocation' => $config->get('configDir') . 'keys/aws-cloudfront-pk.pem',
-            'expiration' => strtotime(getenv('AWS_CLOUDFRONT_EXPIRATION')),
+            'expiration'         => strtotime(getenv('AWS_CLOUDFRONT_EXPIRATION')),
             // Credentials In: .env / .env.sample
             // ----------------------------------
             // keyPairId        (env variable)
             // region       (env variable)
             // version      (env variable)
         ],
-        'ses' => [
+        'ses'        => [
             // host        (env variable)
             // username    (env variable)
             // password    (env variable)
             // port        (env variable)
-        ]
+        ],
     ],
-    'fb' => [
+    'fb'           => [
         // Credentials In: .env / .env.sample
         // ----------------------------------
         'redirectUri' => sprintf('https://%s/user/doFacebookLogin', 'jream.com'),
-        'scope'       => ['email','public_profile'],
+        'scope'       => ['email', 'public_profile'],
         // FACEBOOK_APP_SECRET (env variable)
         // FACEBOOK_APP_ID (env variable)
     ],
-    'google' => [
-        'scopes'       => [
+    'google'       => [
+        'scopes' => [
             Google_Service_Plus::PLUS_ME,
             Google_Service_Plus::PLUS_LOGIN,
-            Google_Service_Plus::USERINFO_EMAIL
+            Google_Service_Plus::USERINFO_EMAIL,
         ],
         // client_id and client_secret are ENV vars only
         //'client_id' => getenv('GOOGLE_CLIENT_ID'),
@@ -66,7 +66,7 @@ $api = new \Phalcon\Config([
         //'credentials' => realpath( getenv('GOOGLE_CREDENTIALS_LOCATION') ),
         // GOOGLE_RECAPTCHA_SECRET (env variable)
     ],
-    'sendgrid' => [
+    'sendgrid'     => [
         // Credentials In: .env / .env.sample
         // ----------------------------------
         // host         (env variable)
@@ -76,9 +76,42 @@ $api = new \Phalcon\Config([
         // key          (env variable)
     ],
     // For the email List to use JREAM Customers
-    'mailchimp' => [
+    'mailchimp'    => [
         // key          (env variable)
         // listId       (env variable)
+    ],
+    'social_auth' => [
+        // @important   More can be customized here
+        // @link        https://hybridauth.github.io/developer-ref-user-authentication.html
+        'providers' => [
+            'Google'   => [
+                'enabled'  => true,
+                'callback' => \Url::get('api/auth/google'),
+                'keys'     => [
+                    'id'     => getenv('GOOGLE_CLIENT_ID'),
+                    'secret' => getenv('GOOGLE_CLIENT_SECRET'),
+                ],
+                // 'scope' => '', // Using Default Provided
+            ],
+            'Facebook' => [
+                'enabled'  => true,
+                'callback' => \Url::get('api/auth/facebook'),
+                'keys'     => [
+                    'id'     => getenv('FACEBOOK_APP_ID'),
+                    'secret' => getenv('FACEBOOK_APP_SECRET'),
+                ],
+                // 'scope' => '', // Using Default Provided
+            ],
+            'Github' => [
+                'enabled'  => true,
+                'callback' => \Url::get('api/auth/github'),
+                'keys'     => [
+                    'id'     => getenv('GITHUB_CLIENT_ID'),
+                    'secret' => getenv('GITHUB_CLIENT_SECRET'),
+                ],
+                // 'scope' => '', // Using Default Provided
+            ],
+        ],
     ]
 ]);
 

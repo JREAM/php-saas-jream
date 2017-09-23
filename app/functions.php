@@ -5,50 +5,114 @@
  * $di is available here from public/index.php
  */
 
-/**
- * Gets the base URL
- *
- * @param  string $append    Add to URL (Don't include a starting /)
- *
- * @return string
- */
-function getBaseUrl($append = false) : string
+class Url
 {
-    $base_url = preg_replace('/(^https?)+(:\/{2})/i', '', URL);
-    $url = \HTTPS ? 'https://' : 'http://';
-    return $url . rtrim($base_url, '/') . '/' . ltrim($append);
+
+    /**
+     * Get the HTTP_HOST (Does not include http(s) info)
+     *
+     * @return string
+     */
+    public static function getHost() : string
+    {
+        // Prevent Header Injection Possibility
+        return htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES);
+    }
+
+    /**
+     * Tells whether HTTP or HTTPS with a global function
+     *
+     * @return string  returns 'http' or 'https'
+     */
+    public static function getHttpMode() : string
+    {
+        if ( !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+            return 'https';
+        }
+
+        return 'http';
+    }
+
+    /**
+     * Gets the base URL
+     *
+     * @param  string $append Add to URL (Don't include a starting /)
+     *
+     * @return string URL without trailing slash; http[s]://domain.tld[/append/url]
+     */
+    public static function get($append = false) : string
+    {
+        // Strip away the http(s):// (If it exists)
+        $site_url = preg_replace('/(^https?)+(:\/{2})/i', '', self::getHost());
+
+        // Produces: http(s)://site.tld (no trailing slash)
+        $url = sprintf("%s://%s", self::getHttpMode(), rtrim($site_url, '/'));
+
+        // If set, append a local URI to the main TLD without trailing slash.
+        if ($append && is_string($append)) {
+            $url .= trim($append, "/");
+        }
+
+        // Sanitize the URL!
+        return filter_var($url, FILTER_SANITIZE_URL);
+    }
+
+
+    /**
+     * @return string Current URL without trailing slash
+     */
+    public static function getCurrent() : string
+    {
+        $uri = trim($_SERVER['REQUEST_URI'], '/');
+        $url = sprintf("%s/%s", self::get(), $uri);
+
+        return filter_var($url, FILTER_SANITIZE_URL);
+    }
 }
 
 
+/**
+ * Converts an Object to Array - Needed at times due to Phalcons specialized classes
+ *
+ * @param $obj Object
+ *
+ * @return array
+ */
+function objectToArray($object) : array
+{
+    return json_decode(json_encode($object), true);
+}
 
 /**
  * Cleans up a source name for display
  *
  * @param  [type] $name [description]
+ *
  * @return [type]       [description]
  */
 function formatName($name)
 {
     $name = str_replace('-', ' ', $name);
     $name = ucwords($name);
+
     return $name;
 }
 
 /**
  * Set form Data for a page refresh.
  *
- * @param  string $name  field name
+ * @param  string $name field name
  *
  * @return mixed
  */
 function formData($name)
 {
-    if (!isset($_SESSION)) {
+    if ( !isset($_SESSION)) {
         return false;
     }
 
-    if (isset($_SESSION['formData']) && isset($_SESSION['formData'][$name])) {
-        return $_SESSION['formData'][$name];
+    if (isset($_SESSION['formData']) && isset($_SESSION['formData'][ $name ])) {
+        return $_SESSION['formData'][ $name ];
     }
 
     return false;
@@ -61,12 +125,13 @@ function formData($name)
  */
 function formDataClear() : bool
 {
-    if (!isset($_SESSION)) {
+    if ( !isset($_SESSION)) {
         return false;
     }
 
     if (isset($_SESSION['formData'])) {
         unset($_SESSION['formData']);
+
         return true;
     }
 
@@ -98,7 +163,7 @@ function getTimeElapsed($datetime, $full = false) : string
     $diff->w = floor($diff->d / 7);
     $diff->d -= $diff->w * 7;
 
-    $string = array(
+    $string = [
         'y' => 'year',
         'm' => 'month',
         'w' => 'week',
@@ -106,17 +171,16 @@ function getTimeElapsed($datetime, $full = false) : string
         'h' => 'hour',
         'i' => 'minute',
         's' => 'second',
-    );
+    ];
     foreach ($string as $k => &$v) {
         if ($diff->$k) {
             $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
         } else {
-            unset($string[$k]);
+            unset($string[ $k ]);
         }
     }
 
-    if (!$full)
-    {
+    if ( !$full) {
         $string = array_slice($string, 0, 1);
     }
 

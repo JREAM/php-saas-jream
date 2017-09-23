@@ -90,6 +90,13 @@ class AuthController extends ApiController
         if ($this->session->has('google_access_token')) {
             $client->setAccessToken($this->session->get('google_access_token'));
 
+
+            $ticket = $client->verifyIdToken($this->session->get('google_access_token'));
+            if ($ticket) {
+                $data = $ticket->getAttributes();
+                echo $data['payload']['sub']; // user ID
+            }
+
             $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?
             echo '<pre>';
@@ -120,6 +127,12 @@ class AuthController extends ApiController
 
             \PC::debug($token, 'access_token');
             $client->setAccessToken($token);
+
+            $ticket = $client->verifyIdToken($token);
+            if ($ticket) {
+                $data = $ticket->getAttributes();
+                echo $data['payload']['sub']; // user ID
+            }
 
             // Why NO Results??
             $service = new \Google_Service_Plus_Person($client);

@@ -119,17 +119,7 @@ class AuthController extends ApiController
                 $service = new \Google_Service_Plus_Person($client);
                 // @TODO Save to DB if not exists, otherwise login, refresh token?
                 echo '<pre>';
-                echo '|| GET EMAILS ||';
-                print_r($service->getEmails()->toSimpleObject());
-                echo '|| GET DISPLAY NAME ||';
-                print_r($service->getDisplayName()->toSimpleObject());
-                echo '|| GET ID ||';
-                print_r($service->getId()->toSimpleObject());
-                echo '|| GET NICKNAME ||';
-                print_r($service->getNickname()->toSimpleObject());
-                echo '|| GET COVER ||';
-                print_r($service->getCover()->toSimpleObject());
-                echo '|| GET SERVICE ||';
+
                 print_r($service->toSimpleObject());
                 die;
 

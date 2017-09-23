@@ -535,13 +535,14 @@ $di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
     $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));
 
     // Simple API Key
-    $client->setDeveloperKey(getenv('GOOGLE_DEVELOPER_KEY'));
+    //$client->setDeveloperKey(getenv('GOOGLE_DEVELOPER_KEY'));
 
     $client->setApplicationName('JREAM');
 
     // Scopes (aka Permissions)
     $client->setScopes((array) $api->google->scopes);
     $client->setIncludeGrantedScopes(true); // Include any previous authorization
+
     // Optional to pass along an access token when instantiating
     if ($accessToken) {
         $client->setAccessToken($accessToken);

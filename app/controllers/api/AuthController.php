@@ -90,10 +90,6 @@ class AuthController extends ApiController
         if ($this->session->has('google_access_token')) {
             $client->setAccessToken($this->session->get('google_access_token'));
 
-            $drive = new \Google_Service_Drive($client);
-            $files = $drive->files->listFiles(array())->getItems();
-            print_r($files);
-            die;
             $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?
             echo '<pre>';

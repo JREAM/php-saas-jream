@@ -57,8 +57,7 @@ $api = new \Phalcon\Config([
         'scopes'       => [
             Google_Service_Plus::PLUS_ME,
             Google_Service_Plus::PLUS_LOGIN,
-            Google_Service_Plus::USERINFO_EMAIL,
-            Google_Service_Drive::DRIVE_METADATA_READONLY
+            Google_Service_Plus::USERINFO_EMAIL
         ],
         // client_id and client_secret are ENV vars only
         //'client_id' => getenv('GOOGLE_CLIENT_ID'),

@@ -104,7 +104,9 @@ class AuthController extends ApiController
 
         // If Access Token (from previous) is set, set in client
         if ($this->session->has($tokenSessionKey)) {
-          $client->setAccessToken($this->session->get($tokenSessionKey));
+            echo 'TOKEN SET:';
+            print_r($tokenSessionKey);
+            $client->setAccessToken($this->session->get($tokenSessionKey));
         }
 
         // @TODO I should refresh this somewhre
@@ -114,39 +116,21 @@ class AuthController extends ApiController
         if ($client->getAccessToken()) {
             try {
 
-                // @TODO Service Here!!!
-                echo '|| GET URLS || ';
-                $plus = new \Google_Service_Plus_PersonImage($client);
-                print_r($plus->getUrl());
-
-                echo '|| GET PERSONNAME || ';
-                $plus = new \Google_Service_Plus_PersonName($client);
-                print_r([
-                    $plus->getFormatted(),
-                    $plus->getFamilyName(),
-                    $plus->getGivenName(),
-                ]);
-                $plus = new \Google_Service_Plus_PersonEmails($client);
-                echo '|| GET PERSONEMAILS || ';
-                print_r($plus->getType());
-                print_r($plus->getValue());
-
                 $service = new \Google_Service_Plus_Person($client);
                 // @TODO Save to DB if not exists, otherwise login, refresh token?
-
                 echo '<pre>';
                 echo '|| GET EMAILS ||';
-                print_r($service->getEmails());
+                print_r($service->getEmails()->toSimpleObject());
                 echo '|| GET DISPLAY NAME ||';
-                print_r($service->getDisplayName());
+                print_r($service->getDisplayName()->toSimpleObject());
                 echo '|| GET ID ||';
-                print_r($service->getId());
+                print_r($service->getId()->toSimpleObject());
                 echo '|| GET NICKNAME ||';
-                print_r($service->getNickname());
+                print_r($service->getNickname()->toSimpleObject());
                 echo '|| GET COVER ||';
-                print_r($service->getCover());
+                print_r($service->getCover()->toSimpleObject());
                 echo '|| GET SERVICE ||';
-                print_r($service);
+                print_r($service->toSimpleObject());
                 die;
 
                 return $this->output(1, 'Logged In', [
@@ -205,7 +189,8 @@ class AuthController extends ApiController
             if($helper->getError()) {
                 $this->di->get('sentry')->captureException($helper->getError());
                 header('HTTP/1.0 401 Unauthorized');
-                echo "Error: " . $helper->getError() . "\n";
+                echo "
+}Error: " . $helper->getError() . "\n";
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";

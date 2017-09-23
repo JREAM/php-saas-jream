@@ -526,7 +526,7 @@ $di->setShared('facebook', function () use ( $api ) {
  * API: Google
  * =============================================================
  */
-$di->setShared('google', function () use ( $api, $config ) {
+$di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
 
     $client = new Google_Client();
 
@@ -539,6 +539,10 @@ $di->setShared('google', function () use ( $api, $config ) {
 
     $client->setScopes((array) $api->google->scopes);
     $client->setAccessToken('offline');
+
+    if ($accessToken) {
+        $client->setAccessToken($accessToken);
+    }
 
     // The url always has a trailing /
     $redirectUri = "{$config->url}api/auth/google";

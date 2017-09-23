@@ -5,10 +5,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="PHP MC(Other)" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/User.php" afterPath="$PROJECT_DIR$/app/models/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/__setup/schema.sql" afterPath="$PROJECT_DIR$/resources/__setup/schema.sql" />
-    </list>
+    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -982,7 +979,7 @@
     <property name="langName" value="en" />
     <property name="yiicFile" value="" />
     <property name="useYiiMigrations" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dropzone" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog-composer-demo" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.selected.package.jscs" value="$USER_HOME$/.nvm/versions/node/v8.5.0/bin/jscs" />

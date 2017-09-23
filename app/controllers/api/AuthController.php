@@ -105,6 +105,18 @@ class AuthController extends ApiController
 
             \PC::debug($tokenSessionKey, 'tokenSessionKey');
 
+                        $service = new \Google_Service_Plus_Person($client);
+            // @TODO Save to DB if not exists, otherwise login, refresh token?
+            echo '<pre>';
+
+            print_r($service->getId());
+            print_r($service->getNickname());
+            print_r($service->getDisplayName());
+            //print_r($service->getCover()->getCoverPhoto()->getUrl());
+            print_r($service->getEmails());
+            die;
+
+
             // Redirect to this same page
             $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
             $this->response->redirect($redirect);
@@ -114,11 +126,12 @@ class AuthController extends ApiController
         if ($this->session->has($tokenSessionKey)) {
             $client->setAccessToken($this->session->get($tokenSessionKey));
         }
+
         // Request an access Token
         if (!$client->getAccessToken()) {
             $state = mt_rand();
-            $client->setState($state);
-            $this->session->set('state', $state);
+            $client->setState((int) $state);
+            $this->session->set('state', (int) $state);
 
             return $this->output(0, 'Not authenticated, login with the URL', [
                 'url' => $client->createAuthUrl()
@@ -129,10 +142,6 @@ class AuthController extends ApiController
 
         try {
             echo '<pre>';
-
-            print_r($client->getAccessToken());
-            print_r($this->session->get($tokenSessionKey));
-
 
             $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?

@@ -103,8 +103,13 @@ class AuthController extends ApiController
             \PC::debug($client->getAccessToken(), 'accesstoken');
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
-            $token = json_decode($client->getAccessToken());
+            $tokenData = $client->getAccessToken();
+            \PC::debug($accessToken->access_token, 'accessToken');
+            \PC::debug($tokenData['id_token'], 'idToken');
+            \PC::debug($tokenData['access_token'], 'accessToken');
+            // accessToken has:created, expires_in, id_token, token_type
             $this->session->set('google_access_token', $token);
+
             $client->setAccessToken($token);
 
             \PC::debug($tokenSessionKey, 'tokenSessionKey');

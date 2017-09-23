@@ -104,7 +104,7 @@ class AuthController extends ApiController
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
             $token = json_decode($client->getAccessToken());
-            $this->session->set('google_access_token', $token;)
+            $this->session->set('google_access_token', $token);
             $client->setAccessToken($token);
 
             \PC::debug($tokenSessionKey, 'tokenSessionKey');

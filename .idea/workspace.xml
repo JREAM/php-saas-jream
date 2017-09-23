@@ -298,8 +298,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="107" column="50" lean-forward="false" selection-start-line="107" selection-start-column="50" selection-end-line="107" selection-end-column="50" />
+            <state relative-caret-position="2689">
+              <caret line="246" column="26" lean-forward="false" selection-start-line="246" selection-start-column="26" selection-end-line="246" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -339,7 +339,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>session-&gt;set</find>
       <find>REDIRECT_FAILURE_PERMISSION</find>
       <find>haspur</find>
       <find>formId</find>
@@ -369,6 +368,7 @@
       <find>api-&gt;redirectUri</find>
       <find>console</find>
       <find>getAccessToken</find>
+      <find>n setAccessToken</find>
     </findStrings>
     <replaceStrings>
       <replace>getBasename</replace>
@@ -1500,8 +1500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="107" column="50" lean-forward="false" selection-start-line="107" selection-start-column="50" selection-end-line="107" selection-end-column="50" />
+        <state relative-caret-position="2689">
+          <caret line="246" column="26" lean-forward="false" selection-start-line="246" selection-start-column="26" selection-end-line="246" selection-end-column="26" />
           <folding />
         </state>
       </provider>

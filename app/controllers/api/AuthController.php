@@ -100,19 +100,13 @@ class AuthController extends ApiController
             }
 
             $client->authenticate($this->request->get('code'));
-            \PC::debug($client->getAccessToken(), 'accesstoken');
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
-            $tokenData = $client->getAccessToken();
-            \PC::debug($accessToken->access_token, 'accessToken');
-            \PC::debug($tokenData['id_token'], 'idToken');
-            \PC::debug($tokenData['access_token'], 'accessToken');
-            // accessToken has:created, expires_in, id_token, token_type
+            // The library json-ify and dejonify-ies
+            $token = $client->getAccessToken();
             $this->session->set('google_access_token', $token);
 
             $client->setAccessToken($token);
-
-            \PC::debug($tokenSessionKey, 'tokenSessionKey');
 
             $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?

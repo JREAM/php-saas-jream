@@ -529,7 +529,7 @@ $di->setShared('facebook', function () use ( $api ) {
 $di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
 
     $client = new Google_Client();
-$client->set
+
     // OAuth Keys
     $client->setClientId(getenv('GOOGLE_CLIENT_ID'));
     $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));

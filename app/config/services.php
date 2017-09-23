@@ -538,7 +538,6 @@ $di->setShared('google', function ($accessToken = false) use ( $api, $config ) {
     $client->setApplicationName('JREAM');
 
     $client->setScopes((array) $api->google->scopes);
-    $client->setAccessToken('offline');
 
     if ($accessToken) {
         $client->setAccessToken($accessToken);

@@ -92,6 +92,8 @@ class AuthController extends ApiController
         // If Code, Forward to Request Access Token
         if ($this->request->get('code'))
         {
+            print_r($this->session->get('state'));
+
             if ($this->session->get('state') !== $this->request->get('state')) {
                 throw new \RuntimeException('The session state did not match for Google.');
             }

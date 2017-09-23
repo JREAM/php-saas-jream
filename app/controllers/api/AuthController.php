@@ -102,10 +102,11 @@ class AuthController extends ApiController
             $client->authenticate($this->request->get('code'));
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
-            // The library json-ify and dejonify-ies
+            // JSON Format (from the library)
             $token = $client->getAccessToken();
             $this->session->set('google_access_token', $token);
 
+            \PC::debug($token, 'access_token');
             $client->setAccessToken($token);
 
             $service = new \Google_Service_Plus_Person($client);

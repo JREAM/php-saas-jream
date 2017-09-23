@@ -114,8 +114,6 @@ class AuthController extends ApiController
                 $plus = new \Google_Service_Plus_Person($client);
                 // @TODO Save to DB if not exists, otherwise login, refresh token?
                 echo '<pre>';
-                $a=new \Google_Service_Plus_Person($client);
-                $a->
                 print_r($plus);
                 print_r($plus->getEmails());
                 print_r($plus->getDisplayName());

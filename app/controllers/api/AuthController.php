@@ -68,7 +68,7 @@ class AuthController extends ApiController
             $this->createSession($user);
 
             return $this->output(1, 'Logging In!', [
-                'redirect' => \Url::get('dashboard'),
+                'redirect' => \Library\Url::get('dashboard'),
             ]);
         }
 
@@ -176,7 +176,7 @@ class AuthController extends ApiController
 
 
             // Redirect to this same page
-            $this->response->redirect(\Url::getCurrent());
+            $this->response->redirect(\Library\Url::getCurrent());
         }
 
         // Set a request token (This is not the real Access Token)
@@ -212,7 +212,7 @@ class AuthController extends ApiController
             //die;
 
             return $this->output(1, 'Logged In', [
-                'redirect' => \Url::get('dashboard')
+                'redirect' => \Library\Url::get('dashboard')
             ]);
 
         } catch (Google_Service_Exception $e) {
@@ -508,7 +508,7 @@ class AuthController extends ApiController
 
         // Email: Generate
         $content = $this->component->email->create('confirm-password-change', [
-            'reset_link' => \Url::get('user/passwordcreate/' . $user->password_reset_key),
+            'reset_link' => \Library\Url::get('user/passwordcreate/' . $user->password_reset_key),
         ]);
 
         // Email: Send

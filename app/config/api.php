@@ -86,7 +86,7 @@ $api = new \Phalcon\Config([
         'providers' => [
             'Google'   => [
                 'enabled'  => true,
-                'callback' => \Url::get('api/auth/google'),
+                'callback' => 'api/auth/google',
                 'keys'     => [
                     'id'     => getenv('GOOGLE_CLIENT_ID'),
                     'secret' => getenv('GOOGLE_CLIENT_SECRET'),
@@ -95,7 +95,7 @@ $api = new \Phalcon\Config([
             ],
             'Facebook' => [
                 'enabled'  => true,
-                'callback' => \Url::get('api/auth/facebook'),
+                'callback' => 'api/auth/facebook',
                 'keys'     => [
                     'id'     => getenv('FACEBOOK_APP_ID'),
                     'secret' => getenv('FACEBOOK_APP_SECRET'),
@@ -104,7 +104,7 @@ $api = new \Phalcon\Config([
             ],
             'Github' => [
                 'enabled'  => true,
-                'callback' => \Url::get('api/auth/github'),
+                'callback' => 'api/auth/github',
                 'keys'     => [
                     'id'     => getenv('GITHUB_CLIENT_ID'),
                     'secret' => getenv('GITHUB_CLIENT_SECRET'),

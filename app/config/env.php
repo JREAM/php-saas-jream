@@ -43,7 +43,7 @@ try {
 
 /**
  * URL Constant, Not as fond of using it.
- * Refer to \Url::get() and \Url::getCurrent()
+ * Refer to \Library\Url::get() and \Library\Url::getCurrent()
  */
 define('URL', getenv('URL'));
 

@@ -31,7 +31,7 @@ class QuestionController extends BaseController
 
         if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
-            return $this->redirect(\Url::get());
+            return $this->redirect(\Library\Url::get());
         }
 
         $this->view->setVars([

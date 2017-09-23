@@ -90,7 +90,7 @@ class BaseController extends Controller
             'token'    => $token,
             'jsGlobal' => [
                 'user_id'       => $hashid->encodeHex($this->session->get('id')),
-                'base_url'      => \Url::get(),
+                'base_url'      => \Library\Url::get(),
                 'csrf'          => [
                     $tokenKey,
                     $token,

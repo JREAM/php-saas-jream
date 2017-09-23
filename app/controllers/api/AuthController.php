@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare( strict_types=1 );
 
 namespace Controllers\Api;
 
@@ -22,51 +23,52 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function loginAction() : Response
+    public function loginAction()
+    : Response
     {
         // POST Data
-        $email = $this->request->getPost('email');
+        $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         // Cannot have Empty Fields
-        if( ! $email || ! $password) {
+        if ( ! $email || ! $password ) {
             return $this->output(0, 'email and password field(s) are required.');
         }
 
         // Find the user based on the email
         $user = User::findFirstByEmail($email);
-        if( ! $user) {
+        if ( ! $user ) {
             return $this->output(0, 'Incorrect Credentials');
         }
 
-        if($user->is_deleted == 1) {
+        if ( $user->is_deleted == 1 ) {
             return $this->output(0, 'This user has been permanently removed.');
         }
 
         // Prevent Spam logins
-        if($user->login_attempt >= 5) {
-            if(strtotime('now') < strtotime($user->login_attempt_at) + 600) {
+        if ( $user->login_attempt >= 5 ) {
+            if ( strtotime('now') < strtotime($user->login_attempt_at) + 600 ) {
                 return $this->output(0, 'Too many login attempts. Timed out for 10 minutes.');
             }
 
             // Clear the login attempts if time has expired
-            $user->login_attempt = null;
+            $user->login_attempt    = null;
             $user->login_attempt_at = null;
             $user->save();
         }
 
-        if($this->security->checkHash($password, $user->password)) {
+        if ( $this->security->checkHash($password, $user->password) ) {
             // Check Banned
-            if($user->isBanned()) {
+            if ( $user->isBanned() ) {
                 return $this->output(0, '
                     Sorry, your account has been locked due to suspicious activity.
                     For support, contact <b>hello@jream.com</b>.
                     ');
             }
 
-            // $this->createSession($user, [], $remember_me);
-            $this->createSession($user);
+            $this->createSession($user, 'jream');
 
+            // @TODO Do a real redirect instead ?
             return $this->output(1, 'Logging In!', [
                 'redirect' => \Library\Url::get('dashboard'),
             ]);
@@ -82,14 +84,43 @@ class AuthController extends ApiController
 
     // -----------------------------------------------------------------------------
 
+    /**
+     * Github Login
+     */
     public function githubAction()
     {
+        try {
             $hybridauth = $this->di->get('hybridAuth');
-            $adapter = $hybridauth->authenticate('GitHub');
-            $isConnected = $adapter->isConnected();
-            $userProfile = $adapter->getUserProfile();
+            $adapter    = $hybridauth->authenticate('GitHub');
+
+            if ( $adapter->isConnected() ) {
+                $userProfile = $adapter->getUserProfile();
+
+                $userProfile->identifier;
+                $userProfile->profileURL;
+                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
+                $userProfile->email;
+                $userProfile->emailVerified;
+
+                //$this->saveUser(
+                //    'github',
+                //    $userProfile->identifier
+                //    //$userProfile->ALIAS, // Need to figure this out
+                //    $userProfile->email,
+                //);
+            }
+
             var_dump($userProfile);
+
+            // @TODO When to use disconnect?
             $adapter->disconnect();
+        } catch ( \Exception $e ) {
+            $this->view->setVars([
+                'message' => $e->getMessage(),
+            ]);
+
+            return $this->view->pick('error/generic');
+        }
 
         die;
     }
@@ -98,8 +129,8 @@ class AuthController extends ApiController
 
     public function googleAction()
     {
-        $hybridauth = $this->di->get('hybridAuth');
-        $adapter = $hybridauth->authenticate('Google');
+        $hybridauth  = $this->di->get('hybridAuth');
+        $adapter     = $hybridauth->authenticate('Google');
         $isConnected = $adapter->isConnected();
         $userProfile = $adapter->getUserProfile();
         var_dump($userProfile);
@@ -111,14 +142,14 @@ class AuthController extends ApiController
         // @TODO https://github.com/google/google-api-php-client/blob/master/examples/idtoken.php
         // can just use a simple token ya?
         // debug
-        if ($this->session->has('google_access_token')) {
+        if ( $this->session->has('google_access_token') ) {
             $client->setAccessToken($this->session->get('google_access_token'));
 
 
             $ticket = $client->verifyIdToken($this->session->get('google_access_token'));
-            if ($ticket) {
+            if ( $ticket ) {
                 $data = $ticket->getAttributes();
-                echo $data['payload']['sub']; // user ID
+                echo $data[ 'payload' ][ 'sub' ]; // user ID
             }
 
             $service = new \Google_Service_Plus_Person($client);
@@ -136,9 +167,8 @@ class AuthController extends ApiController
         $tokenSessionKey = 'token-' . $client->prepareScopes();
 
         // If Code, Forward to Request Access Token
-        if ($this->request->get('code'))
-        {
-            if ((int) $this->session->get('state') !== (int) $this->request->get('state')) {
+        if ( $this->request->get('code') ) {
+            if ( (int) $this->session->get('state') !== (int) $this->request->get('state') ) {
                 throw new \RuntimeException('The session state did not match for Google.');
             }
 
@@ -153,9 +183,9 @@ class AuthController extends ApiController
             $client->setAccessToken($token);
 
             $ticket = $client->verifyIdToken($token);
-            if ($ticket) {
+            if ( $ticket ) {
                 $data = $ticket->getAttributes();
-                echo $data['payload']['sub']; // user ID
+                echo $data[ 'payload' ][ 'sub' ]; // user ID
             }
 
             // Why NO Results??
@@ -180,18 +210,18 @@ class AuthController extends ApiController
         }
 
         // Set a request token (This is not the real Access Token)
-        if ($this->session->has($tokenSessionKey)) {
+        if ( $this->session->has($tokenSessionKey) ) {
             $client->setAccessToken($this->session->get($tokenSessionKey));
         }
 
         // Request an access Token
-        if (!$client->getAccessToken()) {
+        if ( ! $client->getAccessToken() ) {
             $state = mt_rand();
             $client->setState((int) $state);
             $this->session->set('state', (int) $state);
 
             return $this->output(0, 'Not authenticated, login with the URL', [
-                'url' => $client->createAuthUrl()
+                'url' => $client->createAuthUrl(),
             ]);
         }
         // @TODO I should refresh this somewhre
@@ -209,15 +239,16 @@ class AuthController extends ApiController
             print_r($service->getDisplayName());
             //print_r($service->getCover()->getCoverPhoto()->getUrl());
             print_r($service->getEmails());
+
             //die;
 
             return $this->output(1, 'Logged In', [
-                'redirect' => \Library\Url::get('dashboard')
+                'redirect' => \Library\Url::get('dashboard'),
             ]);
 
-        } catch (Google_Service_Exception $e) {
+        } catch ( Google_Service_Exception $e ) {
             return $this->output(0, $e->getMessage());
-        } catch (Google_Exception $e) {
+        } catch ( Google_Exception $e ) {
             return $this->output(0, $e->getMessage());
         }
     }
@@ -229,10 +260,11 @@ class AuthController extends ApiController
      *
      * @return string   JSON
      */
-    public function facebookAction() : Response
+    public function facebookAction()
+    : Response
     {
-        $hybridauth = $this->di->get('hybridAuth');
-        $adapter = $hybridauth->authenticate('facebook');
+        $hybridauth  = $this->di->get('hybridAuth');
+        $adapter     = $hybridauth->authenticate('facebook');
         $isConnected = $adapter->isConnected();
         $userProfile = $adapter->getUserProfile();
         var_dump($userProfile);
@@ -244,14 +276,14 @@ class AuthController extends ApiController
         try {
             $accessToken = $helper->getAccessToken();
         } catch
-        (\Facebook\Exceptions\FacebookResponseException $e) {
+        ( \Facebook\Exceptions\FacebookResponseException $e ) {
             // When Graph returns an error
             $this->di->get('sentry')->captureException($e);
 
             return $this->output(0,
                 'Facebook Graph returned an error: ' . $e->getMessage()
             );
-        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+        } catch ( \Facebook\Exceptions\FacebookSDKException $e ) {
             // When validation fails or other local issues
             $this->di->get('sentry')->captureException($e);
 
@@ -261,16 +293,15 @@ class AuthController extends ApiController
         }
 
         // Missing Access Token
-        if( ! isset($accessToken)) {
-            if($helper->getError()) {
+        if ( ! isset($accessToken) ) {
+            if ( $helper->getError() ) {
                 $this->di->get('sentry')->captureException($helper->getError());
                 header('HTTP/1.0 401 Unauthorized');
                 echo "Error: " . $helper->getError() . "\n";
                 echo "Error Code: " . $helper->getErrorCode() . "\n";
                 echo "Error Reason: " . $helper->getErrorReason() . "\n";
                 echo "Error Description: " . $helper->getErrorDescription() . "\n";
-            }
-            else {
+            } else {
                 header('HTTP/1.0 400 Bad Request');
                 echo 'Bad request';
             }
@@ -284,7 +315,7 @@ class AuthController extends ApiController
                 '/me?fields=id,name,email',
                 $accessToken
             );
-        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
+        } catch ( \Facebook\Exceptions\FacebookResponseException $e ) {
             error_log(
                 'Facebook Graph returned an error: ' . $helper->getMessage(), 0
             );
@@ -292,7 +323,7 @@ class AuthController extends ApiController
             return $this->output(0,
                 'Facebook Graph returned an error: ' . $e->getMessage()
             );
-        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+        } catch ( \Facebook\Exceptions\FacebookSDKException $e ) {
             error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
 
             return $this->output(0,
@@ -302,30 +333,30 @@ class AuthController extends ApiController
 
         // User is logged in with a long-lived access token.
         // You can redirect them to a members-only page.
-        $facebookEmail  = $facebookUser->getEmail();
-        $facebookId     = $facebookUser->getId();
-        $facebookUser   = $response->getGraphUser();
+        $facebookEmail = $facebookUser->getEmail();
+        $facebookId    = $facebookUser->getId();
+        $facebookUser  = $response->getGraphUser();
 
         // Generate the users name since it doesnt let you use a username anymore.
-        $full_name = explode(' ', $facebookUser->getName());
-        $first_name = $full_name[0];
+        $full_name    = explode(' ', $facebookUser->getName());
+        $first_name   = $full_name[ 0 ];
         $last_initial = false;
-        if(count($full_name) > 1) {
-            $last_initial = end($full_name)[0];
+        if ( count($full_name) > 1 ) {
+            $last_initial = end($full_name)[ 0 ];
         }
         $facebookName = $first_name . ' ' . $last_initial;
 
         $user = \User::findFirstByFacebookId($facebookId);
-        if( ! $user) {
-            $user = new \User();
-            $user->role = 'user';
-            $user->account_type = 'fb';
-            $user->facebook_id = $facebookId;
+        if ( ! $user ) {
+            $user                 = new \User();
+            $user->role           = 'user';
+            $user->account_type   = 'fb';
+            $user->facebook_id    = $facebookId;
             $user->facebook_email = $facebookEmail;
             $user->facebook_alias = $facebookName;
             $user->create();
 
-            if($user->getMessages()) {
+            if ( $user->getMessages() ) {
                 error_log('There was an error connecting your facebook user.', 0);
 
                 return $this->output(0,
@@ -335,26 +366,25 @@ class AuthController extends ApiController
 
             // Where'd they signup from?
             $user->saveReferrer($user->id, $this->request);
-        }
-        else {
+        } else {
             // If the facebook users name or email changed
-            if($user->facebook_email != $facebookEmail) {
+            if ( $user->facebook_email != $facebookEmail ) {
                 $user->facebook_email = $facebookEmail;
             }
-            if($user->facebook_alias != $facebookName) {
+            if ( $user->facebook_alias != $facebookName ) {
                 $user->facebook_alias = $facebookName;
             }
             $user->save();
         }
 
-        if($user->isBanned()) {
+        if ( $user->isBanned() ) {
             return $this->output(0,
                 'Sorry, your account has been locked due to suspicious activity.
                         For support, contact <b>hello@jream.com</b>.'
             );
         }
 
-        $this->createSession($user, [
+        $this->createSession($user, 'facebook', [
             'fb_user_id'      => $facebookId,
             'fb_access_token' => $accessToken,
             'fb_logout_url'   => $helper->getLogoutUrl(
@@ -363,7 +393,7 @@ class AuthController extends ApiController
             ),
         ]);
 
-        return $this->output(1, ['redirect' => 'dashboard']);
+        return $this->output(1, [ 'redirect' => 'dashboard' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -371,18 +401,19 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function registerAction() : Response
+    public function registerAction()
+    : Response
     {
-        $alias = $this->request->getPost('alias');
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $alias            = $this->request->getPost('alias');
+        $email            = $this->request->getPost('email');
+        $password         = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
-        $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
-        if (!$form->isValid($_POST)) {
-            foreach ($form->getMessages() as $msg) {
+        $form = new \Forms\RegisterForm(null, [ 'confirm_password' => $confirm_password ]);
+        if ( ! $form->isValid($_POST) ) {
+            foreach ( $form->getMessages() as $msg ) {
                 print_r($msg);
                 echo $msg->getField();
                 echo $msg->getCode();
@@ -390,45 +421,46 @@ class AuthController extends ApiController
                 echo $msg->getMessage();
             }
             die;
+
             return $this->output(0, null, $form->getMessagesArray());
         }
 
-        if(\User::findFirstByAlias($alias)) {
+        if ( \User::findFirstByAlias($alias) ) {
             return $this->output(0,
                 'Your alias cannot be used.'
             );
         }
 
-        if(\User::findFirstByEmail($email)) {
+        if ( \User::findFirstByEmail($email) ) {
             return $this->output(0,
                 'This email is already in use.'
             );
         }
 
-        if( ! Swift_Validate::email($email)) {
+        if ( ! Swift_Validate::email($email) ) {
             return $this->output(0,
                 'Your email is invalid.'
             );
         }
 
-        $user = new \User();
-        $user->role = 'user';
+        $user               = new \User();
+        $user->role         = 'user';
         $user->account_type = 'default';
-        $user->alias = $alias;
-        $user->email = $email;
-        $user->password = $this->security->hash($password);
+        $user->alias        = $alias;
+        $user->email        = $email;
+        $user->password     = $this->security->hash($password);
         // Create a unique hash per user
         $user->password_salt = $this->security->hash(random_int(5000, 100000));
 
         $result = $user->save();
 
-        if( ! $result) {
+        if ( ! $result ) {
             return $this->output(0, $user->getMessagesList());
         }
 
         // Save them in the mailing list
-        $newsletterSubscription = new \NewsletterSubscription();
-        $newsletterSubscription->email = $email;
+        $newsletterSubscription                = new \NewsletterSubscription();
+        $newsletterSubscription->email         = $email;
         $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
         $newsletterSubscription->save();
 
@@ -449,7 +481,7 @@ class AuthController extends ApiController
 
         // If email error, oh well still success
         $message = 'You have successfully registered!';
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
             $message = 'You have successfully registered!
                                  However, there was a problem sending
                                  your welcome email.
@@ -457,9 +489,227 @@ class AuthController extends ApiController
         }
 
         // Create the User Session
-        $this->createSession($user);
+        $this->createSession($user, 'jream');
 
         return $this->output(1, $message);
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Saves a user to the Database for Local or Social Network
+     *
+     * @param string      $type            Can be: github, google, facebook, jream
+     * @param int         $id
+     * @param string      $alias
+     * @param string      $email
+     * @param string|null $hashed_password For local jream accounts
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return mixed
+     */
+    protected function saveUser( string $type, int $id, string $alias, string $email, $hashed_password = null )
+    {
+        $type          = strtolower($type);
+        $isNewUser     = false; // This can change below if they exist on another platform
+        $isLinkedAccount = false; // This changes if an existing account has their email saved
+        $accountTypes = [
+            'local'  => [
+                'jream',
+            ],
+            'social' => [
+                'github',
+                'google',
+                'facebook',
+            ],
+        ];
+
+        // Flat Array
+        $accepted = array_merge($accountTypes [ 'local' ], $accountTypes [ 'social' ]);
+
+        if ( ! in_array($type, $accepted) ) {
+            throw new \InvalidArgumentException(
+                sprintf('%s: %s',
+                    'The user type is not valid, must be one of',
+                    implode(', ', $accepted)
+                ));
+        }
+
+        // If they have an email already, associate this with their account.
+        $searchUser = User::findFirst([
+            '
+            email = :email 
+            OR github_email = :email 
+            OR google_email = :email 
+            OR facebook_email = :email 
+            ',
+        ], [
+            'bind'  => [
+                'email' => $email,
+            ]
+        ]);
+
+        // They cannot get to this point with the same account they are registering.
+        // This is to update an existing record
+        if ( $searchUser ) {
+            // Existing: Local Account (jream)
+            if ( $searchUser->email ) {
+                $user = \User::findFirstByEmail($searchUser->email);
+            }
+            // Social Accounts
+            // Below get an existing User if they exist for updating.
+            // We only need one record.
+
+            // Existing: Social Account (github)
+            else if ( $searchUser->github_email ) {
+                $user = \User::findFirstByGithubEmail($searchUser->github_email);
+            }
+            // Existing: Social Account (google)
+            else if ( $searchUser->google_email ) {
+                $user = \User::findFirstByGoogleEmail($searchUser->google_email);
+            }
+            // Existing: Social Account (facebook)
+            else if ( $searchUser->facebook_email ) {
+                $user = \User::findFirstByFacebookEmail($searchUser->facebook_email);
+            }
+
+            // This account is linked with an existing, use one account.
+            if ($user) {
+                $isLinkedAccount = true;
+            }
+        }
+        // If user does not exist in any form, create a new one.
+        if (!$user) {
+            $isNewUser = true;
+            $user = new \User();
+        }
+
+        $user->role         = 'user';
+        $user->account_type = 'default';
+
+        if ( in_array($type, $accountTypes [ 'social' ], true) ) {
+            $field_id    = "{$type}_id";
+            $field_alias = "{$type}_alias";
+            $field_email = "{$type}_email";
+
+            // user->github_id, facebook_id, etc..
+            $user->$field_id    = $id;
+            $user->$field_alias = $alias;
+            $user->$field_email = $email;
+        } else {
+            // for jream accounts, id is automatically assigned
+            $user->alias = $alias;
+            $user->email = $email;
+
+            // This is only for jream accounts
+            $user->password = $hashed_password;
+            $user->password_salt = $this->security->hash(random_int(5000, 100000));
+        }
+
+        $result = $user->save();
+        // Save where they signed up from, the Social Auth might not do this so great.
+        $user->saveReferrer($user->id, $this->request);
+
+        // @TODO this may need to return to the parent function rather than output
+        if ( ! $result ) {
+            return $this->output(0, $user->getMessagesList());
+        }
+
+        // @important Create the User Session
+        $this->createSession($user);
+
+        // @TODO Ensure the user->id is saved, and accessible after creation
+        if ($isNewUser) {
+            // New Users are Saved to the mailing list
+            $newsletterSubscription                = new \NewsletterSubscription();
+            $newsletterSubscription->user_id       = $user->id; // the new ID received
+            $newsletterSubscription->email         = $email;
+            $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
+            $newsletterSubscription->save();
+
+            //@TODO Ensure passing the created user instance works
+            $this->sendWelcomeEmail($user, $type);
+        }
+
+        if ($isLinkedAccount)
+        {
+            $this->sendLinkedAccountEmail($user, $type);
+        }
+
+
+        return 1;
+    }
+
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Delivers welcome email to first time signups
+     *
+     * @param \User $user The User
+     * @param string $accountType The network: local/jream, facebook, github, google, etc.
+     */
+    protected function sendWelcomeEmail(\User $user, string $accountType)
+    {
+        $mail_result = $this->di->get('email', [
+            [
+                'to_name'    => $user->getAlias($user->id),
+                'to_email'   => $user->getEmail($user->id),
+                'from_name'  => $this->config->email->from_name,
+                'from_email' => $this->config->email->from_address,
+                'subject'    => 'JREAM Registration',
+                'content'    => $this->component->email->create('register', [
+                    'type'   => $accountType
+                ]),
+            ],
+        ]);
+
+        // If email error, oh well still success
+        $message = 'You have successfully registered with a new ' . ucwords($accountType) . ' account!';
+        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+            // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
+            // but based on $accountType and $email (Because a diff one could be registered)
+            $message .= "However, there was a problem sending your welcome email to: {$user->getEmail($user->id)}!";
+        }
+
+        return $message;
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Delivers linked account email when logging in with social network to existing account.
+     *
+     * @param \User $user The User
+     * @param string $accountType The network: local/jream, facebook, github, google, etc.
+     *
+     * @return string
+     */
+    protected function sendLinkedAccountEmail(\User $user, string $accountType) : string
+    {
+        $mail_result = $this->di->get('email', [
+            [
+                'to_name'    => $user->getAlias($user->id),
+                'to_email'   => $user->getEmail($user->id),
+                'from_name'  => $this->config->email->from_name,
+                'from_email' => $this->config->email->from_address,
+                'subject'    => 'JREAM Linked Account',
+                'content'    => $this->component->email->create('register_linked', [
+                    'type' => ucwords($accountType)
+                ]),
+            ],
+        ]);
+
+        // If email error, oh well still success
+        $message = 'You have Successfully Linked your {$accountType} account!';
+        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+            $message = "However, there was a problem sending to you email: {$user->getEmail($user->id)}!";
+            // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
+            // but based on $accountType and $email (Because a diff one could be registered)
+        }
+
+        return $message;
     }
 
     // -----------------------------------------------------------------------------
@@ -469,7 +719,7 @@ class AuthController extends ApiController
      */
     public function logoutAction()
     {
-        if($this->session->has('facebook_id')) {
+        if ( $this->session->has('facebook_id') ) {
             $this->session->destroy();
             $this->facebook->destroySession();
             $this->facebook->setAccessToken('');
@@ -489,20 +739,21 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotAction() : Response
+    public function passwordForgotAction()
+    : Response
     {
         $email = $this->request->getPost('email');
-        $user = User::findFirstByEmail($email);
+        $user  = User::findFirstByEmail($email);
 
-        if( ! $user) {
+        if ( ! $user ) {
             return $this->output(0, 'No email associated.');
         }
 
-        $user->password_reset_key = hash('sha512', time() * random_int(1, 9999));
+        $user->password_reset_key        = hash('sha512', time() * random_int(1, 9999));
         $user->password_reset_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->update();
 
-        if($user->getMessages()) {
+        if ( $user->getMessages() ) {
             return $this->output(0, 'An internal update to the user occurred.');
         }
 
@@ -524,7 +775,7 @@ class AuthController extends ApiController
         ]);
 
         // Email: If the status code is not 200 the mail didn't send.
-        if( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
@@ -539,10 +790,11 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotCreateAction() : Response
+    public function passwordForgotCreateAction()
+    : Response
     {
         $confirmEmail = $this->request->getPost('email');
-        $resetKey = $this->request->getPost('reset_key');
+        $resetKey     = $this->request->getPost('reset_key');
 
         $user = User::findFirst([
             "email = :email: AND password_reset_key = :key: AND password_reset_expires_at > :date:",
@@ -553,25 +805,25 @@ class AuthController extends ApiController
             ],
         ]);
 
-        if( ! $user) {
+        if ( ! $user ) {
             return $this->output(0, 'Invalid email and key combo, or time has expired.');
         }
 
-        $password = $this->request->getPost('password');
+        $password         = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if($password != $confirm_password) {
+        if ( $password != $confirm_password ) {
             return $this->output(0, 'Your passwords do not match.');
         }
 
         // Create the new password, set a new salt and reset key
-        $user->password = $this->security->hash($password);
-        $user->password_salt = $this->security->hash(random_int(5000, 100000));
-        $user->password_reset_key = null;
+        $user->password                  = $this->security->hash($password);
+        $user->password_salt             = $this->security->hash(random_int(5000, 100000));
+        $user->password_reset_key        = null;
         $user->password_reset_expires_at = null;
         $user->save();
 
-        if($user->getMessages()) {
+        if ( $user->getMessages() ) {
             return $this->output(0, 'There was an internal error updating.');
         }
 
@@ -584,29 +836,34 @@ class AuthController extends ApiController
      * Creates a User Session
      *
      * @param \User $user       User Model
+     * @param string $accountType  The login they signed in with
      * @param array $additional Additional values to add to session
      *
      * @return void
      */
-    protected function createSession(\User $user, array $additional = []) : void
+    protected function createSession( \User $user, $accountType, array $additional = [] )
+    : void
     {
         // Clear the login attempts
-        $user->login_attempt = null;
+        $user->login_attempt    = null;
         $user->login_attempt_at = null;
 
         $this->session->set('id', $user->id);
         $this->session->set('role', $user->role);
         $this->session->set('alias', $user->getAlias());
 
+        // What did they signin with?
+        $this->session->set('auth_type', $accountType);
+
         $use_timezone = 'utc';
-        if(property_exists($user, 'timezone')) {
+        if ( property_exists($user, 'timezone') ) {
             $use_timezone = $user->timezone;
         }
 
         $this->session->set('timezone', $use_timezone);
 
-        if(is_array($additional)) {
-            foreach($additional as $_key => $_value) {
+        if ( is_array($additional) ) {
+            foreach ( $additional as $_key => $_value ) {
                 $this->session->set($_key, $_value);
             }
         }
@@ -618,7 +875,7 @@ class AuthController extends ApiController
         $user->save();
 
         // If the user changes web browsers, prevent a hijacking attempt
-        $this->session->set('agent', $_SERVER['HTTP_USER_AGENT']);
+        $this->session->set('agent', $_SERVER[ 'HTTP_USER_AGENT' ]);
     }
 
 }

@@ -92,9 +92,6 @@ class AuthController extends ApiController
         // If Code, Forward to Request Access Token
         if ($this->request->get('code'))
         {
-            \PC::debug($this->session->get('state'), 'internal session_state');
-            \PC::debug($this->request->get('state'), 'request session_state');
-
             if ((int) $this->session->get('state') !== (int) $this->request->get('state')) {
                 throw new \RuntimeException('The session state did not match for Google.');
             }
@@ -109,6 +106,7 @@ class AuthController extends ApiController
             \PC::debug($token, 'access_token');
             $client->setAccessToken($token);
 
+            // Why NO Results??
             $service = new \Google_Service_Plus_Person($client);
             // @TODO Save to DB if not exists, otherwise login, refresh token?
             echo '<pre>';

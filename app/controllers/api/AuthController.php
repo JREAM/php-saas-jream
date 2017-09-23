@@ -86,6 +86,20 @@ class AuthController extends ApiController
     {
         $client = $this->di->get('google');
 
+        // debug
+        if ($this->session->has('google_access_token')) {
+            $client->setAccessToken($this->session->get('google_access_token'));
+               $service = new \Google_Service_Plus_Person($client);
+            // @TODO Save to DB if not exists, otherwise login, refresh token?
+            echo '<pre>';
+
+            echo 'get ID';
+            print_r($service->getId());
+            echo 'get nickname';
+            print_r($service->getNickname());
+            die;
+        }
+
         // Check if an request token exists for the required scopes
         $tokenSessionKey = 'token-' . $client->prepareScopes();
 

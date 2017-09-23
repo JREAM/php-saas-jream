@@ -6,7 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api.php" afterPath="$PROJECT_DIR$/app/config/api.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -299,8 +298,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="108" column="31" lean-forward="false" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
+            <state relative-caret-position="384">
+              <caret line="98" column="45" lean-forward="false" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -433,8 +432,8 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/.env.sample" />
         <option value="$PROJECT_DIR$/app/config/services.php" />
-        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
         <option value="$PROJECT_DIR$/app/config/api.php" />
+        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
       </list>
     </option>
   </component>
@@ -1501,8 +1500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="108" column="31" lean-forward="false" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
+        <state relative-caret-position="384">
+          <caret line="98" column="45" lean-forward="false" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
           <folding />
         </state>
       </provider>

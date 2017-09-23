@@ -298,8 +298,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+            <state relative-caret-position="720">
+              <caret line="119" column="48" lean-forward="false" selection-start-line="119" selection-start-column="48" selection-end-line="119" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -1498,8 +1498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+        <state relative-caret-position="720">
+          <caret line="119" column="48" lean-forward="false" selection-start-line="119" selection-start-column="48" selection-end-line="119" selection-end-column="48" />
           <folding />
         </state>
       </provider>

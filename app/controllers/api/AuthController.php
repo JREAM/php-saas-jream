@@ -101,6 +101,7 @@ class AuthController extends ApiController
             $redirect = sprintf('%s%s', $this->di->get('config')->url, ltrim($this->router->getRewriteUri(), '/'));
             $this->response->redirect($redirect);
         }
+        echo '<pre>';
 
         // If Access Token (from previous) is set, set in client
         if ($this->session->has($tokenSessionKey)) {
@@ -115,6 +116,10 @@ class AuthController extends ApiController
         // Check to ensure that the access token was successfully acquired.
         if ($client->getAccessToken()) {
             try {
+
+                print_r($client->getAccessToken());
+                print_r($this->session->get($tokenSessionKey));
+
 
                 $service = new \Google_Service_Plus_Person($client);
                 // @TODO Save to DB if not exists, otherwise login, refresh token?

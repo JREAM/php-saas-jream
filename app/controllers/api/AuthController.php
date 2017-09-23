@@ -100,8 +100,7 @@ class AuthController extends ApiController
             }
 
             $client->authenticate($this->request->get('code'));
-            $token = json_decode($client->getAccessToken());
-            \PC::debug($token, 'token');
+            \PC::debug($client->getAccessToken(), 'accesstoken');
             $this->session->set($tokenSessionKey, $client->getAccessToken());
 
             \PC::debug($tokenSessionKey, 'tokenSessionKey');

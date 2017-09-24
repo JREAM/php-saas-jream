@@ -77,4 +77,38 @@ class Url
 
         return filter_var($url, FILTER_SANITIZE_URL);
     }
+
+    /**
+     * Builds a local URI based on the provided items
+     *
+     * @param string $controller
+     * @param string $action
+     * @param array  $params
+     *
+     * @return string
+     */
+    public static function makeFrom(string $controller = '', string $action = '', array $params = []) : string
+    {
+        $action = $action ? "/$action" : null;
+        $params = !empty($params) ? implode('/', $params) : null;
+        $url = sprintf('%s%s%s', $controller, $action, $params)
+
+        return (string) $url;
+    }
+
+    /**
+     * Generates an Absolute URL using the makeFrom method.
+     *
+     * @param string $controller
+     * @param string $action
+     * @param array  $params
+     *
+     * @return string
+     */
+    public static function makeFromAbsolute(string $controller = '', string $action = '', array $params = []) : string
+    {
+        $uri = self::makeFull($controller, $action, $params);
+        return self::get($uri);
+
+    }
 }

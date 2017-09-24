@@ -71,24 +71,6 @@
   top: 0;
 }
 
-a.btn-jream,
-.btn-jream {
-  color: $lightest;
-  background: $btn-bg-dark;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color: $lightest;
-    background: $btn-bg-dark-hover;
-  }
-
-  img {
-    height: 24px;
-  }
-}
-
-
 $bs-height-base: ($line-height-computed + $padding-base-vertical * 2) !default;
 $bs-height-lg:   (floor($font-size-large * $line-height-base) + $padding-large-vertical * 2) !default;
 $bs-height-sm:   (floor($font-size-small * 1.5) + $padding-small-vertical * 2) !default;
@@ -174,6 +156,10 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1) !
   @include button-variant($color, $color-bg, rgba(0,0,0,.2));
 }
 
+.btn-inline {
+  display: inline-block;
+}
+
 .btn-adn           { @include btn-social(#d87a68); }
 .btn-bitbucket     { @include btn-social(#205081); }
 .btn-dropbox       { @include btn-social(#1087dd); }
@@ -195,3 +181,28 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1) !
 .btn-vimeo         { @include btn-social(#1ab7ea); }
 .btn-vk            { @include btn-social(#587ea3); }
 .btn-yahoo         { @include btn-social(#720e9e); }
+
+.btn-jream-icon,
+.btn-jream {
+  @include btn-social($btn-bg-dark);
+  img {
+    height: 1em;
+    margin-top: .15em;
+  }
+}
+//a.btn-jream,
+//.btn-jream {
+//  color: $lightest;
+//  background: ;
+
+  //&:hover,
+  //&:active,
+  //&:focus {
+  //  color: $lightest;
+  //  background: $btn-bg-dark-hover;
+  //}
+  //
+  //img {
+  //  height: 24px;
+  //}
+//}

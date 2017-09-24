@@ -8,9 +8,9 @@ use Phalcon\Validation\Validator;
 class NewsletterSubscription extends BaseModel
 {
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $user_id;
     public $token;
@@ -18,7 +18,14 @@ class NewsletterSubscription extends BaseModel
     public $is_verified;
     public $is_subscribed;
 
-    public function initialize()
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('newsletter_subscription');

@@ -8,12 +8,28 @@ use Phalcon\Validation\Validator;
 
 class UserSupport extends BaseModel
 {
+
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $user_id;
+    public $type;
+    public $title;
+    public $content;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
+
     // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('user_support');

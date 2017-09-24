@@ -7,10 +7,20 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class ProductThreadReply extends BaseModel
 {
 
-    // -----------------------------------------------------------------------------
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $product_thread_id;
+    public $user_id;
+    public $content;
+    public $content_code;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
+    // -----------------------------------------------------------------------------
 
     public function initialize()
     {

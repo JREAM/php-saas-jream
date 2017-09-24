@@ -18,7 +18,7 @@
         <?php $name = str_replace('-', ' ', $course->name)?>
             <div class="list-group-item">
                 <span class="glyphicon glyphicon-film"></span> <?=ucwords($name)?>
-                {% if !session.has('id') and !session.has('fb_user_id') %}
+                {% if !session.has('is_logged_in') %}
                     {% if course.free_preview == 1 %}
                         <a href="{{ url('product/course') }}/{{ course.getProduct().slug }}/preview/{{ course.id }}" class="pull-right label label-warning">Preview</a>
                     {% endif %}

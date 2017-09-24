@@ -36,14 +36,14 @@
 <div class="row">
     <div class="col-md-12">
 
-    {% if !user %}
+    {% if not session.has('is_logged_in') %}
     <div class="panel panel-default panel-primary">
         <div class="panel-heading">
             <strong>Create an Account</strong> or <strong>Login</strong>
         </div>
         <div class="panel-body text-center">
             <a href="{{ url('user/register') }}"><img src="{{ url('images/buttons/jream-login.png') }}" alt="JREAM Login"></a>
-            <a href="{{ fbLoginUrl }}"><img src="{{ url('images/buttons/facebook-login.png') }}" alt="Facebook Login" /></a>
+            {% include 'partials/social-login.volt' %}
         </div>
     </div>
     {% endif %}
@@ -91,32 +91,4 @@
 
 <div class="spacer-80"></div>
 
-{% endblock %}
-
-{% block script %}
-
-{#
-###########################
-    @TODO Move JS to File
-###########################
-#}
-<!--suppress BadExpressionStatementJS -->
-<script>
-$(function() {
-
-    {% if user %}
-
-    {% else %}
-    $(".checkout-purchase-card").hide();
-    $(".checkout-purchase-paypal").hide();
-
-    // $(".checkout-purchase-card, .checkout-purchase-paypal").css('opacity', 0.5);
-        $(".checkout-purchase-card").find('input, select').prop('disabled', true);
-        $(".checkout-purchase-paypal").find('a').css('cursor', 'default');
-        $(".checkout-purchase-paypal").find('a').click(function(evt) {
-            evt.preventDefault();
-        });
-    {% endif %}
-})
-</script>
 {% endblock %}

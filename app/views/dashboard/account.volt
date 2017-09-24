@@ -19,7 +19,9 @@
             <div class="list-group-item active">
                 <h4><span class="glyphicon glyphicon-user opacity-50"></span> Profile</h4>
             </div>
-                {% if session.has('fb_user_id') %}
+                {# @TODO Need to fix this #}
+                {% if session.has('is_logged_in') %}
+                {#{% if session.has('fb_user_id') %}#}
                 <div class="list-group-item">
                     {{ user.getIcon() }} <strong>{{ user.facebook_alias }}</strong>
                 </div>
@@ -66,7 +68,8 @@
     </div>
     <div class="col-md-5">
 
-        {% if !session.has('fb_user_id') %}
+        {# @TODO fix account types here #}
+        {% if not session.has('is_logged_in') %}
         <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">

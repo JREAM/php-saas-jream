@@ -88,6 +88,8 @@ mix.styles([
   "node_modules/font-awesome/css/font-awesome.min.css",
   "node_modules/devicons/css/devicons.min.css",
   "resources/vendor/typicons.css",
+  // This is available in my local, just not using now
+  // "resources/vendor/material-design-icons.css",
   "resources/vendor/et-line.scss"
 ], "public/vendor/fonts.css");
 

@@ -8,13 +8,16 @@ use Phalcon\Validation\Validator;
 class Product extends BaseModel
 {
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
+    /**
+     * @var const Project Constants
+     */
     const STATUS_PLANNED = 'planned';
     const STATUS_DEVELOPMENT = 'development';
     const STATUS_PUBLISHED = 'published';
 
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $slug;
     public $type;
@@ -33,7 +36,12 @@ class Product extends BaseModel
 
     // -----------------------------------------------------------------------------
 
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('product');

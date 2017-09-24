@@ -31,5 +31,17 @@
             'success': {{ jsGlobal['notifications']['success'] }},
             'info': {{ jsGlobal['notifications']['info'] }},
             'warn': {{ jsGlobal['notifications']['warn'] }}
+        },
+        window.routes = {
+            'prev': {
+                'controller': {{ jsGlobal['prev']['controller'] }},
+                'action': {{ jsGlobal['prev']['action'] }},
+                'params': {{ jsGlobal['prev']['params'] }},
+            }
+            'current': {
+                'controller': {{ jsGlobal['current']['controller'] }},
+                'action': {{ jsGlobal['current']['action'] }},
+                'params': {{ jsGlobal['current']['params'] }},
+            }
         }
     </script>

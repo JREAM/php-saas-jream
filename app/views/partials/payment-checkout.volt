@@ -4,7 +4,7 @@
 Stripe.setPublishableKey('{{ api.stripe.publishableKey }}');
 
 $(function() {
-    $("#formPurchase").submit(function(evt) {
+    $('#formPurchase').submit(function(evt) {
         evt.preventDefault();
 
         var self = $(this);
@@ -12,7 +12,8 @@ $(function() {
 
         Stripe.card.createToken($(this), function(status, response) {
             if (response.error) {
-                self.find('.payment-errors').html('<div class="alert alert-danger">' + response.error.message + '</div>');
+                self.find('.payment-errors').
+                    html('<div class="alert alert-danger">' + response.error.message + '</div>');
                 self.find('input[type=submit]').prop('disabled', false);
             } else {
                 var token = response.id;
@@ -28,7 +29,7 @@ $(function() {
 <!-- Used to reference smaller screens href# -->
 <div id="checkout-area"></div>
 
-{% if user %}
+{% if session.has('is_logged_in') %}
 <div class="panel panel-default panel-primary checkout-purchase-paypal">
     <div class="panel-heading">
         <strong>PayPal</strong>

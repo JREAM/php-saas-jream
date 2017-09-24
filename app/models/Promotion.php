@@ -6,10 +6,26 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 class Promotion extends BaseModel
 {
 
-    // -----------------------------------------------------------------------------
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $user_id;
+    public $product_id;
+    public $product_id_list;
+    public $code;
+    public $description;
+    public $price;
+    public $percent_off;
+    public $use_limit;
+    public $use_count;
+    public $is_deleted;
+    public $deleted_at;
+    public $expires_at;
+    public $created_at;
+    public $updated_at;
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
+    // -----------------------------------------------------------------------------
 
     public function initialize()
     {

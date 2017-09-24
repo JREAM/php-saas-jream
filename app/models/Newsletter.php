@@ -7,16 +7,22 @@ use Phalcon\Validation\Validator;
 
 class Newsletter extends BaseModel
 {
-
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $subject;
     public $body;
     public $is_sent;
 
-    public function initialize()
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('newsletter');

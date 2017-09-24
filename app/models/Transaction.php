@@ -8,10 +8,29 @@ use Phalcon\Validation\Validator;
 class Transaction extends BaseModel
 {
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $user_id;
+    public $transaction_id;
+    public $type;
+    public $gateway;
+    public $amount;
+    public $amount_after_discount;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
 
-    public function initialize()
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('transaction');

@@ -51,6 +51,9 @@
 {% block content %}{% endblock %}
 </div>
 
+{# Only appears if user is not logged in #}
+{% include 'partials/modal-login.volt' %}
+
 {% include "templates/partials/footer.volt" %}
 
 {% block script %}{% endblock %}

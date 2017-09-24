@@ -49,8 +49,6 @@ class UserController extends BaseController
 
         $this->view->setVars([
             'form'       => new \Forms\LoginForm(),
-            'fbLoginUrl' => $this->_getFacebookLoginUrl(),
-            'googleLoginUrl' => $this->_getGoogleLoginUrl(),
         ]);
 
         return $this->view->pick('user/login');
@@ -84,9 +82,7 @@ class UserController extends BaseController
         Tag::setTitle('Register | ' . $this->di['config']['title']);
 
         return $this->view->setVars([
-            'form'       => new \Forms\RegisterForm(),
-            'fbLoginUrl' => $this->_getFacebookLoginUrl(),
-            'googleLoginUrl' => $this->_getGoogleLoginUrl(),
+            'form'       => new \Forms\RegisterForm()
         ]);
     }
 
@@ -137,35 +133,6 @@ class UserController extends BaseController
         ]);
 
         return $this->view->pick('user/password-create');
-    }
-
-    // -----------------------------------------------------------------------------
-
-
-    /**
-     * Retrieves Facebook Login URL
-     *
-     * @return string
-     */
-    private function _getFacebookLoginUrl() : string
-    {
-        // ---------------------------
-        // Facebook Login
-        // ---------------------------
-        $helper = $this->facebook->getRedirectLoginHelper();
-
-        return $helper->getLoginUrl(
-            $this->api->fb->redirectUri,
-            (array)$this->api->fb->scope
-        );
-    }
-
-    private function _getGoogleLoginUrl() {
-        $client = $this->di->getShared('google');
-        $state = mt_rand();
-        $client->setState($state);
-        $_SESSION['state'] = $state;
-        return $client->createAuthUrl();
     }
 
 }

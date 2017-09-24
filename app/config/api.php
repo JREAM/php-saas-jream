@@ -45,27 +45,6 @@ $api = new \Phalcon\Config([
             // port        (env variable)
         ],
     ],
-    'fb'           => [
-        // Credentials In: .env / .env.sample
-        // ----------------------------------
-        'redirectUri' => sprintf('https://%s/user/doFacebookLogin', 'jream.com'),
-        'scope'       => ['email', 'public_profile'],
-        // FACEBOOK_APP_SECRET (env variable)
-        // FACEBOOK_APP_ID (env variable)
-    ],
-    'google'       => [
-        'scopes' => [
-            Google_Service_Plus::PLUS_ME,
-            Google_Service_Plus::PLUS_LOGIN,
-            Google_Service_Plus::USERINFO_EMAIL,
-        ],
-        // client_id and client_secret are ENV vars only
-        //'client_id' => getenv('GOOGLE_CLIENT_ID'),
-        //'client_secret' => getenv('GOOGLE_CLIENT_SECRET'),
-        // Location for Credentials (Keep RealPath and use this)
-        //'credentials' => realpath( getenv('GOOGLE_CREDENTIALS_LOCATION') ),
-        // GOOGLE_RECAPTCHA_SECRET (env variable)
-    ],
     'sendgrid'     => [
         // Credentials In: .env / .env.sample
         // ----------------------------------

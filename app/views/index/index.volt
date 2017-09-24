@@ -21,12 +21,12 @@
 
                 </div>
                 <div class="col-sm-4 vcenter">
-                    {% if not session.has('id') %}
+                    {% if session.has('is_logged_in')%}
+                    {% else %}
                         <div class="register">
                             <a href="{{ url('user/register') }}" class="btn btn-primary btn-xl">Create a Free Account</a>
                             <p class=""><i class="fa fa-user" data-title="JREAM Account" data-toggle="tooltip" data-placement="bottom"></i> <i class="fa fa-facebook-square" data-title="Facebook Account" data-toggle="tooltip" data-placement="bottom"></i> &mdash; Signup in under 15 seconds</p>
                         </div>
-                    {% else %}
                     {% endif %}
                 </div>
             </div>

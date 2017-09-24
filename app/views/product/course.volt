@@ -103,12 +103,12 @@
 </div>
 
 
-{% if !product.hasPurchased() %}
+{% if not product.hasPurchased() %}
 
     <h2 id="course-content">Course Content</h2>
     {% include "partials/course-list.volt" %}
 
-    {% if !session.has('id') %}
+    {% if not session.has('is_logged_in') %}
     <hr />
         <a class="btn btn-block btn-lg btn-primary" href="{{ url('user/register') }}"><strong>Ready to Signup?</strong></a>
     <hr />
@@ -126,7 +126,7 @@
 {% block sidebar %}
 
 <div class="col-md-12">
-    {% if !user %}
+    {% if not session.has('is_logged_in') %}
     <div class="panel panel-default panel-primary">
         <div class="panel-heading">
             <strong>Create an Account</strong>
@@ -153,7 +153,7 @@
     {% else %}
         {% if product.price != 0 %}
             {% include "partials/payment-checkout.volt" %}
-        {% elseif user %}
+        {% elseif session.has('is_logged_in') %}
             <h2>Free Course</h2>
             <a class="btn btn-primary btn-lg" href="{{ url('product/dofreecourse') }}/{{ product.id }}">Add Free Course</a>
         {% endif %}

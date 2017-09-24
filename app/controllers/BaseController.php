@@ -14,7 +14,6 @@ use Library\TokenManager;
 class BaseController extends Controller
 {
 
-
     /**
      * @var TokenManager
      */
@@ -65,6 +64,8 @@ class BaseController extends Controller
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
+        $sessionRoute = new \Library\SessionRoute();
+
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));
 
@@ -101,7 +102,20 @@ class BaseController extends Controller
                     'info'    => Output::getCode('info'),
                     'warn'    => Output::getCode('warn'),
                 ],
+                'routes' => [
+                    'prev' => [
+                        'controller' => '',
+                        'action' => '',
+                        'params' => '',
+                    ],
 
+                    'current' => [
+                        'controller' => (string) $this->router->getControllerName(),
+                        'action' => (string) $this->router->getActionName(),
+                        'params' => (array) $this->router->getParams(),
+                        'full' => \Library\Url::getCurrent()
+                    ],
+                ]
             ],
         ]);
 

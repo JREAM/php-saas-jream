@@ -75,6 +75,7 @@ class AuthController extends ApiController
         }
 
         // Track the login attempts
+        // @TODO should i save in session?
         ++$user->login_attempt;
         $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
         $user->save();
@@ -90,29 +91,41 @@ class AuthController extends ApiController
     public function githubAction()
     {
         try {
-            $hybridauth = $this->di->get('hybridAuth');
-            $adapter    = $hybridauth->authenticate('GitHub');
+            $adapter = $this->hybridauth->authenticate('GitHub');
 
             if ( $adapter->isConnected() ) {
-                $userProfile = $adapter->getUserProfile();
+                $profile = $adapter->getUserProfile();
 
-                $userProfile->identifier;
-                $userProfile->profileURL;
+                // debug here:
+                pr($profile);
+                // @TODO: save user image?
+                // @todo: save temporary alias?
+
+                $profile->identifier;
+                $profile->profileURL;
                 // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
-                $userProfile->email;
-                $userProfile->emailVerified;
 
-                //$this->saveUser(
-                //    'github',
-                //    $userProfile->identifier
-                //    //$userProfile->ALIAS, // Need to figure this out
-                //    $userProfile->email,
+                // Prefer the verified email if its set
+                $email = $profile->emailVerified ?: $profile->email;
+
+                //$this->saveUser('github',
+                //    $profile->identifier
+                //    //$profile->ALIAS, // Need to figure this out
+                //    $email,
                 //);
+                $this->createSession($user, 'github');
+                return $response->redirect('dashboard/');
             }
 
-            var_dump($userProfile);
-
             // @TODO When to use disconnect?
+
+            //$boolean = $this->hybridauth->isConnectedWith('Github');
+            //$boolean = $this->hybridauth->isConnectedWith('Google');
+            //$boolean = $this->hybridauth->isConnectedWith('Facebook');
+            //$adapter = $this->hybridauth->getAdapter('Github');
+            //$adapter = $this->hybridauth->getAdapter('Google');
+            //$adapter = $this->hybridauth->getAdapter('Facebook');
+
             $adapter->disconnect();
         } catch ( \Exception $e ) {
             $this->view->setVars([
@@ -129,127 +142,38 @@ class AuthController extends ApiController
 
     public function googleAction()
     {
-        $hybridauth  = $this->di->get('hybridAuth');
-        $adapter     = $hybridauth->authenticate('Google');
-        $isConnected = $adapter->isConnected();
-        $userProfile = $adapter->getUserProfile();
-        var_dump($userProfile);
-        $adapter->disconnect();
-        die;
-
-        $client = $this->di->get('google');
-
-        // @TODO https://github.com/google/google-api-php-client/blob/master/examples/idtoken.php
-        // can just use a simple token ya?
-        // debug
-        if ( $this->session->has('google_access_token') ) {
-            $client->setAccessToken($this->session->get('google_access_token'));
-
-
-            $ticket = $client->verifyIdToken($this->session->get('google_access_token'));
-            if ( $ticket ) {
-                $data = $ticket->getAttributes();
-                echo $data[ 'payload' ][ 'sub' ]; // user ID
-            }
-
-            $service = new \Google_Service_Plus_Person($client);
-            // @TODO Save to DB if not exists, otherwise login, refresh token?
-            echo '<pre>';
-
-            echo 'get ID';
-            print_r($service->getId());
-            echo 'get nickname';
-            print_r($service->getNickname());
-            die;
-        }
-
-        // Check if an request token exists for the required scopes
-        $tokenSessionKey = 'token-' . $client->prepareScopes();
-
-        // If Code, Forward to Request Access Token
-        if ( $this->request->get('code') ) {
-            if ( (int) $this->session->get('state') !== (int) $this->request->get('state') ) {
-                throw new \RuntimeException('The session state did not match for Google.');
-            }
-
-            $client->authenticate($this->request->get('code'));
-            $this->session->set($tokenSessionKey, $client->getAccessToken());
-
-            // JSON Format (from the library)
-            $token = $client->getAccessToken();
-            $this->session->set('google_access_token', $token);
-
-            \PC::debug($token, 'access_token');
-            $client->setAccessToken($token);
-
-            $ticket = $client->verifyIdToken($token);
-            if ( $ticket ) {
-                $data = $ticket->getAttributes();
-                echo $data[ 'payload' ][ 'sub' ]; // user ID
-            }
-
-            // Why NO Results??
-            $service = new \Google_Service_Plus_Person($client);
-            // @TODO Save to DB if not exists, otherwise login, refresh token?
-            echo '<pre>';
-
-            echo 'get ID';
-            print_r($service->getId());
-            echo 'get nickname';
-            print_r($service->getNickname());
-            echo 'get displayname';
-            print_r($service->getDisplayName());
-            //print_r($service->getCover()->getCoverPhoto()->getUrl());
-            echo 'get emails';
-            print_r($service->getEmails());
-            die;
-
-
-            // Redirect to this same page
-            $this->response->redirect(\Library\Url::getCurrent());
-        }
-
-        // Set a request token (This is not the real Access Token)
-        if ( $this->session->has($tokenSessionKey) ) {
-            $client->setAccessToken($this->session->get($tokenSessionKey));
-        }
-
-        // Request an access Token
-        if ( ! $client->getAccessToken() ) {
-            $state = mt_rand();
-            $client->setState((int) $state);
-            $this->session->set('state', (int) $state);
-
-            return $this->output(0, 'Not authenticated, login with the URL', [
-                'url' => $client->createAuthUrl(),
-            ]);
-        }
-        // @TODO I should refresh this somewhre
-        //$client->refreshToken($tokenSessionKey);
-
         try {
-            echo '<pre>';
+            $adapter = $this->hybridauth->authenticate('Google');
 
-            $service = new \Google_Service_Plus_Person($client);
-            // @TODO Save to DB if not exists, otherwise login, refresh token?
-            echo '<pre>';
+            if ( $adapter->isConnected() ) {
+                $profile = $adapter->getUserProfile();
 
-            print_r($service->getId());
-            print_r($service->getNickname());
-            print_r($service->getDisplayName());
-            //print_r($service->getCover()->getCoverPhoto()->getUrl());
-            print_r($service->getEmails());
+                $profile->identifier;
+                $profile->profileURL;
+                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
 
-            //die;
+                // Prefer the verified email if its set
+                $email = ($profile->emailVerified) ?: $profile->email;
 
-            return $this->output(1, 'Logged In', [
-                'redirect' => \Library\Url::get('dashboard'),
+                //$this->saveUser('github',
+                //    $profile->identifier
+                //    //$profile->ALIAS, // Need to figure this out
+                //    $email,
+                //);
+                $this->createSession($user, 'google');
+                return $response->redirect('dashboard/');
+            }
+
+            var_dump($userProfile);
+
+            // @TODO When to use disconnect?
+            $adapter->disconnect();
+        } catch ( \Exception $e ) {
+            $this->view->setVars([
+                'message' => $e->getMessage(),
             ]);
 
-        } catch ( Google_Service_Exception $e ) {
-            return $this->output(0, $e->getMessage());
-        } catch ( Google_Exception $e ) {
-            return $this->output(0, $e->getMessage());
+            return $this->view->pick('error/generic');
         }
     }
 
@@ -263,137 +187,40 @@ class AuthController extends ApiController
     public function facebookAction()
     : Response
     {
-        $hybridauth  = $this->di->get('hybridAuth');
-        $adapter     = $hybridauth->authenticate('facebook');
-        $isConnected = $adapter->isConnected();
-        $userProfile = $adapter->getUserProfile();
-        var_dump($userProfile);
-        $adapter->disconnect();
-        die;
-
-        $helper = $this->facebook->getRedirectLoginHelper();
-
         try {
-            $accessToken = $helper->getAccessToken();
-        } catch
-        ( \Facebook\Exceptions\FacebookResponseException $e ) {
-            // When Graph returns an error
-            $this->di->get('sentry')->captureException($e);
+            $adapter = $this->hybridauth->authenticate('Facebook');
 
-            return $this->output(0,
-                'Facebook Graph returned an error: ' . $e->getMessage()
-            );
-        } catch ( \Facebook\Exceptions\FacebookSDKException $e ) {
-            // When validation fails or other local issues
-            $this->di->get('sentry')->captureException($e);
+            if ( $adapter->isConnected() ) {
+                $profile = $adapter->getUserProfile();
 
-            return $this->output(0,
-                'Facebook SDK returned an error: ' . $e->getMessage()
-            );
-        }
+                $profile->identifier;
+                $profile->profileURL;
+                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
 
-        // Missing Access Token
-        if ( ! isset($accessToken) ) {
-            if ( $helper->getError() ) {
-                $this->di->get('sentry')->captureException($helper->getError());
-                header('HTTP/1.0 401 Unauthorized');
-                echo "Error: " . $helper->getError() . "\n";
-                echo "Error Code: " . $helper->getErrorCode() . "\n";
-                echo "Error Reason: " . $helper->getErrorReason() . "\n";
-                echo "Error Description: " . $helper->getErrorDescription() . "\n";
-            } else {
-                header('HTTP/1.0 400 Bad Request');
-                echo 'Bad request';
-            }
-            exit;
-        }
+                // Prefer the verified email if its set
+                $email = ($profile->emailVerified) ?: $profile->email;
 
-        // Logged in
-        try {
-            // Returns a `Facebook\FacebookResponse` object (username is deprecated)
-            $response = $this->facebook->get(
-                '/me?fields=id,name,email',
-                $accessToken
-            );
-        } catch ( \Facebook\Exceptions\FacebookResponseException $e ) {
-            error_log(
-                'Facebook Graph returned an error: ' . $helper->getMessage(), 0
-            );
+                //$this->saveUser('github',
+                //    $profile->identifier
+                //    //$profile->ALIAS, // Need to figure this out
+                //    $email,
+                //);
 
-            return $this->output(0,
-                'Facebook Graph returned an error: ' . $e->getMessage()
-            );
-        } catch ( \Facebook\Exceptions\FacebookSDKException $e ) {
-            error_log('Facebook SDK returned an error: ' . $helper->getMessage(), 0);
-
-            return $this->output(0,
-                'Facebook SDK returned an error: ' . $e->getMessage()
-            );
-        }
-
-        // User is logged in with a long-lived access token.
-        // You can redirect them to a members-only page.
-        $facebookEmail = $facebookUser->getEmail();
-        $facebookId    = $facebookUser->getId();
-        $facebookUser  = $response->getGraphUser();
-
-        // Generate the users name since it doesnt let you use a username anymore.
-        $full_name    = explode(' ', $facebookUser->getName());
-        $first_name   = $full_name[ 0 ];
-        $last_initial = false;
-        if ( count($full_name) > 1 ) {
-            $last_initial = end($full_name)[ 0 ];
-        }
-        $facebookName = $first_name . ' ' . $last_initial;
-
-        $user = \User::findFirstByFacebookId($facebookId);
-        if ( ! $user ) {
-            $user                 = new \User();
-            $user->role           = 'user';
-            $user->account_type   = 'fb';
-            $user->facebook_id    = $facebookId;
-            $user->facebook_email = $facebookEmail;
-            $user->facebook_alias = $facebookName;
-            $user->create();
-
-            if ( $user->getMessages() ) {
-                error_log('There was an error connecting your facebook user.', 0);
-
-                return $this->output(0,
-                    'There was an error connecting your facebook user.'
-                );
+                $this->createSession($user, 'facebook');
+                return $response->redirect('dashboard/');
             }
 
-            // Where'd they signup from?
-            $user->saveReferrer($user->id, $this->request);
-        } else {
-            // If the facebook users name or email changed
-            if ( $user->facebook_email != $facebookEmail ) {
-                $user->facebook_email = $facebookEmail;
-            }
-            if ( $user->facebook_alias != $facebookName ) {
-                $user->facebook_alias = $facebookName;
-            }
-            $user->save();
+            var_dump($userProfile);
+
+            // @TODO When to use disconnect?
+            $adapter->disconnect();
+        } catch ( \Exception $e ) {
+            $this->view->setVars([
+                'message' => $e->getMessage(),
+            ]);
+
+            return $this->view->pick('error/generic');
         }
-
-        if ( $user->isBanned() ) {
-            return $this->output(0,
-                'Sorry, your account has been locked due to suspicious activity.
-                        For support, contact <b>hello@jream.com</b>.'
-            );
-        }
-
-        $this->createSession($user, 'facebook', [
-            'fb_user_id'      => $facebookId,
-            'fb_access_token' => $accessToken,
-            'fb_logout_url'   => $helper->getLogoutUrl(
-                $accessToken,
-                \URL . '/' . 'user/login'
-            ),
-        ]);
-
-        return $this->output(1, [ 'redirect' => 'dashboard' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -404,6 +231,7 @@ class AuthController extends ApiController
     public function registerAction()
     : Response
     {
+        // @TODO use the saveUser method
         $alias            = $this->request->getPost('alias');
         $email            = $this->request->getPost('email');
         $password         = $this->request->getPost('password');
@@ -480,18 +308,21 @@ class AuthController extends ApiController
         ]);
 
         // If email error, oh well still success
-        $message = 'You have successfully registered!';
         if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
-            $message = 'You have successfully registered!
-                                 However, there was a problem sending
-                                 your welcome email.
-                ';
+            $message = '
+                You have successfully registered!
+                However, there was a problem sending
+                your welcome email.
+            ';
+            $this->flashSession->warning($message);
+        } else {
+            $message = 'You have successfully registered!';
+            $this->flashSession->success($message);
         }
 
         // Create the User Session
         $this->createSession($user, 'jream');
-
-        return $this->output(1, $message);
+        return $response->redirect('dashboard/');
     }
 
     // -----------------------------------------------------------------------------
@@ -719,16 +550,7 @@ class AuthController extends ApiController
      */
     public function logoutAction()
     {
-        if ( $this->session->has('facebook_id') ) {
-            $this->session->destroy();
-            $this->facebook->destroySession();
-            $this->facebook->setAccessToken('');
-
-            return $this->output(1, [
-                'redirect' => $this->response->redirect($this->facebook->getLogoutUrl(), true),
-            ]);
-        }
-
+        $this->hybridauth->disconnectAllAdapters();
         $this->session->destroy();
 
         return $this->response->redirect($this->router->getRouteByName('home'));
@@ -848,6 +670,7 @@ class AuthController extends ApiController
         $user->login_attempt    = null;
         $user->login_attempt_at = null;
 
+        $this->session->set('is_logged_in', true);
         $this->session->set('id', $user->id);
         $this->session->set('role', $user->role);
         $this->session->set('alias', $user->getAlias());

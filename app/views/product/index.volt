@@ -95,7 +95,7 @@
     </div>
     {% endfor %}
 
-{% if !session.has('id') and !session.has('fb_user_id') %}
+{% if not session.has('is_logged_in') %}
     {% include "partials/call-to-action.volt" %}
 {% endif %}
 

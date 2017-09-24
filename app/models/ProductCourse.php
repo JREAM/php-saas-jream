@@ -8,9 +8,9 @@ use Phalcon\Validation\Validator;
 class ProductCourse extends BaseModel
 {
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $product_id;
     public $name;
@@ -21,8 +21,14 @@ class ProductCourse extends BaseModel
     public $description;
     public $sort;
 
+    // ------------------------------------------------------------------------------
 
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('product_course');

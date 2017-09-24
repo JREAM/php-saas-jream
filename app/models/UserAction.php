@@ -7,20 +7,28 @@ use Phalcon\Validation\Validator;
 
 class UserAction extends BaseModel
 {
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $user_id;
+    public $product_id;
+    public $product_course_id;
+    public $action;
+    public $value;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
 
     // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    private $_actions = [
-        'hasWatched',
-        'hasCompleted',
-    ];
-
-    // -----------------------------------------------------------------------------
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('user_action');

@@ -97,20 +97,6 @@ class ProductController extends BaseController
             "order" => 'section, course',
         ]);
 
-        // ---------------------------
-        // Facebook Login
-        // ---------------------------
-        $after_fb = sprintf('/product/course/%s', $slug);
-        $helper = $this->facebook->getRedirectLoginHelper();
-        $fbLoginUrl = $helper->getLoginUrl(
-            $this->api->fb->redirectUri,
-            (array) $this->api->fb->scope
-        );
-
-        // ---------------------------
-        // End Facebook
-        // ---------------------------
-
         $user = false;
         if ($this->session->has('id')) {
             $user = \User::findFirstById($this->session->get('id'));
@@ -138,7 +124,6 @@ class ProductController extends BaseController
             'promotion_code' => $promotion_code,
             'discount_price' => $discount_price,
             'hasPurchased'   => $product->hasPurchased(),
-            'fbLoginUrl'     => $fbLoginUrl,
             'months'         => $months,
             'years'          => range(date('Y'), date('Y') + 5),
         ]);

@@ -9,6 +9,44 @@ class User extends BaseModel
 {
 
     /**
+     * @var Table Rows
+     */
+    public $id;
+    public $role;
+    public $account_type;
+    public $alias;
+    public $email;
+    public $password;
+    public $password_salt;
+    public $use_email;
+    public $use_icon;
+    public $facebook_id;
+    public $facebook_alias;
+    public $facebook_email;
+    public $google_id;
+    public $google_alias;
+    public $google_email;
+    public $github_id;
+    public $github_alias;
+    public $github_email;
+    public $session_id;
+    public $timezone;
+    public $email_notifications;
+    public $system_notifications;
+    public $email_change;
+    public $email_change_key;
+    public $email_change_key_expires_at;
+    public $password_reset_key;
+    public $password_reset_expires_at;
+    public $login_attempt;
+    public $login_attempt_at;
+    public $is_banned;
+    public $is_deleted;
+    public $is_deleted_at;
+    public $is_created_at;
+    public $is_updated_at;
+
+    /**
      * Constants for account types, accessible anywhere
      */
     const ACCOUNT_TYPE_JREAM = 'jream';
@@ -33,10 +71,12 @@ class User extends BaseModel
 
     // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('user');
@@ -156,12 +196,24 @@ class User extends BaseModel
 
     // -----------------------------------------------------------------------------
 
-    public function getActiveAccounts()
+    public function getActiveAccounts() : array
     {
-        $output = [];
-        if ($this->google_id) {
-            $output['google']
+        $output = [
+            'github' => 0,
+            'google' => 0,
+            'facebook' => 0,
+        ];
+
+        if ($this->github_id) {
+            $output['github'] = 1;
         }
+        if ($this->google_id) {
+            $output['google'] = 1;
+        }
+        if ($this->facebook_id) {
+            $output['facebook'] = 1;
+        }
+        return $output;
     }
 
     // -----------------------------------------------------------------------------
@@ -178,6 +230,20 @@ class User extends BaseModel
     {
         if (!$id) {
             $id = $this->session->get('id');
+        }
+
+        if ($this->github_id) {
+            return sprintf(
+                "<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>",
+                $this->github_id
+            );
+        }
+
+        if ($this->google_id) {
+            return sprintf(
+                "<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>",
+                $this->google_id
+            );
         }
 
         if ($this->facebook_id) {

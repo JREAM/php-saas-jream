@@ -6,6 +6,12 @@ use Phalcon\Validation\Validator;
 
 class BaseModel extends \Phalcon\Mvc\Model
 {
+
+    /**
+     * @var array Saves on Redis or Memcached Queries
+     */
+    public static $_cache;
+
     /**
      * Changes the fields for 'created_at' and 'updated_at'
      * which are required on every table.
@@ -13,15 +19,21 @@ class BaseModel extends \Phalcon\Mvc\Model
     use Models\Traits\TimestampTrait;
 
 
-    /** @var object */
+    /**
+     * @var object The Markdown Parser
+     */
     public $parsedown = null;
 
 
-    /** @var @var object */
+    /**
+     * @var object The config
+     */
     protected $config;
 
 
-    /** @var @var object */
+    /**
+     * @var object The api config
+     */
     protected $api;
 
     // ------------------------------------------------------------------------------

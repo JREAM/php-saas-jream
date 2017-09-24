@@ -8,17 +8,23 @@ use Phalcon\Validation\Validator;
 class Notification extends BaseModel
 {
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $product_id;
     public $user_id;
     public $has_read;
     public $content;
 
+    // -----------------------------------------------------------------------------
 
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('notification');

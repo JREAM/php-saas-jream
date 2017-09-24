@@ -537,53 +537,6 @@ $di->setShared('hybridAuth', function() use ($api) {
     //} catch(\Exception $e) { ...}
 });
 
-/**
- * ==============================================================
- * API: Facebook
- * =============================================================
- */
-$di->setShared('facebook', function () use ($api) {
-    return new \Facebook\Facebook([
-        'app_id'                => getenv('FACEBOOK_APP_ID'),
-        'app_secret'            => getenv('FACEBOOK_APP_SECRET'),
-        'default_graph_version' => getenv('FACEBOOK_DEFAULT_GRAPH_VERSION'),
-    ]);
-});
-
-
-/**
- * ==============================================================
- * API: Google
- * =============================================================
- */
-$di->setShared('google', function ($accessToken = false) use ($api, $config) {
-
-    $client = new Google_Client();
-
-    // OAuth Keys
-    $client->setClientId(getenv('GOOGLE_CLIENT_ID'));
-    $client->setClientSecret(getenv('GOOGLE_CLIENT_SECRET'));
-
-    // Simple API Key
-    //$client->setDeveloperKey(getenv('GOOGLE_DEVELOPER_KEY'));
-
-    $client->setApplicationName('JREAM');
-
-    // Scopes (aka Permissions)
-    $client->setScopes((array) $api->google->scopes);
-    $client->setIncludeGrantedScopes(true); // Include any previous authorization
-
-    // Optional to pass along an access token when instantiating
-    if ($accessToken) {
-        $client->setAccessToken($accessToken);
-    }
-
-    // The url always has a trailing /
-    $redirectUri = "{$config->url}api/auth/google";
-    $client->setRedirectUri($redirectUri);
-
-    return $client;
-});
 
 
 /**
@@ -642,7 +595,5 @@ if (APPLICATION_ENV !== APP_PRODUCTION) {
 }
 
 
-// Set a default dependency injection container
-// to be obtained into static methods
+// Set this so that it can be retrieved anywhere!
 \Phalcon\Di::setDefault($di);
-\Phalcon\Di::getDefault();

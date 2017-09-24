@@ -17,6 +17,12 @@ class ApiController extends Controller
     protected $csrfExempt = [
         'auth::logout',
     ];
+
+    /**
+     * Hybrid Auth Social Sign-in
+     */
+    protected $hybridauth;
+
     /**
      * @var TokenManager
      */
@@ -32,6 +38,7 @@ class ApiController extends Controller
         // No views are used in API, all JSON calls
         $this->view->disable();
         $this->tokenManager = new TokenManager();
+        $this->hybridauth = $this->di->get('hybridAuth');
     }
 
     // -----------------------------------------------------------------------------

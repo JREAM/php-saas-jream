@@ -8,17 +8,23 @@ use Phalcon\Validation\Validator;
 class NewsletterResult extends BaseModel
 {
 
+    /**
+     * @var Table Rows
+     */
     public $id;
     public $user_id;
     public $newsletter_id;
     public $newsletter_subscriber_id;
     public $result;
 
+    // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('newsletter_results');

@@ -8,12 +8,29 @@ use Phalcon\Validation;
 class Youtube extends BaseModel
 {
 
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $title;
+    public $description;
+    public $video_id;
+    public $img_sm;
+    public $img_md;
+    public $img_lg;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
+
     // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('youtube');

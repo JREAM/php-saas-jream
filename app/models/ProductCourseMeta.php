@@ -8,12 +8,27 @@ use Phalcon\Validation\Validator;
 class ProductCourseMeta extends BaseModel
 {
 
+    /**
+     * @var Table Rows
+     */
+    public $id;
+    public $product_course_id;
+    public $type;
+    public $resource;
+    public $content;
+    public $is_deleted;
+    public $deleted_at;
+    public $created_at;
+    public $updated_at;
+
     // -----------------------------------------------------------------------------
 
-    /** @var array Saves on Memcached Queries */
-    public static $_cache;
-
-    public function initialize()
+    /**
+     * Phalcons std initializer when model is ready
+     *
+     * @return void
+     */
+    public function initialize() : void
     {
         /** DB Table Name */
         $this->setSource('product_course_meta');

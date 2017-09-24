@@ -3,8 +3,9 @@
 namespace Library;
 
 use \Phalcon\Di;
+use Phalcon\Di\Injectable;
 
-class SessionRoute
+class SessionRoute extends Injectable
 {
     /**
      * @var \Phalcon\Di Dependency Injector
@@ -24,10 +25,10 @@ class SessionRoute
      *
      * @param null|\Phalcon\Di $di Optionally pass DI, or we resort to DI::getDefault()
      */
-    public function __construct( $di = null )
+    public function __construct( )
     {
-        $this->di     = $di ?: Di::getDefault();
-        $this->router = $this->di->router;
+        //$this->di     = $di ?: Di::getDefault();
+        //$this->router = $this->di->router;
     }
 
     public function setup()

@@ -7,8 +7,6 @@ namespace Controllers;
 use Library\Output;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\View;
-use Phalcon\Tag;
 use Library\TokenManager;
 
 class BaseController extends Controller
@@ -64,7 +62,7 @@ class BaseController extends Controller
 
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
-        $sessionRoute = new \Library\SessionRoute();
+        //$sessionRoute = new \Library\SessionRoute();
 
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));

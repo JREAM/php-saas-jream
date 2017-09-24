@@ -5,6 +5,11 @@ namespace Library;
 class Url
 {
 
+    public  function __construct()
+    {
+        echo 1;
+    }
+
     /**
      * Get the HTTP_HOST (Does not include http(s) info)
      *
@@ -91,7 +96,7 @@ class Url
     {
         $action = $action ? "/$action" : null;
         $params = !empty($params) ? implode('/', $params) : null;
-        $url = sprintf('%s%s%s', $controller, $action, $params)
+        $url = sprintf('%s%s%s', $controller, $action, $params);
 
         return (string) $url;
     }
@@ -107,7 +112,7 @@ class Url
      */
     public static function makeFromAbsolute(string $controller = '', string $action = '', array $params = []) : string
     {
-        $uri = self::makeFull($controller, $action, $params);
+        $uri = self::makeFrom($controller, $action, $params);
         return self::get($uri);
 
     }

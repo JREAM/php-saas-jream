@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
+
 use Phalcon\Mvc\View;
 use Phalcon\Http\Response;
 
@@ -13,7 +15,7 @@ class WebhookController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
         Tag::setTitle('Webhook');
@@ -34,13 +36,14 @@ class WebhookController extends BaseController
     /**
      * @return void
      */
-    public function indexAction() : void
+    public function indexAction(): void
     {
-      echo "Webhook";
+        echo "Webhook";
     }
 
-    public function SQSAction() {
-      // Hit by SQS and then updates DB.
+    public function SQSAction()
+    {
+        // Hit by SQS and then updates DB.
         echo "SQS";
     }
 

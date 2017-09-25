@@ -5,9 +5,6 @@
  * $di is available here from public/index.php
  */
 
-// URL utility in the components
-
-
 /**
  * Converts an Object to Array - Needed at times due to Phalcons specialized classes
  *
@@ -15,7 +12,7 @@
  *
  * @return array
  */
-function objectToArray($object) : array
+function objectToArray($object): array
 {
     return json_decode(json_encode($object), true);
 }
@@ -44,12 +41,12 @@ function formatName($name)
  */
 function formData($name)
 {
-    if ( !isset($_SESSION)) {
+    if ( ! isset($_SESSION)) {
         return false;
     }
 
-    if (isset($_SESSION['formData']) && isset($_SESSION['formData'][ $name ])) {
-        return $_SESSION['formData'][ $name ];
+    if (isset($_SESSION[ 'formData' ]) && isset($_SESSION[ 'formData' ][ $name ])) {
+        return $_SESSION[ 'formData' ][ $name ];
     }
 
     return false;
@@ -60,14 +57,14 @@ function formData($name)
  *
  * @return bool
  */
-function formDataClear() : bool
+function formDataClear(): bool
 {
-    if ( !isset($_SESSION)) {
+    if ( ! isset($_SESSION)) {
         return false;
     }
 
-    if (isset($_SESSION['formData'])) {
-        unset($_SESSION['formData']);
+    if (isset($_SESSION[ 'formData' ])) {
+        unset($_SESSION[ 'formData' ]);
 
         return true;
     }
@@ -80,7 +77,7 @@ function formDataClear() : bool
  *
  * @return string
  */
-function getDateTime() : string
+function getDateTime(): string
 {
     return date('Y-m-d H:i:s');
 }
@@ -91,10 +88,10 @@ function getDateTime() : string
  *
  * @return string
  */
-function getTimeElapsed($datetime, $full = false) : string
+function getTimeElapsed($datetime, $full = false): string
 {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
+    $now  = new DateTime;
+    $ago  = new DateTime($datetime);
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);
@@ -117,7 +114,7 @@ function getTimeElapsed($datetime, $full = false) : string
         }
     }
 
-    if ( !$full) {
+    if ( ! $full) {
         $string = array_slice($string, 0, 1);
     }
 

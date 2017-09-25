@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
@@ -24,7 +25,7 @@ class NewsletterResult extends BaseModel
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         /** DB Table Name */
         $this->setSource('newsletter_results');

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phalcon\Validation;
@@ -56,13 +57,13 @@ class BaseModel extends \Phalcon\Mvc\Model
 
     public function onConstruct()
     {
-        $this->di = \Phalcon\DI\FactoryDefault::getDefault();
-        $this->session = $this->di->get('session');
+        $this->di       = \Phalcon\DI\FactoryDefault::getDefault();
+        $this->session  = $this->di->get('session');
         $this->security = $this->di->get('security');
 
         // Make accessible to all models
         $this->config = $this->di->get('config');
-        $this->api = $this->di->get('api');
+        $this->api    = $this->di->get('api');
     }
 
     // ------------------------------------------------------------------------------
@@ -74,7 +75,7 @@ class BaseModel extends \Phalcon\Mvc\Model
      */
     public function getMessagesList()
     {
-        if (!$this->getMessages()) {
+        if ( ! $this->getMessages()) {
             return false;
         }
 
@@ -111,10 +112,10 @@ class BaseModel extends \Phalcon\Mvc\Model
         $offset = 0;
         if ($timezone && $timezone != 'utc') {
             $userDateTime = new DateTime($use, new \DateTimeZone($timezone));
-            $offset = $userDateTime->getOffset();
+            $offset       = $userDateTime->getOffset();
         }
 
-        $userTime = (int)($time + $offset);
+        $userTime = (int) ($time + $offset);
 
         return date('F jS, Y h:ia', $userTime);
     }
@@ -123,7 +124,7 @@ class BaseModel extends \Phalcon\Mvc\Model
 
     public function dateMDY($field = false)
     {
-        if (!$field || !property_exists($this, $field)) {
+        if ( ! $field || ! property_exists($this, $field)) {
             return false;
         }
 
@@ -168,15 +169,15 @@ class BaseModel extends \Phalcon\Mvc\Model
      */
     protected function out(int $result, string $msg = '', $data = null): stdClass
     {
-        $output = new \stdClass();
+        $output       = new \stdClass();
         $output->data = $data;
 
         if ($result) {
             $output->result = 1;
-            $output->msg = $msg;
+            $output->msg    = $msg;
         } else {
             $output->result = 0;
-            $output->msg = $msg;
+            $output->msg    = $msg;
         }
 
         return $output;

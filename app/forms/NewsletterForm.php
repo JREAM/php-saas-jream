@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -10,7 +11,7 @@ use Phalcon\Validation\Validator;
 class NewsletterForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         $email = new Text('email', [
             'placeholder' => 'Email',

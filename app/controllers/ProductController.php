@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
@@ -14,10 +15,10 @@ class ProductController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Products | ' . $this->di['config']['title']);
+        Tag::setTitle('Products | ' . $this->di[ 'config' ][ 'title' ]);
         // Stripe key already set in services.php
 
         // Paypal Express
@@ -29,13 +30,14 @@ class ProductController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
 
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
         $this->view->setVars([
             'products' => $products,
         ]);
+
         return $this->view->pick('product/index');
     }
 
@@ -55,21 +57,22 @@ class ProductController extends BaseController
         $params = array_map('strtolower', $this->router->getParams());
         if (in_array('preview', $params, true)) {
             $course_id = (int) end($params);
+
             return $this->coursePreview($slug, $course_id);
         }
 
         $product = \Product::findFirstBySlug($slug);
-        Tag::setTitle($product->title . ' | ' . $this->di['config']['title']);
+        Tag::setTitle($product->title . ' | ' . $this->di[ 'config' ][ 'title' ]);
 
-        if ( !$product) {
+        if ( ! $product) {
             return $this->redirect('product');
         }
 
-        $discount = null;
+        $discount       = null;
         $discount_price = null;
         $promotion_code = $this->request->get('promotion_code');
         if ($promotion_code) {
-            $promotion = new \Promotion();
+            $promotion   = new \Promotion();
             $percent_off = $promotion->check($promotion_code, $product->id);
             if ($percent_off->code !== 0) {
                 // Keep the promo on the users incase they refresh the page
@@ -77,10 +80,7 @@ class ProductController extends BaseController
 
                 // this sets the price discount
                 // Security
-                $this->session->set('session_hash', $this->security->hash(
-                    $this->config->session_hash,
-                    $this->session->getId()
-                ));
+                $this->session->set('session_hash', $this->security->hash($this->config->session_hash, $this->session->getId()));
 
                 // Price
                 $discount_price = $product->price * ($percent_off * .1);
@@ -144,26 +144,23 @@ class ProductController extends BaseController
     public function coursePreview(string $productSlug, int $courseId)
     {
         $rtmpSignedUrl = null;
-        $error = null;
+        $error         = null;
 
-        $product = \Product::findFirstBySlug($productSlug);
+        $product       = \Product::findFirstBySlug($productSlug);
         $productCourse = \ProductCourse::findFirstById($courseId);
-        if ( !$product || !$productCourse) {
+        if ( ! $product || ! $productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
             return $this->redirect('product');
         }
 
         if ($productCourse->free_preview == 1) {
-            $rtmpSignedUrl = \ProductCourse::generateStreamUrl(
-                $productCourse->getProduct()->path,
-                $productCourse->name
-            );
+            $rtmpSignedUrl = \ProductCourse::generateStreamUrl($productCourse->getProduct()->path, $productCourse->name);
         } else {
             $error = 'There is no preview for this course, please purchase at the product area.';
         }
 
-        Tag::setTitle(formatName($productCourse->name) . ' | Product Preview | ' . $this->di['config']['title']);
+        Tag::setTitle(formatName($productCourse->name) . ' | Product Preview | ' . $this->di[ 'config' ][ 'title' ]);
 
         $this->view->setVars([
             'rtmpSignedUrl' => $rtmpSignedUrl,

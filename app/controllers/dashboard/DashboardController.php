@@ -13,10 +13,10 @@ class DashboardController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Dashboard | ' . $this->di['config']['title']);
+        Tag::setTitle('Dashboard | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -24,18 +24,18 @@ class DashboardController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $userPurchases = \UserPurchase::findByUserId($this->session->get('id'));
 
         $productStatus = [];
-        $purchaseIds = [];
+        $purchaseIds   = [];
 
-        foreach ( (object) $userPurchases as $purchase) {
+        foreach ((object) $userPurchases as $purchase) {
             $purchaseIds[] = $purchase->product_id;
-            $product = \Product::findFirstById($purchase->product_id);
+            $product       = \Product::findFirstById($purchase->product_id);
 
-            $productStatus[$purchase->product_id] = $product->getProductPercent();
+            $productStatus[ $purchase->product_id ] = $product->getProductPercent();
         }
         $purchaseIds = implode(',', $purchaseIds);
 

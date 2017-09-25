@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
@@ -20,10 +21,10 @@ class CheckoutController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Checkout | ' . $this->di['config']['title']);
+        Tag::setTitle('Checkout | ' . $this->di[ 'config' ][ 'title' ]);
 
         // Stripe
         \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET'));
@@ -37,7 +38,7 @@ class CheckoutController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $products = \Product::find(['is_deleted = 0 ORDER BY status DESC']);
 

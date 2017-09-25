@@ -5,8 +5,6 @@ use Aws\Exception\AwsException;
 
 class CronTask extends Task
 {
-    // ------------------------------------------------------------------------------
-
     /**
      * @var object AWS SQS Client
      */
@@ -18,7 +16,7 @@ class CronTask extends Task
     protected $sqsEndpoints = [
         'bounce'    => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-bounce-queue",
         'complaint' => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-complaint-queue",
-        'delivery'  => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-delivery-queue"
+        'delivery'  => "https://sqs.us-east-1.amazonaws.com/950584027081/ses-delivery-queue",
     ];
 
     // -----------------------------------------------------------------------------
@@ -54,8 +52,8 @@ class CronTask extends Task
             'region'      => getenv('AWS_SQS_REGION'),
             'credentials' => [
                 'key'    => getenv('AWS_SQS_ACCESS_KEY'),
-                'secret' => getenv('AWS_SQS_ACCESS_SECRET_KEY')
-            ]
+                'secret' => getenv('AWS_SQS_ACCESS_SECRET_KEY'),
+            ],
         ]);
 
         foreach ($this->sqsEndpoints as $endpointName => $endpointUrl) {
@@ -69,16 +67,16 @@ class CronTask extends Task
     /**
      * Handles the SQS Results
      *
-     * @param string  $endpoint  An AWS Endpoint
+     * @param string $endpoint An AWS Endpoint
      */
     protected function processSqs($endpoint)
     {
         try {
             $result = $this->client->receiveMessage([
-                'QueueUrl' => $endpoint, // Required
-                'MaxNumberOfMessages' => 500,
+                'QueueUrl'              => $endpoint, // Required
+                'MaxNumberOfMessages'   => 500,
                 'MessageAttributeNames' => ['All'],
-                'WaitTimeSeconds' => 0
+                'WaitTimeSeconds'       => 0,
             ]);
 
             if (count($result) > 0) {
@@ -86,8 +84,8 @@ class CronTask extends Task
                 foreach ($messages as $mkey => $mvalue) {
                     var_dump($mvalue);
                     $this->client->deleteMessage([
-                        'QueueUrl' => $endpoint,
-                        'ReceiptHandle' => $result->get('Messages')[$mkey]['ReceiptHandle'] // Required
+                        'QueueUrl'      => $endpoint,
+                        'ReceiptHandle' => $result->get('Messages')[ $mkey ][ 'ReceiptHandle' ] // Required
                     ]);
                 }
             }

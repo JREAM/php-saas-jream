@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
@@ -50,7 +51,7 @@ class Promotion extends BaseModel
      */
     public function check(string $code, $productId)
     {
-        if (!is_array($productId)) {
+        if ( ! is_array($productId)) {
             $productId = [$productId];
         }
 
@@ -65,16 +66,16 @@ class Promotion extends BaseModel
             "bind" => [
                 "code"       => $code,
                 "product_id" => $productId,
-                'datetime'   => getDateTime()
+                'datetime'   => getDateTime(),
             ],
         ]);
 
-        if (!$result) {
+        if ( ! $result) {
             return (object) [
-                'code' => 0,
-                'data' => null,
+                'code'    => 0,
+                'data'    => null,
                 'success' => '',
-                'error' => 'Invalid Promotion Code.'
+                'error'   => 'Invalid Promotion Code.',
             ];
         }
 
@@ -83,41 +84,42 @@ class Promotion extends BaseModel
         // point, or shouldn't -- but I'll double protect anyways.
         if ($result->user_id && $this->session->get('id') != $result->user_id) {
             return (object) [
-                'code' => 0,
-                'data' => null,
+                'code'    => 0,
+                'data'    => null,
                 'success' => '',
-                'error' => 'This promotion is for an individual only, it does not appear to be you. If so, ensure you are logged in!'
+                'error'   => 'This promotion is for an individual only, it does not appear to be you. If so, ensure you are logged in!',
             ];
         }
 
         // If ProductID is set, ensure they are applying correctly
         if ($result->product_id && $productId != $result->product_id) {
             $other_product = \Product::getById($result->product_id);
+
             return (object) [
-                'code' => 0,
-                'data' => null,
+                'code'    => 0,
+                'data'    => null,
                 'success' => '',
-                'error' => sprintf('This promotion is only for: %s', $other_product->title)
+                'error'   => sprintf('This promotion is only for: %s', $other_product->title),
             ];
         }
 
         // Make sure to check this DURING the checkout
         if ($result->expires_at > getDateTime()) {
             return (object) [
-                'code' => 0,
-                'data' => null,
+                'code'    => 0,
+                'data'    => null,
                 'success' => '',
-                'error' => sprintf('Sorry, this promotion expired on: %s', $result->expires_at)
+                'error'   => sprintf('Sorry, this promotion expired on: %s', $result->expires_at),
             ];
         }
 
         // Make sure to check this DURING the checkout
         if ($result->deleted_at) {
             return (object) [
-                'code' => 0,
-                'data' => null,
+                'code'    => 0,
+                'data'    => null,
                 'success' => '',
-                'error' => sprintf('Sorry, this promotion was deleted on: %s ', $result->deleted_at)
+                'error'   => sprintf('Sorry, this promotion was deleted on: %s ', $result->deleted_at),
             ];
         }
 
@@ -125,50 +127,41 @@ class Promotion extends BaseModel
         if ($result->percent_off) {
             if ($result->percent_off <= 0 && $percent_off >= 100) {
                 return (object) [
-                    'code' => 0,
-                    'data' => null,
+                    'code'    => 0,
+                    'data'    => null,
                     'success' => '',
-                    'error' => 'The data is invalid, percent_off must be > 0 and < 100'
+                    'error'   => 'The data is invalid, percent_off must be > 0 and < 100',
                 ];
             }
-            $method = 'percent_off';
-            $success = sprintf(
-                "Price marked down from %s to %s at %s percent off using promotional code %s.",
-                $product->price,
-                number_format($product->price - ($product->price * $result->percent_off), 2),
-                $result->percent_off,
-                $result->code
-            );
+            $method            = 'percent_off';
+            $success           = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.", $product->price, number_format($product->price -
+                                                                                                                                                        ($product->price *
+                                                                                                                                                         $result->percent_off), 2), $result->percent_off, $result->code);
             $promotional_price = number_format($product->price - ($product->price * $result->percent_off), 2);
-        } elseif ($result->price) {
+        } else if ($result->price) {
             if ($result->price >= $product->price) {
                 return (object) [
-                    'code' => 0,
-                    'data' => null,
+                    'code'    => 0,
+                    'data'    => null,
                     'success' => '',
-                    'error' => 'The data is invalid, price must be < product price.'
+                    'error'   => 'The data is invalid, price must be < product price.',
                 ];
             }
 
-            $method = 'price';
-            $success = sprintf(
-                "Price marked down from %s to %s using promotional code %s.",
-                number_format($product->price, 2),
-                number_format($result['price'], 2),
-                $result->code
-            );
+            $method  = 'price';
+            $success = sprintf("Price marked down from %s to %s using promotional code %s.", number_format($product->price, 2), number_format($result[ 'price' ], 2), $result->code);
 
             $promotional_price = $result->price;
         }
 
         return (object) [
-            'code' => 1,
-            'data' => (object) [
-                'method' => $method,
-                'promotional_price' => $promotional_price
+            'code'    => 1,
+            'data'    => (object) [
+                'method'            => $method,
+                'promotional_price' => $promotional_price,
             ],
             'success' => $success,
-            'error' => ''
+            'error'   => '',
         ];
     }
 

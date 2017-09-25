@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -10,7 +11,7 @@ use Phalcon\Validation\Validator;
 class ChangeEmailForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         $email = new Text('email', [
             'placeholder' => 'New Email',
@@ -41,8 +42,8 @@ class ChangeEmailForm extends BaseForm
             ]),
             new Validator\Identical([
                 'accepted' => $this->getUserOption('email'),
-                'message' => 'Your confirmation email address must match.'
-            ])
+                'message'  => 'Your confirmation email address must match.',
+            ]),
         ]);
 
         $this->add($email);

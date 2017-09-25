@@ -1,10 +1,10 @@
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="OwyLkMsH9jv5qjWXoHjuS21Vhrcuz1qy1GstT02l8Sg">
     <meta name="csrf" id="csrf" data-key="{% if jsGlobal['csrf']['tokenKey'] is defined %}{{ jsGloba['csrf']['tokenKey'] }}{% endif %}" data-token="{% if jsGlobal['csrf']['token'] is defined %}{{ jsGlobal['csrf']['token'] }}{% endif %}" content="">
     {{ get_title() }}
 
+    <!-- Favorite Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url('images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('images/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('images/favicon/favicon-16x16.png') }}">
@@ -22,6 +22,7 @@
     <script src="{{ url('vendor/modernizr-custom.js') }} "></script>
     <script src="{{ url('vendor/jquery.min.js') }} "></script>
 
+    <!-- JS Apply to System App -->
     <script>
         {# Passed into the main JS files #}
         window.user_id = '{{ jsGlobal['user_id'] }}';

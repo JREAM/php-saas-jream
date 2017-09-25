@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
+
 use Phalcon\Mvc\View;
 use Phalcon\Http\Response;
 
@@ -16,7 +18,7 @@ class PromotionController extends BaseController
     public function onConstruct()
     {
         parent::initialize();
-        Tag::setTitle('Promotions | ' . $this->di['config']['title']);
+        Tag::setTitle('Promotions | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -24,7 +26,7 @@ class PromotionController extends BaseController
     /**
      * @return void
      */
-    public function indexAction() : void
+    public function indexAction(): void
     {
         // Is a Promotion Enabled?
         $has_promotion = true;
@@ -34,7 +36,7 @@ class PromotionController extends BaseController
             AND user_id IS NULL
             AND NOW() < expires_at
             AND use_count <= use_limit
-            ORDER BY expires_at ASC'
+            ORDER BY expires_at ASC',
         ]);
 
         // echo $promotions->count() ;
@@ -69,7 +71,7 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/promotion');
     }
 
-    public function selectItemAction() : void
+    public function selectItemAction(): void
     {
         $this->view->disable();
 

@@ -23,10 +23,10 @@ class SupportController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Support | ' . $this->di['config']['title']);
+        Tag::setTitle('Support | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -34,14 +34,14 @@ class SupportController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $this->view->setVars([
             // Make sure the type is a forced
-            'types'    => $this->_types,
+            'types' => $this->_types,
         ]);
 
-       return  $this->view->pick("dashboard/support");
+        return $this->view->pick("dashboard/support");
     }
 
 }

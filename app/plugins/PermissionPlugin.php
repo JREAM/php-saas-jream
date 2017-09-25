@@ -16,21 +16,19 @@ use Phalcon\Mvc\User\Plugin;
 class PermissionPlugin extends Plugin
 {
 
-    // ----------------------------------------------------------------------------
-
     /**
      * @param const String to check for ACL a user having a role set
-    */
-    const ACL_SESSION_ID  = 'role';
+     */
+    const ACL_SESSION_ID = 'role';
 
     /**
      * @param const Non Ajax Calls are redirected to the Login
-    */
+     */
     const REDIRECT_DENIED = '/user/login';
 
     /**
      * @param const User Roles  These come from the Database (users)
-    */
+     */
     const GUEST = 'guest';
     const USER  = 'user';
     const ADMIN = 'admin';
@@ -93,7 +91,7 @@ class PermissionPlugin extends Plugin
 
     public function initialize()
     {
-        $config = $this->di->get('config');
+        $config            = $this->di->get('config');
         $this->saveAclFile = $config->get('securityDir') . 'acl.data';
     }
 
@@ -107,7 +105,7 @@ class PermissionPlugin extends Plugin
      *
      * @return null|string
      */
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher) : ?string
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher): ?string
     {
 
 //        echo '<pre>';
@@ -118,7 +116,7 @@ class PermissionPlugin extends Plugin
 
         // Get the current role, If none is set they are a Guest.
         $currentRole = $this->session->get(self::ACL_SESSION_ID);
-        if (!$currentRole) {
+        if ( ! $currentRole) {
             $currentRole = self::GUEST;
         }
 
@@ -135,8 +133,7 @@ class PermissionPlugin extends Plugin
 
         // See if they have permission
         // @important Notice we are checking the namespace!
-        if ($acl->isAllowed($currentRole, "$namespace:$controller", $action) != Acl::ALLOW)
-        {
+        if ($acl->isAllowed($currentRole, "$namespace:$controller", $action) != Acl::ALLOW) {
 
             if ($this->request->isAjax()) {
                 return (new \Library\Output(0, 'Permission Denied for this area (ACL)'))->send();
@@ -156,7 +153,7 @@ class PermissionPlugin extends Plugin
      *
      * @return \Phalcon\Acl\Adapter\Memory  Persistent Session Data
      */
-    protected function _getACL() : \Phalcon\Acl\Adapter\Memory
+    protected function _getACL(): \Phalcon\Acl\Adapter\Memory
     {
         if (isset($this->persistent->acl)) {
             return $this->persistent->acl;
@@ -182,35 +179,35 @@ class PermissionPlugin extends Plugin
         // $this->setPermissionsFromDirectory('dashboard', 'userResources');
 
         // Place all the roles inside the ACL Object
-        foreach ( (array) $roles as $role) {
+        foreach ((array) $roles as $role) {
             $acl->addRole($role);
         }
 
         // Public Resources
-        foreach ( (array) $this->publicResources as $resource => $action) {
+        foreach ((array) $this->publicResources as $resource => $action) {
             $acl->addResource(new Resource($resource), $action);
         }
 
         // User Resources
-        foreach ( (array) $this->userResources as $resource => $action) {
+        foreach ((array) $this->userResources as $resource => $action) {
             $acl->addResource(new Resource($resource), $action);
         }
 
         // Admin Resources
-        foreach ( (array) $this->adminResources as $resource => $action) {
+        foreach ((array) $this->adminResources as $resource => $action) {
             $acl->addResource(new Resource($resource), $action);
         }
 
         // Allow ALL Roles to access the Public Resources
         foreach ($roles as $role) {
-            foreach ( (array) $this->publicResources as $resource => $action) {
+            foreach ((array) $this->publicResources as $resource => $action) {
                 $acl->allow($role->getName(), $resource, '*');
             }
         }
 
         // Allow User/Admin/Bot to access the User Resources
         foreach ($this->userResources as $resource => $actions) {
-            foreach ( (array) $actions as $action) {
+            foreach ((array) $actions as $action) {
                 $acl->allow(self::USER, $resource, $action);
                 $acl->allow(self::ADMIN, $resource, $action);
                 $acl->allow(self::BOT, $resource, $action);
@@ -218,7 +215,7 @@ class PermissionPlugin extends Plugin
         }
 
         // Allow Admin to access the Admin Resources
-        foreach ( (array) $this->adminResources as $resource => $actions) {
+        foreach ((array) $this->adminResources as $resource => $actions) {
             foreach ($actions as $action) {
                 $acl->allow(self::ADMIN, $resource, $action);
             }
@@ -236,27 +233,25 @@ class PermissionPlugin extends Plugin
      *
      * @return void
      */
-    protected function setApiControllers() : void
+    protected function setApiControllers(): void
     {
-        $di = \Phalcon\Di::getDefault();
+        $di     = \Phalcon\Di::getDefault();
         $config = $di->get('config');
 
-        $dir = new \DirectoryIterator( $config->controllersDir . 'api/');
+        $dir = new \DirectoryIterator($config->controllersDir . 'api/');
 
         // Iterate the API Controllers
-        foreach ($dir as $file)
-        {
-            if ($file->isDot() == false && $file->isFile())
-            {
+        foreach ($dir as $file) {
+            if ($file->isDot() == false && $file->isFile()) {
                 // Filename only without extension, case insensitive replace
                 $info = pathinfo($file->getBasename());
-                $file = strtolower(str_ireplace('controller', '', $info['filename']));
+                $file = strtolower(str_ireplace('controller', '', $info[ 'filename' ]));
 
                 // Turn it into Controllers\Api\Auth => [*]
                 $namespacedController = sprintf('Controllers\Api:%s', $file);
 
                 // Append to Permissions
-                $this->publicResources[$namespacedController] = ['*'];
+                $this->publicResources[ $namespacedController ] = ['*'];
             }
         }
     }
@@ -269,37 +264,33 @@ class PermissionPlugin extends Plugin
      *
      * @return void
      */
-    protected function setPermissionsFromDirectory($namespace, $applyToResource) : void
+    protected function setPermissionsFromDirectory($namespace, $applyToResource): void
     {
         $validResources = ['publicResources', 'userResources', 'adminResources'];
 
-        if (!in_array($applyToResource, $validResources, true)) {
+        if ( ! in_array($applyToResource, $validResources, true)) {
             throw new \InvalidArgumentException("
-                You setPermissionsFrom (\$applyToResource) and they must be one of: " .
-                explode(',', $validResources)
-            );
+                You setPermissionsFrom (\$applyToResource) and they must be one of: " . explode(',', $validResources));
         }
 
-        $di = \Phalcon\Di::getDefault();
+        $di     = \Phalcon\Di::getDefault();
         $config = $di->get('config');
 
-        $dir = new \DirectoryIterator( $config->controllersDir . strtolower($namespace) . '/');
+        $dir = new \DirectoryIterator($config->controllersDir . strtolower($namespace) . '/');
 
         // Iterate the API Controllers
-        foreach ($dir as $file)
-        {
-            if ($file->isDot() === false && $file->isFile())
-            {
+        foreach ($dir as $file) {
+            if ($file->isDot() === false && $file->isFile()) {
                 // Filename only without extension, case insensitive replace
                 $info = pathinfo($file->getBasename());
-                $file = strtolower(str_ireplace('controller', '', $info['filename']));
+                $file = strtolower(str_ireplace('controller', '', $info[ 'filename' ]));
 
                 // Turn it into Controllers\Api\Auth => [*]
                 $namespacedController = sprintf('Controllers\%s:%s', $namespace, $file);
 
                 PC::Debug($namespacedController);
                 // Append to Permissions
-                $this->{$applyToResource}[$namespacedController] = ['*'];
+                $this->{$applyToResource}[ $namespacedController ] = ['*'];
             }
         }
 

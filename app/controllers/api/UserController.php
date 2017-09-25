@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers\Api;
@@ -18,14 +19,14 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function updateTimezoneAction() : Response
+    public function updateTimezoneAction(): Response
     {
         $timezone = $this->request->getPost('timezone');
-        if (!in_array($timezone, \DateTimeZone::listIdentifiers())) {
+        if ( ! in_array($timezone, \DateTimeZone::listIdentifiers())) {
             return $this->output(0, 'Invalid Timezone');
         }
 
-        $user = \User::findFirstById($this->session->get('id'));
+        $user           = \User::findFirstById($this->session->get('id'));
         $user->timezone = $timezone;
         $user->save();
 
@@ -40,13 +41,13 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function updateEmailAction() : Response
+    public function updateEmailAction(): Response
     {
-        $email = $this->request->getPost('email');
+        $email         = $this->request->getPost('email');
         $confirm_email = $this->request->getPost('confirm_email');
 
         $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
-        if (!$form->isValid()) {
+        if ( ! $form->isValid()) {
             return $this->response(0, $form->getMessages());
         }
 
@@ -55,40 +56,39 @@ class UserController extends ApiController
             return $this->output(0, 'This email is in use.');
         }
 
-        $user = \User::findFirstById($this->session->get('id'));
-        $user->email_change = $email;
+        $user                          = \User::findFirstById($this->session->get('id'));
+        $user->email_change            = $email;
         $user->email_change_key        = hash('sha512', $user->email . time());
         $user->email_change_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->save();
 
         $content = $this->component->email->create('confirm-email-change', [
             'user_email_change' => $user->email_change,
-            'change_url' => \Library\Url::get('user/doConfirmEmailChange/' . $user->email_change_key)
+            'change_url'        => \Library\Url::get('user/doConfirmEmailChange/' . $user->email_change_key),
         ]);
 
-        if (!$content) {
+        if ( ! $content) {
             return $this->output(0, 'An internal error occured, we have been notified about it.');
         }
 
         $mail_result = $this->di->get('email', [
             [
-                'to_name' => $user->getAlias($user->id),
-                'to_email' => $user->getEmail($user->id),
-                'from_name' => $this->config->email->from_name,
+                'to_name'    => $user->getAlias($user->id),
+                'to_email'   => $user->getEmail($user->id),
+                'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject' => 'JREAM Confirm Email Change',
-                'content' => $content
-            ]
+                'subject'    => 'JREAM Confirm Email Change',
+                'content'    => $content,
+            ],
         ]);
 
-        if (! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
         return $this->output(1, "Please verify your email change 
             from the email sent to ({$user->email}). You have 10 minutes to verify 
-            until the link expires."
-        );
+            until the link expires.");
     }
 
     // -----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function updateEmailConfirmAction(string $resetKey) : Response
+    public function updateEmailConfirmAction(string $resetKey): Response
     {
         //$form = new \Forms\ChangeEmailForm(null, ['email' => $this->request->getPost('email')]);
         //if (!$form->isValid()) {
@@ -111,13 +111,13 @@ class UserController extends ApiController
             ],
         ]);
 
-        if (!$user) {
+        if ( ! $user) {
             return $this->output(0, 'Invalid key, or time has expired.');
         }
 
-        $user->email = $user->email_change;
-        $user->email_change = null;
-        $user->email_change_key = null;
+        $user->email                   = $user->email_change;
+        $user->email_change            = null;
+        $user->email_change_key        = null;
         $user->email_change_expires_at = null;
         $user->save();
 
@@ -133,11 +133,11 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function updateNotificationsAction() : Response
+    public function updateNotificationsAction(): Response
     {
         $user = \User::findFirstById($this->session->get('id'));
 
-        $user->email_notifications = (int) $this->request->getPost('email_notifications');
+        $user->email_notifications  = (int) $this->request->getPost('email_notifications');
         $user->system_notifications = (int) $this->request->getPost('system_notifications');
         $user->newsletter_subscribe = (int) (bool) $this->request->getPost('newsletter_subscribe');
 
@@ -155,23 +155,23 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function updatePasswordAction() : Response
+    public function updatePasswordAction(): Response
     {
         $current_password = $this->request->getPost('current_password');
-        $password = $this->request->getPost('password');
+        $password         = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
         $form = new \Forms\ChangePasswordForm(null, ['confirm_password' => $confirm_password]);
-        if (!$form->isValid()) {
+        if ( ! $form->isValid()) {
             return $this->output(0, $form->getMessages());
         }
 
         $user = \User::findFirstById($this->session->get('id'));
-        if (!$this->security->checkHash($current_password, $user->password)) {
-            return $this->output(0,'Your current password is incorrect.');
+        if ( ! $this->security->checkHash($current_password, $user->password)) {
+            return $this->output(0, 'Your current password is incorrect.');
         }
 
-        $user = \User::findFirstById($this->session->get('id'));
+        $user           = \User::findFirstById($this->session->get('id'));
         $user->password = $this->security->hash($password);
         // Update Salt
         $user->password_salt = $this->security->hash(random_int(5000, 100000));
@@ -189,9 +189,9 @@ class UserController extends ApiController
     /**
      * @return Response
      */
-    public function deleteAccountAction() : Response
+    public function deleteAccountAction(): Response
     {
-        $confirm = $this->request->getPost('confirm');
+        $confirm    = $this->request->getPost('confirm');
         $understand = $this->request->getPost('understand');
 
         if ($understand != 'on') {
@@ -206,9 +206,9 @@ class UserController extends ApiController
 
         $user->is_deleted = 1;
         $user->deleted_at = date('Y-m-d H:i:s', strtotime('now'));
-        $result = $user->save();
+        $result           = $user->save();
 
-        if (!$result) {
+        if ( ! $result) {
             return $this->output(0, "There was a problem processing your request.");
         }
 

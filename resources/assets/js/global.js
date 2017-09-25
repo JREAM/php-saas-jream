@@ -33,7 +33,7 @@ function toggleLogo() {
 
   $('[data-toggle=tooltip]').tooltip();
   $('[data-toggle=popover]').popover({
-    trigger: 'hover'
+    trigger: 'hover',
   });
 
   // -----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ function toggleLogo() {
       userCollapseText: '(less)',
       expandEffect: 'slideDown',
       collapseEffect: 'slideUp',
-      preserveWords: true
+      preserveWords: true,
     });
   }
 
@@ -61,7 +61,7 @@ function toggleLogo() {
   // Disable Clicking Class
   // -----------------------------------------------------------------------------
 
-  $('.disable-click').click(function () {
+  $('.disable-click').click(function() {
     $(this).addClass('disabled');
     return true;
   });
@@ -70,11 +70,11 @@ function toggleLogo() {
   // Footer Newsletter Subscribe
   // -----------------------------------------------------------------------------
 
-  $("#formFooterNewsletterSubscribe").on("submit", function (evt) {
+  $('#formFooterNewsletterSubscribe').on('submit', function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
-    const postData = $(this).attr("postData");
+    const url = $(this).attr('action');
+    const postData = $(this).attr('postData');
 
     axios.post(url, postData).then(resp => {
       if (resp.result == 0) {
@@ -82,15 +82,14 @@ function toggleLogo() {
       }
 
       swal({
-        title: "Success",
-        text: "Your email has been registered, please verify you email address in your inbox!",
-        type: "success",
+        title: 'Success',
+        text: 'Your email has been registered, please verify you email address in your inbox!',
+        type: 'success',
       });
 
-    })
-      .catch(err => {
-        $(this).notify(err.msg, "error");
-      });
+    }).catch(err => {
+      $(this).notify(err.msg, 'error');
+    });
 
   });
 

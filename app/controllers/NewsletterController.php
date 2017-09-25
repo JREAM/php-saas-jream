@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
@@ -15,10 +16,10 @@ class NewsletterController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Newsletter | ' . $this->di['config']['title']);
+        Tag::setTitle('Newsletter | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -26,10 +27,10 @@ class NewsletterController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $this->view->setVars([
-            'form'     => new \Forms\NewsletterForm(),
+            'form' => new \Forms\NewsletterForm(),
         ]);
 
         return $this->view->pick('newsletter/index');

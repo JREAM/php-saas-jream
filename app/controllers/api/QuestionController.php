@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers\Api;
@@ -21,25 +22,25 @@ class QuestionController extends ApiController
      *
      * @return Response
      */
-    public function createAction(int $productId) : Response
+    public function createAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
 
-        if (!$productId || $product->hasPurchased() == false) {
+        if ( ! $productId || $product->hasPurchased() == false) {
             return $this->output(0, 'You do not have permission to access this area.');
         }
 
-        $title = $this->request->getPost('title');
+        $title   = $this->request->getPost('title');
         $content = $this->request->getPost('content');
 
-        $thread = new \ProductThread();
-        $thread->user_id = $this->session->get('id');
+        $thread             = new \ProductThread();
+        $thread->user_id    = $this->session->get('id');
         $thread->product_id = $productId;
-        $thread->title = $title;
-        $thread->content = $content;
-        $result = $thread->save();
+        $thread->title      = $title;
+        $thread->content    = $content;
+        $result             = $thread->save();
 
-        if (!$result) {
+        if ( ! $result) {
             return $this->output(0, $thread->getMessagesList());
         }
 
@@ -55,7 +56,7 @@ class QuestionController extends ApiController
 
         // Parse any markdown code to HTML
         $parsedown = new \Parsedown();
-        $content = $parsedown->parse($content);
+        $content   = $parsedown->parse($content);
 
         // Send an email
         $mail_result = $this->di->get('email', [
@@ -70,8 +71,8 @@ class QuestionController extends ApiController
         ]);
 
         return $this->output(1, [
-            'msg' => 'Your question has been added',
-            'redirect' => \Library\Url::get(self::REDIRECT_SUCCESS . $productId)
+            'msg'      => 'Your question has been added',
+            'redirect' => \Library\Url::get(self::REDIRECT_SUCCESS . $productId),
         ]);
     }
 
@@ -85,11 +86,11 @@ class QuestionController extends ApiController
      *
      * @return Response
      */
-    public function replyAction(int $productId, int $threadId) : Response
+    public function replyAction(int $productId, int $threadId): Response
     {
         $product = \Product::findFirstById($productId);
 
-        if (!$productId || $product->hasPurchased() == false) {
+        if ( ! $productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
 
             return $this->redirect(self::REDIRECT_FAILURE_PERMISSION);
@@ -97,13 +98,13 @@ class QuestionController extends ApiController
 
         $content = $this->request->getPost('content');
 
-        $thread = new \ProductThreadReply();
-        $thread->user_id = $this->session->get('id');
+        $thread                    = new \ProductThreadReply();
+        $thread->user_id           = $this->session->get('id');
         $thread->product_thread_id = $threadId;
-        $thread->content = $content;
-        $result = $thread->save();
+        $thread->content           = $content;
+        $result                    = $thread->save();
 
-        if (!$result) {
+        if ( ! $result) {
             $this->flash->error($thread->getMessagesList());
 
             return $this->redirect(self::REDIRECT_FAILURE . $productId);

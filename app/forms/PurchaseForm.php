@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -11,7 +12,7 @@ use Phalcon\Validation\Validator;
 class PurchaseForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         $name = new Text('name', [
             'placeholder' => 'Name on Card',

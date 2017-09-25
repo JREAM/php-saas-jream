@@ -1,9 +1,10 @@
-
+<!-- footer -->
 <div id="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
 
+                <!-- social-icons -->
                 <div class="social-icons">
                     <a href="https://plus.google.com/+jream" target="_blank"><i class="fa fa-google-plus fa-lg"></i></a>
                     <a href="https://www.facebook.com/jream" target="_blank"><i class="fa fa-facebook fa-lg"></i></a>
@@ -11,6 +12,7 @@
                     <a href="http://youtube.com/jream" target="_blank"><i class="fa fa-youtube fa-lg"></i></a>
                 </div>
 
+                <!-- newsletter -->
                 <div id="mc_embed_signup">
                     <small>Newsletter</small>
                     <form id="formFooterNewsletterSubscribe" class="form-inline validate" action="{{ url('auth/newsletter/subscribe') }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
@@ -24,6 +26,7 @@
                 </div>
 
             </div>
+            <!-- footer-list -->
             <div class="col-md-4">
                 <ul class="footer-links text-right list-unstyled">
                     <li><a href="{{ url('blog') }}">Blog</a></li>
@@ -48,34 +51,41 @@
         </div>
     </div>
 </div>
+<!-- /footer -->
+
 
 <!-- Dependencies -->
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
-{#<script src="{{ url('vendor/validator.min.js') }} "></script>#}
-{#<script src="{{ url('vendor/moment.min.js') }} "></script>#}
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
 <script src="{{ url('vendor/notify.js') }} "></script>
+
 
 <!-- CDN -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
+
 <!-- App -->
 <script src="{{ url('js/app.js') }}{{ cacheBust }}"></script>
 
-{% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}
-    <script src="//localhost:35729/livereload.js"></script>
-{% else %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-3106599-2', 'auto');
-      ga('send', 'pageview');
-    </script>
-{% endif %}
-
+<!-- To Top of Page -->
 <a href="#top" id="goto-top" class="hide" title="Scroll Back to Top">
     <i class="fa fa-angle-up"></i>
 </a>
+
+
+{% if constant('\APPLICATION_ENV') == constant('\APP_DEVELOPMENT') %}
+    <!-- Live Reload -->
+    <script src="//localhost:35729/livereload.js"></script>
+{% else %}
+    <!-- Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-3106599-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+{% endif %}

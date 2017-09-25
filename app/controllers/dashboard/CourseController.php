@@ -9,7 +9,7 @@ use Controllers\BaseController;
 
 class CourseController extends BaseController
 {
-    const REDIRECT_FAILURE = 'dashboard';
+    const REDIRECT_FAILURE        = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'course/index/';
 
     protected $sectionTitle = 'My Courses';
@@ -19,10 +19,10 @@ class CourseController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle($this->sectionTitle . ' | ' . $this->di['config']['title']);
+        Tag::setTitle($this->sectionTitle . ' | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -34,12 +34,13 @@ class CourseController extends BaseController
      *
      * @return View
      */
-    public function indexAction($productId = false) : View
+    public function indexAction($productId = false): View
     {
         $product = \Product::findFirstById($productId);
 
-        if (!$productId || $product->hasPurchased() == false) {
+        if ( ! $productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
+
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
@@ -69,12 +70,13 @@ class CourseController extends BaseController
      *
      * @return View
      */
-    public function viewAction(int $productId, int $contentId) : View
+    public function viewAction(int $productId, int $contentId): View
     {
         $product = \Product::findFirstById($productId);
 
-        if (!$productId || $product->hasPurchased() == false) {
+        if ( ! $productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
+
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
@@ -82,56 +84,50 @@ class CourseController extends BaseController
         $courses = \ProductCourse::find([
             'product_id = :product_id:',
             'bind'    => [
-                'product_id' => (int)$product->id,
+                'product_id' => (int) $product->id,
             ],
             'orderBy' => 'section, course',
         ]);
 
-        $next = false;
-        $prev = false;
+        $next          = false;
+        $prev          = false;
         $productCourse = false;
 
-        foreach ( (object) $courses as $key => $course) {
+        foreach ((object) $courses as $key => $course) {
             if ($course->id == $contentId) {
                 // The course being viewed
                 $productCourse = $course;
 
                 // For buttons to prev/next courses
                 $next_key = $key + 1;
-                if (isset($courses[$next_key])) {
-                    $next = $courses[$next_key];
+                if (isset($courses[ $next_key ])) {
+                    $next = $courses[ $next_key ];
                 }
 
                 $prev_key = $key - 1;
-                if (isset($courses[$prev_key])) {
-                    $prev = $courses[$prev_key];
+                if (isset($courses[ $prev_key ])) {
+                    $prev = $courses[ $prev_key ];
                 }
 
                 break;
             }
         }
-        if (!$productCourse) {
+        if ( ! $productCourse) {
             $this->flash->error('This content does not exist');
 
             return $this->redirect(self::REDIRECT_FAILURE_COURSE . "$productId");
         }
 
-        $courseName = formatName($productCourse->name);
+        $courseName        = formatName($productCourse->name);
         $courseDescription = $productCourse->description;
-        $productName = $productCourse->getProduct()->title;
-        Tag::setTitle($this->sectionTitle . ' | ' . $courseName . ' > ' . $productName . ' | ' . $this->di['config']['title']);
+        $productName       = $productCourse->getProduct()->title;
+        Tag::setTitle($this->sectionTitle . ' | ' . $courseName . ' > ' . $productName . ' | ' .
+                      $this->di[ 'config' ][ 'title' ]);
 
-        $rtmpSignedUrl = \ProductCourse::generateStreamUrl(
-            $productCourse->getProduct()->path,
-            $productCourse->name
-        );
+        $rtmpSignedUrl = \ProductCourse::generateStreamUrl($productCourse->getProduct()->path, $productCourse->name);
 
-        $userAction = new \UserAction();
-        $userAction = $userAction->getAction(
-            'hasCompleted',
-            $this->session->get('id'),
-            $contentId
-        );
+        $userAction   = new \UserAction();
+        $userAction   = $userAction->getAction('hasCompleted', $this->session->get('id'), $contentId);
         $hasCompleted = ($userAction) ? $userAction->value : 0;
 
         // ----------------------------

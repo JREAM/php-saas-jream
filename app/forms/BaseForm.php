@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -15,7 +16,7 @@ class BaseForm extends \Phalcon\Forms\Form
     /** The ID for the DOM Form */
     protected $_formId;
 
-    public function initialize() : void
+    public function initialize(): void
     {
     }
 

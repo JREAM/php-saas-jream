@@ -12,10 +12,10 @@ class NotificationController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Notifications | ' . $this->di['config']['title']);
+        Tag::setTitle('Notifications | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ class NotificationController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $notifications = \UserNotification::findByUserId($this->session->get('id'));
 

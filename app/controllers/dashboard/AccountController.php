@@ -13,10 +13,10 @@ class AccountController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Account | ' . $this->di['config']['title']);
+        Tag::setTitle('Account | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class AccountController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $this->view->setVars([
             'changeEmailForm'    => new \Forms\ChangeEmailForm(),
@@ -42,10 +42,10 @@ class AccountController extends BaseController
     /**
      * @return View
      */
-    public function deleteAction() : View
+    public function deleteAction(): View
     {
         $this->view->setVars([
-            'user'     => \User::findFirstById($this->session->get('id')),
+            'user' => \User::findFirstById($this->session->get('id')),
         ]);
 
         return $this->view->pick("dashboard/account-delete");

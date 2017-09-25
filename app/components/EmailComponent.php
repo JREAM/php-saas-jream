@@ -18,7 +18,7 @@ class EmailComponent extends Component
      *
      * @return string
      */
-    public function create(string $template, array $replacements = []) : string
+    public function create(string $template, array $replacements = []): string
     {
         // The wrapper Template
         $tpl_base = $this->_getFile('base');
@@ -26,7 +26,7 @@ class EmailComponent extends Component
         // The inner template
         $tpl_inner = $this->_getFile($template);
 
-        if (!$tpl_inner) {
+        if ( ! $tpl_inner) {
             throw new \InvalidArgumentException("Email template not found: $template");
         }
 

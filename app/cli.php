@@ -22,7 +22,7 @@ require_once realpath(dirname(__DIR__)) . '/app/config/env.php';
  * =============================================================
  */
 $config = require APP_PATH . "/config/config.php";
-$api = require $config->get('configDir') . "api.php";
+$api    = require $config->get('configDir') . "api.php";
 
 /**
  * ==============================================================
@@ -70,6 +70,7 @@ $di->setShared('api', function () use ($api) {
 /**
  * ==============================================================
  * Session
+ *
  * @note Hopefully I can clear the injectable
  * =============================================================
  */
@@ -100,7 +101,7 @@ $di->set('db', function () use ($di, $config) {
     $eventsManager = $di->getShared('eventsManager');
     $eventsManager->attach('db', new \Middleware\Database());
 
-    $database = new \Phalcon\Db\Adapter\Pdo\Mysql((array)$config->database);
+    $database = new \Phalcon\Db\Adapter\Pdo\Mysql((array) $config->database);
     $database->setEventsManager($eventsManager);
 
     return $database;
@@ -118,13 +119,11 @@ $arguments = [];
 
 foreach ($argv as $k => $arg) {
     if ($k === 1) {
-        $arguments['task'] = $arg;
-    }
-    elseif ($k === 2) {
-        $arguments['action'] = $arg;
-    }
-    elseif ($k >= 3) {
-        $arguments['params'][] = $arg;
+        $arguments[ 'task' ] = $arg;
+    } else if ($k === 2) {
+        $arguments[ 'action' ] = $arg;
+    } else if ($k >= 3) {
+        $arguments[ 'params' ][] = $arg;
     }
 }
 

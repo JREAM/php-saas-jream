@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -12,7 +13,7 @@ use Phalcon\Validation\Validator;
 class LoginForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         $email = new Text('email', [
             'placeholder' => 'Email',
@@ -38,9 +39,9 @@ class LoginForm extends BaseForm
                 'message' => 'Your password is required.',
             ]),
             new Validator\StringLength([
-                'min' => 5,
-                'minMessage' => 'Your password must be at least 5 characters'
-            ])
+                'min'        => 5,
+                'minMessage' => 'Your password must be at least 5 characters',
+            ]),
         ]);
 
         $this->add($email);

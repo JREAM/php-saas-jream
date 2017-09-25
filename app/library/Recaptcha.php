@@ -16,14 +16,14 @@ class Recaptcha
     /**
      * Pass the Session and Recaptcha String
      *
-     * @param DI $session
-     * @param str    $post
+     * @param DI  $session
+     * @param str $post
      */
     public function __construct($session, str $post)
     {
-        $this->di = $this->get('di');
+        $this->di      = $this->get('di');
         $this->session = $session;
-        $this->post = $post;
+        $this->post    = $post;
         $this->session = $session;
     }
 
@@ -34,22 +34,23 @@ class Recaptcha
      *
      * @return bool
      */
-    public function recaptchaAction() : bool
+    public function recaptchaAction(): bool
     {
         // Success, Already Has it Set
-        if($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
+        if ($this->session->has('recaptcha') && $this->session->get('recaptcha')) {
             return true;
         }
 
-        if(\APPLICATION_ENV === \APP_DEVELOPMENT) {
+        if (\APPLICATION_ENV === \APP_DEVELOPMENT) {
             $this->session->set('recaptcha', 1);
+
             return true;
         }
 
         // Get Recaptcha POST to Google
         $result = $this->verify($this->post);
 
-        if( ! $result) {
+        if ( ! $result) {
             // Set a session so they don't try to work-around it..
             $this->session->set('recaptcha', $result);
 
@@ -67,7 +68,7 @@ class Recaptcha
      *
      * @return boolean
      */
-    protected function verify(str $recaptcha) : bool
+    protected function verify(str $recaptcha): bool
     {
         $client = new Client([
             'base_uri' => 'https://google.com/recaptcha/api/',
@@ -88,7 +89,7 @@ class Recaptcha
         print_r($response->getBody());
         die;
 
-        if ( (int) $response->statusCode === 200 ) {
+        if ((int) $response->statusCode === 200) {
             return true;
         }
 

@@ -7,7 +7,10 @@ namespace Models\Traits;
  */
 trait TimestampTrait
 {
+
     public $dateFormat = 'Y-m-d H:i:s';
+
+    // -----------------------------------------------------------------------------
 
     public function beforeCreate()
     {
@@ -25,7 +28,7 @@ trait TimestampTrait
 
     public function afterDelete()
     {
-        $this->is_deleted = (int)1;
+        $this->is_deleted = (int) 1;
         $this->deleted_at = date($this->dateFormat);
     }
 

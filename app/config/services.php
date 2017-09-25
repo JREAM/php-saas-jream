@@ -7,9 +7,11 @@ use Phalcon\Flash\Session as Flash;
 use Phalcon\Session\Adapter\Files as SessionFiles;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Forms\Manager as FormsManager;
+use Phalcon\Mvc\View;
 use Phalcon\Db\Adapter\Pdo\Mysql as MySQL;
 use Phalcon\Filter;
+use Phalcon\Di;
+use Phalcon\DiInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -119,13 +121,13 @@ $di->setShared('session', function () use ($di) {
  * Session Flash Data
  * =============================================================
  */
-$di->setShared('flash', function ($mode = 'session') {
+$di->setShared('flash', function (string $mode = 'session') {
 
     $mode = strtolower(trim($mode));
     $validModes = ['session', 'direct'];
     if ( !in_array($mode, $validModes, true)) {
         throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
-            explode(',', $validModes));
+            implode(',', $validModes));
     }
 
     // There is a Direct, and a Session
@@ -214,13 +216,12 @@ $di->setShared('component', function () {
  * =============================================================
  */
 $di->setShared('hashids', function () use ($config) {
-    // Passing a unique string makes items unique
-    $hashids = new Hashids\Hashids($config->get('hashids_hash'));
-
-    // Sample Usage:
+    // @sample
     // encode(1); encode(1, 2, 3), encodeHex('507f1f77bcf86cd799439011')
     // decode(value), decode(hex_value)
 
+    // Passing a unique string makes items unique
+    $hashids = new Hashids\Hashids($config->get('hashids_hash'));
     return $hashids;
 });
 
@@ -231,12 +232,13 @@ $di->setShared('hashids', function () use ($config) {
  * =============================================================
  */
 $di->setShared('view', function () use ($config, $di) {
-    $view = new \Phalcon\Mvc\View();
+    $view = new View();
     $view->setViewsDir($config->get('viewsDir'));
     $view->registerEngines([
-        '.volt'  => function ($view, $di) use ($config) {
+        '.volt'  => function (View $view, DiInterface $di) use ($config) {
 
-            $path = APPLICATION_ENV == APP_TEST ? DOCROOT . 'tests/_cache/' : $config->get('cacheDir');
+            // APP_TEST is set from the TEST environment
+            $path = APPLICATION_ENV === APP_TEST ? DOCROOT . 'tests/_cache/' : $config->get('cacheDir');
 
             // ------------------------------------------------
             // Volt Template Engine
@@ -259,7 +261,7 @@ $di->setShared('view', function () use ($config, $di) {
                 });
 
             // Use Cache for live site
-            if (\APPLICATION_ENV == \APP_PRODUCTION) {
+            if (\APPLICATION_ENV === \APP_PRODUCTION) {
                 $voltOptions['compileAlways'] = false;
             }
 
@@ -273,8 +275,6 @@ $di->setShared('view', function () use ($config, $di) {
 
     // Used for global variables (See: middleware/afterExecuteRoute)
     $view->setVar('version', \Phalcon\Version::get());
-
-    // @TODO: If i wanted i could pass routes in here for JS, anything to JS here?
 
     return $view;
 });
@@ -311,7 +311,7 @@ $redis->select(10);  // Use Database 10
  */
 $di->setShared('filter', function () {
     $filter = new Filter();
-    $filter->add('slug', function ($value) {
+    $filter->add('slug', function (string $value) {
         return new Phalcon\Utils\Slug($value);
     });
 
@@ -325,7 +325,6 @@ $di->setShared('filter', function () {
  */
 $di->set('modelsManager', function () {
     \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
-
     return new \Phalcon\Mvc\Model\Manager();
 });
 
@@ -469,7 +468,7 @@ $di->set('fakerData', function () {
  * Email Transport to send Mail
  * =============================================================
  */
-$di->setShared('email', function (array $data) use ($di, $api) {
+$di->setShared('email', function (array $data) use ($di) {
 
     // For Debugging
     if (\APPLICATION_ENV !== \APP_PRODUCTION && getenv('DEBUG_EMAIL')) {
@@ -480,7 +479,7 @@ $di->setShared('email', function (array $data) use ($di, $api) {
         $message = (new Swift_Message($data['subject']))
             ->setFrom([$data['from_email'] => $data['from_name']])
             ->setTo([$data['to_email'] => $data['to_name']])
-            ->setBody($content);
+            ->setBody($data['content']);
 
         return $mailer->send($message);
     }
@@ -526,15 +525,6 @@ $di->setShared('hybridAuth', function() use ($api) {
     }
 
     return new \Hybridauth\Hybridauth(objectToArray($api->social_auth));
-
-    // Example:
-    //try {
-    //    $adapter = $hybridauth->authenticate('Twitter');
-    //    $isConnected = $adapter->isConnected();
-    //    $userProfile = $adapter->getUserProfile();
-    //    var_dump($userProfile);
-    //    $adapter->disconnect();
-    //} catch(\Exception $e) { ...}
 });
 
 
@@ -554,7 +544,7 @@ $di->setShared('hybridAuth', function() use ($api) {
 $di->setShared('paypal', function () {
     // Paypal Express
     // @source  https://omnipay.thephpleague.com/gateways/configuring/
-    $paypal = \Omnipay\Omnipay::create('PayPal_Express');
+    $paypal = Omnipay\Omnipay::create('PayPal_Express');
     $paypal->setUsername(getenv('PAYPAL_USERNAME'));
     $paypal->setPassword(getenv('PAYPAL_PASSWORD'));
     $paypal->setSignature(getenv('PAYPAL_SIGNATURE'));
@@ -594,6 +584,9 @@ if (APPLICATION_ENV !== APP_PRODUCTION) {
     PhpConsole\Helper::register();
 }
 
-
-// Set this so that it can be retrieved anywhere!
-\Phalcon\Di::setDefault($di);
+/**
+ * ==============================================================
+ *  Set this so that it can be retrieved anywhere!
+ * ==============================================================
+ */
+Di::setDefault($di);

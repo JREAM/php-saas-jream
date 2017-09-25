@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
+
 use Phalcon\Mvc\View;
 use Phalcon\Http\Response;
 
@@ -13,7 +15,7 @@ class TestController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
         Tag::setTitle('Test');
@@ -24,7 +26,7 @@ class TestController extends BaseController
     /**
      * @return void
      */
-    public function indexAction() : void
+    public function indexAction(): void
     {
         $hashids = $this->di->get('hashids');
         echo $hashids->encodeHex(2);

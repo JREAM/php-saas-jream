@@ -29,7 +29,7 @@ $.notify.defaults({
   showDuration: 200,
   hideAnimation: 'slideUp',
   hideDuration: 200,
-  gap: 1
+  gap: 1,
 });
 
 // -----------------------------------------------------------------------------

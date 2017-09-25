@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Forms;
@@ -11,16 +12,16 @@ use Phalcon\Validation\Validator;
 class RegisterForm extends BaseForm
 {
 
-    public function initialize() : void
+    public function initialize(): void
     {
         // Faker Data is used to save time going through areas manually
-        $di = \Phalcon\Di\FactoryDefault::getDefault();
+        $di        = \Phalcon\Di\FactoryDefault::getDefault();
         $fakerData = $di->get('fakerData');
 
         $alias = new Text('alias', [
             'placeholder' => 'Alias',
             'class'       => 'form-control input-lg',
-            'value'       =>  $fakerData->alias
+            'value'       => $fakerData->alias,
         ]);
 
         $alias->addValidators([
@@ -31,15 +32,15 @@ class RegisterForm extends BaseForm
                 "messageMaximum" => "Your alias must be less than or equal to 18 characters.",
             ]),
             new Validator\Alpha([
-                'message' => 'Your name must be alphabetical only'
-            ])
+                'message' => 'Your name must be alphabetical only',
+            ]),
         ]);
 
 
         $email = new Text('email', [
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
-            'value'       =>  $fakerData->email
+            'value'       => $fakerData->email,
         ]);
 
         $email->addValidators([
@@ -56,7 +57,7 @@ class RegisterForm extends BaseForm
         $password = new Password('password', [
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',
-            'value'       =>  $fakerPassword
+            'value'       => $fakerPassword,
         ]);
 
         $password->addValidators([
@@ -74,7 +75,7 @@ class RegisterForm extends BaseForm
         $confirmPassword = new Password('confirm_password', [
             'placeholder' => 'Confirm Password',
             'class'       => 'form-control input-lg',
-            'value'       =>  &$fakerPassword
+            'value'       => &$fakerPassword,
         ]);
 
         $confirmPassword->addValidators([
@@ -83,8 +84,8 @@ class RegisterForm extends BaseForm
             ]),
             new Validator\Identical([
                 'accepted' => $this->getUserOption('confirm_password'),
-                'message' => 'Your passwords must match.'
-            ])
+                'message'  => 'Your passwords must match.',
+            ]),
         ]);
 
         $this->add($alias);

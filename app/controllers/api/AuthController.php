@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace Controllers\Api;
 
@@ -23,31 +23,30 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function loginAction()
-    : Response
+    public function loginAction(): Response
     {
         // POST Data
         $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         // Cannot have Empty Fields
-        if ( ! $email || ! $password ) {
+        if ( ! $email || ! $password) {
             return $this->output(0, 'email and password field(s) are required.');
         }
 
         // Find the user based on the email
         $user = User::findFirstByEmail($email);
-        if ( ! $user ) {
+        if ( ! $user) {
             return $this->output(0, 'Incorrect Credentials');
         }
 
-        if ( $user->is_deleted == 1 ) {
+        if ($user->is_deleted == 1) {
             return $this->output(0, 'This user has been permanently removed.');
         }
 
         // Prevent Spam logins
-        if ( $user->login_attempt >= 5 ) {
-            if ( strtotime('now') < strtotime($user->login_attempt_at) + 600 ) {
+        if ($user->login_attempt >= 5) {
+            if (strtotime('now') < strtotime($user->login_attempt_at) + 600) {
                 return $this->output(0, 'Too many login attempts. Timed out for 10 minutes.');
             }
 
@@ -57,9 +56,9 @@ class AuthController extends ApiController
             $user->save();
         }
 
-        if ( $this->security->checkHash($password, $user->password) ) {
+        if ($this->security->checkHash($password, $user->password)) {
             // Check Banned
-            if ( $user->isBanned() ) {
+            if ($user->isBanned()) {
                 return $this->output(0, '
                     Sorry, your account has been locked due to suspicious activity.
                     For support, contact <b>hello@jream.com</b>.
@@ -93,7 +92,7 @@ class AuthController extends ApiController
         try {
             $adapter = $this->hybridauth->authenticate('GitHub');
 
-            if ( $adapter->isConnected() ) {
+            if ($adapter->isConnected()) {
                 $profile = $adapter->getUserProfile();
 
                 // debug here:
@@ -114,6 +113,7 @@ class AuthController extends ApiController
                 //    $email,
                 //);
                 $this->createSession($user, 'github');
+
                 return $response->redirect('dashboard/');
             }
 
@@ -127,7 +127,7 @@ class AuthController extends ApiController
             //$adapter = $this->hybridauth->getAdapter('Facebook');
 
             $adapter->disconnect();
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->view->setVars([
                 'message' => $e->getMessage(),
             ]);
@@ -145,7 +145,7 @@ class AuthController extends ApiController
         try {
             $adapter = $this->hybridauth->authenticate('Google');
 
-            if ( $adapter->isConnected() ) {
+            if ($adapter->isConnected()) {
                 $profile = $adapter->getUserProfile();
 
                 $profile->identifier;
@@ -161,6 +161,7 @@ class AuthController extends ApiController
                 //    $email,
                 //);
                 $this->createSession($user, 'google');
+
                 return $response->redirect('dashboard/');
             }
 
@@ -168,7 +169,7 @@ class AuthController extends ApiController
 
             // @TODO When to use disconnect?
             $adapter->disconnect();
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->view->setVars([
                 'message' => $e->getMessage(),
             ]);
@@ -184,13 +185,12 @@ class AuthController extends ApiController
      *
      * @return string   JSON
      */
-    public function facebookAction()
-    : Response
+    public function facebookAction(): Response
     {
         try {
             $adapter = $this->hybridauth->authenticate('Facebook');
 
-            if ( $adapter->isConnected() ) {
+            if ($adapter->isConnected()) {
                 $profile = $adapter->getUserProfile();
 
                 $profile->identifier;
@@ -207,6 +207,7 @@ class AuthController extends ApiController
                 //);
 
                 $this->createSession($user, 'facebook');
+
                 return $response->redirect('dashboard/');
             }
 
@@ -214,7 +215,7 @@ class AuthController extends ApiController
 
             // @TODO When to use disconnect?
             $adapter->disconnect();
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $this->view->setVars([
                 'message' => $e->getMessage(),
             ]);
@@ -228,8 +229,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function registerAction()
-    : Response
+    public function registerAction(): Response
     {
         // @TODO use the saveUser method
         $alias            = $this->request->getPost('alias');
@@ -239,9 +239,9 @@ class AuthController extends ApiController
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
-        $form = new \Forms\RegisterForm(null, [ 'confirm_password' => $confirm_password ]);
-        if ( ! $form->isValid($_POST) ) {
-            foreach ( $form->getMessages() as $msg ) {
+        $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
+        if ( ! $form->isValid($_POST)) {
+            foreach ($form->getMessages() as $msg) {
                 print_r($msg);
                 echo $msg->getField();
                 echo $msg->getCode();
@@ -253,22 +253,16 @@ class AuthController extends ApiController
             return $this->output(0, null, $form->getMessagesArray());
         }
 
-        if ( \User::findFirstByAlias($alias) ) {
-            return $this->output(0,
-                'Your alias cannot be used.'
-            );
+        if (\User::findFirstByAlias($alias)) {
+            return $this->output(0, 'Your alias cannot be used.');
         }
 
-        if ( \User::findFirstByEmail($email) ) {
-            return $this->output(0,
-                'This email is already in use.'
-            );
+        if (\User::findFirstByEmail($email)) {
+            return $this->output(0, 'This email is already in use.');
         }
 
-        if ( ! Swift_Validate::email($email) ) {
-            return $this->output(0,
-                'Your email is invalid.'
-            );
+        if ( ! Swift_Validate::email($email)) {
+            return $this->output(0, 'Your email is invalid.');
         }
 
         $user               = new \User();
@@ -282,7 +276,7 @@ class AuthController extends ApiController
 
         $result = $user->save();
 
-        if ( ! $result ) {
+        if ( ! $result) {
             return $this->output(0, $user->getMessagesList());
         }
 
@@ -308,7 +302,7 @@ class AuthController extends ApiController
         ]);
 
         // If email error, oh well still success
-        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = '
                 You have successfully registered!
                 However, there was a problem sending
@@ -322,6 +316,7 @@ class AuthController extends ApiController
 
         // Create the User Session
         $this->createSession($user, 'jream');
+
         return $response->redirect('dashboard/');
     }
 
@@ -340,12 +335,12 @@ class AuthController extends ApiController
      *
      * @return mixed
      */
-    protected function saveUser( string $type, int $id, string $alias, string $email, $hashed_password = null )
+    protected function saveUser(string $type, int $id, string $alias, string $email, $hashed_password = null)
     {
-        $type          = strtolower($type);
-        $isNewUser     = false; // This can change below if they exist on another platform
+        $type            = strtolower($type);
+        $isNewUser       = false; // This can change below if they exist on another platform
         $isLinkedAccount = false; // This changes if an existing account has their email saved
-        $accountTypes = [
+        $accountTypes    = [
             'local'  => [
                 'jream',
             ],
@@ -359,12 +354,8 @@ class AuthController extends ApiController
         // Flat Array
         $accepted = array_merge($accountTypes [ 'local' ], $accountTypes [ 'social' ]);
 
-        if ( ! in_array($type, $accepted) ) {
-            throw new \InvalidArgumentException(
-                sprintf('%s: %s',
-                    'The user type is not valid, must be one of',
-                    implode(', ', $accepted)
-                ));
+        if ( ! in_array($type, $accepted)) {
+            throw new \InvalidArgumentException(sprintf('%s: %s', 'The user type is not valid, must be one of', implode(', ', $accepted)));
         }
 
         // If they have an email already, associate this with their account.
@@ -376,16 +367,16 @@ class AuthController extends ApiController
             OR facebook_email = :email 
             ',
         ], [
-            'bind'  => [
+            'bind' => [
                 'email' => $email,
-            ]
+            ],
         ]);
 
         // They cannot get to this point with the same account they are registering.
         // This is to update an existing record
-        if ( $searchUser ) {
+        if ($searchUser) {
             // Existing: Local Account (jream)
-            if ( $searchUser->email ) {
+            if ($searchUser->email) {
                 $user = \User::findFirstByEmail($searchUser->email);
             }
             // Social Accounts
@@ -393,15 +384,13 @@ class AuthController extends ApiController
             // We only need one record.
 
             // Existing: Social Account (github)
-            else if ( $searchUser->github_email ) {
+            else if ($searchUser->github_email) {
                 $user = \User::findFirstByGithubEmail($searchUser->github_email);
-            }
-            // Existing: Social Account (google)
-            else if ( $searchUser->google_email ) {
+            } // Existing: Social Account (google)
+            else if ($searchUser->google_email) {
                 $user = \User::findFirstByGoogleEmail($searchUser->google_email);
-            }
-            // Existing: Social Account (facebook)
-            else if ( $searchUser->facebook_email ) {
+            } // Existing: Social Account (facebook)
+            else if ($searchUser->facebook_email) {
                 $user = \User::findFirstByFacebookEmail($searchUser->facebook_email);
             }
 
@@ -411,15 +400,15 @@ class AuthController extends ApiController
             }
         }
         // If user does not exist in any form, create a new one.
-        if (!$user) {
+        if ( ! $user) {
             $isNewUser = true;
-            $user = new \User();
+            $user      = new \User();
         }
 
         $user->role         = 'user';
         $user->account_type = 'default';
 
-        if ( in_array($type, $accountTypes [ 'social' ], true) ) {
+        if (in_array($type, $accountTypes [ 'social' ], true)) {
             $field_id    = "{$type}_id";
             $field_alias = "{$type}_alias";
             $field_email = "{$type}_email";
@@ -434,7 +423,7 @@ class AuthController extends ApiController
             $user->email = $email;
 
             // This is only for jream accounts
-            $user->password = $hashed_password;
+            $user->password      = $hashed_password;
             $user->password_salt = $this->security->hash(random_int(5000, 100000));
         }
 
@@ -443,7 +432,7 @@ class AuthController extends ApiController
         $user->saveReferrer($user->id, $this->request);
 
         // @TODO this may need to return to the parent function rather than output
-        if ( ! $result ) {
+        if ( ! $result) {
             return $this->output(0, $user->getMessagesList());
         }
 
@@ -463,8 +452,7 @@ class AuthController extends ApiController
             $this->sendWelcomeEmail($user, $type);
         }
 
-        if ($isLinkedAccount)
-        {
+        if ($isLinkedAccount) {
             $this->sendLinkedAccountEmail($user, $type);
         }
 
@@ -478,7 +466,7 @@ class AuthController extends ApiController
     /**
      * Delivers welcome email to first time signups
      *
-     * @param \User $user The User
+     * @param \User  $user        The User
      * @param string $accountType The network: local/jream, facebook, github, google, etc.
      */
     protected function sendWelcomeEmail(\User $user, string $accountType)
@@ -491,14 +479,14 @@ class AuthController extends ApiController
                 'from_email' => $this->config->email->from_address,
                 'subject'    => 'JREAM Registration',
                 'content'    => $this->component->email->create('register', [
-                    'type'   => $accountType
+                    'type' => $accountType,
                 ]),
             ],
         ]);
 
         // If email error, oh well still success
         $message = 'You have successfully registered with a new ' . ucwords($accountType) . ' account!';
-        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
             // but based on $accountType and $email (Because a diff one could be registered)
             $message .= "However, there was a problem sending your welcome email to: {$user->getEmail($user->id)}!";
@@ -512,12 +500,12 @@ class AuthController extends ApiController
     /**
      * Delivers linked account email when logging in with social network to existing account.
      *
-     * @param \User $user The User
+     * @param \User  $user        The User
      * @param string $accountType The network: local/jream, facebook, github, google, etc.
      *
      * @return string
      */
-    protected function sendLinkedAccountEmail(\User $user, string $accountType) : string
+    protected function sendLinkedAccountEmail(\User $user, string $accountType): string
     {
         $mail_result = $this->di->get('email', [
             [
@@ -527,14 +515,14 @@ class AuthController extends ApiController
                 'from_email' => $this->config->email->from_address,
                 'subject'    => 'JREAM Linked Account',
                 'content'    => $this->component->email->create('register_linked', [
-                    'type' => ucwords($accountType)
+                    'type' => ucwords($accountType),
                 ]),
             ],
         ]);
 
         // If email error, oh well still success
         $message = 'You have Successfully Linked your {$accountType} account!';
-        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = "However, there was a problem sending to you email: {$user->getEmail($user->id)}!";
             // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
             // but based on $accountType and $email (Because a diff one could be registered)
@@ -561,13 +549,12 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotAction()
-    : Response
+    public function passwordForgotAction(): Response
     {
         $email = $this->request->getPost('email');
         $user  = User::findFirstByEmail($email);
 
-        if ( ! $user ) {
+        if ( ! $user) {
             return $this->output(0, 'No email associated.');
         }
 
@@ -575,7 +562,7 @@ class AuthController extends ApiController
         $user->password_reset_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->update();
 
-        if ( $user->getMessages() ) {
+        if ($user->getMessages()) {
             return $this->output(0, 'An internal update to the user occurred.');
         }
 
@@ -597,14 +584,13 @@ class AuthController extends ApiController
         ]);
 
         // Email: If the status code is not 200 the mail didn't send.
-        if ( ! in_array($mail_result->statusCode(), [ 200, 201, 202 ]) ) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
         return $this->output(0, 'A reset link has been sent to your email.
             You have 10 minutes to change your
-            password before the link expires.'
-        );
+            password before the link expires.');
     }
 
     // -----------------------------------------------------------------------------
@@ -612,8 +598,7 @@ class AuthController extends ApiController
     /**
      * @return string JSON
      */
-    public function passwordForgotCreateAction()
-    : Response
+    public function passwordForgotCreateAction(): Response
     {
         $confirmEmail = $this->request->getPost('email');
         $resetKey     = $this->request->getPost('reset_key');
@@ -627,14 +612,14 @@ class AuthController extends ApiController
             ],
         ]);
 
-        if ( ! $user ) {
+        if ( ! $user) {
             return $this->output(0, 'Invalid email and key combo, or time has expired.');
         }
 
         $password         = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
 
-        if ( $password != $confirm_password ) {
+        if ($password != $confirm_password) {
             return $this->output(0, 'Your passwords do not match.');
         }
 
@@ -645,7 +630,7 @@ class AuthController extends ApiController
         $user->password_reset_expires_at = null;
         $user->save();
 
-        if ( $user->getMessages() ) {
+        if ($user->getMessages()) {
             return $this->output(0, 'There was an internal error updating.');
         }
 
@@ -657,14 +642,13 @@ class AuthController extends ApiController
     /**
      * Creates a User Session
      *
-     * @param \User $user       User Model
-     * @param string $accountType  The login they signed in with
-     * @param array $additional Additional values to add to session
+     * @param \User  $user        User Model
+     * @param string $accountType The login they signed in with
+     * @param array  $additional  Additional values to add to session
      *
      * @return void
      */
-    protected function createSession( \User $user, $accountType, array $additional = [] )
-    : void
+    protected function createSession(\User $user, $accountType, array $additional = []): void
     {
         // Clear the login attempts
         $user->login_attempt    = null;
@@ -679,14 +663,14 @@ class AuthController extends ApiController
         $this->session->set('auth_type', $accountType);
 
         $use_timezone = 'utc';
-        if ( property_exists($user, 'timezone') ) {
+        if (property_exists($user, 'timezone')) {
             $use_timezone = $user->timezone;
         }
 
         $this->session->set('timezone', $use_timezone);
 
-        if ( is_array($additional) ) {
-            foreach ( $additional as $_key => $_value ) {
+        if (is_array($additional)) {
+            foreach ($additional as $_key => $_value) {
                 $this->session->set($_key, $_value);
             }
         }

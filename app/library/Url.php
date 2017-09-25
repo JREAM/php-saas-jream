@@ -5,35 +5,34 @@ namespace Library;
 class Url
 {
 
-    public  function __construct()
-    {
-        echo 1;
-    }
-
     /**
      * Get the HTTP_HOST (Does not include http(s) info)
      *
      * @return string
      */
-    public static function getHost() : string
+    public static function getHost(): string
     {
         // Prevent Header Injection Possibility
-        return htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES);
+        return htmlspecialchars($_SERVER[ 'HTTP_HOST' ], ENT_QUOTES);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Tells whether HTTP or HTTPS with a global function
      *
      * @return string  returns 'http' or 'https'
      */
-    public static function getHttpMode() : string
+    public static function getHttpMode(): string
     {
-        if ( !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        if ( ! empty($_SERVER[ 'HTTPS' ]) && $_SERVER[ 'HTTPS' ] !== 'off') {
             return 'https';
         }
 
         return 'http';
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Gets the base URL
@@ -42,7 +41,7 @@ class Url
      *
      * @return string URL without trailing slash; http[s]://domain.tld[/append/url]
      */
-    public static function get($append = false) : string
+    public static function get($append = false): string
     {
         // Strip away the http(s):// (If it exists)
         $site_url = preg_replace('/(^https?)+(:\/{2})/i', '', self::getHost());
@@ -59,6 +58,8 @@ class Url
         return filter_var($url, FILTER_SANITIZE_URL);
     }
 
+    // -----------------------------------------------------------------------------
+
     /**
      * Alias for get()
      *
@@ -66,22 +67,25 @@ class Url
      *
      * @return string
      */
-    public static function getAbsolute($append = false) : string
+    public static function getAbsolute($append = false): string
     {
         return self::get($append);
     }
 
+    // -----------------------------------------------------------------------------
 
     /**
      * @return string Current URL without trailing slash
      */
-    public static function getCurrent() : string
+    public static function getCurrent(): string
     {
-        $uri = trim($_SERVER['REQUEST_URI'], '/');
+        $uri = trim($_SERVER[ 'REQUEST_URI' ], '/');
         $url = sprintf("%s/%s", self::get(), $uri);
 
         return filter_var($url, FILTER_SANITIZE_URL);
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Builds a local URI based on the provided items
@@ -92,14 +96,16 @@ class Url
      *
      * @return string
      */
-    public static function makeFrom(string $controller = '', string $action = '', array $params = []) : string
+    public static function makeFrom(string $controller = '', string $action = '', array $params = []): string
     {
         $action = $action ? "/$action" : null;
-        $params = !empty($params) ? implode('/', $params) : null;
-        $url = sprintf('%s%s%s', $controller, $action, $params);
+        $params = ! empty($params) ? implode('/', $params) : null;
+        $url    = sprintf('%s%s%s', $controller, $action, $params);
 
         return (string) $url;
     }
+
+    // -----------------------------------------------------------------------------
 
     /**
      * Generates an Absolute URL using the makeFrom method.
@@ -110,10 +116,12 @@ class Url
      *
      * @return string
      */
-    public static function makeFromAbsolute(string $controller = '', string $action = '', array $params = []) : string
+    public static function makeFromAbsolute(string $controller = '', string $action = '', array $params = []): string
     {
         $uri = self::makeFrom($controller, $action, $params);
+
         return self::get($uri);
 
     }
+
 }

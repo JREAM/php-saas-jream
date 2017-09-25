@@ -5,17 +5,17 @@ use Phalcon\Cli\Task;
 class NewsletterTask extends Task
 {
 
-    // -----------------------------------------------------------------------------
-
     public function mainAction()
     {
         echo 'This can be used to send emails to all users' . PHP_EOL;
     }
 
-    public function send( int $id )
+    // -----------------------------------------------------------------------------
+
+    public function send(int $id)
     {
         $newsletter = \Newsletter::findFirstById($id);
-        if ( ! $newsletter ) {
+        if ( ! $newsletter) {
             die('No result found');
         }
 
@@ -31,13 +31,14 @@ class NewsletterTask extends Task
         $final_email = str_replace($search, $replace, $template);
 
         // Get Users
-        $subscriptions = \NewsletterSubscription::find([ 'is_deleted = 0' ]);
-        foreach ( $subscriptions as $key => $value ) {
+        $subscriptions = \NewsletterSubscription::find(['is_deleted = 0']);
+        foreach ($subscriptions as $key => $value) {
             // Add to redis to queue them up
             //$this->redis->add($value->email);
         }
 
     }
+
     // -----------------------------------------------------------------------------
 
     /**
@@ -45,10 +46,10 @@ class NewsletterTask extends Task
      *
      * @return bool
      */
-    public function snsAction( int $newsletterId )
+    public function snsAction(int $newsletterId)
     {
         $newsletter = \Newsletter::findById($newsletterId);
-        if ( ! $newsletter ) {
+        if ( ! $newsletter) {
             echo 'No Newsletter found with ID: ' . $newsletterId . PHP_EOL;
 
             return false;
@@ -79,7 +80,7 @@ class NewsletterTask extends Task
 //        die;
 
         // Publish to a Topic
-        foreach ( $SNS_ARN as $key => $value ) {
+        foreach ($SNS_ARN as $key => $value) {
             $sns->publish([
                 'TopicArn' => $value,
                 'Message'  => "$key / $i: Hello Test @ " . time(),
@@ -101,7 +102,7 @@ class NewsletterTask extends Task
         // @TODO Exclude from newsletter_unsubscribed, remove the row in users.newsletter_subscribed too
         $users = \User::find("is_deleted = 0 AND is_banned = 0");
 
-        if ( ! $users ) {
+        if ( ! $users) {
             echo 'No users found.' . PHP_EOL;
 
             return false;
@@ -110,7 +111,7 @@ class NewsletterTask extends Task
         // Traversing with a while
         $users->rewind();
 
-        while ( $users->valid() ) {
+        while ($users->valid()) {
             $user  = $users->current();
             $email = $user->getEmail();
 
@@ -123,7 +124,7 @@ class NewsletterTask extends Task
             ]);
 
             // Add to Newsletter
-            if ( ! $newsletterSubscriber ) {
+            if ( ! $newsletterSubscriber) {
                 printf("Inserting %s into newsletter_subscription.\n", $user->getEmail());
                 $newsletterSubscriber                = new \NewsletterSubscription();
                 $newsletterSubscriber->is_subscribed = 1;
@@ -153,23 +154,17 @@ class NewsletterTask extends Task
 
         //
         // Create the Transport
-        $transport = Swift_SmtpTransport::newInstance(
-            getenv('AWS_SES_HOST'),
-            getenv('AWS_SES_PORT'),
-            'tls'
-        )
-            ->setUsername(getenv('AWS_SES_USERNAME'))
-            ->setPassword(getenv('AWS_SES_PASSWORD'));
+        $transport = Swift_SmtpTransport::newInstance(getenv('AWS_SES_HOST'), getenv('AWS_SES_PORT'), 'tls')->setUsername(getenv('AWS_SES_USERNAME'))->setPassword(getenv('AWS_SES_PASSWORD'));
 
         // Create the Mailer using your created Transport
         $mailer = Swift_Mailer::newInstance($transport);
 
         // Create a message
-        $message = Swift_Message::newInstance('Wonderful Subject')
-            ->setFrom([ getenv('EMAIL_FROM_ADDR'), getenv('EMAIL_FROM_NAME') ])
-//            ->setTo(['example@example.org' => 'John Doe'])
-            ->setTo([ 'imboyus@gmail.com' => 'Jesseeeee' ])
-            ->setBody('Here is the message itself');
+        $message = Swift_Message::newInstance('Wonderful Subject')->setFrom([
+            getenv('EMAIL_FROM_ADDR'),
+            getenv('EMAIL_FROM_NAME'),
+        ])//            ->setTo(['example@example.org' => 'John Doe'])
+        ->setTo(['imboyus@gmail.com' => 'Jesseeeee'])->setBody('Here is the message itself');
 
         // Send the message
         $result = $mailer->send($message);
@@ -178,5 +173,4 @@ class NewsletterTask extends Task
         return;
     }
 
-    // -----------------------------------------------------------------------------
 }

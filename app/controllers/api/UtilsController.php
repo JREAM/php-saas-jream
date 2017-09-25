@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers\Api;
@@ -22,14 +23,14 @@ class UtilsController extends ApiController
      *
      * @return  Response
      */
-    public function markdownAction() : Response
+    public function markdownAction(): Response
     {
-        if (!$this->session->has('id')) {
+        if ( ! $this->session->has('id')) {
             throw new \DomainException('Only Logged in users can do this.');
         }
 
         $parsedown = new \Parsedown();
-        $content = trim($this->request->getPost('content'));
+        $content   = trim($this->request->getPost('content'));
         if ($content) {
             $content = $parsedown->parse($content);
         }

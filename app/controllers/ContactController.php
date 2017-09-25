@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
@@ -21,10 +22,10 @@ class ContactController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Contact | ' . $this->di['config']['title']);
+        Tag::setTitle('Contact | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -32,10 +33,10 @@ class ContactController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $this->view->setVars([
-            'form'     => new \Forms\ContactForm(),
+            'form' => new \Forms\ContactForm(),
         ]);
 
         return $this->view->pick('contact/contact');
@@ -46,9 +47,9 @@ class ContactController extends BaseController
     /**
      * @return View
      */
-    public function thanksAction() : View
+    public function thanksAction(): View
     {
-        Tag::setTitle('Contact Email Sent | ' . $this->di['config']['title']);
+        Tag::setTitle('Contact Email Sent | ' . $this->di[ 'config' ][ 'title' ]);
 
         return $this->view->pick('contact/thanks');
     }

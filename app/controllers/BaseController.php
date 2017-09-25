@@ -63,6 +63,7 @@ class BaseController extends Controller
     public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher)
     {
         //$sessionRoute = new \Library\SessionRoute();
+        //$sessionRoute->getCurrent();
 
         // Set the Page ID  for FrontEnd
         $this->view->setVar('pageId', sprintf('%s-%s', 'page', $this->generateBodyPageId()));

@@ -10,9 +10,6 @@ use Phalcon\Exception as PhalconException;
 
 class Dispatch
 {
-    /**
-     * @var \Phalcon\Http\Request
-     */
 
     public function __construct()
     {
@@ -28,39 +25,39 @@ class Dispatch
      *
      * @return Event
      */
-    public function beforeExecuteRoute(Event $dispatcher) : Event
+    public function beforeExecuteRoute(Event $dispatcher): Event
     {
         // -----------------------------------------------------------------------------
         // Handle Session/Form Data
         // @TODO Convert this to $this->>session probably?
         // -----------------------------------------------------------------------------
-        if (!isset($_SESSION)) {
+        if ( ! isset($_SESSION)) {
             return $dispatcher;
         }
 
         // Clear the form data once the page reloads and it's viewable
-        if (isset($_SESSION['formDataSeen']) && $_SESSION['formDataSeen'] >= 1) {
-            $_SESSION['formData'] = null;
-            $_SESSION['formDataSeen'] = null;
+        if (isset($_SESSION[ 'formDataSeen' ]) && $_SESSION[ 'formDataSeen' ] >= 1) {
+            $_SESSION[ 'formData' ]     = null;
+            $_SESSION[ 'formDataSeen' ] = null;
         }
 
-        if (!empty($_POST)) {
+        if ( ! empty($_POST)) {
             $postData = [];
             foreach ($_POST as $key => $value) {
-                $key = strip_tags($key);
-                $value = strip_tags($value);
-                $postData[$key] = $value;
+                $key              = strip_tags($key);
+                $value            = strip_tags($value);
+                $postData[ $key ] = $value;
             }
             // Store the Session Data
-            $_SESSION['formData'] = $postData;
-            $_SESSION['formDataSeen'] = -1;
+            $_SESSION[ 'formData' ]     = $postData;
+            $_SESSION[ 'formDataSeen' ] = -1;
         }
 
-        if (isset($_SESSION['formDataSeen'])) {
+        if (isset($_SESSION[ 'formDataSeen' ])) {
             // Increments to 0 (false)
             // Once loaded again, increments to 1 (true)
             //      & Removed on next page load.
-            ++$_SESSION['formDataSeen'];
+            ++$_SESSION[ 'formDataSeen' ];
         }
 
         return $dispatcher;
@@ -74,7 +71,7 @@ class Dispatch
      *
      * @return Event
      */
-    public function afterExecuteRoute(Event $dispatcher) : Event
+    public function afterExecuteRoute(Event $dispatcher): Event
     {
         return $dispatcher;
     }
@@ -84,13 +81,13 @@ class Dispatch
     /**
      * Handle Exceptions Locally and LIve
      *
-     * @param  Event $event
-     * @param  Dispatcher $dispatcher
+     * @param  Event                                      $event
+     * @param  Dispatcher                                 $dispatcher
      * @param  PhalconException|WhoopsException|Exception $exception
      *
      * @return bool
      */
-    public function beforeException(Event $event, Dispatcher $dispatcher, $exception) : bool
+    public function beforeException(Event $event, Dispatcher $dispatcher, $exception): bool
     {
         error_log($exception->getMessage(), 0);
 

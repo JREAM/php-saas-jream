@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phalcon\Mvc\Model\Behavior\SoftDelete;
@@ -28,7 +29,7 @@ class ProductCourse extends BaseModel
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         /** DB Table Name */
         $this->setSource('product_course');
@@ -49,9 +50,9 @@ class ProductCourse extends BaseModel
     /**
      * Gets the Previous Course in a Product Series
      *
-     * @param  int    $product_id
-     * @param  int    $section
-     * @param  int    $course
+     * @param  int $product_id
+     * @param  int $section
+     * @param  int $course
      *
      * @return obj|int
      */
@@ -65,9 +66,9 @@ class ProductCourse extends BaseModel
     /**
      * Gets the Next Course in a Product Series
      *
-     * @param  int    $product_id
-     * @param  int    $section
-     * @param  int    $course
+     * @param  int $product_id
+     * @param  int $section
+     * @param  int $course
      *
      * @return obj|int
      */
@@ -81,8 +82,8 @@ class ProductCourse extends BaseModel
     /**
      * Create a RTMP Signed URL
      *
-     * @param  string   $productPath S3 Folder   $productPath
-     * @param  string    $courseName  S3 Filename $courseName
+     * @param  string $productPath S3 Folder   $productPath
+     * @param  string $courseName  S3 Filename $courseName
      *
      * @return array
      */
@@ -95,7 +96,7 @@ class ProductCourse extends BaseModel
         // ----------------------------
         $cloudfront = new \Aws\CloudFront\CloudFrontClient([
             'region'  => getenv('AWS_CLOUDFRONT_REGION'),
-            'version' => getenv('AWS_CLOUDFRONT_VERSION')
+            'version' => getenv('AWS_CLOUDFRONT_VERSION'),
         ]);
 
         $resourceUris = [
@@ -103,18 +104,18 @@ class ProductCourse extends BaseModel
             // 'webm'    => sprintf('%s/webmhd/%s.webmhd.webm', $productPath, $courseName)
         ];
 
-        $di = \Phalcon\Di::getDefault();
+        $di  = \Phalcon\Di::getDefault();
         $api = $di->get('api');
 
         $signedUrl = [];
         foreach ($resourceUris as $key => $value) {
             // Note: I can change expires to policy and limit to an IP
             // But I had trouble getting it running, see: http://docs.aws.amazon.com/aws-sdk-php/guide/latest/service-cloudfront.html
-            $signedUrl[$key] = $cloudfront->getSignedUrl([
+            $signedUrl[ $key ] = $cloudfront->getSignedUrl([
                 'url'         => getenv('AWS_CLOUDFRONT_RMTP_URL') . $value,
                 'expires'     => $api->aws->cloudfront->expiration,
                 'private_key' => $api->aws->cloudfront->privateKeyLocation,
-                'key_pair_id' => getenv('AWS_CLOUDFRONT_KEYPAIR_ID')
+                'key_pair_id' => getenv('AWS_CLOUDFRONT_KEYPAIR_ID'),
             ]);
         }
 
@@ -138,7 +139,7 @@ class ProductCourse extends BaseModel
 
         $nextOrPrev = strtolower($nextOrPrev);
 
-        if (!in_array($nextOrPrev, ['next', 'prev'], true)) {
+        if ( ! in_array($nextOrPrev, ['next', 'prev'], true)) {
             throw new \InvalidArgumentException('ProductCourse Model must supply string: next or prev only.');
         }
 
@@ -146,7 +147,7 @@ class ProductCourse extends BaseModel
             ++$try_section;
             ++$try_course;
             $order_mode = 'ASC'; // lowest ID first [Going Forwards]
-        } elseif ($nextOrPrev === 'prev') {
+        } else if ($nextOrPrev === 'prev') {
             --$try_section;
             --$try_course;
             $order_mode = 'DESC'; //highest ID first [Going Backwards]
@@ -160,12 +161,12 @@ class ProductCourse extends BaseModel
             ORDER BY course :order_mode:
             LIMIT 1
             ',
-            'bind'    => [
+            'bind' => [
                 'product_id' => (int) $product_id,
-                'section' => (int) $section,
-                'course' => (int) $try_course,
-                'order_mode' => $order_mode
-            ]
+                'section'    => (int) $section,
+                'course'     => (int) $try_course,
+                'order_mode' => $order_mode,
+            ],
         ]);
 
         if ($result->count()) {
@@ -179,11 +180,11 @@ class ProductCourse extends BaseModel
             ORDER BY course :order_mode:
             LIMIT 1
             ',
-            'bind'    => [
+            'bind' => [
                 'product_id' => (int) $product_id,
-                'section' => (int) $try_section,
-                'order_mode' => $order_mode
-            ]
+                'section'    => (int) $try_section,
+                'order_mode' => $order_mode,
+            ],
         ]);
 
         if ($result->count()) {

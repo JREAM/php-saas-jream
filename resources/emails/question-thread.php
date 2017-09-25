@@ -1,10 +1,10 @@
 <p style="font-size: 11px;">
-A new thread has been started in <strong>{%product_title%}</strong>:
+    A new thread has been started in <strong>{%product_title%}</strong>:
 </p>
 
 <h3>{%title%}</h3>
 <p>
-{%content%}
+    {%content%}
 </p>
 
 

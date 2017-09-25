@@ -41,10 +41,10 @@ class Output extends DiInjectable
      * @param mixed $msg    (default null), It can be a string or array of messages
      *
      */
-    public function __construct( int $result, $msg = null )
+    public function __construct(int $result, $msg = null)
     {
         // Do not allow anything besides string or null
-        if ( ! is_string($msg) ) {
+        if ( ! is_string($msg)) {
             $msg = null;
         }
 
@@ -65,7 +65,7 @@ class Output extends DiInjectable
      *
      * @return array
      */
-    public static function getCodes() : array
+    public static function getCodes(): array
     {
         return self::$codes;
     }
@@ -78,12 +78,13 @@ class Output extends DiInjectable
      * @throws \InvalidArgumentException
      * @return int
      */
-    public static function getCode(string $name) : int
+    public static function getCode(string $name): int
     {
-        if (!isset(self::$codes[$name])) {
+        if ( ! isset(self::$codes[ $name ])) {
             throw new \InvalidArgumentException('Invalid Code called for Output.');
         }
-        return (int) self::$codes[$name];
+
+        return (int) self::$codes[ $name ];
     }
 
     // -----------------------------------------------------------------------------
@@ -95,8 +96,7 @@ class Output extends DiInjectable
      *
      * @return Output
      */
-    public function setData( array $data )
-    : Output
+    public function setData(array $data): Output
     {
         $this->outgoing->data = $data;
 
@@ -108,8 +108,7 @@ class Output extends DiInjectable
     /**
      * @return Response
      */
-    public function send()
-    : Response
+    public function send(): Response
     {
         // Get the DI Response Method
         $response = $this->di->get('response');

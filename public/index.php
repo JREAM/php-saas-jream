@@ -67,8 +67,7 @@ try {
 
     echo $application->handle()->getContent();
 
-}
-catch (\Exception $e) {
+} catch (\Exception $e) {
 
     if (PHP_SAPI === 'cli') {
         die($e->getMessage());
@@ -87,7 +86,7 @@ catch (\Exception $e) {
     }
 
 
-   /**
+    /**
      * ==============================================================
      * Non Live: Show Local Error (Or Whoops Appears)
      * =============================================================

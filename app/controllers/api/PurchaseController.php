@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers\Api;
@@ -23,29 +24,30 @@ class PurchaseController extends ApiController
     /**
      * @return Response
      */
-    public function applyPromotionAction() : Response
+    public function applyPromotionAction(): Response
     {
-        $code = $this->input->getPost('code');
+        $code      = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
 
         $user_id = $this->session->get('user_id');
 
         $promotion = new Promotion();
-        $result = $promotion->check($code, $productId);
+        $result    = $promotion->check($code, $productId);
+
         return '';
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     * @param int   $productId
+     * @param int $productId
      *
      * @return Response
      */
-    public function freeAction(int $productId) : Response
+    public function freeAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if (!$product || $product->price != 0) {
+        if ( ! $product || $product->price != 0) {
             return $this->output(0, 'Sorry this is an invalid or non-free course.');
         }
 
@@ -62,10 +64,10 @@ class PurchaseController extends ApiController
     /**
      * @return Response
      */
-    public function stripeAction($productId) : Response
+    public function stripeAction($productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if (!$product) {
+        if ( ! $product) {
             return $this->output(0, 'No product was found with the Id: %s', $productId);
         }
 
@@ -74,10 +76,10 @@ class PurchaseController extends ApiController
         }
 
         $stripeToken = $this->request->getPost('stripeToken');
-        $name = $this->request->getPost('name');
-        $zip = $this->request->getPost('zip');
+        $name        = $this->request->getPost('name');
+        $zip         = $this->request->getPost('zip');
 
-        if (!$name) {
+        if ( ! $name) {
             return $this->output(0, 'You must provide a name.');
         }
 
@@ -98,7 +100,8 @@ class PurchaseController extends ApiController
             if ($promo->product_id && $product->id != $promo->product_id) {
                 $other_product = \Product::getById($promo->product_id);
 
-                return $this->output(0, 'You provided a promotion to the wrong course, this applies to: ' . $other_product->title);
+                return $this->output(0, 'You provided a promotion to the wrong course, this applies to: ' .
+                                        $other_product->title);
             }
 
             // Make sure to check this DURING the checkout
@@ -114,28 +117,19 @@ class PurchaseController extends ApiController
             // Only one of these apply
             if ($promo->percent_off) {
                 $promo_method = 'percent_off';
-                $promo = sprintf(
-                    "Price marked down from %s to %s at %s percent off using promotional code %s.",
-                    $product->price,
-                    number_format($product->price - ($product->price * $promo->percent_off), 2),
-                    $promo->percent_off,
-                    $promo->code
-                );
-                $use_price = number_format($product->price - ($product->price * $promo->percent_off), 2);
-            } elseif ($promo->price) {
+                $promo        = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.", $product->price, number_format($product->price -
+                                                                                                                                                       ($product->price *
+                                                                                                                                                        $promo->percent_off), 2), $promo->percent_off, $promo->code);
+                $use_price    = number_format($product->price - ($product->price * $promo->percent_off), 2);
+            } else if ($promo->price) {
                 $promo_method = 'price';
-                $promo = sprintf(
-                    "Price marked down from %s to %s using promotional code %s.",
-                    number_format($product->price, 2),
-                    number_format($promo['price'], 2),
-                    $promo->code
-                );
+                $promo        = sprintf("Price marked down from %s to %s using promotional code %s.", number_format($product->price, 2), number_format($promo[ 'price' ], 2), $promo->code);
 
                 $use_price = $promo->price;
             }
         }
 
-        $discount = 0;
+        $discount  = 0;
         $use_price = $product->price;
 
         $promotion = $this->validatePromotionCode($productId);
@@ -150,7 +144,7 @@ class PurchaseController extends ApiController
         //     $amount = number_format($code['price'], 2);
         // }
 
-        $amount_in_cents = (int)($amount * 100);
+        $amount_in_cents   = (int) ($amount * 100);
         $revert_money_test = money_format("%i", ($amount_in_cents / 100));
 
         // Ensure the amount is valid! This is paranoid but lets be safe!
@@ -189,7 +183,7 @@ class PurchaseController extends ApiController
         }
 
         // Check failure of non 200
-        if ((int)$response->getLastResponse()->code != 200) {
+        if ((int) $response->getLastResponse()->code != 200) {
             $msg = "Sorry, the Stripe Gateway did not return a successful response.";
             $this->di->get('sentry')->captureMessage($msg);
 
@@ -197,14 +191,14 @@ class PurchaseController extends ApiController
         }
 
         // Check failure of paid false
-        if ((int)$response->paid == 0) {
+        if ((int) $response->paid == 0) {
             $this->di->get('sentry')->captureException($response);
 
             return $this->output(0, 'There was a problem processing your payment');
         }
 
-        if ((int)$response->paid == 1) {
-            $this->_createPurchase($product, 'Stripe', $response->getLastResponse()->json['id']);
+        if ((int) $response->paid == 1) {
+            $this->_createPurchase($product, 'Stripe', $response->getLastResponse()->json[ 'id' ]);
 
             return $this->output(1, 'Success.');
         }
@@ -215,15 +209,15 @@ class PurchaseController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * @param int   $productId
+     * @param int $productId
      *
      * @return Response
      */
-    public function paypalAction(int $productId) : Response
+    public function paypalAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
 
-        if (!$product) {
+        if ( ! $product) {
             return $this->output(0, 'No product was found with the Id:' . $productId);
         }
 
@@ -243,8 +237,8 @@ class PurchaseController extends ApiController
 
         // If coupon
         if ($this->session->has('code')) {
-            $code = $this->session->get('code');
-            $amount = number_format($code['price'], 2);
+            $code   = $this->session->get('code');
+            $amount = number_format($code[ 'price' ], 2);
         }
 
         $response = $this->paypal->purchase([
@@ -268,14 +262,14 @@ class PurchaseController extends ApiController
      *
      * @return Response
      */
-    public function doPaypalConfirmAction(int $productId) : Response
+    public function doPaypalConfirmAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if (!$product) {
+        if ( ! $product) {
             return $this->output(0, 'Could not complete your transaction. The productId is invalid.');
         }
 
-        if (!$productId || $product->hasPurchased() == true) {
+        if ( ! $productId || $product->hasPurchased() == true) {
             return $this->output(0, 'Product does not exist or has been purchased.');
         }
 
@@ -283,8 +277,8 @@ class PurchaseController extends ApiController
 
         // If coupon
         if ($this->session->has('code')) {
-            $code = $this->session->get('code');
-            $amount = number_format($code['price'], 2);
+            $code   = $this->session->get('code');
+            $amount = number_format($code[ 'price' ], 2);
         }
 
         try {
@@ -306,19 +300,19 @@ class PurchaseController extends ApiController
             return $this->output(0, 'There was no response from paypal.');
         }
 
-        if (strtolower($data['ACK']) != 'success') {
+        if (strtolower($data[ 'ACK' ]) != 'success') {
             return $this->output(0, 'Payment was unsuccessful.');
         }
 
         $transactionID = false;
 
-        if (isset($data['PAYMENTINFO_0_TRANSACTIONID'])) {
-            $transactionID = $data['PAYMENTINFO_0_TRANSACTIONID'];
+        if (isset($data[ 'PAYMENTINFO_0_TRANSACTIONID' ])) {
+            $transactionID = $data[ 'PAYMENTINFO_0_TRANSACTIONID' ];
         }
 
         $do = $this->_createPurchase($product, 'Paypal Express Checkout', $transactionID);
 
-        if (!$do->result) {
+        if ( ! $do->result) {
             return $this->output(0, $do->msg);
         }
 
@@ -331,19 +325,19 @@ class PurchaseController extends ApiController
      * Create a Purchase Record
      *
      * @param  \Product $product
-     * @param  mixed   $gateway
-     * @param  mixed   $transaction_id
+     * @param  mixed    $gateway
+     * @param  mixed    $transaction_id
      *
      * @return object
      */
     private function _createPurchase(Product $product, $gateway = false, $transaction_id = false)
     {
         // First create a transaction record
-        $transaction = new Transaction();
-        $transaction->user_id = $this->session->get('id');
+        $transaction                 = new Transaction();
+        $transaction->user_id        = $this->session->get('id');
         $transaction->transaction_id = $transaction_id;
-        $transaction->type = 'purchase';
-        $transaction->gateway = strtolower($gateway);
+        $transaction->type           = 'purchase';
+        $transaction->gateway        = strtolower($gateway);
 
         // Default Price
         $use_price = $product->price;
@@ -352,7 +346,7 @@ class PurchaseController extends ApiController
 
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
-            $use_price = $this->session->get('discount_price');
+            $use_price     = $this->session->get('discount_price');
             $promo_applied = true;
         }
 
@@ -362,17 +356,17 @@ class PurchaseController extends ApiController
 
         // If coupon
         if ($this->session->has('code')) {
-            $code = $this->session->get('code');
-            $transaction->amount_after_discount = number_format($code['price'], 2);
-            $purchased_for = number_format($code['price'], 2);
+            $code                               = $this->session->get('code');
+            $transaction->amount_after_discount = number_format($code[ 'price' ], 2);
+            $purchased_for                      = number_format($code[ 'price' ], 2);
         }
 
         $transaction->save();
 
         // Insert the user record
-        $userPurchase = new UserPurchase();
-        $userPurchase->user_id = $this->session->get('id');
-        $userPurchase->product_id = $product->id;
+        $userPurchase                 = new UserPurchase();
+        $userPurchase->user_id        = $this->session->get('id');
+        $userPurchase->product_id     = $product->id;
         $userPurchase->transaction_id = $transaction->id;
         if ($promo_applied) {
             $userPurchase->promotion_code = $this->promotion_code;
@@ -402,19 +396,19 @@ class PurchaseController extends ApiController
             ],
         ]);
 
-        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
             return (object) [
                 'result' => 0,
-                'msg' => "Course addition: {$product->title} was successful!
+                'msg'    => "Course addition: {$product->title} was successful!
                     However, there was a problem sending an email to: " . $user->getEmail() . " -
-                    Don't worry! The course is in your account!"
+                    Don't worry! The course is in your account!",
             ];
         }
 
         return (object) [
             'result' => 1,
-            'msg' => "Course addition: {$product->title} was successful!
-            Your should receive an email confirmation shortly to: \" . $user->getEmail());"
+            'msg'    => "Course addition: {$product->title} was successful!
+            Your should receive an email confirmation shortly to: \" . $user->getEmail());",
         ];
     }
 

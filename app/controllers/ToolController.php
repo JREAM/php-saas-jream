@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controllers;
+
 use Phalcon\Mvc\View;
 use Phalcon\Http\Response;
 
@@ -13,7 +15,7 @@ class ToolController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
         Tag::setTitle('Tool');

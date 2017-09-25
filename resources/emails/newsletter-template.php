@@ -2,7 +2,7 @@
     <tr style="background-color: #444">
         <td>
             <div style="padding: 10px 20px; border-bottom: 3px solid gray;">
-                <img src="https://d2qmoq5vnrtrov.cloudfront.net/img/logo-med.png" alt="JREAM" />
+                <img src="https://d2qmoq5vnrtrov.cloudfront.net/img/logo-med.png" alt="JREAM"/>
             </div>
         </td>
     </tr>

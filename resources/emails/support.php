@@ -6,7 +6,7 @@
     {%content%}
 </p>
 
-<hr />
+<hr/>
 
 <p>
     User: {%alias%}

@@ -10,8 +10,8 @@ use Controllers\BaseController;
 class YoutubeController extends BaseController
 {
 
-    const REDIRECT_SUCCESS = '';
-    const REDIRECT_FAILURE = 'dashboard';
+    const REDIRECT_SUCCESS        = '';
+    const REDIRECT_FAILURE        = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'dashboard';
 
     // -----------------------------------------------------------------------------
@@ -19,10 +19,10 @@ class YoutubeController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Youtube Videos | ' . $this->di['config']['title']);
+        Tag::setTitle('Youtube Videos | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -36,13 +36,14 @@ class YoutubeController extends BaseController
     {
         $video = \Youtube::findFirstById($youtubeId);
 
-        if (!$youtubeId) {
+        if ( ! $youtubeId) {
             $this->flash->error('There is no record of this item.');
+
             return $this->redirect(self::REDIRECT_FAILURE);
         }
 
         $this->view->setVars([
-            'youtube'  => $video,
+            'youtube' => $video,
         ]);
 
         return $this->view->pick("dashboard/youtube");

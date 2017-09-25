@@ -2,13 +2,15 @@
 
 namespace Forms\Traits;
 
-trait GetMessageTrait {
+trait GetMessageTrait
+{
 
     /**
      * Gets form messages as array
+     *
      * @return array
      */
-    public function getMessagesArray() : array
+    public function getMessagesArray(): array
     {
         // Determine if this is a form, use t
         $useFieldKeys = false;
@@ -17,10 +19,10 @@ trait GetMessageTrait {
         }
 
         $output = [];
-        foreach ($this->getMessages() as $message)
-        {
-            $output[$useFieldKeys] = $message;
+        foreach ($this->getMessages() as $message) {
+            $output[ $useFieldKeys ] = $message;
         }
+
         return $output;
     }
 

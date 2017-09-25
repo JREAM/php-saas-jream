@@ -14,10 +14,10 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function onConstruct() : void
+    public function onConstruct(): void
     {
         parent::initialize();
-        Tag::setTitle('Learn to Code | ' . $this->di['config']['title']);
+        Tag::setTitle('Learn to Code | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ class IndexController extends BaseController
     /**
      * @return View
      */
-    public function indexAction() : View
+    public function indexAction(): View
     {
         $products = \Product::find(["is_deleted = 0"]);
 
@@ -41,9 +41,10 @@ class IndexController extends BaseController
     /**
      * @return View
      */
-    public function labAction() : View
+    public function labAction(): View
     {
-        Tag::setTitle('Lab | ' . $this->di['config']['title']);
+        Tag::setTitle('Lab | ' . $this->di[ 'config' ][ 'title' ]);
+
         return $this->view->pick('index/lab');
     }
 
@@ -52,13 +53,13 @@ class IndexController extends BaseController
     /**
      * @return View
      */
-    public function updatesAction() : View
+    public function updatesAction(): View
     {
         # Updates
         $parsedown = new \Parsedown();
-        $updates = file_get_contents(__DIR__ . '/../updates.md');
+        $updates   = file_get_contents(__DIR__ . '/../updates.md');
 
-        Tag::setTitle('Updates | ' . $this->di['config']['title']);
+        Tag::setTitle('Updates | ' . $this->di[ 'config' ][ 'title' ]);
 
         $this->view->setVars([
             'updates' => $parsedown->parse($updates),
@@ -72,9 +73,9 @@ class IndexController extends BaseController
     /**
      * @return View
      */
-    public function termsAction() : View
+    public function termsAction(): View
     {
-        Tag::setTitle('Terms and Privacy | ' . $this->di['config']['title']);
+        Tag::setTitle('Terms and Privacy | ' . $this->di[ 'config' ][ 'title' ]);
 
         return $this->view->pick('index/terms');
     }
@@ -84,9 +85,9 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show404Action() : void
+    public function show404Action(): void
     {
-        Tag::setTitle('404 Not Found | ' . $this->di['config']['title']);
+        Tag::setTitle('404 Not Found | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -94,9 +95,9 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show503Action() : void
+    public function show503Action(): void
     {
-        Tag::setTitle('503 Service Error | ' . $this->di['config']['title']);
+        Tag::setTitle('503 Service Error | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
     // -----------------------------------------------------------------------------
@@ -104,7 +105,7 @@ class IndexController extends BaseController
     /**
      * @return void
      */
-    public function show500Action(\Exception $exception) : void
+    public function show500Action(\Exception $exception): void
     {
     }
 

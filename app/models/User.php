@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use \Phalcon\Mvc\Model\Behavior\SoftDelete;
@@ -49,9 +50,9 @@ class User extends BaseModel
     /**
      * Constants for account types, accessible anywhere
      */
-    const ACCOUNT_TYPE_JREAM = 'jream';
-    const ACCOUNT_TYPE_SOCIAL_GITHUB = 'github';
-    const ACCOUNT_TYPE_SOCIAL_GOOGLE = 'google';
+    const ACCOUNT_TYPE_JREAM           = 'jream';
+    const ACCOUNT_TYPE_SOCIAL_GITHUB   = 'github';
+    const ACCOUNT_TYPE_SOCIAL_GOOGLE   = 'google';
     const ACCOUNT_TYPE_SOCIAL_FACEBOOK = 'facebook';
 
     /**
@@ -62,8 +63,8 @@ class User extends BaseModel
             self::ACCOUNT_TYPE_JREAM => ['exists' => 0],
         ],
         'social' => [
-            self::ACCOUNT_TYPE_SOCIAL_GITHUB => ['exists' => 0],
-            self::ACCOUNT_TYPE_SOCIAL_GOOGLE => ['exists' => 0],
+            self::ACCOUNT_TYPE_SOCIAL_GITHUB   => ['exists' => 0],
+            self::ACCOUNT_TYPE_SOCIAL_GOOGLE   => ['exists' => 0],
             self::ACCOUNT_TYPE_SOCIAL_FACEBOOK => ['exists' => 0],
         ],
     ];
@@ -76,7 +77,7 @@ class User extends BaseModel
      *
      * @return void
      */
-    public function initialize() : void
+    public function initialize(): void
     {
         /** DB Table Name */
         $this->setSource('user');
@@ -123,22 +124,22 @@ class User extends BaseModel
      */
     public function getEmail($id = false)
     {
-        if (!$id) {
+        if ( ! $id) {
             $id = $this->session->get('id');
         }
 
         // Only do this locally!
         if (\APPLICATION_ENV === \APP_DEVELOPMENT) {
-            if (!$this->email && !$this->facebook_email && !$this->google_email) {
+            if ( ! $this->email && ! $this->facebook_email && ! $this->google_email) {
                 return '&lt;&lt;no email&gt;&gt;';
             }
         }
 
         if ($this->email) {
             return $this->email;
-        } elseif ($this->facebook_email) {
+        } else if ($this->facebook_email) {
             return $this->facebook_email;
-        } elseif ($this->google_email) {
+        } else if ($this->google_email) {
             $this->google_email;
         }
 
@@ -156,17 +157,17 @@ class User extends BaseModel
      */
     public function getAlias($id = false)
     {
-        if (!$id) {
+        if ( ! $id) {
             $id = $this->session->get('id');
         }
 
         if ($this->alias) {
             return $this->alias;
-        } elseif ($this->facebook_alias) {
+        } else if ($this->facebook_alias) {
             return $this->facebook_alias;
-        } elseif ($this->google_alias) {
+        } else if ($this->google_alias) {
             return $this->google_alias;
-        } elseif ($this->github_alias) {
+        } else if ($this->github_alias) {
             return $this->github_alias;
         }
 
@@ -181,38 +182,39 @@ class User extends BaseModel
     public function afterFetch()
     {
         if ($this->email) {
-            $this->accountTypes['local'][self::ACCOUNT_TYPE_JREAM] = ['exists' => 1];
+            $this->accountTypes[ 'local' ][ self::ACCOUNT_TYPE_JREAM ] = ['exists' => 1];
         }
         if ($this->github_id) {
-            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_GITHUB] = ['exists' => 1];
+            $this->accountTypes[ 'social' ][ self::ACCOUNT_TYPE_SOCIAL_GITHUB ] = ['exists' => 1];
         }
         if ($this->google_id) {
-            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_GOOGLE] = ['exists' => 1];
+            $this->accountTypes[ 'social' ][ self::ACCOUNT_TYPE_SOCIAL_GOOGLE ] = ['exists' => 1];
         }
         if ($this->facebook_id) {
-            $this->accountTypes['social'][self::ACCOUNT_TYPE_SOCIAL_FACEBOOK] = ['exists' => 1];
+            $this->accountTypes[ 'social' ][ self::ACCOUNT_TYPE_SOCIAL_FACEBOOK ] = ['exists' => 1];
         }
     }
 
     // -----------------------------------------------------------------------------
 
-    public function getActiveAccounts() : array
+    public function getActiveAccounts(): array
     {
         $output = [
-            'github' => 0,
-            'google' => 0,
+            'github'   => 0,
+            'google'   => 0,
             'facebook' => 0,
         ];
 
         if ($this->github_id) {
-            $output['github'] = 1;
+            $output[ 'github' ] = 1;
         }
         if ($this->google_id) {
-            $output['google'] = 1;
+            $output[ 'google' ] = 1;
         }
         if ($this->facebook_id) {
-            $output['facebook'] = 1;
+            $output[ 'facebook' ] = 1;
         }
+
         return $output;
     }
 
@@ -228,42 +230,28 @@ class User extends BaseModel
      */
     public function getIcon($id = false, $size = false)
     {
-        if (!$id) {
+        if ( ! $id) {
             $id = $this->session->get('id');
         }
 
         if ($this->github_id) {
-            return sprintf(
-                "<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>",
-                $this->github_id
-            );
+            return sprintf("<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>", $this->github_id);
         }
 
         if ($this->google_id) {
-            return sprintf(
-                "<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>",
-                $this->google_id
-            );
+            return sprintf("<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>", $this->google_id);
         }
 
         if ($this->facebook_id) {
             $size = ($size) ? "width=$size" : false;
 
-            return sprintf(
-                "<img $size src='https://graph.facebook.com/%s/picture?type=small' alt='facebook' />",
-                $this->facebook_id
-            );
+            return sprintf("<img $size src='https://graph.facebook.com/%s/picture?type=small' alt='facebook' />", $this->facebook_id);
         }
 
-        $email = ($this) ? $this->email : 'none@none.com';
+        $email   = ($this) ? $this->email : 'none@none.com';
         $default = "";
-        $size = $size ?: 40;
-        $url = sprintf(
-            'https://www.gravatar.com/avatar/%s?d=%s&s=%s',
-            md5(strtolower(trim($email))),
-            urlencode($default),
-            $size
-        );
+        $size    = $size ?: 40;
+        $url     = sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s', md5(strtolower(trim($email))), urlencode($default), $size);
 
         return "<img src='$url' alt='Gravatar' />";
     }
@@ -293,11 +281,11 @@ class User extends BaseModel
      */
     public function saveReferrer($userId, $request)
     {
-        $referrer = new \UserReferrer();
-        $referrer->user_id = $userId;
+        $referrer           = new \UserReferrer();
+        $referrer->user_id  = $userId;
         $referrer->referrer = $request->getHTTPReferer();
-        $referrer->data = json_encode([
-            'page'           => basename($_SERVER['PHP_SELF']),
+        $referrer->data     = json_encode([
+            'page'           => basename($_SERVER[ 'PHP_SELF' ]),
             'query_string'   => $request->getQuery(),
             'is_ajax'        => $request->isAjax(),
             'is_ssl'         => $request->isSecure(),
@@ -320,7 +308,7 @@ class User extends BaseModel
      */
     public function doLogin($email, $password)
     {
-        if (!$email || !$password) {
+        if ( ! $email || ! $password) {
             $this->flash->error('email and password field(s) are required.');
 
             return false;
@@ -341,7 +329,7 @@ class User extends BaseModel
                     return false;
                 }
                 // Clear the login attempts if time has expired
-                $user->login_attempt = null;
+                $user->login_attempt    = null;
                 $user->login_attempt_at = null;
                 $user->save();
             }

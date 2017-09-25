@@ -47,7 +47,7 @@ $(function() {
     </div>
     <div class="panel-body">
         <i class="fa fa-lock"></i> Security
-        <form id="formPurchaseStripe" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
+        <form id="form-purchase-stripe" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
         <div class="payment-errors"></div>
 
             <div class="row">

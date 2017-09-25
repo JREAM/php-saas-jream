@@ -538,7 +538,8 @@ class AuthController extends ApiController
      */
     public function logoutAction()
     {
-        $this->hybridauth->disconnectAllAdapters();
+        // @TODO This is broken
+        //$this->hybridauth->disconnectAllAdapters();
         $this->session->destroy();
 
         return $this->response->redirect($this->router->getRouteByName('home'));

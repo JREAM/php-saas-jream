@@ -3,45 +3,35 @@
 // -----------------------------------------------------------------------------
 $(() => {
 
+
+  // -----------------------------------------------------------------------------
+  // Only Apply to proper Page
+  // -----------------------------------------------------------------------------
+  if (routes.current.controller != 'question') {
+    return false;
+  }
+
   // -----------------------------------------------------------------------------
 
-  $("#formQuestionCreate").submit(function (evt) {
-    evt.preventDefault();
+  xhr.stdForm('#form-question-create', {
+    'success': function(resp, evt) {
+      $('#form-question-create textarea').val('');
+    }
+  });
 
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(resp => {
-      $(this).notify(resp.data.msg, resp.data.type);
-      // Clear textarea
-      $('textarea', this).val('');
-    })
-      .catch(err => {
-        $(this).notify(err.msg, err.type);
-      });
+  // Must be a class for now in order to submit below any of the comments,
+  // @TODO Eventually remove the DOM and re-create
+  xhr.stdForm('#form-question-create', function(resp, evt) {
+    $('textarea', this).val('');
   });
 
   // -----------------------------------------------------------------------------
 
-  $("#formQuestionReply").submit(function (evt) {
-    evt.preventDefault();
 
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(resp => {
-      $(this).notify(resp.data.msg, resp.data.type);
-      // Clear textarea
-      $('textarea', this).val('');
-    })
-      .catch(err => {
-        $(this).notify(err.msg, err.type);
-      });
-  });
 
   // -----------------------------------------------------------------------------
 
-  $("#formQuestionDelete").submit(function (evt) {
+  $("#form-question-delete").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");

@@ -33,8 +33,8 @@
         "symfony/var-dumper": "^3.3",
         "php": ">=7.0",
         "ext-phalcon": ">=3.2",
-        "hashids/hashids": "^2.0",
         "hybridauth/hybridauth": "v3.0.0-beta.1",
+        "hashids/hashids": "^2.0",
         "fzaninotto/Faker": "^1.7"
     },
     "require-dev": {

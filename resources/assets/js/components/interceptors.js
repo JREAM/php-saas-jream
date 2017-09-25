@@ -49,15 +49,11 @@ axios.interceptors.response.use(response => {
     }
     // And throw anyways
     throw response.data;
-    throw response.data;
-    throw response.data;
-    throw response.data;
-    throw response.data;
-    throw response.blah;
-    throw response.text;
   }
 
-  return response;
+  // It's crucial this gets back to the AXIOS Promise in this fasion, otherwise
+  // it will be named: resp.data.data.<my-values> and I want resp.data.<my-values>
+  return response.data;
 
 }, error => {
 

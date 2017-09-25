@@ -32,8 +32,25 @@ function toggleLogo() {
   // -----------------------------------------------------------------------------
 
   $('[data-toggle=tooltip]').tooltip();
-  $('[data-toggle=popover]').popover({
-    trigger: 'hover',
+
+  // -----------------------------------------------------------------------------
+  // Multiline Tooltips (Popovers)
+  // -----------------------------------------------------------------------------
+  // Customize the Popover to use HTML and a Header, it looks nice.
+  // Also see the multiline-tooltips.scss file
+  // -----------------------------------------------------------------------------
+  $('body').popover({
+    //Popover, activated by clicking
+    selector: '[data-toggle=popover]',
+    container: 'body',
+    html: true,
+  });
+
+  // -----------------------------------------------------------------------------
+  // Only Show One at a Time
+  // -----------------------------------------------------------------------------
+  $('[data-toggle=popover]').on('click', function(evt) {
+    $('[data-toggle=popover]').not(this).popover('hide');
   });
 
   // -----------------------------------------------------------------------------
@@ -60,37 +77,9 @@ function toggleLogo() {
   // -----------------------------------------------------------------------------
   // Disable Clicking Class
   // -----------------------------------------------------------------------------
-
   $('.disable-click').click(function() {
     $(this).addClass('disabled');
     return true;
-  });
-
-  // -----------------------------------------------------------------------------
-  // Footer Newsletter Subscribe
-  // -----------------------------------------------------------------------------
-
-  $('#formFooterNewsletterSubscribe').on('submit', function(evt) {
-    evt.preventDefault();
-
-    const url = $(this).attr('action');
-    const postData = $(this).attr('postData');
-
-    axios.post(url, postData).then(resp => {
-      if (resp.result == 0) {
-        throw resp.data;
-      }
-
-      swal({
-        title: 'Success',
-        text: 'Your email has been registered, please verify you email address in your inbox!',
-        type: 'success',
-      });
-
-    }).catch(err => {
-      $(this).notify(err.msg, 'error');
-    });
-
   });
 
   // -----------------------------------------------------------------------------

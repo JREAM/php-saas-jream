@@ -533,7 +533,6 @@ $di->setShared('hybridAuth', function() use ($api) {
 
     // Make Absolute URL Paths
     foreach ($api->social_auth->providers as $provider => $data) {
-
         if (property_exists($data, 'callback')) {
             $callback = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
             $api->social_auth->providers->{$provider}->callback = $callback;

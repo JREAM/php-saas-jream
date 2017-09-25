@@ -3,9 +3,13 @@
 // -----------------------------------------------------------------------------
 $(() => {
 
-  system.Xhr.stdForm('#formUserLogin');
-  system.Xhr.stdForm('#formUserRegister');
-  system.Xhr.stdForm('#formUserPasswordResetConfirm');
+  // -----------------------------------------------------------------------------
+  // This is Globally Accessible
+  // -----------------------------------------------------------------------------
+
+  xhr.stdForm('#formUserLogin');
+  xhr.stdForm('#formUserRegister');
+  xhr.stdForm('#formUserPasswordResetConfirm');
 
   // -----------------------------------------------------------------------------
 

@@ -4,56 +4,16 @@
 $(() => {
 
   // -----------------------------------------------------------------------------
-
-  $("#formNewsletterSubscribe").submit(function (evt) {
-    evt.preventDefault();
-
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(resp => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(err => {
-      $(this).notify(err.msg, err.type);
-    });
-
-  });
+  // Only Apply to proper Page
+  // -----------------------------------------------------------------------------
+  if (routes.current.controller != 'newsletter') {
+    return false;
+  }
 
   // -----------------------------------------------------------------------------
 
-  $("#formNewsletterVerify").submit(function (evt) {
-    evt.preventDefault();
-
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(resp => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(err => {
-      $(this).notify(err.msg, err.type);
-    });
-
-  });
-
-  // -----------------------------------------------------------------------------
-
-  $("#formNewsletterUnsubscribe").submit(function (evt) {
-    evt.preventDefault();
-
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(resp => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(err => {
-      $(this).notify(err.msg, err.type);
-    });
-
-  });
-
-  // -----------------------------------------------------------------------------
+  xhr.stdForm('#formNewsletterSubscribe');
+  xhr.stdForm('#formNewsletterVerify');
+  xhr.stdForm('#formNewsletterUnsubscribe');
 
 });

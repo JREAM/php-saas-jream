@@ -33,7 +33,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form id="formContact" class="form-login" method="post" action="{{ url('api/contact/send') }}">
+                    <form id="form-contact" method="post" action="{{ url('api/contact/send') }}">
                         <div class="row">
                             <div class="col-md-6">
 

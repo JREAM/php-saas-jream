@@ -6,8 +6,11 @@ window.axios = require('axios');
 window.swal = require('sweetalert2');
 window.Promise = require('es6-promise').Promise;
 
+// Custom Libraries
+window.xhr = require('./libraries/xhr');
+window.url = require('./libraries/url');
+
 // Custom Components
-window.system = require('./components/system');
 window.formUtils = require('./components/forms');
 
 // -----------------------------------------------------------------------------
@@ -82,7 +85,6 @@ $(() => {
  * -----------------------------------------------------------------------
  */
 require('./pages/auth');
-require('./pages/checkout');
 require('./pages/contact');
 require('./pages/dashboard');
 require('./pages/newsletter');

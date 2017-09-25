@@ -4,8 +4,15 @@
 $(() => {
 
   // -----------------------------------------------------------------------------
+  // Only Apply to proper Page
+  // -----------------------------------------------------------------------------
+  if (_.indexOf(['contact', 'support'], routes.current.controller == -1)) {
+    return false;
+  }
 
-  $("#formContact").on('submit', function (evt) {
+  // -----------------------------------------------------------------------------
+
+  $("#form-contact").on('submit', function (evt) {
     evt.preventDefault();
 
     formUtils.disable(this.id);

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Phalcon\DI\FactoryDefault;
+use Phalcon\Mvc\Model;
 
 Model::setup([
     'events'                => true,   // Callback Hooks

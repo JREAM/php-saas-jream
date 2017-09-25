@@ -4,8 +4,13 @@
 $(() => {
 
   // -----------------------------------------------------------------------------
+  // Only Apply to proper Page
+  // -----------------------------------------------------------------------------
+  if (_.indexOf(['product', 'course'], routes.current.controller == -1)) {
+    return false;
+  }
 
-  $("#formPurchaseStripe").submit(function (evt) {
+  $("#form-purchase-stripe").submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr("action");

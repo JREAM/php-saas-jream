@@ -4,6 +4,13 @@
 $(() => {
 
   // -----------------------------------------------------------------------------
+  // Only Apply to proper Page
+  // -----------------------------------------------------------------------------
+  if (routes.current.controller != 'user') {
+    return false;
+  }
+
+  // -----------------------------------------------------------------------------
 
   $('#toggle-timezone').click(evt => {
     evt.preventDefault();
@@ -12,16 +19,30 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formDashboardTimezone").submit(function (evt) {
+  $('#form-dashboard-account-timezone').submit(function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
       $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
+      $(this).notify(err.msg, err.type);
+    });
+  });
+
+  // -----------------------------------------------------------------------------
+
+  $('#form-dashboard-account-email').submit(function(evt) {
+    evt.preventDefault();
+
+    const url = $(this).attr('action');
+    const postData = $(this).serialize();
+
+    axios.post(url, postData).then(response => {
+      $(this).notify(resp.data.msg, resp.data.type);
+    }).catch(function(error) {
       $(this).notify(err.msg, err.type);
     });
 
@@ -29,16 +50,15 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formDashboardAccountEmail").submit(function (evt) {
+  $('#form-dashboard-account-password').submit(function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
       $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       $(this).notify(err.msg, err.type);
     });
 
@@ -46,16 +66,15 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formDashboardAccountPassword").submit(function (evt) {
+  $('#form-dashboard-account-delete').submit(function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
       $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       $(this).notify(err.msg, err.type);
     });
 
@@ -63,16 +82,15 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formDashboardAccountDelete").submit(function (evt) {
+  $('#formDashboardAccountNotification').submit(function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
       $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       $(this).notify(err.msg, err.type);
     });
 
@@ -80,33 +98,16 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#formDashboardAccountNotification").submit(function (evt) {
+  // Is this used?
+  $('#form-dashboard-notification').submit(function(evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
     const postData = $(this).serialize();
 
     axios.post(url, postData).then(response => {
       $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
-      $(this).notify(err.msg, err.type);
-    });
-
-  });
-
-  // -----------------------------------------------------------------------------
-
-  $("#formDashboardNotification").submit(function (evt) {
-    evt.preventDefault();
-
-    const url = $(this).attr("action");
-    const postData = $(this).serialize();
-
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       $(this).notify(err.msg, err.type);
     });
 

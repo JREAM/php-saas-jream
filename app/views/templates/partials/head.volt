@@ -34,14 +34,18 @@
         },
         window.routes = {
             'prev': {
-                'controller': {{ jsGlobal['prev']['controller'] }},
-                'action': {{ jsGlobal['prev']['action'] }},
-                'params': {{ jsGlobal['prev']['params'] }},
-            }
+                'controller': '{{ jsGlobal['routes']['prev']['controller'] }}',
+                'action': '{{ jsGlobal['routes']['prev']['action'] }}',
+                'params': {{ jsGlobal['routes']['prev']['params'] }},
+                'params_str': '{{ jsGlobal['routes']['prev']['paramsStr'] }}',
+                'full': '{{ jsGlobal['routes']['prev']['full'] }}',
+            },
             'current': {
-                'controller': {{ jsGlobal['current']['controller'] }},
-                'action': {{ jsGlobal['current']['action'] }},
-                'params': {{ jsGlobal['current']['params'] }},
+                'controller': '{{ jsGlobal['routes']['current']['controller'] }}',
+                'action': '{{ jsGlobal['routes']['current']['action'] }}',
+                'params': {{ jsGlobal['routes']['current']['params'] }},
+                'params_str': '{{ jsGlobal['routes']['current']['paramsStr'] }}',
+                'full': '{{ jsGlobal['routes']['current']['full'] }}',
             }
         }
     </script>

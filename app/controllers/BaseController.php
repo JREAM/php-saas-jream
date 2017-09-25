@@ -102,16 +102,18 @@ class BaseController extends Controller
                 ],
                 'routes' => [
                     'prev' => [
-                        'controller' => '',
-                        'action' => '',
-                        'params' => '',
+                        'controller' => null,
+                        'action' => null,
+                        'params' => json_encode([]),
+                        'paramsStr' => null,
+                        'full' => null,
                     ],
-
                     'current' => [
                         'controller' => (string) $this->router->getControllerName(),
                         'action' => (string) $this->router->getActionName(),
-                        'params' => (array) $this->router->getParams(),
-                        'full' => \Library\Url::getCurrent()
+                        'params' => json_encode([]),
+                        'paramsStr' => '',
+                        'full' => \Library\Url::getCurrent(),
                     ],
                 ]
             ],

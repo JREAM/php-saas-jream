@@ -5,40 +5,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="PHP MC(Other)" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/js/libraries/url.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/js/libraries/xhr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/assets/js/pages/partials/footer.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/assets/js/components/multiline-tooltips.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/assets/js/pages/checkout.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/eslintPlugin.xml" afterPath="$PROJECT_DIR$/.idea/eslintPlugin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/BaseModel.php" afterPath="$PROJECT_DIR$/app/models/BaseModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/contact/contact.volt" afterPath="$PROJECT_DIR$/app/views/contact/contact.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/account-delete.volt" afterPath="$PROJECT_DIR$/app/views/dashboard/account-delete.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/account.volt" afterPath="$PROJECT_DIR$/app/views/dashboard/account.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/question.volt" afterPath="$PROJECT_DIR$/app/views/dashboard/question.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" afterPath="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app.js" afterPath="$PROJECT_DIR$/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/vendor/jquery.waypoints.min.js" afterPath="$PROJECT_DIR$/public/vendor/jquery.waypoints.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/app.js" afterPath="$PROJECT_DIR$/resources/assets/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/components/interceptors.js" afterPath="$PROJECT_DIR$/resources/assets/js/components/interceptors.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/components/system.js" afterPath="$PROJECT_DIR$/resources/assets/js/components/system.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/global.js" afterPath="$PROJECT_DIR$/resources/assets/js/global.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/auth.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/auth.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/contact.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/course.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/course.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/dashboard.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/dashboard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/newsletter.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/newsletter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/promotion.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/promotion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/purchase.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/purchase.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/question.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/question.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/pages/user.js" afterPath="$PROJECT_DIR$/resources/assets/js/pages/user.js" />
-    </list>
+    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -388,11 +355,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TODO" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TODO" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            <state relative-caret-position="720">
+              <caret line="30" column="17" lean-forward="true" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -408,11 +375,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xhr.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="xhr.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/assets/js/libraries/xhr.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="97" column="33" lean-forward="true" selection-start-line="97" selection-start-column="33" selection-end-line="97" selection-end-column="33" />
+            <state relative-caret-position="-251">
+              <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -422,7 +389,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getOffset</find>
       <find>dateMDY</find>
       <find>out(</find>
       <find>getMessagesList</find>
@@ -452,6 +418,7 @@
       <find>delete</find>
       <find>form</find>
       <find>logout</find>
+      <find>alert</find>
     </findStrings>
     <replaceStrings>
       <replace>getBasename</replace>
@@ -1431,14 +1398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/libraries/xhr.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="97" column="33" lean-forward="true" selection-start-line="97" selection-start-column="33" selection-end-line="97" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -1449,8 +1408,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        <state relative-caret-position="720">
+          <caret line="30" column="17" lean-forward="true" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/js/libraries/xhr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-251">
+          <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
           <folding />
         </state>
       </provider>

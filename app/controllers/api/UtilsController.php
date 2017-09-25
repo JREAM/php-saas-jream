@@ -29,10 +29,11 @@ class UtilsController extends ApiController
             throw new \DomainException('Only Logged in users can do this.');
         }
 
-        $parsedown = new \Parsedown();
+        $markdown = $this->di->get('markdown');
         $content   = trim($this->request->getPost('content'));
+
         if ($content) {
-            $content = $parsedown->parse($content);
+            $content = $markdown->parse($content);
         }
 
         return $this->output(1, $content);

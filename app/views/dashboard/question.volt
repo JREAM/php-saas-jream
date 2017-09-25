@@ -39,9 +39,9 @@
                 ?>
                 <div class="thread-item">
                     <?=$icon?> <strong><?=$alias?></strong>
-                    <div>{{ thread.getOffset('created_at') }}</div>
+                    <div>{{ thread.getDateTimeOffset('created_at') }}</div>
                     <div>
-                    {{ thread.markdown('content') }}
+                    {{ markdown(thread.content) }}
                     </div>
                 </div>
                 <hr />
@@ -55,13 +55,13 @@
                     ?>
                     <div class="reply-list-item">
                         <?=$icon?> <strong><?=$alias?></strong>
-                        <div>{{ reply.getOffset('created_at') }}</div>
+                        <div>{{ reply.getDateTimeOffset('created_at') }}</div>
                         <?php if ($this->session->get('id') == $userId):?>
                             <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
                         <?php endif?>
 
                         <div>
-                            {{ reply.markdown('content') }}
+                            {{ markdown(reply.content) }}
                         </div>
                     </div>
                 {% endfor %}

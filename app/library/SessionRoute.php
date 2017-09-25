@@ -2,118 +2,123 @@
 
 namespace Library;
 
-//use Phalcon\Di;
 use Phalcon\Di\Injectable;
 use Phalcon\Session\Bag as SessionBag;
 
 class SessionRoute extends Injectable
 {
     /**
-     * @var \Phalcon\Di Dependency Injector
-     *                  Must have set Di::setDefault($di) in services (or someplace)
-     *                  Otherwise it is just passed in below.
+     * @var \Phalcon\Session\Bag
      */
-    protected $di;
+    protected $routeBag;
 
     /**
-     * @var $router \Phalcon\Mvc\Router
-     *              from the DI instance
+     * @var stdClass $prev Previous Route
      */
-    protected $router;
+    protected $prev;
 
     /**
-     * @var \Phalcon\Session $session
+     * @var stdClass $current Current Route
      */
-    protected $session;
-
-    /**
-     * @var stdClass $p Previous Route
-     */
-    protected $p;
-
-    /**
-     * @var stdClass $c Current Route
-     */
-    protected $c;
+    protected $current;
 
     // -----------------------------------------------------------------------------
 
     /**
      * SessionRoute constructor.
-     *
-     * @param null|\Phalcon\Di $di Optionally pass DI, or we resort to DI::getDefault()
      */
     public function __construct()
     {
-        $this->session = $this->di->get('session');
+        $this->routeBag = new SessionBag('routeBag');
+        // Always set current every-time the page is loaded
 
-        //$this->di     = $di ?: Di::getDefault();
-        //$this->router = $this->di->router;
+        // This will set the previous
+        $this->setCurrent();
     }
 
     // -----------------------------------------------------------------------------
 
-    public function getCurrent()
+    /**
+     * Get the current route
+     */
+    protected function setCurrent(): void
     {
-        // Yes, load the previous page
-        $c            = new \stdClass();
-        $c->iteration = 0;
 
-        $c->controller = (string) $this->router->getControllerName();
-        $c->action     = (string) $this->router->getActionName();
-        $c->params     = (array) $this->router->getParams();
-        $c->paramsStr  = implode('/', $c->params);
-        $c->full       = \Library\Url::makeFrom($c->controller, $c->action, $c->params);
+        ++$this->current->iteration;
 
-        // Track previous page,
-        // @TIP Session bag available in DI: $this->persistent->route;
-        if ($this->session->isStarted()) {
-            $route = new SessionBag('route');
+        // Set the Previous when the increments another time (page load)
+        if ($this->current->iteration % 2 === 0) {
+            $this->setPrev();
+        }
+    }
 
-            // Create the current Routes
-            foreach ($c as $key => $value) {
-                $route->{$key} = $value;
+    // -----------------------------------------------------------------------------
+
+    /**
+     * @return \stdClass
+     */
+    public function getCurrent(): \stdClass
+    {
+        return $this->current;
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Gets the last route called previously
+     * Session bag available in DI: $this->persistent->route;
+     *
+     * @return \stdClass
+     */
+    protected function setPrev(): \stdClass
+    {
+        $this->prev = clone $this->current;
+
+        foreach ($this->prev as $key => $value) {
+            if ($key === 'params') {
+                $this->prev->{$key} = [];
+                continue;
             }
+            $this->prev->{$key} = null;
+        }
+        unset($this->current->iteration);
 
-            if ($route->has('iteration')) {
-                ++$route->increment;
-
-                if ($route->controller !== $this->router->getControllerName()) {
-                    $route->controller = $this->router->getControllerName();
-                }
-                if ($route->action !== $this->router->getActionName()) {
-                    $route->action = $this->router->getActionName();
-                }
-                if ($route->params !== $this->router->getParams()) {
-                    $route->params = $this->router->getParams();
-                }
-                $currentFullUrl = \Library\Url::makeFrom($route->controller, $route->action, $route->params);
-                $route->full    = ($route->full !== $currentFullUrl) ?: $fullUrl;
-            }
-
-            $route->controller = $c->controller;
-            $route->action     = $c->ac;
-            $route->params     = (array) $this->router->getParams();
-            $route->full       = \Library\Url::makeFrom($route->controller, $route->action, $route->params);
-            $route->increment  = 0;
+        // Update anything that's different
+        if ($this->prev->controller !== $this->router->getControllerName()) {
+            $this->prev->controller = $this->router->getControllerName();
         }
 
+        if ($this->prev->action !== $this->router->getActionName()) {
+            $this->prev->action = $this->router->getActionName();
+        }
+
+        if ($this->prev->params !== $this->router->getParams()) {
+            $this->prev->params = $this->router->getParams();
+        }
+
+        $fullUrl = \Library\Url::makeFrom(this->prev->controller,
+            $this->prev->action,
+            $this->prev->params
+        );
+
+        $this->prev->full = ($this->prev->full !== $fullUrl) ?: $fullUrl;
+
+        return $this->prev;
     }
 
     // -----------------------------------------------------------------------------
 
     /**
-     *
+     * @return \stdClass
      */
-    public function getPrev()
+    public function getPrev(): \stdClass
     {
-
+        return $this->prev;
     }
-
     // -----------------------------------------------------------------------------
 
     /**
-     *
+     * Alias for getPrev
      */
     public function getPrevious()
     {

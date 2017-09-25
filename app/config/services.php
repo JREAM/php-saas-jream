@@ -228,6 +228,18 @@ $di->setShared('hashids', function () use ($config) {
 
 /**
  * ==============================================================
+ * Markdown Parser
+ * =============================================================
+ */
+$di->setShared('markdown', function () {
+    // $example: $parsedown->parse('#markdown here');
+    return new \Parsedown();
+});
+
+
+
+/**
+ * ==============================================================
  * View component
  * =============================================================
  */
@@ -256,6 +268,10 @@ $di->setShared('view', function () use ($config, $di) {
                 ->addFunction('sprintf', 'sprintf')
                 ->addFunction('str_replace', 'str_replace')
                 ->addFunction('is_a', 'is_a')
+                ->addFunction('markdown', function(string $str, $expr) use ($di) {
+                    $markdown = $di->get('markdown');
+                    return $markdown->parse($str);
+                })
                 ->addFunction('pageid', function ($str, $expr) {
                     return str_replace('-page', '', $str);
                 });

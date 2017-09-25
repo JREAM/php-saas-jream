@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-use Phalcon\Validation;
-use Phalcon\Validation\Validator;
+use Phalcon\DI\FactoryDefault;
+
+Model::setup([
+    'events'                => true,   // Callback Hooks
+    'columnRenaming'        => false,  // Why would this be allowed?
+    'exceptionOnFailedSave' => false,
+    'ignoreUnknownColumns'  => false, // This can be enabled if some issues arise
+]);
 
 class BaseModel extends \Phalcon\Mvc\Model
 {
@@ -57,7 +63,6 @@ class BaseModel extends \Phalcon\Mvc\Model
 
     public function onConstruct()
     {
-        $this->di       = \Phalcon\DI\FactoryDefault::getDefault();
         $this->session  = $this->di->get('session');
         $this->security = $this->di->get('security');
 
@@ -71,19 +76,33 @@ class BaseModel extends \Phalcon\Mvc\Model
     /**
      * Returns a HTML formatted list of errors
      *
+     * @TODO For two items, use a space, eg: $arg = 'div ul' will product <div><ul> ... </ul></div>
+     *
+     * @param string $container HTML Wrapper to surround entire container in; 'div', 'ol', etc
+     * @param string $items     Each individual item; 'li', 'span',
+     *
      * @return boolean|string
      */
-    public function getMessagesList()
+    public function getMessagesAsHTML(string $container = 'ul', string $items = 'li')
     {
         if ( ! $this->getMessages()) {
             return false;
         }
 
-        $output = '<ul>';
+        // Lowercase the HTML Elements
+        $container = strtolower($container);
+        $items     = strtolower($items);
+
+        // Remove everything but a-z
+        $container = preg_replace("/[^a-z]/", '', $container);
+        $items     = preg_replace("/[^a-z]/", '', $items);
+
+        // Build the list
+        $output = sprintf("<%s>", $container);
         foreach ($this->getMessages() as $message) {
-            $output .= sprintf('<li>%s</li>', $message);
+            $output .= sprintf('<%s>%s</%s>', $message, $items, $items);
         }
-        $output .= '</ul>';
+        $output .= sprintf("</%s>", $container);
 
         return $output;
     }
@@ -98,7 +117,7 @@ class BaseModel extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getOffset($field = false)
+    public function getDateTimeOffset($field = false): string
     {
         $use = 'now';
         if ($field && property_exists($this, $field)) {
@@ -122,7 +141,12 @@ class BaseModel extends \Phalcon\Mvc\Model
 
     // ------------------------------------------------------------------------------
 
-    public function dateMDY($field = false)
+    /**
+     * @param bool $field
+     *
+     * @return bool|string
+     */
+    public function getDateMDY($field = false)
     {
         if ( ! $field || ! property_exists($this, $field)) {
             return false;
@@ -132,57 +156,5 @@ class BaseModel extends \Phalcon\Mvc\Model
 
         return date('m/d/y', $time);
     }
-
-    // ------------------------------------------------------------------------------
-
-    /**
-     * Parses markdown for any given field
-     *
-     * @param   string $field
-     *
-     * @return  markdown
-     */
-    public function markdown($field)
-    {
-        if ($field && property_exists($this, $field)) {
-            $use = $this->{$field};
-        }
-
-        // Only load once
-        if ($this->parsedown == null) {
-            $this->parsedown = new \Parsedown();
-        }
-
-        return $this->parsedown->parse($use);
-    }
-
-    // ------------------------------------------------------------------------------
-
-    /**
-     * Return a Generic Result from custom Model Functions to use the same format.
-     *
-     * @param int    $result True/False as an int, it is forced so 2 will be 1 as in true. 0 for false.
-     * @param string $msg    String of error or success
-     * @param null   $data   Can be any type of data
-     *
-     * @return \stdClass
-     */
-    protected function out(int $result, string $msg = '', $data = null): stdClass
-    {
-        $output       = new \stdClass();
-        $output->data = $data;
-
-        if ($result) {
-            $output->result = 1;
-            $output->msg    = $msg;
-        } else {
-            $output->result = 0;
-            $output->msg    = $msg;
-        }
-
-        return $output;
-    }
-
-    // ------------------------------------------------------------------------------
 
 }

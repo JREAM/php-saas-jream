@@ -125,7 +125,7 @@ class UserController extends ApiController
             return $this->output(1, 'Confirmed. Email has been changed, please re-login using your new email.');
         }
 
-        return $this->output(0, $user->getMessagesList());
+        return $this->output(0, $user->getMessagesAsHTML());
     }
 
     // -----------------------------------------------------------------------------
@@ -178,7 +178,7 @@ class UserController extends ApiController
         $user->save();
 
         if ($user->getMessages()) {
-            return $this->output(0, $user->getMessagesList());
+            return $this->output(0, $user->getMessagesAsHTML());
         }
 
         return $this->output(1, 'Your password has been changed');

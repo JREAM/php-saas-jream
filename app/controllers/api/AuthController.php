@@ -277,7 +277,7 @@ class AuthController extends ApiController
         $result = $user->save();
 
         if ( ! $result) {
-            return $this->output(0, $user->getMessagesList());
+            return $this->output(0, $user->getMessagesAsHTML());
         }
 
         // Save them in the mailing list
@@ -433,7 +433,7 @@ class AuthController extends ApiController
 
         // @TODO this may need to return to the parent function rather than output
         if ( ! $result) {
-            return $this->output(0, $user->getMessagesList());
+            return $this->output(0, $user->getMessagesAsHTML());
         }
 
         // @important Create the User Session

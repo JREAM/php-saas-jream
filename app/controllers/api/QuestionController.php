@@ -41,7 +41,7 @@ class QuestionController extends ApiController
         $result             = $thread->save();
 
         if ( ! $result) {
-            return $this->output(0, $thread->getMessagesList());
+            return $this->output(0, $thread->getMessagesAsHTML());
         }
 
         $url = \Library\Url::get('dashboard/question/index/' . $productId . '#thread-id-' . $thread->id);
@@ -105,7 +105,7 @@ class QuestionController extends ApiController
         $result                    = $thread->save();
 
         if ( ! $result) {
-            $this->flash->error($thread->getMessagesList());
+            $this->flash->error($thread->getMessagesAsHTML());
 
             return $this->redirect(self::REDIRECT_FAILURE . $productId);
         }

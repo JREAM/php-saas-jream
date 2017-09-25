@@ -1,4 +1,5 @@
 <?php
+
 putenv('APPLICATION_ENV=testing');
 
 ini_set('display_errors', 1);

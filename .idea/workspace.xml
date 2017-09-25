@@ -6,95 +6,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/cli.php" afterPath="$PROJECT_DIR$/app/cli.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/EmailComponent.php" afterPath="$PROJECT_DIR$/app/components/EmailComponent.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/BaseController.php" afterPath="$PROJECT_DIR$/app/controllers/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/CheckoutController.php" afterPath="$PROJECT_DIR$/app/controllers/CheckoutController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ContactController.php" afterPath="$PROJECT_DIR$/app/controllers/ContactController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/IndexController.php" afterPath="$PROJECT_DIR$/app/controllers/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/NewsletterController.php" afterPath="$PROJECT_DIR$/app/controllers/NewsletterController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ProductController.php" afterPath="$PROJECT_DIR$/app/controllers/ProductController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/PromotionController.php" afterPath="$PROJECT_DIR$/app/controllers/PromotionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/TestController.php" afterPath="$PROJECT_DIR$/app/controllers/TestController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ToolController.php" afterPath="$PROJECT_DIR$/app/controllers/ToolController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserController.php" afterPath="$PROJECT_DIR$/app/controllers/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/WebhookController.php" afterPath="$PROJECT_DIR$/app/controllers/WebhookController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/ApiController.php" afterPath="$PROJECT_DIR$/app/controllers/api/ApiController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/ContactController.php" afterPath="$PROJECT_DIR$/app/controllers/api/ContactController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/CourseController.php" afterPath="$PROJECT_DIR$/app/controllers/api/CourseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/NewsletterController.php" afterPath="$PROJECT_DIR$/app/controllers/api/NewsletterController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/PurchaseController.php" afterPath="$PROJECT_DIR$/app/controllers/api/PurchaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/QuestionController.php" afterPath="$PROJECT_DIR$/app/controllers/api/QuestionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/UserController.php" afterPath="$PROJECT_DIR$/app/controllers/api/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/UtilsController.php" afterPath="$PROJECT_DIR$/app/controllers/api/UtilsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/AccountController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/AccountController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/CourseController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/CourseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/DashboardController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/DashboardController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/NotificationController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/NotificationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/QuestionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/SupportController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/SupportController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/YoutubeController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/YoutubeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/BaseForm.php" afterPath="$PROJECT_DIR$/app/forms/BaseForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/ChangeEmailForm.php" afterPath="$PROJECT_DIR$/app/forms/ChangeEmailForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/ChangePasswordForm.php" afterPath="$PROJECT_DIR$/app/forms/ChangePasswordForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/CheckoutForm.php" afterPath="$PROJECT_DIR$/app/forms/CheckoutForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/ContactForm.php" afterPath="$PROJECT_DIR$/app/forms/ContactForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/ForgotPasswordForm.php" afterPath="$PROJECT_DIR$/app/forms/ForgotPasswordForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/LoginForm.php" afterPath="$PROJECT_DIR$/app/forms/LoginForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/NewsletterForm.php" afterPath="$PROJECT_DIR$/app/forms/NewsletterForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/PurchaseForm.php" afterPath="$PROJECT_DIR$/app/forms/PurchaseForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/RegisterForm.php" afterPath="$PROJECT_DIR$/app/forms/RegisterForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/forms/traits/GetMessageTrait.php" afterPath="$PROJECT_DIR$/app/forms/traits/GetMessageTrait.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/functions.php" afterPath="$PROJECT_DIR$/app/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/library/Output.php" afterPath="$PROJECT_DIR$/app/library/Output.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/library/Recaptcha.php" afterPath="$PROJECT_DIR$/app/library/Recaptcha.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/library/SessionRoute.php" afterPath="$PROJECT_DIR$/app/library/SessionRoute.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/library/TokenManager.php" afterPath="$PROJECT_DIR$/app/library/TokenManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/library/Url.php" afterPath="$PROJECT_DIR$/app/library/Url.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/middleware/Database.php" afterPath="$PROJECT_DIR$/app/middleware/Database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/middleware/Dispatch.php" afterPath="$PROJECT_DIR$/app/middleware/Dispatch.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/BaseModel.php" afterPath="$PROJECT_DIR$/app/models/BaseModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Newsletter.php" afterPath="$PROJECT_DIR$/app/models/Newsletter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/NewsletterResult.php" afterPath="$PROJECT_DIR$/app/models/NewsletterResult.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/NewsletterSubscription.php" afterPath="$PROJECT_DIR$/app/models/NewsletterSubscription.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Notification.php" afterPath="$PROJECT_DIR$/app/models/Notification.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Product.php" afterPath="$PROJECT_DIR$/app/models/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ProductCourse.php" afterPath="$PROJECT_DIR$/app/models/ProductCourse.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ProductCourseMeta.php" afterPath="$PROJECT_DIR$/app/models/ProductCourseMeta.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ProductThread.php" afterPath="$PROJECT_DIR$/app/models/ProductThread.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ProductThreadReply.php" afterPath="$PROJECT_DIR$/app/models/ProductThreadReply.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Promotion.php" afterPath="$PROJECT_DIR$/app/models/Promotion.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Transaction.php" afterPath="$PROJECT_DIR$/app/models/Transaction.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/User.php" afterPath="$PROJECT_DIR$/app/models/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/UserAction.php" afterPath="$PROJECT_DIR$/app/models/UserAction.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/UserPurchase.php" afterPath="$PROJECT_DIR$/app/models/UserPurchase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/UserReferrer.php" afterPath="$PROJECT_DIR$/app/models/UserReferrer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/UserSupport.php" afterPath="$PROJECT_DIR$/app/models/UserSupport.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Youtube.php" afterPath="$PROJECT_DIR$/app/models/Youtube.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/traits/TimestampTrait.php" afterPath="$PROJECT_DIR$/app/models/traits/TimestampTrait.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/plugins/PermissionPlugin.php" afterPath="$PROJECT_DIR$/app/plugins/PermissionPlugin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/tasks/CronTask.php" afterPath="$PROJECT_DIR$/app/tasks/CronTask.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/tasks/MainTask.php" afterPath="$PROJECT_DIR$/app/tasks/MainTask.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/tasks/NewsletterTask.php" afterPath="$PROJECT_DIR$/app/tasks/NewsletterTask.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/templates/partials/footer.volt" afterPath="$PROJECT_DIR$/app/views/templates/partials/footer.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/templates/partials/head.volt" afterPath="$PROJECT_DIR$/app/views/templates/partials/head.volt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.php" afterPath="$PROJECT_DIR$/public/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/app.js" afterPath="$PROJECT_DIR$/resources/assets/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/js/global.js" afterPath="$PROJECT_DIR$/resources/assets/js/global.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/admin-customers.php" afterPath="$PROJECT_DIR$/resources/emails/admin-customers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/base.php" afterPath="$PROJECT_DIR$/resources/emails/base.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/confirm-email-change.php" afterPath="$PROJECT_DIR$/resources/emails/confirm-email-change.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/contact.php" afterPath="$PROJECT_DIR$/resources/emails/contact.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/newsletter-template.php" afterPath="$PROJECT_DIR$/resources/emails/newsletter-template.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/notification.php" afterPath="$PROJECT_DIR$/resources/emails/notification.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/purchase.php" afterPath="$PROJECT_DIR$/resources/emails/purchase.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/question-thread-reply.php" afterPath="$PROJECT_DIR$/resources/emails/question-thread-reply.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/question-thread.php" afterPath="$PROJECT_DIR$/resources/emails/question-thread.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/emails/support.php" afterPath="$PROJECT_DIR$/resources/emails/support.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/_bootstrap.php" afterPath="$PROJECT_DIR$/tests/_bootstrap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/functional/AccountCept.php" afterPath="$PROJECT_DIR$/tests/functional/AccountCept.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/AuthTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/AuthTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/CourseTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/CourseTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/NewsletterTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/NewsletterTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/PurchaseTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/PurchaseTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/QuestionTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/QuestionTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Controllers/Api/UserTest.php" afterPath="$PROJECT_DIR$/tests/unit/Controllers/Api/UserTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Models/ProductTest.php" afterPath="$PROJECT_DIR$/tests/unit/Models/ProductTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Models/PromotionTest.php" afterPath="$PROJECT_DIR$/tests/unit/Models/PromotionTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/unit/Models/UserTest.php" afterPath="$PROJECT_DIR$/tests/unit/Models/UserTest.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -424,17 +346,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/forms/LoginForm.php" />
-        <option value="$PROJECT_DIR$/app/forms/NewsletterForm.php" />
-        <option value="$PROJECT_DIR$/app/forms/PurchaseForm.php" />
-        <option value="$PROJECT_DIR$/app/forms/RegisterForm.php" />
-        <option value="$PROJECT_DIR$/app/library/Output.php" />
-        <option value="$PROJECT_DIR$/app/library/Recaptcha.php" />
-        <option value="$PROJECT_DIR$/app/library/TokenManager.php" />
-        <option value="$PROJECT_DIR$/app/library/Url.php" />
-        <option value="$PROJECT_DIR$/app/middleware/Database.php" />
-        <option value="$PROJECT_DIR$/app/middleware/Dispatch.php" />
-        <option value="$PROJECT_DIR$/app/models/traits/TimestampTrait.php" />
         <option value="$PROJECT_DIR$/app/models/BaseModel.php" />
         <option value="$PROJECT_DIR$/app/models/Newsletter.php" />
         <option value="$PROJECT_DIR$/app/models/NewsletterResult.php" />
@@ -475,6 +386,17 @@
         <option value="$PROJECT_DIR$/app/plugins/PermissionPlugin.php" />
         <option value="$PROJECT_DIR$/app/tasks/CronTask.php" />
         <option value="$PROJECT_DIR$/app/tasks/NewsletterTask.php" />
+        <option value="$PROJECT_DIR$/tests/_bootstrap.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Models/UserTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Models/ProductTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Models/PromotionTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/UserTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/QuestionTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/PurchaseTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/NewsletterTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/CourseTest.php" />
+        <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/AuthTest.php" />
+        <option value="$PROJECT_DIR$/tests/functional/AccountCept.php" />
       </list>
     </option>
   </component>
@@ -600,6 +522,12 @@
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -847,166 +775,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/library/Url.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/middleware/Database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="64" column="31" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="65" selection-end-column="38" />
-          <folding>
-            <element signature="e#57#76#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/library/Output.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/middleware/Dispatch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/traits/TimestampTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/components/forms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="26" column="21" lean-forward="true" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/global.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1656">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/checkout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/contact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="28" lean-forward="false" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/cli.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/admin-customers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/pages/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/contact.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" column="8" lean-forward="false" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/newsletter-template.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/emails/support.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/EmailComponent.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -1273,6 +1041,150 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/_bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/CheckoutController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1344">
+          <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/_bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-24">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Models/ProductTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Models/PromotionTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Models/UserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/functional/PublicPathsCept.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/NewsletterTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/functional/LoginCept.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/CourseTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/AuthTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/functional/AccountCept.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/functional/_bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/PurchaseTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/QuestionTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/UserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>

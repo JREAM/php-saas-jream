@@ -277,12 +277,13 @@ class User extends BaseModel
     /**
      * Captures where the user signed up from
      *
-     * @return [type] [description]
+     * @return int $user_id
+     * @return Phalcon\Http\Request $request
      */
-    public function saveReferrer($userId, $request)
+    public function saveReferrer($user_id, $request)
     {
         $referrer           = new \UserReferrer();
-        $referrer->user_id  = $userId;
+        $referrer->user_id  = $user_id;
         $referrer->referrer = $request->getHTTPReferer();
         $referrer->data     = json_encode([
             'page'           => basename($_SERVER[ 'PHP_SELF' ]),
@@ -301,8 +302,11 @@ class User extends BaseModel
     // -----------------------------------------------------------------------------
 
     /**
-     * @param $email
-     * @param $password
+     *
+     * Do Login
+     *
+     * @param string $email
+     * @param string $password
      *
      * @return bool
      */

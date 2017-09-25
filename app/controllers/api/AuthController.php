@@ -152,6 +152,8 @@ class AuthController extends ApiController
                 $profile->profileURL;
                 // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
 
+                pr($profile);
+
                 // Prefer the verified email if its set
                 $email = ($profile->emailVerified) ?: $profile->email;
 
@@ -183,15 +185,17 @@ class AuthController extends ApiController
     /**
      * Does the Login via Facebook Auth
      *
-     * @return string   JSON
+     * @return Response|View
      */
-    public function facebookAction(): Response
+    public function facebookAction()
     {
         try {
             $adapter = $this->hybridauth->authenticate('Facebook');
 
             if ($adapter->isConnected()) {
                 $profile = $adapter->getUserProfile();
+
+                pr($profile);
 
                 $profile->identifier;
                 $profile->profileURL;

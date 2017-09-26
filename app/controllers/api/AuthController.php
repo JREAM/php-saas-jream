@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Controllers\Api;
 
+use Phalcon\Exception;
 use Phalcon\Http\Response;
 use User;
 
@@ -82,16 +83,61 @@ class AuthController extends ApiController
         return $this->output(0, 'Incorrect Credentials');
     }
 
+
     // -----------------------------------------------------------------------------
 
     /**
      * Github Login
+     * @important Not XHR Request
+     *
+     * @return Response|View
      */
     public function githubAction()
     {
-        try {
-            $adapter = $this->hybridauth->authenticate('GitHub');
+        return $this->socialSignin('github');
+    }
 
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Google Logins
+     * @important Not XHR Request
+     *
+     * @return Response|View
+     */
+    public function googleAction()
+    {
+        return $this->socialSignin('github');
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
+     * Does the Login via Facebook Auth
+     * @important Not XHR Request
+     *
+     * @return Response|View
+     */
+    public function facebookAction()
+    {
+        return $this->socialSignin('facebook');
+    }
+
+    // -----------------------------------------------------------------------------
+
+    protected function socialSignin(string $network)
+    {
+        $network = strtolower($network);
+        $accepted_networks = ['google', 'github', 'facebook'];
+        if (!in_array($network, $accepted_networks)) {
+            throw new \Exception("The network $network is not in the accepted networks: " . implode(', ', $accepted_networks));
+        }
+
+        try {
+            // Authenticate Network
+            $adapter = $this->hybridauth->authenticate($network);
+
+            // See if they are connected
             if ($adapter->isConnected()) {
                 $profile = $adapter->getUserProfile();
 
@@ -107,16 +153,22 @@ class AuthController extends ApiController
                 // Prefer the verified email if its set
                 $email = $profile->emailVerified ?: $profile->email;
 
-                //$this->saveUser('github',
+                //$saveUser = $this->saveUser('github',
                 //    $profile->identifier
                 //    //$profile->ALIAS, // Need to figure this out
                 //    $email,
                 //);
-                $this->createSession($user, 'github');
+                if ($saveUser['result'] == 0) {
+                    throw new \Exception($saveUser['msg']);
+                }
 
-                return $response->redirect('dashboard/');
+                // Create Session and Redirect to Dashboard.
+                $this->createSession($user, 'github');
+                return $this->response->redirect(\Library\Url::get('dashboard'), false);
             }
 
+
+            echo 'How did we get to this part?';
             // @TODO When to use disconnect?
 
             //$boolean = $this->hybridauth->isConnectedWith('Github');
@@ -128,54 +180,10 @@ class AuthController extends ApiController
 
             $adapter->disconnect();
         } catch (\Exception $e) {
+
             $this->view->setVars([
                 'message' => $e->getMessage(),
             ]);
-
-            return $this->view->pick('error/generic');
-        }
-
-        die;
-    }
-
-    // -----------------------------------------------------------------------------
-
-    public function googleAction()
-    {
-        try {
-            $adapter = $this->hybridauth->authenticate('Google');
-
-            if ($adapter->isConnected()) {
-                $profile = $adapter->getUserProfile();
-
-                $profile->identifier;
-                $profile->profileURL;
-                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
-
-                pr($profile);
-
-                // Prefer the verified email if its set
-                $email = ($profile->emailVerified) ?: $profile->email;
-
-                //$this->saveUser('github',
-                //    $profile->identifier
-                //    //$profile->ALIAS, // Need to figure this out
-                //    $email,
-                //);
-                $this->createSession($user, 'google');
-
-                return $response->redirect('dashboard/');
-            }
-
-            var_dump($userProfile);
-
-            // @TODO When to use disconnect?
-            $adapter->disconnect();
-        } catch (\Exception $e) {
-            $this->view->setVars([
-                'message' => $e->getMessage(),
-            ]);
-
             return $this->view->pick('error/generic');
         }
     }
@@ -183,54 +191,9 @@ class AuthController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
-     * Does the Login via Facebook Auth
+     * Registers a Local User (JREAM Account)
+     * If success they are redirected to dashboard
      *
-     * @return Response|View
-     */
-    public function facebookAction()
-    {
-        try {
-            $adapter = $this->hybridauth->authenticate('Facebook');
-
-            if ($adapter->isConnected()) {
-                $profile = $adapter->getUserProfile();
-
-                pr($profile);
-
-                $profile->identifier;
-                $profile->profileURL;
-                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
-
-                // Prefer the verified email if its set
-                $email = ($profile->emailVerified) ?: $profile->email;
-
-                //$this->saveUser('github',
-                //    $profile->identifier
-                //    //$profile->ALIAS, // Need to figure this out
-                //    $email,
-                //);
-
-                $this->createSession($user, 'facebook');
-
-                return $response->redirect('dashboard/');
-            }
-
-            var_dump($userProfile);
-
-            // @TODO When to use disconnect?
-            $adapter->disconnect();
-        } catch (\Exception $e) {
-            $this->view->setVars([
-                'message' => $e->getMessage(),
-            ]);
-
-            return $this->view->pick('error/generic');
-        }
-    }
-
-    // -----------------------------------------------------------------------------
-
-    /**
      * @return string JSON
      */
     public function registerAction(): Response
@@ -320,14 +283,16 @@ class AuthController extends ApiController
 
         // Create the User Session
         $this->createSession($user, 'jream');
-
-        return $response->redirect('dashboard/');
+        $this->output(1, 'Registration Success', [
+            'redirect' => \Library\Url::get('dashboard/')
+        ]);
     }
 
     // -----------------------------------------------------------------------------
 
     /**
      * Saves a user to the Database for Local or Social Network
+     * @important Does NOT create Session, let the other methods do so.
      *
      * @param string      $type            Can be: github, google, facebook, jream
      * @param int         $id
@@ -435,14 +400,14 @@ class AuthController extends ApiController
         // Save where they signed up from, the Social Auth might not do this so great.
         $user->saveReferrer($user->id, $this->request);
 
-        // @TODO this may need to return to the parent function rather than output
         if ( ! $result) {
-            return $this->output(0, $user->getMessagesAsHTML());
+            return [
+                'result' => 0,
+                'msg' => $user->getMessagesAsHTML()
+            ];
         }
 
-        // @important Create the User Session
-        $this->createSession($user);
-
+        $message_result = '';
         // @TODO Ensure the user->id is saved, and accessible after creation
         if ($isNewUser) {
             // New Users are Saved to the mailing list
@@ -453,15 +418,17 @@ class AuthController extends ApiController
             $newsletterSubscription->save();
 
             //@TODO Ensure passing the created user instance works
-            $this->sendWelcomeEmail($user, $type);
+            $message_result = $this->sendWelcomeEmail($user, $type);
         }
 
         if ($isLinkedAccount) {
-            $this->sendLinkedAccountEmail($user, $type);
+            $message_result = $this->sendLinkedAccountEmail($user, $type);
         }
 
-
-        return 1;
+        return [
+            'result' => 0,
+            'msg' => $message_result
+        ];
     }
 
 
@@ -472,6 +439,8 @@ class AuthController extends ApiController
      *
      * @param \User  $user        The User
      * @param string $accountType The network: local/jream, facebook, github, google, etc.
+     *
+     * @return string
      */
     protected function sendWelcomeEmail(\User $user, string $accountType)
     {
@@ -659,7 +628,7 @@ class AuthController extends ApiController
         $user->login_attempt    = null;
         $user->login_attempt_at = null;
 
-        $this->session->set('is_logged_in', true);
+        $this->session->set('is_logged_in', (boolean) true);
         $this->session->set('id', $user->id);
         $this->session->set('role', $user->role);
         $this->session->set('alias', $user->getAlias());

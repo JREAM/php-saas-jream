@@ -155,13 +155,13 @@ class BaseController extends Controller
      */
     public function redirect($append): Response
     {
-        $url = rtrim(\URL, '/');
-        if (strlen($append) !== 0) {
-            $url .= '/' . ltrim($append, '/');
+        $config = $this->di->get('config');
+        $url = rtrim($config->base_url, '/');
 
+        if (strlen($append) !== 0) {
             // Ensure there are no trailing slashes.
             // This has been an issue.
-            $url = trim($url, '/');
+            $url .= '/' . trim($append, '/');
         }
 
         return $this->response->redirect($url, false);

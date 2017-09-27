@@ -103,14 +103,10 @@ class PermissionPlugin extends Plugin
      * @param  Event      $event
      * @param  Dispatcher $dispatcher
      *
-     * @return null|string
+     * @return null|string|Response
      */
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher): ?string
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
-
-//        echo '<pre>';
-//        var_dump($this->persistent->acl);
-//die;
         // Debug:
         // $this->session->destroy();
 
@@ -140,7 +136,7 @@ class PermissionPlugin extends Plugin
             }
 
             $this->flash->error("Permission Denied for this area (ACL).");
-            // return $this->response->redirect(self::REDIRECT_DENIED);
+             return $this->response->redirect(self::REDIRECT_DENIED);
         }
 
         return null;

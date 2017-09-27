@@ -63,7 +63,7 @@ $api = new \Phalcon\Config([
         // @important   More can be customized here
         // @link        https://hybridauth.github.io/developer-ref-user-authentication.html
         'providers' => [
-            'Google'   => [
+            'google'   => [
                 'enabled'  => true,
                 'callback' => 'api/auth/google',
                 'keys'     => [
@@ -72,7 +72,7 @@ $api = new \Phalcon\Config([
                 ],
                 // 'scope' => '', // Using Default Provided
             ],
-            'Facebook' => [
+            'facebook' => [
                 'enabled'  => true,
                 'callback' => 'api/auth/facebook',
                 'keys'     => [
@@ -81,7 +81,7 @@ $api = new \Phalcon\Config([
                 ],
                 // 'scope' => '', // Using Default Provided
             ],
-            'Github' => [
+            'github' => [
                 'enabled'  => true,
                 'callback' => 'api/auth/github',
                 'keys'     => [

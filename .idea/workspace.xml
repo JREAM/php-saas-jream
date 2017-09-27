@@ -6,8 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api.php" afterPath="$PROJECT_DIR$/app/config/api.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -299,8 +298,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-563">
-              <caret line="137" column="12" lean-forward="false" selection-start-line="137" selection-start-column="12" selection-end-line="137" selection-end-column="65" />
+            <state relative-caret-position="312">
+              <caret line="131" column="95" lean-forward="false" selection-start-line="131" selection-start-column="95" selection-end-line="131" selection-end-column="95" />
               <folding />
             </state>
           </provider>
@@ -320,7 +319,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getMessagesList</find>
       <find>markdown</find>
       <find>hybr</find>
       <find>checkout.v</find>
@@ -350,6 +348,7 @@
       <find>api</find>
       <find>alert</find>
       <find>saveUser</find>
+      <find>facebook</find>
     </findStrings>
     <replaceStrings>
       <replace>getBasename</replace>
@@ -423,8 +422,8 @@
         <option value="$PROJECT_DIR$/resources/assets/js/libraries/xhr.js" />
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/app/controllers/BaseController.php" />
-        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
         <option value="$PROJECT_DIR$/app/config/api.php" />
+        <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
       </list>
     </option>
   </component>
@@ -1332,8 +1331,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-563">
-          <caret line="137" column="12" lean-forward="false" selection-start-line="137" selection-start-column="12" selection-end-line="137" selection-end-column="65" />
+        <state relative-caret-position="312">
+          <caret line="131" column="95" lean-forward="false" selection-start-line="131" selection-start-column="95" selection-end-line="131" selection-end-column="95" />
           <folding />
         </state>
       </provider>

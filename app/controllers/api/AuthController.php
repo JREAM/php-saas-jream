@@ -94,7 +94,7 @@ class AuthController extends ApiController
      */
     public function githubAction()
     {
-        return $this->socialSignin('github');
+        return $this->socialSignin('GitHub');
     }
 
     // -----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ class AuthController extends ApiController
      */
     public function googleAction()
     {
-        return $this->socialSignin('github');
+        return $this->socialSignin('Google');
     }
 
     // -----------------------------------------------------------------------------
@@ -120,17 +120,16 @@ class AuthController extends ApiController
      */
     public function facebookAction()
     {
-        return $this->socialSignin('facebook');
+        return $this->socialSignin('Facebook');
     }
 
     // -----------------------------------------------------------------------------
 
     protected function socialSignin(string $network)
     {
-        $network = strtolower($network);
-        $accepted_networks = ['google', 'github', 'facebook'];
+        $accepted_networks = ['Google', 'GitHub', 'Facebook'];
         if (!in_array($network, $accepted_networks)) {
-            throw new \Exception("The network $network is not in the accepted networks: " . implode(', ', $accepted_networks));
+            throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " . implode(', ', $accepted_networks));
         }
 
         try {

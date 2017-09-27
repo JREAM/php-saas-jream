@@ -6,7 +6,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/forms/ChangeAliasForm.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/UserSocial.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/AuthController.php" afterPath="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/api/UserController.php" afterPath="$PROJECT_DIR$/app/controllers/api/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/dashboard/AccountController.php" afterPath="$PROJECT_DIR$/app/controllers/dashboard/AccountController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/User.php" afterPath="$PROJECT_DIR$/app/models/User.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/dashboard/account.volt" afterPath="$PROJECT_DIR$/app/views/dashboard/account.volt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/__setup/schema.sql" afterPath="$PROJECT_DIR$/resources/__setup/schema.sql" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -285,6 +294,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="account.volt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/dashboard/account.volt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccountController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/AccountController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/api.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -295,21 +324,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="131" column="95" lean-forward="false" selection-start-line="131" selection-start-column="95" selection-end-line="131" selection-end-column="95" />
+            <state relative-caret-position="301">
+              <caret line="155" column="105" lean-forward="false" selection-start-line="155" selection-start-column="105" selection-end-line="155" selection-end-column="105" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/services.php">
+      <file leaf-file-name="ChangeAliasForm.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/forms/ChangeAliasForm.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="526" column="46" lean-forward="true" selection-start-line="526" selection-start-column="46" selection-end-line="526" selection-end-column="46" />
+            <state relative-caret-position="120">
+              <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DashboardController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/DashboardController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-720">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret line="148" column="39" lean-forward="false" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -319,7 +368,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>markdown</find>
       <find>hybr</find>
       <find>checkout.v</find>
       <find>toggle-lights</find>
@@ -347,8 +395,9 @@
       <find>logout</find>
       <find>api</find>
       <find>alert</find>
-      <find>saveUser</find>
       <find>facebook</find>
+      <find>hash</find>
+      <find>saveUser</find>
     </findStrings>
     <replaceStrings>
       <replace>getBasename</replace>
@@ -373,11 +422,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/emails/support.php" />
-        <option value="$PROJECT_DIR$/app/components/EmailComponent.php" />
-        <option value="$PROJECT_DIR$/public/index.php" />
-        <option value="$PROJECT_DIR$/app/plugins/PermissionPlugin.php" />
-        <option value="$PROJECT_DIR$/app/tasks/CronTask.php" />
         <option value="$PROJECT_DIR$/app/tasks/NewsletterTask.php" />
         <option value="$PROJECT_DIR$/tests/_bootstrap.php" />
         <option value="$PROJECT_DIR$/tests/unit/Models/UserTest.php" />
@@ -390,14 +434,12 @@
         <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/CourseTest.php" />
         <option value="$PROJECT_DIR$/tests/unit/Controllers/Api/AuthTest.php" />
         <option value="$PROJECT_DIR$/tests/functional/AccountCept.php" />
-        <option value="$PROJECT_DIR$/app/models/User.php" />
         <option value="$PROJECT_DIR$/app/controllers/api/UtilsController.php" />
         <option value="$PROJECT_DIR$/app/library/SessionRoute.php" />
         <option value="$PROJECT_DIR$/app/library/GenericObject.php" />
         <option value="$PROJECT_DIR$/app/models/BaseModel.php" />
         <option value="$PROJECT_DIR$/resources/assets/js/components/system.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/libraries/Url.js" />
-        <option value="$PROJECT_DIR$/app/config/services.php" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/dashboard.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/auth.js" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/promotion.js" />
@@ -410,7 +452,6 @@
         <option value="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/purchase.js" />
         <option value="$PROJECT_DIR$/app/views/dashboard/account-delete.volt" />
-        <option value="$PROJECT_DIR$/app/views/dashboard/account.volt" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/user.js" />
         <option value="$PROJECT_DIR$/app/views/dashboard/question.volt" />
         <option value="$PROJECT_DIR$/resources/assets/js/pages/question.js" />
@@ -423,7 +464,15 @@
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/app/controllers/BaseController.php" />
         <option value="$PROJECT_DIR$/app/config/api.php" />
+        <option value="$PROJECT_DIR$/app/models/UserSocial.php" />
+        <option value="$PROJECT_DIR$/app/models/User.php" />
+        <option value="$PROJECT_DIR$/app/models/Product.php" />
+        <option value="$PROJECT_DIR$/app/config/services.php" />
         <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/api/UserController.php" />
+        <option value="$PROJECT_DIR$/app/forms/ChangeAliasForm.php" />
+        <option value="$PROJECT_DIR$/app/controllers/dashboard/AccountController.php" />
+        <option value="$PROJECT_DIR$/app/views/dashboard/account.volt" />
       </list>
     </option>
   </component>
@@ -579,26 +628,19 @@
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="forms" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="library" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="contact" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
@@ -612,7 +654,15 @@
               <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="partials" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="dashboard" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="account" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jream.com" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="user" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="jream.com" type="b2602c69:ProjectViewProjectNode" />
@@ -974,78 +1024,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/functional/AccountCept.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/functional/_bootstrap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/PurchaseTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/QuestionTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/unit/Controllers/Api/UserTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Newsletter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="304" column="6" lean-forward="true" selection-start-line="304" selection-start-column="6" selection-end-line="304" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/UtilsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="36" column="9" lean-forward="true" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/erusev/parsedown/Parsedown.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1416">
-          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/js/components/system.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/BaseModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1114,13 +1092,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-72">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/UserSupport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1232,25 +1203,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/dashboard/account.volt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/assets/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2448">
           <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2976">
-          <caret line="124" column="85" lean-forward="false" selection-start-line="124" selection-start-column="85" selection-end-line="124" selection-end-column="85" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1313,10 +1269,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="55" column="59" lean-forward="false" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/UserAction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="42" column="64" lean-forward="true" selection-start-line="42" selection-start-column="64" selection-end-line="42" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/UserSocial.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/UserSupport.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="42" column="50" lean-forward="true" selection-start-line="42" selection-start-column="50" selection-end-line="42" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Youtube.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="93" column="76" lean-forward="true" selection-start-line="93" selection-start-column="76" selection-end-line="93" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/services.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="526" column="46" lean-forward="true" selection-start-line="526" selection-start-column="46" selection-end-line="526" selection-end-column="46" />
+        <state relative-caret-position="301">
+          <caret line="219" column="33" lean-forward="false" selection-start-line="219" selection-start-column="33" selection-end-line="219" selection-end-column="33" />
           <folding />
         </state>
       </provider>
@@ -1331,8 +1335,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="155" column="105" lean-forward="false" selection-start-line="155" selection-start-column="105" selection-end-line="155" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="148" column="39" lean-forward="false" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forms/ChangeEmailForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forms/LoginForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/forms/ChangeAliasForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/DashboardController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/dashboard/AccountController.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
-          <caret line="131" column="95" lean-forward="false" selection-start-line="131" selection-start-column="95" selection-end-line="131" selection-end-column="95" />
+          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/dashboard/account.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="78" column="34" lean-forward="false" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
           <folding />
         </state>
       </provider>

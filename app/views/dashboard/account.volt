@@ -20,7 +20,7 @@
                 <h4><span class="glyphicon glyphicon-user opacity-50"></span> Profile</h4>
             </div>
                 {# @TODO Need to fix this #}
-                {% if session.has('is_logged_in') %}
+            {% if session.has('is_logged_in') %}
                 {#{% if session.has('fb_user_id') %}#}
                 <div class="list-group-item">
                     {{ user.getIcon() }} <strong>{{ user.facebook_alias }}</strong>
@@ -67,7 +67,25 @@
 
     </div>
     <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4><span class="glyphicon glyphicon-user opacity-50" aria-hidden="true"></span> Change Alias</h4></div>
+                    <div class="panel-body">
+                        <form id="form-dashboard-account-email" method="post" action="{{ url('api/user/updateEmail') }}">
+                            <div class="form-group">
+                                {{ changeAliasForm.render('alias') }}
+                            </div>
+                            <div class="form-group">
+                                {{ changeEmailForm.render('submit', ["class": "btn btn-lg btn-primary pull-right"]) }}
+                            </div>
 
+                            <input class="csrf-field" type="hidden" name="{{ tokenKey }}" value="{{ token }}" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         {# @TODO fix account types here #}
         {% if not session.has('is_logged_in') %}
         <div class="row">

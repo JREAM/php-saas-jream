@@ -88,6 +88,7 @@ class AuthController extends ApiController
 
     /**
      * Github Login
+     *
      * @important Not XHR Request
      *
      * @return Response|View
@@ -101,6 +102,7 @@ class AuthController extends ApiController
 
     /**
      * Google Logins
+     *
      * @important Not XHR Request
      *
      * @return Response|View
@@ -114,6 +116,7 @@ class AuthController extends ApiController
 
     /**
      * Does the Login via Facebook Auth
+     *
      * @important Not XHR Request
      *
      * @return Response|View
@@ -127,62 +130,54 @@ class AuthController extends ApiController
 
     protected function socialSignin(string $network)
     {
+        // Casing is Important (HybridAuth uses the actual classnames)
         $accepted_networks = ['Google', 'GitHub', 'Facebook'];
-        if (!in_array($network, $accepted_networks)) {
-            throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " . implode(', ', $accepted_networks));
+        if ( ! in_array($network, $accepted_networks)) {
+            throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " .
+                                 implode(', ', $accepted_networks));
         }
 
         try {
+
             // Authenticate Network
             $adapter = $this->hybridauth->authenticate($network);
 
-            // See if they are connected
-            if ($adapter->isConnected()) {
-                $profile = $adapter->getUserProfile();
-
-                // debug here:
-                pr($profile);
-                // @TODO: save user image?
-                // @todo: save temporary alias?
-
-                $profile->identifier;
-                $profile->profileURL;
-                // $avatar = https://avatars0.githubusercontent.com/u/{$id}?v=4
-
-                // Prefer the verified email if its set
-                $email = $profile->emailVerified ?: $profile->email;
-
-                //$saveUser = $this->saveUser('github',
-                //    $profile->identifier
-                //    //$profile->ALIAS, // Need to figure this out
-                //    $email,
-                //);
-                if ($saveUser['result'] == 0) {
-                    throw new \Exception($saveUser['msg']);
-                }
-
-                // Create Session and Redirect to Dashboard.
-                $this->createSession($user, 'github');
-                return $this->response->redirect(\Library\Url::get('dashboard'), false);
+            // Ensure they are connected
+            if ( ! $adapter->isConnected()) {
+                throw new \Exception("Could not get conncetion to the Service: $network");
             }
 
+            // Get the user Profile
+            $profile = $adapter->getUserProfile();
 
-            echo 'How did we get to this part?';
-            // @TODO When to use disconnect?
+            // debug here:
+            //pr($profile);
 
-            //$boolean = $this->hybridauth->isConnectedWith('Github');
-            //$boolean = $this->hybridauth->isConnectedWith('Google');
-            //$boolean = $this->hybridauth->isConnectedWith('Facebook');
-            //$adapter = $this->hybridauth->getAdapter('Github');
-            //$adapter = $this->hybridauth->getAdapter('Google');
-            //$adapter = $this->hybridauth->getAdapter('Facebook');
+            // Try to save profile, a temporary alias based on hashid is assigned, they can change later.
+            $saveSocialProfile = $this->saveSocialProfile($network, $profile);
 
+            // If the saving fails
+            if ($saveSocialProfile[ 'result' ] == 0) {
+                throw new \Exception($saveSocialProfile[ 'msg' ]);
+            }
+
+            // If the saving succeeds, create a session, redirect to dashboad
+            $user = $saveSocialProfile[ 'data' ][ 'user' ];
+            $this->createSession($user, 'github');
+
+            // Disconnect the adapter, they now use our system.
             $adapter->disconnect();
+
+            // JavaScript will redirect us (Based on the Xhr class I wrote)
+            return $this->response->redirect(\Library\Url::get('dashboard'), false);
+
         } catch (\Exception $e) {
 
+            // Display a generic error view
             $this->view->setVars([
                 'message' => $e->getMessage(),
             ]);
+
             return $this->view->pick('error/generic');
         }
     }
@@ -283,7 +278,7 @@ class AuthController extends ApiController
         // Create the User Session
         $this->createSession($user, 'jream');
         $this->output(1, 'Registration Success', [
-            'redirect' => \Library\Url::get('dashboard/')
+            'redirect' => \Library\Url::get('dashboard/'),
         ]);
     }
 
@@ -291,20 +286,22 @@ class AuthController extends ApiController
 
     /**
      * Saves a user to the Database for Local or Social Network
+     *
      * @important Does NOT create Session, let the other methods do so.
      *
-     * @param string      $type            Can be: github, google, facebook, jream
-     * @param int         $id
-     * @param string      $alias
-     * @param string      $email
-     * @param string|null $hashed_password For local jream accounts
+     * @param string                   $type  Can be: github, google, facebook, jream
+     * @param \Hybridauth\User\Profile Object $profile
      *
      * @throws \InvalidArgumentException
      *
      * @return mixed
      */
-    protected function saveUser(string $type, int $id, string $alias, string $email, $hashed_password = null)
+    protected function saveSocialProfile(string $type, \Hybridauth\User\Profile $profile)
     {
+
+        // Favor verified email over a non-verified
+        $profile->useEmail = $profile->emailVerified ?: $profile->email;
+
         $type            = strtolower($type);
         $isNewUser       = false; // This can change below if they exist on another platform
         $isLinkedAccount = false; // This changes if an existing account has their email saved
@@ -326,85 +323,66 @@ class AuthController extends ApiController
             throw new \InvalidArgumentException(sprintf('%s: %s', 'The user type is not valid, must be one of', implode(', ', $accepted)));
         }
 
-        // If they have an email already, associate this with their account.
-        $searchUser = User::findFirst([
-            '
-            email = :email 
-            OR github_email = :email 
-            OR google_email = :email 
-            OR facebook_email = :email 
-            ',
+        // Check if this email exists on any other network
+        $searchUser = \UserSocial::findFirst([
+            'email = :email'
         ], [
             'bind' => [
-                'email' => $email,
+                'email' => $profile->useEmail,
             ],
         ]);
 
         // They cannot get to this point with the same account they are registering.
         // This is to update an existing record
         if ($searchUser) {
-            // Existing: Local Account (jream)
-            if ($searchUser->email) {
-                $user = \User::findFirstByEmail($searchUser->email);
-            }
-            // Social Accounts
-            // Below get an existing User if they exist for updating.
-            // We only need one record.
-
-            // Existing: Social Account (github)
-            else if ($searchUser->github_email) {
-                $user = \User::findFirstByGithubEmail($searchUser->github_email);
-            } // Existing: Social Account (google)
-            else if ($searchUser->google_email) {
-                $user = \User::findFirstByGoogleEmail($searchUser->google_email);
-            } // Existing: Social Account (facebook)
-            else if ($searchUser->facebook_email) {
-                $user = \User::findFirstByFacebookEmail($searchUser->facebook_email);
-            }
-
-            // This account is linked with an existing, use one account.
-            if ($user) {
-                $isLinkedAccount = true;
-            }
+            // Social Accounts: Below get an existing User if they exist for updating.
+            $user = \User::findFirstById($searchUser->user_id);
+            $isLinkedAccount = true;
         }
+
         // If user does not exist in any form, create a new one.
         if ( ! $user) {
             $isNewUser = true;
             $user      = new \User();
+
+            // Create the local/jream account
+            $user->email = $profile->useEmail;
+            $user->role         = 'user';
+            $user->account_type = 'default';
         }
 
-        $user->role         = 'user';
-        $user->account_type = 'default';
+        // Create the social account
+        $userSocial               = new \UserSocial;
+        $userSocial->identifier   = $profile->identifier;
+        $userSocial->email        = $profile->useEmail;
+        $userSocial->display_name = $profile->displayName;
+        $userSocial->profile_url  = $profile->profileURL;
+        $userSocial->photo_url    = $profile->photoURL;
 
-        if (in_array($type, $accountTypes [ 'social' ], true)) {
-            $field_id    = "{$type}_id";
-            $field_alias = "{$type}_alias";
-            $field_email = "{$type}_email";
+        // Add the account to the User/UserSocial
+        $user->social[] = $userSocial;
 
-            // user->github_id, facebook_id, etc..
-            $user->$field_id    = $id;
-            $user->$field_alias = $alias;
-            $user->$field_email = $email;
-        } else {
-            // for jream accounts, id is automatically assigned
-            $user->alias = $alias;
-            $user->email = $email;
-
-            // This is only for jream accounts
-            $user->password      = $hashed_password;
-            $user->password_salt = $this->security->hash(random_int(5000, 100000));
-        }
-
+        // Attempt to save
         $result = $user->save();
-        // Save where they signed up from, the Social Auth might not do this so great.
-        $user->saveReferrer($user->id, $this->request);
 
+        // Check Results if there is a failure
         if ( ! $result) {
             return [
                 'result' => 0,
-                'msg' => $user->getMessagesAsHTML()
+                'msg'    => $user->getMessagesAsHTML(),
             ];
         }
+
+        // Save the user alias, they can change later.
+        // This has to be done after the result above.
+        if ($isNewUser) {
+            $hashids = $this->di->get('hashids');
+            $user->alias = $hashids($user->id);
+            $user->save();
+        }
+
+        // Save where they signed up from, the Social Auth might not do this so great.
+        $user->saveReferrer($user->id, $this->request);
 
         $message_result = '';
         // @TODO Ensure the user->id is saved, and accessible after creation
@@ -412,7 +390,7 @@ class AuthController extends ApiController
             // New Users are Saved to the mailing list
             $newsletterSubscription                = new \NewsletterSubscription();
             $newsletterSubscription->user_id       = $user->id; // the new ID received
-            $newsletterSubscription->email         = $email;
+            $newsletterSubscription->email         = $profile->useEmail;
             $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
             $newsletterSubscription->save();
 
@@ -426,7 +404,10 @@ class AuthController extends ApiController
 
         return [
             'result' => 0,
-            'msg' => $message_result
+            'msg'    => $message_result,
+            'data'   => [
+                'user' => $user,
+            ],
         ];
     }
 

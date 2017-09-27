@@ -88,13 +88,14 @@ class User extends BaseModel
         ]));
 
         $this->skipAttributesOnCreate(['reset_key']);
-        $this->hasMany('id', 'Project', 'user_id');
-        $this->hasMany('id', 'UserAction', 'user_id');
-        $this->hasMany('id', 'UserPurchase', 'user_id');
-        $this->hasMany('id', 'UserSupport', 'user_id');
-        $this->hasOne('id', 'UserReferrer', 'user_id');
-        $this->hasOne('id', 'ForumThread', 'user_id');
-        $this->hasOne('id', 'Newsletter', 'user_id');
+        $this->hasMany('id', 'Project', 'user_id', ['alias' => 'project']);
+        $this->hasMany('id', 'UserAction', 'user_id', ['alias' => 'action']);
+        $this->hasMany('id', 'UserPurchase', 'user_id', ['alias' => 'purchase']);
+        $this->hasMany("id", "UserSocial", "user_id", ['alias' => 'social']);
+        $this->hasMany('id', 'UserSupport', 'user_id', ['alias' => 'support']);
+        $this->hasOne('id', 'UserReferrer', 'user_id', ['alias' => 'referrer']);
+        $this->hasOne('id', 'ForumThread', 'user_id', ['alias' => 'forumthread']);
+        $this->hasOne('id', 'Newsletter', 'user_id', ['alias' => 'newsletter']);
     }
 
     // -----------------------------------------------------------------------------
@@ -224,11 +225,12 @@ class User extends BaseModel
      * Gets a users Icon from a service
      *
      * @param  mixed $id   (Optional) Will uses current session by default
-     * @param  mixed $size (Optional) Will change the HTML width
+     * @param  array $size (Optional) Will change the Image size
+     *                     (Default)  150 x 150
      *
      * @return string
      */
-    public function getIcon($id = false, $size = false)
+    public function getIcon($id = false, $size = [150, 150])
     {
         if ( ! $id) {
             $id = $this->session->get('id');
@@ -239,13 +241,14 @@ class User extends BaseModel
         }
 
         if ($this->google_id) {
-            return sprintf("<img src='https://avatars0.githubusercontent.com/u/%s?v=4'>", $this->google_id);
+            return sprintf("<img src='https://lh5.googleusercontent.com/-WkOoib5KeE4/AAAAAAAAAAI/AAAAAAABDpY/HJb_me61bCw/photo.jpg?sz=150'>", $this->google_id);
         }
 
         if ($this->facebook_id) {
             $size = ($size) ? "width=$size" : false;
+            https://graph.facebook.com/100007975142998/picture?type=small
 
-            return sprintf("<img $size src='https://graph.facebook.com/%s/picture?type=small' alt='facebook' />", $this->facebook_id);
+            return sprintf("<img $size src='https://graph.facebook.com/v2.8/100007975142998/picture?width=150&height=150' alt='facebook' />", $this->facebook_id);
         }
 
         $email   = ($this) ? $this->email : 'none@none.com';

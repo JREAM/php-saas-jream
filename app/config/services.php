@@ -217,11 +217,16 @@ $di->setShared('component', function () {
  */
 $di->setShared('hashids', function () use ($config) {
     // @sample
-    // encode(1); encode(1, 2, 3), encodeHex('507f1f77bcf86cd799439011')
+    // encode(1); encode([1,2,3]) encodeHex('507f1f77bcf86cd799439011')
     // decode(value), decode(hex_value)
 
     // Passing a unique string makes items unique
-    $hashids = new Hashids\Hashids($config->get('hashids_hash'));
+    $hashids = new Hashids\Hashids(
+        $config->get('hashids_hash'),
+        6,
+        'abcdefghijklmnopqrstuvwxyz'
+    );
+
     return $hashids;
 });
 

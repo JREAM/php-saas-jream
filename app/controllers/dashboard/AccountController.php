@@ -29,6 +29,7 @@ class AccountController extends BaseController
         $this->view->setVars([
             'changeEmailForm'    => new \Forms\ChangeEmailForm(),
             'changePasswordForm' => new \Forms\ChangePasswordForm(),
+            'changeAliasForm'    => new \Forms\ChangeAliasForm(),
             'user'               => \User::findFirstById($this->session->get('id')),
             'purchases'          => \UserPurchase::findByUserId($this->session->get('id')),
             'timezones'          => \DateTimeZone::listIdentifiers(),

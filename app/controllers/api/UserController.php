@@ -131,6 +131,34 @@ class UserController extends ApiController
     // -----------------------------------------------------------------------------
 
     /**
+     * Update the users Alias (displayed name)
+     *
+     * @return \Phalcon\Http\Response
+     */
+    public function updateAliasAction(): Response
+    {
+        $user = \User::findFirstById($this->session->get('id'));
+        $alias = (string) $this->request->getPost('alias');
+
+        $form = new \Forms\ChangeAliasForm(null, ['alias' => $alias]);
+        if ( ! $form->isValid()) {
+            return $this->response(0, $form->getMessages());
+        }
+
+        // @TODO: Add rules, no "Admin, JREAM, special chars, in names, no taken names
+        $user->alias = (string) $alias;
+        $result = $user->save();
+
+        if ($result) {
+            return $this->output(0, 'Your Alias has been updated.');
+        }
+
+        return $this->output(0, $user->getMessagesString());
+    }
+
+    // -----------------------------------------------------------------------------
+
+    /**
      * @return Response
      */
     public function updateNotificationsAction(): Response

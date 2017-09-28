@@ -10,9 +10,6 @@ window.Promise = require('es6-promise').Promise;
 window.xhr = require('./libraries/xhr');
 window.url = require('./libraries/url');
 
-// Custom Components
-window.formUtils = require('./components/forms');
-
 // -----------------------------------------------------------------------------
 // jQuery Notify (resources/vendor/notify.js)
 // Included from footer (no npm package)

@@ -12,8 +12,8 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  xhr.stdForm('#formNewsletterSubscribe');
-  xhr.stdForm('#formNewsletterVerify');
-  xhr.stdForm('#formNewsletterUnsubscribe');
+  xhr.stdForm('#form-newsletter-subscribe');
+  xhr.stdForm('#form-newsletter-verify');
+  xhr.stdForm('#form-newsletter-unsubscribe');
 
 });

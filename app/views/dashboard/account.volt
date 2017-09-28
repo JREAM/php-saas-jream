@@ -72,7 +72,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading"><h4><span class="glyphicon glyphicon-user opacity-50" aria-hidden="true"></span> Change Alias</h4></div>
                     <div class="panel-body">
-                        <form id="form-dashboard-account-email" method="post" action="{{ url('api/user/updateEmail') }}">
+                        <form id="form-dashboard-account-email" method="post" action="{{ url('api/user/updateemail') }}">
                             <div class="form-group">
                                 {{ changeAliasForm.render('alias') }}
                             </div>
@@ -93,7 +93,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><span class="glyphicon glyphicon-envelope opacity-50" aria-hidden="true"></span> Change Email</h4></div>
                 <div class="panel-body">
-                    <form id="form-dashboard-account-email" method="post" action="{{ url('api/user/updateEmail') }}">
+                    <form id="form-dashboard-account-email" method="post" action="{{ url('api/user/updateemail') }}">
                         <div class="form-group">
                             {{ changeEmailForm.render('email') }}
                         </div>
@@ -119,7 +119,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-key opacity-50" aria-hidden="true"></i> Change Password</h4></div>
                 <div class="panel-body">
-                    <form id="form-dashboard-account-password" method="post" action="{{ url('api/user/updatePassword') }}">
+                    <form id="form-dashboard-account-password" method="post" action="{{ url('api/user/updatepassword') }}">
                         <div class="form-group">
                             {{ changePasswordForm.render('current_password') }}
                         </div>
@@ -147,7 +147,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4><i class="fa fa-cog opacity-50" aria-hidden="true"></i> Email Settings</h4></div>
                 <div class="panel-body">
-                    <form id="form-dashboard-account-notification"  class="form" method="post" action="{{ url('api/user/updateNotifications') }}">
+                    <form id="form-dashboard-account-notification"  class="form" method="post" action="{{ url('api/user/updatenotifications') }}">
                         <div class="form-group">
                             <label class="control-label">Email Notifications</label>
                                 <select class="form-control" name="email_notifications">

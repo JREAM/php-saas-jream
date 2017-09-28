@@ -2,13 +2,14 @@
 
 use Phalcon\Crypt;
 use Phalcon\Http\Response\Cookies;
-use Phalcon\Security as Security;
+use Phalcon\Security;
 use Phalcon\Flash\Session as Flash;
 use Phalcon\Session\Adapter\Files as SessionFiles;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\View;
 use Phalcon\Db\Adapter\Pdo\Mysql as MySQL;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Filter;
 use Phalcon\Di;
 use Phalcon\DiInterface;
@@ -50,10 +51,7 @@ $di->setShared('eventsManager', $eventsManager);
 $di->setShared('logger', function () use ($config) {
 
     $log = new Logger('error_log');
-    $log->pushHandler(new StreamHandler(
-        $config->get('logsDir') . '/error.log',
-        Logger::WARNING
-    ));
+    $log->pushHandler(new StreamHandler($config->get('logsDir') . '/error.log', Logger::WARNING));
 
     return $log;
 });
@@ -109,7 +107,7 @@ $di->set('cookies', function () {
 $di->setShared('session', function () use ($di) {
     // Start a new Session for every user.
     $session = new SessionFiles();
-    if ( !$session->isStarted()) {
+    if ( ! $session->isStarted()) {
         $session->start();
     }
 
@@ -123,11 +121,11 @@ $di->setShared('session', function () use ($di) {
  */
 $di->setShared('flash', function (string $mode = 'session') {
 
-    $mode = strtolower(trim($mode));
+    $mode       = strtolower(trim($mode));
     $validModes = ['session', 'direct'];
-    if ( !in_array($mode, $validModes, true)) {
+    if ( ! in_array($mode, $validModes, true)) {
         throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
-            implode(',', $validModes));
+                                            implode(',', $validModes));
     }
 
     // There is a Direct, and a Session
@@ -187,10 +185,10 @@ $di->setShared('url', function () use ($config) {
  */
 $di->setShared('dispatcher', function () use ($di, $eventsManager) {
 
-    $eventsManager->attach('dispatch', new PermissionPlugin());
+    $eventsManager->attach('dispatch', new Plugins\PermissionPlugin());
     $eventsManager->attach('dispatch', new Middleware\Dispatch());
 
-    $dispatcher = new \Phalcon\Mvc\Dispatcher();
+    $dispatcher = new Dispatcher();
     $dispatcher->setEventsManager($eventsManager);
 
     return $dispatcher;
@@ -203,7 +201,7 @@ $di->setShared('dispatcher', function () use ($di, $eventsManager) {
  * =============================================================
  */
 $di->setShared('component', function () {
-    $obj = new \stdClass();
+    $obj        = new \stdClass();
     $obj->email = new EmailComponent();
 
     return $obj;
@@ -221,8 +219,7 @@ $di->setShared('hashids', function () use ($config) {
     // decode(value), decode(hex_value)
 
     // Passing a unique string makes items unique
-    $hashids = new Hashids\Hashids(
-        $config->get('hashids_hash'),
+    $hashids = new Hashids\Hashids($config->get('hashids_hash'),
         6,
         'abcdefghijklmnopqrstuvwxyz'
     );
@@ -240,8 +237,6 @@ $di->setShared('markdown', function () {
     // $example: $parsedown->parse('#markdown here');
     return new \Parsedown();
 });
-
-
 
 /**
  * ==============================================================
@@ -268,22 +263,29 @@ $di->setShared('view', function () use ($config, $di) {
                 'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION,
             ]);
 
-            $volt->getCompiler()
-                ->addFunction('strtotime', 'strtotime')
-                ->addFunction('sprintf', 'sprintf')
-                ->addFunction('str_replace', 'str_replace')
-                ->addFunction('is_a', 'is_a')
-                ->addFunction('markdown', function(string $str, $expr) use ($di) {
-                    $markdown = $di->get('markdown');
-                    return $markdown->parse($str);
-                })
-                ->addFunction('pageid', function ($str, $expr) {
-                    return str_replace('-page', '', $str);
-                });
+            $compiler = $volt->getCompiler();
+
+            // @Functions
+            // @example {{ function(item) }}
+            $compiler->addFunction('strtotime', 'strtotime');
+            $compiler->addFunction('sprintf', 'sprintf');
+            $compiler->addFunction('str_replace', 'str_replace');
+            $compiler->addFunction('is_a', 'is_a');
+            $compiler->addFunction('pageid', function ($str, $expr) {
+                return str_replace('-page', '', $str);
+            });
+
+            // @Filters
+            // @example {{ item|filter }}
+            $compiler->addFilter('pretty', function ($resolvedArgs, $exprArgs) {
+                return '\\Plugins\\VoltFilters::pretty(' . $resolvedArgs . ');';
+            })->addFilter('markdown', function ($resolvedArgs, $exprArgs) {
+                return '\\Plugins\\VoltFilters::markdown(' . $resolvedArgs . ');';
+            });
 
             // Use Cache for live site
             if (\APPLICATION_ENV === \APP_PRODUCTION) {
-                $voltOptions['compileAlways'] = false;
+                $voltOptions[ 'compileAlways' ] = false;
             }
 
             return $volt;
@@ -346,6 +348,7 @@ $di->setShared('filter', function () {
  */
 $di->set('modelsManager', function () {
     \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
+
     return new \Phalcon\Mvc\Model\Manager();
 });
 
@@ -494,34 +497,26 @@ $di->setShared('email', function (array $data) use ($di) {
     // For Debugging
     if (\APPLICATION_ENV !== \APP_PRODUCTION && getenv('DEBUG_EMAIL')) {
         $transport = (new Swift_SmtpTransport('localhost', 1025));
-        $mailer = new Swift_Mailer($transport);
+        $mailer    = new Swift_Mailer($transport);
 
         // Create a message
-        $message = (new Swift_Message($data['subject']))
-            ->setFrom([$data['from_email'] => $data['from_name']])
-            ->setTo([$data['to_email'] => $data['to_name']])
-            ->setBody($data['content']);
+        $message = (new Swift_Message($data[ 'subject' ]))->setFrom([$data[ 'from_email' ] => $data[ 'from_name' ]])->setTo([$data[ 'to_email' ] => $data[ 'to_name' ]])->setBody($data[ 'content' ]);
 
         return $mailer->send($message);
     }
 
-    $to = new \SendGrid\Email($data['to_name'], $data['to_email']);
-    $from = new \SendGrid\Email($data['from_name'], $data['from_email']);
-    $content = new \SendGrid\Content("text/html", $data['content']);
+    $to      = new \SendGrid\Email($data[ 'to_name' ], $data[ 'to_email' ]);
+    $from    = new \SendGrid\Email($data[ 'from_name' ], $data[ 'from_email' ]);
+    $content = new \SendGrid\Content("text/html", $data[ 'content' ]);
 
-    $mail = new \SendGrid\Mail($from, $data['subject'], $to, $content);
+    $mail = new \SendGrid\Mail($from, $data[ 'subject' ], $to, $content);
 
-    $sg = new \SendGrid(getenv('SENDGRID_KEY'));
+    $sg       = new \SendGrid(getenv('SENDGRID_KEY'));
     $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
-    if ( !in_array($response->statusCode(), [200, 201, 202], true)) {
-        $di->get('sentry')->captureMessage(
-            sprintf("Headers: %s | ErrorCode: %s",
-                $response->headers(),
-                $response->statusCode()
-            )
-        );
+    if ( ! in_array($response->statusCode(), [200, 201, 202], true)) {
+        $di->get('sentry')->captureMessage(sprintf("Headers: %s | ErrorCode: %s", $response->headers(), $response->statusCode()));
     }
 
     return $response;
@@ -531,22 +526,22 @@ $di->setShared('email', function (array $data) use ($di) {
 /**
  * ==============================================================
  * API: Hybrid Auth (Social Login)
+ *
  * @important Always place all calls within a try/catch
  * =============================================================
  */
-$di->setShared('hybridAuth', function() use ($api) {
+$di->setShared('hybridAuth', function () use ($api) {
 
     // Make Absolute URL Paths
     foreach ($api->social_auth->providers as $provider => $data) {
         if (property_exists($data, 'callback')) {
-            $callback = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
+            $callback                                           = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
             $api->social_auth->providers->{$provider}->callback = $callback;
         }
     }
 
     return new \Hybridauth\Hybridauth(objectToArray($api->social_auth));
 });
-
 
 
 /**
@@ -598,7 +593,7 @@ if (APPLICATION_ENV !== APP_PRODUCTION) {
     $connector->setSourcesBasePath(DOCROOT);
 
     // This will disable the PHP Console Calls regardless of where it is placed.
-    if ( !getenv('DEBUG_CONSOLE')) {
+    if ( ! getenv('DEBUG_CONSOLE')) {
         $connector->disable();
     }
     PhpConsole\Helper::register();

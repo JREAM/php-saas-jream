@@ -9,7 +9,7 @@
     <div class="container container-fluid">
         <div class="row">
             <div class="col-xs-12 inner">
-                <form id="formNewsletterSubscribe">
+                <form id="form-newsletter-subscribe">
 
                 </form>
             </div>
@@ -34,7 +34,7 @@
             {% if result is defined %}{{ result }}{% endif %}
             </p>
 
-            <form id="formNewsletterSubscribe" class="form-login" method="post" action="{{ url('api/newsletter/subscribe') }}">
+            <form id="form-newsletter-subscribe" class="form-login" method="post" action="{{ url('api/newsletter/subscribe') }}">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

@@ -41,7 +41,7 @@
                     <?=$icon?> <strong><?=$alias?></strong>
                     <div>{{ thread.getDateTimeOffset('created_at') }}</div>
                     <div>
-                    {{ markdown(thread.content) }}
+                    {{ thread.content|markdown }}
                     </div>
                 </div>
                 <hr />

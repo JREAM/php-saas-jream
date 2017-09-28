@@ -8,15 +8,17 @@
 $loader = new \Phalcon\Loader();
 
 $loader->registerNamespaces([
-    'Controllers'           => $config->get('controllersDir'),
-    'Controllers\Api'       => $config->get('controllersDir') . 'api/',
-    'Controllers\Dashboard' => $config->get('controllersDir') . 'dashboard/',
-    'Library'               => $config->get('libraryDir'),
-    'Forms'                 => $config->get('formsDir'),
-    'Forms\Traits'          => $config->get('formsDir') . 'traits/',
-    'Middleware'            => $config->get('middlewareDir'),
-    'Migrations'            => $config->get('migrationsDir'),
-    'Models\Traits'         => $config->get('modelsDir') . 'traits/',
+    'Controllers'                  => $config->get('controllersDir'),
+    'Controllers\Api'              => $config->get('controllersDir') . 'api/',
+    'Controllers\Dashboard'        => $config->get('controllersDir') . 'dashboard/',
+    'Library'                      => $config->get('libraryDir'),
+    'Forms'                        => $config->get('formsDir'),
+    'Forms\Traits'                 => $config->get('formsDir') . 'traits/',
+    'Plugins'                      => $config->get('pluginsDir'),
+    'Plugins\Internationalization' => $config->get('pluginsDir') . 'Internationalization',
+    'Middleware'                   => $config->get('middlewareDir'),
+    'Migrations'                   => $config->get('migrationsDir'),
+    'Models\Traits'                => $config->get('modelsDir') . 'traits/',
 ]);
 
 $loader->registerClasses([
@@ -26,7 +28,6 @@ $loader->registerClasses([
 $registerDirs = [
     $config->get('componentsDir'),
     $config->get('configDir'),
-    $config->get('pluginsDir'),
     $config->get('modelsDir'),
     $config->get('tasksDir'),
 ];

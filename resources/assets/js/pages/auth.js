@@ -7,9 +7,9 @@ $(() => {
   // This is Globally Accessible
   // -----------------------------------------------------------------------------
 
-  xhr.stdForm('#formUserLogin');
-  xhr.stdForm('#formUserRegister');
-  xhr.stdForm('#formUserPasswordResetConfirm');
+  xhr.stdForm('#form-user-login');
+  xhr.stdForm('#form-user-register');
+  xhr.stdForm('#form-user-password-reset-confirm');
 
   // -----------------------------------------------------------------------------
 

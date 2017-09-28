@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
-            <form id="formUserRegister" class="form-signin" method="post" action="{{ url('api/auth/register') }}">
+            <form id="form-user-register" class="form-signin" method="post" action="{{ url('api/auth/register') }}">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <img class="jream-icon-login" src="{{ config.url_static }}img/logo/icon-sm.svg">

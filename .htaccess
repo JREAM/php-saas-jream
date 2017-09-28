@@ -1,4 +1,0 @@
-# Move to the public folder if they are here for some reason.
-RewriteEngine On
-RewriteRule  ^$ public/    [L]
-RewriteRule  (.*) public/$1 [L]

@@ -71,6 +71,7 @@ class AuthController extends ApiController
             // @TODO Do a real redirect instead ?
             return $this->output(1, 'Logging In!', [
                 'redirect' => \Library\Url::get('dashboard'),
+                'form_keep_disabled' => true
             ]);
         }
 
@@ -279,6 +280,7 @@ class AuthController extends ApiController
         $this->createSession($user, 'jream');
         $this->output(1, 'Registration Success', [
             'redirect' => \Library\Url::get('dashboard/'),
+            'form_keep_disabled' => true
         ]);
     }
 

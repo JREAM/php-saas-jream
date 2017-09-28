@@ -1,5 +1,7 @@
 <?php
 
+namespace Plugins;
+
 use Phalcon\Acl;
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Acl\Resource;

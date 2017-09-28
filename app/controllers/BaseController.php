@@ -156,7 +156,7 @@ class BaseController extends Controller
     public function redirect($append): Response
     {
         $config = $this->di->get('config');
-        $url = rtrim($config->base_url, '/');
+        $url = rtrim($config->baseUri, '/');
 
         if (strlen($append) !== 0) {
             // Ensure there are no trailing slashes.

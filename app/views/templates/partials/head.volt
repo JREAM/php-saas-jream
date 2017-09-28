@@ -1,5 +1,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="OwyLkMsH9jv5qjWXoHjuS21Vhrcuz1qy1GstT02l8Sg">
     <meta name="csrf" id="csrf" data-key="{% if jsGlobal['csrf']['tokenKey'] is defined %}{{ jsGloba['csrf']['tokenKey'] }}{% endif %}" data-token="{% if jsGlobal['csrf']['token'] is defined %}{{ jsGlobal['csrf']['token'] }}{% endif %}" content="">
     {{ get_title() }}

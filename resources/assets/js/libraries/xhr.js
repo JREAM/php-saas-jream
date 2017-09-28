@@ -1,6 +1,10 @@
 /**
  * Standard XHR Method, reduces code duplication
+ *
+ * @depends libaries/forms
  */
+window.Forms = require('../libraries/forms');
+
 class Xhr {
 
   /**
@@ -30,6 +34,8 @@ class Xhr {
    */
   static stdForm(id, callable = {}) {
 
+    // Form Handler for enable/disable
+    this.Form = new Forms(id);
     // Only accept strings, cleaner code to change
     if (!_.isString(id)) {
       throw 'The id passed must be a string to XHRStandard.';
@@ -56,10 +62,7 @@ class Xhr {
       }
 
       // Disable this when handling XHR
-      this.btnSubmit = $(id).find(':submit');
-      if (this.btnSubmit.length > 0) {
-        this.btnSubmit.prop('disabled', true);
-      }
+      this.Form.disable();
 
       const url = $(id).attr('action');
       const postData = $(id).serialize();
@@ -87,9 +90,11 @@ class Xhr {
         if (_.has(callable, 'success') && _.isFunction(callable.success)) {
           callable.success(resp, evt);
         }
-      }).then(() => {
+      }).then(resp => {
         // Aways re-enable the button
-        this.btnSubmit.prop('disabled', false);
+        if (!_.has(resp, 'data') && !_.has(resp.data, 'keep_form_disabled' && resp.data.keep_form_disable != true)) {
+          this.Form.enable();
+        }
       }).catch(error => {
         if (_.has(error, error.msg)) {
           $(id).notify(error.msg, error.type);
@@ -100,7 +105,7 @@ class Xhr {
           callable.fail(resp, evt);
         }
         // Aways re-enable the button
-        this.btnSubmit.prop('disabled', false);
+        this.Form.enable();
       });
 
       // Run beforeXHR (optional)

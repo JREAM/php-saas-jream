@@ -35,7 +35,8 @@
         "ext-phalcon": ">=3.2",
         "hybridauth/hybridauth": "v3.0.0-beta.1",
         "hashids/hashids": "^2.0",
-        "fzaninotto/Faker": "^1.7"
+        "fzaninotto/Faker": "^1.7",
+        "gkralik/php-uglifyjs": "^1.0"
     },
     "require-dev": {
         "codeception/codeception": "~2.2",

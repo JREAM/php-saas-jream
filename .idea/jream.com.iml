@@ -10,11 +10,11 @@
       <library name="PHP" type="php">
         <CLASSES>
           <root url="file:///usr/share/php" />
-          <root url="jar://$USER_HOME$/Google Drive/jetbrains-config/phpstorm/config/plugins/phpstorm-library-plugin.jar!/Phalcon/Phalcon" />
+          <root url="jar://$APPLICATION_PLUGINS_DIR$/phpstorm-library-plugin.jar!/Phalcon/Phalcon" />
         </CLASSES>
         <SOURCES>
           <root url="file:///usr/share/php" />
-          <root url="jar://$USER_HOME$/Google Drive/jetbrains-config/phpstorm/config/plugins/phpstorm-library-plugin.jar!/Phalcon/Phalcon" />
+          <root url="jar://$APPLICATION_PLUGINS_DIR$/phpstorm-library-plugin.jar!/Phalcon/Phalcon" />
         </SOURCES>
       </library>
     </orderEntry>

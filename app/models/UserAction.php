@@ -48,10 +48,10 @@ class UserAction extends BaseModel
     public function getAction($action, $userId, $productCourseId)
     {
         $userAction = \UserAction::findFirst([
-            "product_course_id = :productCourseId:
+            'product_course_id = :productCourseId:
             AND user_id = :userId:
-            AND action = :action:",
-            "bind" => [
+            AND action = :action:',
+            'bind' => [
                 'productCourseId' => $productCourseId,
                 'action'          => $action,
                 'userId'          => $userId,

@@ -6,13 +6,13 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Model;
 
 Model::setup([
-    'events'                => true,   // Callback Hooks
-    'columnRenaming'        => false,  // Why would this be allowed?
+    'events'                => true,    // Callback Hooks
+    'columnRenaming'        => false,   // Why would this be allowed?
     'exceptionOnFailedSave' => false,
-    'ignoreUnknownColumns'  => false, // This can be enabled if some issues arise
+    'ignoreUnknownColumns'  => false,   // This can be enabled if some issues arise
 ]);
 
-class BaseModel extends \Phalcon\Mvc\Model
+class BaseModel extends Model
 {
 
     /**
@@ -47,22 +47,10 @@ class BaseModel extends \Phalcon\Mvc\Model
     // ------------------------------------------------------------------------------
 
     /**
-     * Returns a list of errors
-     *
-     * @return boolean|string
+     * The main constructor method
+     * @return void
      */
-    public function getMessagesString()
-    {
-        if ($this->getMessages()) {
-            return implode(', ', $this->getMessages());
-        }
-
-        return false;
-    }
-
-    // ------------------------------------------------------------------------------
-
-    public function onConstruct()
+    public function onConstruct(): void
     {
         $this->session  = $this->di->get('session');
         $this->security = $this->di->get('security');
@@ -70,6 +58,56 @@ class BaseModel extends \Phalcon\Mvc\Model
         // Make accessible to all models
         $this->config = $this->di->get('config');
         $this->api    = $this->di->get('api');
+    }
+
+    // ------------------------------------------------------------------------------
+
+    /**
+     * The main initializer, set preferences for all models here
+     * @sets Dynamic Update - For UPDATE only change fields that have changed
+     * @docs https://docs.phalconphp.com/en/3.2/db-models#dynamic-updates
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        $this->useDynamicUpdate(true);
+    }
+
+    // ------------------------------------------------------------------------------
+
+    /**
+     * Automatically triggered when a update/create action fails.
+     * @docs https://docs.phalconphp.com/en/3.2/db-models#injecting-services-into-models
+     */
+    public function notSaved()
+    {
+        // @TODO I should have a custom event handler for API and Standard
+        // Obtain the flash service from the DI container
+        //$flash = $this->getDI()->getFlash();
+        //
+        //$messages = $this->getMessages();
+        //
+        //// Show validation messages
+        //foreach ($messages as $message) {
+        //    $flash->error($message);
+        //}
+    }
+
+    // ------------------------------------------------------------------------------
+
+    /**
+     * Returns a list of errors
+     *
+     * @return null|string
+     */
+    public function getMessagesString(): ?string
+    {
+        if ($this->getMessages()) {
+            return implode(', ', $this->getMessages());
+        }
+
+        return null;
     }
 
     // ------------------------------------------------------------------------------

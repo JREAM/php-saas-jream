@@ -1,11 +1,11 @@
 <?php
 
-namespace Plugins;
+namespace Library\Volt\Functions;
 
 use Internationalization;
 use Phalcon\Di;
 
-class VoltFunctions extends Injectable
+class Translate extends Injectable
 {
 
     /**
@@ -20,6 +20,12 @@ class VoltFunctions extends Injectable
         }
 
         return $output ?: '';
+    }
+
+    // Alias for translate, tr is commonly used.
+    public static function tr()
+    {
+        self::translate();
     }
 
     // -----------------------------------------------------------------------------

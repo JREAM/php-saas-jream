@@ -275,11 +275,9 @@ $di->setShared('view', function () use ($config, $di) {
                 return str_replace('-page', '', $str);
             });
 
-            // @Filters
+            // @Markdown
             // @example {{ item|filter }}
-            $compiler->addFilter('pretty', function ($resolvedArgs, $exprArgs) {
-                return '\\Plugins\\VoltFilters::pretty(' . $resolvedArgs . ');';
-            })->addFilter('markdown', function ($resolvedArgs, $exprArgs) {
+            $compiler->addFilter('markdown', function ($resolvedArgs, $exprArgs) {
                 return '\\Plugins\\VoltFilters::markdown(' . $resolvedArgs . ');';
             });
 
@@ -329,7 +327,7 @@ $redis->select(10);  // Use Database 10
 
 /**
  * ==============================================================
- * Filters
+ * Markdown
  * =============================================================
  */
 $di->setShared('filter', function () {

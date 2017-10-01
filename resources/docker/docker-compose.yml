@@ -1,0 +1,7 @@
+web:
+  build: .
+  ports:
+    - "9000:80"
+  volumes:
+    - ./public/:/var/www/html:rw
+

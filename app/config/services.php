@@ -281,11 +281,6 @@ $di->setShared('view', function () use ($config, $di) {
                 return '\\Plugins\\VoltFilters::markdown(' . $resolvedArgs . ');';
             });
 
-            // Use Cache for live site
-            if (\APPLICATION_ENV === \APP_PRODUCTION) {
-                $voltOptions[ 'compileAlways' ] = false;
-            }
-
             return $volt;
         },
         // --------------------------------------------------------------------

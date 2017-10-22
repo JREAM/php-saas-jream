@@ -1,0 +1,11 @@
+services:
+  website-jream:
+    image: alpine
+  redis:
+    image: alpine/redis
+    ports: 
+      - "6999:6379"
+  nginx:
+    image: alpine/nginx
+    ports:
+      - "8000:8000"

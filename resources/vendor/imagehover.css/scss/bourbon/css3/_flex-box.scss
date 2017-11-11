@@ -98,7 +98,7 @@
     display: -moz-flex;
     display: -ms-flexbox; // 2011 (IE 10)
     display: flex;
-  } @else if $value == "inline-flex" {
+  } @elseif $value == "inline-flex" {
     display: -webkit-inline-box;
     display: -moz-inline-box;
     display: inline-box;
@@ -142,12 +142,12 @@
 
   @if $value == row {
     $value-2009: horizontal;
-  } @else if $value == "row-reverse" {
+  } @elseif $value == "row-reverse" {
     $value-2009: horizontal;
     $direction: reverse;
-  } @else if $value == column {
+  } @elseif $value == column {
     $value-2009: vertical;
-  } @else if $value == "column-reverse" {
+  } @elseif $value == "column-reverse" {
     $value-2009: vertical;
     $direction: reverse;
   }
@@ -173,9 +173,9 @@
   $alt-value: $value;
   @if $value == nowrap {
     $alt-value: single;
-  } @else if $value == wrap {
+  } @elseif $value == wrap {
     $alt-value: multiple;
-  } @else if $value == "wrap-reverse" {
+  } @elseif $value == "wrap-reverse" {
     $alt-value: multiple;
   }
 
@@ -242,11 +242,11 @@
   $alt-value: $value;
   @if $value == "flex-start" {
     $alt-value: start;
-  } @else if $value == "flex-end" {
+  } @elseif $value == "flex-end" {
     $alt-value: end;
-  } @else if $value == "space-between" {
+  } @elseif $value == "space-between" {
     $alt-value: justify;
-  } @else if $value == "space-around" {
+  } @elseif $value == "space-around" {
     $alt-value: distribute;
   }
 
@@ -270,7 +270,7 @@
 
   @if $value == "flex-start" {
     $alt-value: start;
-  } @else if $value == "flex-end" {
+  } @elseif $value == "flex-end" {
     $alt-value: end;
   }
 
@@ -292,7 +292,7 @@
   $value-2011: $value;
   @if $value == "flex-start" {
     $value-2011: start;
-  } @else if $value == "flex-end" {
+  } @elseif $value == "flex-end" {
     $value-2011: end;
   }
 
@@ -311,11 +311,11 @@
   $value-2011: $value;
   @if $value == "flex-start" {
     $value-2011: start;
-  } @else if $value == "flex-end" {
+  } @elseif $value == "flex-end" {
     $value-2011: end;
-  } @else if $value == "space-between" {
+  } @elseif $value == "space-between" {
     $value-2011: justify;
-  } @else if $value == "space-around" {
+  } @elseif $value == "space-around" {
     $value-2011: distribute;
   }
 

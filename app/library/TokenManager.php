@@ -22,7 +22,7 @@ class TokenManager extends Component
      */
     public function __construct()
     {
-        if ( ! $this->session->isStarted()) {
+        if (!$this->session->isStarted()) {
             $this->session->start();
         }
     }
@@ -44,7 +44,7 @@ class TokenManager extends Component
         ]);
 
         // If a Token was not created its a problem!
-        if ( ! $this->session->has($this->session_key)) {
+        if (!$this->session->has($this->session_key)) {
             throw new \Exception("Session was not created");
         }
     }
@@ -59,7 +59,7 @@ class TokenManager extends Component
      */
     public function validate(string $tokenKey, string ...$token): bool
     {
-        if ( ! $this->session->has($this->session_key)) {
+        if (!$this->session->has($this->session_key)) {
             return false;
         }
 
@@ -120,5 +120,4 @@ class TokenManager extends Component
     }
 
     // -----------------------------------------------------------------------------
-
 }

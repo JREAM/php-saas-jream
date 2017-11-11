@@ -51,7 +51,7 @@ class Promotion extends BaseModel
      */
     public function check(string $code, $productId)
     {
-        if ( ! is_array($productId)) {
+        if (!is_array($productId)) {
             $productId = [$productId];
         }
 
@@ -70,7 +70,7 @@ class Promotion extends BaseModel
             ],
         ]);
 
-        if ( ! $result) {
+        if (!$result) {
             return (object) [
                 'code'    => 0,
                 'data'    => null,
@@ -87,7 +87,8 @@ class Promotion extends BaseModel
                 'code'    => 0,
                 'data'    => null,
                 'success' => '',
-                'error'   => 'This promotion is for an individual only, it does not appear to be you. If so, ensure you are logged in!',
+                'error'   => 'This promotion is for an individual only, it does not appear to be you.
+                    If so, ensure you are logged in!',
             ];
         }
 
@@ -133,12 +134,16 @@ class Promotion extends BaseModel
                     'error'   => 'The data is invalid, percent_off must be > 0 and < 100',
                 ];
             }
-            $method            = 'percent_off';
-            $success           = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.", $product->price, number_format($product->price -
-                                                                                                                                                        ($product->price *
-                                                                                                                                                         $result->percent_off), 2), $result->percent_off, $result->code);
+            $method = 'percent_off';
+            $success = sprintf(
+                "Price marked down from %s to %s at %s percent off using promotional code %s.",
+                $product->price,
+                number_format($product->price - ($product->price * $result->percent_off), 2),
+                $result->percent_off,
+                $result->code
+            );
             $promotional_price = number_format($product->price - ($product->price * $result->percent_off), 2);
-        } else if ($result->price) {
+        } elseif ($result->price) {
             if ($result->price >= $product->price) {
                 return (object) [
                     'code'    => 0,
@@ -149,7 +154,12 @@ class Promotion extends BaseModel
             }
 
             $method  = 'price';
-            $success = sprintf("Price marked down from %s to %s using promotional code %s.", number_format($product->price, 2), number_format($result[ 'price' ], 2), $result->code);
+            $success = sprintf(
+                "Price marked down from %s to %s using promotional code %s.",
+                number_format($product->price, 2),
+                number_format($result[ 'price' ], 2),
+                $result->code
+            );
 
             $promotional_price = $result->price;
         }
@@ -166,5 +176,4 @@ class Promotion extends BaseModel
     }
 
     // -----------------------------------------------------------------------------
-
 }

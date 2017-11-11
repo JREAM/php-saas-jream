@@ -125,22 +125,22 @@ class User extends BaseModel
      */
     public function getEmail($id = false)
     {
-        if ( ! $id) {
+        if (!$id) {
             $id = $this->session->get('id');
         }
 
         // Only do this locally!
         if (\APPLICATION_ENV === \APP_DEVELOPMENT) {
-            if ( ! $this->email && ! $this->facebook_email && ! $this->google_email) {
+            if (!$this->email && ! $this->facebook_email && ! $this->google_email) {
                 return '&lt;&lt;no email&gt;&gt;';
             }
         }
 
         if ($this->email) {
             return $this->email;
-        } else if ($this->facebook_email) {
+        } elseif ($this->facebook_email) {
             return $this->facebook_email;
-        } else if ($this->google_email) {
+        } elseif ($this->google_email) {
             $this->google_email;
         }
 
@@ -158,17 +158,17 @@ class User extends BaseModel
      */
     public function getAlias($id = false)
     {
-        if ( ! $id) {
+        if (!$id) {
             $id = $this->session->get('id');
         }
 
         if ($this->alias) {
             return $this->alias;
-        } else if ($this->facebook_alias) {
+        } elseif ($this->facebook_alias) {
             return $this->facebook_alias;
-        } else if ($this->google_alias) {
+        } elseif ($this->google_alias) {
             return $this->google_alias;
-        } else if ($this->github_alias) {
+        } elseif ($this->github_alias) {
             return $this->github_alias;
         }
 
@@ -232,7 +232,7 @@ class User extends BaseModel
      */
     public function getIcon($id = false, $size = [150, 150])
     {
-        if ( ! $id) {
+        if (!$id) {
             $id = $this->session->get('id');
         }
 
@@ -241,20 +241,31 @@ class User extends BaseModel
         }
 
         if ($this->google_id) {
-            return sprintf("<img src='https://lh5.googleusercontent.com/-WkOoib5KeE4/AAAAAAAAAAI/AAAAAAABDpY/HJb_me61bCw/photo.jpg?sz=150'>", $this->google_id);
+            return sprintf(
+                "<img src='https://lh5.googleusercontent.com/-WkOoib5KeE4/AAAAAAAAAAI/AAAAAAABDpY/HJb_me61bCw/photo.jpg?sz=150'>",
+                $this->google_id
+            );
         }
 
         if ($this->facebook_id) {
             $size = ($size) ? "width=$size" : false;
             https://graph.facebook.com/100007975142998/picture?type=small
 
-            return sprintf("<img $size src='https://graph.facebook.com/v2.8/100007975142998/picture?width=150&height=150' alt='facebook' />", $this->facebook_id);
+            return sprintf(
+                "<img $size src='https://graph.facebook.com/v2.8/100007975142998/picture?width=150&height=150' alt='facebook' />",
+                $this->facebook_id
+            );
         }
 
         $email   = ($this) ? $this->email : 'none@none.com';
         $default = "";
         $size    = $size ?: 40;
-        $url     = sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s', md5(strtolower(trim($email))), urlencode($default), $size);
+        $url     = sprintf(
+            'https://www.gravatar.com/avatar/%s?d=%s&s=%s',
+            md5(strtolower(trim($email))),
+            urlencode($default),
+            $size
+        );
 
         return "<img src='$url' alt='Gravatar' />";
     }
@@ -315,7 +326,7 @@ class User extends BaseModel
      */
     public function doLogin($email, $password)
     {
-        if ( ! $email || ! $password) {
+        if (!$email || ! $password) {
             $this->flash->error('email and password field(s) are required.');
 
             return false;
@@ -367,5 +378,4 @@ class User extends BaseModel
     }
 
     // -----------------------------------------------------------------------------
-
 }

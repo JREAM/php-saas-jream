@@ -26,5 +26,4 @@ class MainTask extends Task
 
         echo PHP_EOL;
     }
-
 }

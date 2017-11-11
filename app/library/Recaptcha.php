@@ -50,7 +50,7 @@ class Recaptcha
         // Get Recaptcha POST to Google
         $result = $this->verify($this->post);
 
-        if ( ! $result) {
+        if (!$result) {
             // Set a session so they don't try to work-around it..
             $this->session->set('recaptcha', $result);
 
@@ -97,5 +97,4 @@ class Recaptcha
     }
 
     // -----------------------------------------------------------------------------
-
 }

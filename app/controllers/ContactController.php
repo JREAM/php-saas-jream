@@ -53,5 +53,4 @@ class ContactController extends BaseController
 
         return $this->view->pick('contact/thanks');
     }
-
 }

@@ -25,5 +25,4 @@ trait GetMessageTrait
 
         return $output;
     }
-
 }

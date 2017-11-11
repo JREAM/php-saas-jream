@@ -108,8 +108,10 @@ class Base
     public static function validate($lang): array
     {
         $class = self::classLoader($lang, true);
-        if ( ! $class) {
-            throw new \InvalidArgumentException("The language class: $lang, does not exist, please check the Internationalization Folder.")
+        if (!$class) {
+            throw new \InvalidArgumentException(
+                "The language class: $lang, does not exist, please check the Internationalization Folder."
+            );
         }
 
         // Get the overwritten phrases from the subclass.
@@ -126,5 +128,4 @@ class Base
     }
 
     // -----------------------------------------------------------------------------
-
 }

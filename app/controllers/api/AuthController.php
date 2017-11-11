@@ -31,13 +31,13 @@ class AuthController extends ApiController
         $password = $this->request->getPost('password');
 
         // Cannot have Empty Fields
-        if ( ! $email || ! $password) {
+        if (!$email || ! $password) {
             return $this->output(0, 'email and password field(s) are required.');
         }
 
         // Find the user based on the email
         $user = User::findFirstByEmail($email);
-        if ( ! $user) {
+        if (!$user) {
             return $this->output(0, 'Incorrect Credentials');
         }
 
@@ -133,18 +133,17 @@ class AuthController extends ApiController
     {
         // Casing is Important (HybridAuth uses the actual classnames)
         $accepted_networks = ['Google', 'GitHub', 'Facebook'];
-        if ( ! in_array($network, $accepted_networks)) {
+        if (!in_array($network, $accepted_networks)) {
             throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " .
                                  implode(', ', $accepted_networks));
         }
 
         try {
-
             // Authenticate Network
             $adapter = $this->hybridauth->authenticate($network);
 
             // Ensure they are connected
-            if ( ! $adapter->isConnected()) {
+            if (!$adapter->isConnected()) {
                 throw new \Exception("Could not get conncetion to the Service: $network");
             }
 
@@ -171,9 +170,7 @@ class AuthController extends ApiController
 
             // JavaScript will redirect us (Based on the Xhr class I wrote)
             return $this->response->redirect(\Library\Url::get('dashboard'), false);
-
         } catch (\Exception $e) {
-
             // Display a generic error view
             $this->view->setVars([
                 'message' => $e->getMessage(),
@@ -202,7 +199,7 @@ class AuthController extends ApiController
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
         $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
-        if ( ! $form->isValid($_POST)) {
+        if (!$form->isValid($_POST)) {
             foreach ($form->getMessages() as $msg) {
                 print_r($msg);
                 echo $msg->getField();
@@ -223,7 +220,7 @@ class AuthController extends ApiController
             return $this->output(0, 'This email is already in use.');
         }
 
-        if ( ! Swift_Validate::email($email)) {
+        if (!Swift_Validate::email($email)) {
             return $this->output(0, 'Your email is invalid.');
         }
 
@@ -238,7 +235,7 @@ class AuthController extends ApiController
 
         $result = $user->save();
 
-        if ( ! $result) {
+        if (!$result) {
             return $this->output(0, $user->getMessagesAsHTML());
         }
 
@@ -264,7 +261,7 @@ class AuthController extends ApiController
         ]);
 
         // If email error, oh well still success
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = '
                 You have successfully registered!
                 However, there was a problem sending
@@ -321,8 +318,14 @@ class AuthController extends ApiController
         // Flat Array
         $accepted = array_merge($accountTypes [ 'local' ], $accountTypes [ 'social' ]);
 
-        if ( ! in_array($type, $accepted)) {
-            throw new \InvalidArgumentException(sprintf('%s: %s', 'The user type is not valid, must be one of', implode(', ', $accepted)));
+        if (!in_array($type, $accepted)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '%s: %s',
+                    'The user type is not valid, must be one of',
+                    implode(', ', $accepted)
+                )
+            );
         }
 
         // Check if this email exists on any other network
@@ -343,7 +346,7 @@ class AuthController extends ApiController
         }
 
         // If user does not exist in any form, create a new one.
-        if ( ! $user) {
+        if (!$user) {
             $isNewUser = true;
             $user      = new \User();
 
@@ -368,7 +371,7 @@ class AuthController extends ApiController
         $result = $user->save();
 
         // Check Results if there is a failure
-        if ( ! $result) {
+        if (!$result) {
             return [
                 'result' => 0,
                 'msg'    => $user->getMessagesAsHTML(),
@@ -441,7 +444,7 @@ class AuthController extends ApiController
 
         // If email error, oh well still success
         $message = 'You have successfully registered with a new ' . ucwords($accountType) . ' account!';
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
             // but based on $accountType and $email (Because a diff one could be registered)
             $message .= "However, there was a problem sending your welcome email to: {$user->getEmail($user->id)}!";
@@ -477,7 +480,7 @@ class AuthController extends ApiController
 
         // If email error, oh well still success
         $message = 'You have Successfully Linked your {$accountType} account!';
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             $message = "However, there was a problem sending to you email: {$user->getEmail($user->id)}!";
             // @TODO remove them from the newsletter list with THIS email, not the ALIAS,
             // but based on $accountType and $email (Because a diff one could be registered)
@@ -510,7 +513,7 @@ class AuthController extends ApiController
         $email = $this->request->getPost('email');
         $user  = User::findFirstByEmail($email);
 
-        if ( ! $user) {
+        if (!$user) {
             return $this->output(0, 'No email associated.');
         }
 
@@ -540,7 +543,7 @@ class AuthController extends ApiController
         ]);
 
         // Email: If the status code is not 200 the mail didn't send.
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
@@ -568,7 +571,7 @@ class AuthController extends ApiController
             ],
         ]);
 
-        if ( ! $user) {
+        if (!$user) {
             return $this->output(0, 'Invalid email and key combo, or time has expired.');
         }
 
@@ -640,5 +643,4 @@ class AuthController extends ApiController
         // If the user changes web browsers, prevent a hijacking attempt
         $this->session->set('agent', $_SERVER[ 'HTTP_USER_AGENT' ]);
     }
-
 }

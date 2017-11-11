@@ -31,7 +31,7 @@ class Dispatch
         // Handle Session/Form Data
         // @TODO Convert this to $this->>session probably?
         // -----------------------------------------------------------------------------
-        if ( ! isset($_SESSION)) {
+        if (!isset($_SESSION)) {
             return $dispatcher;
         }
 
@@ -41,7 +41,7 @@ class Dispatch
             $_SESSION[ 'formDataSeen' ] = null;
         }
 
-        if ( ! empty($_POST)) {
+        if (!empty($_POST)) {
             $postData = [];
             foreach ($_POST as $key => $value) {
                 $key              = strip_tags($key);
@@ -125,5 +125,4 @@ class Dispatch
     }
 
     // -----------------------------------------------------------------------------
-
 }

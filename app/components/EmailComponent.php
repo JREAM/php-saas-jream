@@ -26,7 +26,7 @@ class EmailComponent extends Component
         // The inner template
         $tpl_inner = $this->_getFile($template);
 
-        if ( ! $tpl_inner) {
+        if (!$tpl_inner) {
             throw new \InvalidArgumentException("Email template not found: $template");
         }
 
@@ -62,5 +62,4 @@ class EmailComponent extends Component
     }
 
     // -----------------------------------------------------------------------------
-
 }

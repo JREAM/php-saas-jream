@@ -23,12 +23,12 @@ class NewsletterController extends ApiController
      */
     public function subscribeAction(): Response
     {
-        if ( ! $this->request->isPost()) {
+        if (!$this->request->isPost()) {
             $this->output(0, "Oh that doesn't work, You must post the form!");
         }
 
         // If Recaptcha fails, Warn and use JS to reload.
-        if ( ! new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
+        if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
             // Retrigger: grecaptcha.reset() in JS
             return $this->output(0, 'Recaptcha is invalid, please try again.');
         }
@@ -67,13 +67,15 @@ class NewsletterController extends ApiController
         $result = $newsletter->save();
 
         // @TODO: Need to return JSON i think
-        if ( ! $result) {
+        if (!$result) {
             // Log this error to see what happened
             $this->di->get('sentry')->captureMessage($newsletter->getMessage(), [
                 'email' => $email,
             ]);
 
-            return $this->output(0, "Something went wrong. There was an error saving, the error has been traced and will be look into.");
+            return $this->output(0, "Something went wrong. There was an error saving,
+                the error has been traced and will be look into.
+            ");
         }
 
         return $this->output(1, "Thank you! You've been subscribed to the JREAM Newsletter.
@@ -91,7 +93,7 @@ class NewsletterController extends ApiController
     {
         $token      = $this->input->getPost('token');
         $newsletter = NewsletterSubscription::findFirstByToken($token);
-        if ( ! $newsletter) {
+        if (!$newsletter) {
             return $this->output(0, 'Token not found.');
         }
         $newsletter->is_verified   = 1;
@@ -102,7 +104,6 @@ class NewsletterController extends ApiController
     }
 
     // -----------------------------------------------------------------------------
-
     /**
      * @return Response
      */
@@ -110,7 +111,7 @@ class NewsletterController extends ApiController
     {
         $email      = $this->input->getPost('email');
         $newsletter = NewsletterSubscription::findFirstByEmail($email);
-        if ( ! $newsletter) {
+        if (!$newsletter) {
             return $this->output(0, 'Subscription not found.');
         }
         $newsletter->is_subscribed = 0;
@@ -137,11 +138,9 @@ class NewsletterController extends ApiController
         if ($user) {
             $user->newsletter_subscribed = $value;
             $user->save();
-
             return true;
         }
 
         return false;
     }
-
 }

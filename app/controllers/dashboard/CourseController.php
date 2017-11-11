@@ -38,7 +38,7 @@ class CourseController extends BaseController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $productId || $product->hasPurchased() == false) {
+        if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
 
             return $this->redirect(self::REDIRECT_FAILURE);
@@ -74,7 +74,7 @@ class CourseController extends BaseController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $productId || $product->hasPurchased() == false) {
+        if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
 
             return $this->redirect(self::REDIRECT_FAILURE);
@@ -112,7 +112,7 @@ class CourseController extends BaseController
                 break;
             }
         }
-        if ( ! $productCourse) {
+        if (!$productCourse) {
             $this->flash->error('This content does not exist');
 
             return $this->redirect(self::REDIRECT_FAILURE_COURSE . "$productId");
@@ -155,5 +155,4 @@ class CourseController extends BaseController
 
         return $this->view->pick("dashboard/course-view");
     }
-
 }

@@ -26,7 +26,7 @@ class QuestionController extends ApiController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $productId || $product->hasPurchased() == false) {
+        if (!$productId || $product->hasPurchased() == false) {
             return $this->output(0, 'You do not have permission to access this area.');
         }
 
@@ -40,7 +40,7 @@ class QuestionController extends ApiController
         $thread->content    = $content;
         $result             = $thread->save();
 
-        if ( ! $result) {
+        if (!$result) {
             return $this->output(0, $thread->getMessagesAsHTML());
         }
 
@@ -90,7 +90,7 @@ class QuestionController extends ApiController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $productId || $product->hasPurchased() == false) {
+        if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
 
             return $this->redirect(self::REDIRECT_FAILURE_PERMISSION);
@@ -104,7 +104,7 @@ class QuestionController extends ApiController
         $thread->content           = $content;
         $result                    = $thread->save();
 
-        if ( ! $result) {
+        if (!$result) {
             $this->flash->error($thread->getMessagesAsHTML());
 
             return $this->redirect(self::REDIRECT_FAILURE . $productId);
@@ -146,5 +146,4 @@ class QuestionController extends ApiController
 
         return;
     }
-
 }

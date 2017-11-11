@@ -47,7 +47,7 @@ class PurchaseController extends ApiController
     public function freeAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if ( ! $product || $product->price != 0) {
+        if (!$product || $product->price != 0) {
             return $this->output(0, 'Sorry this is an invalid or non-free course.');
         }
 
@@ -67,7 +67,7 @@ class PurchaseController extends ApiController
     public function stripeAction($productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if ( ! $product) {
+        if (!$product) {
             return $this->output(0, 'No product was found with the Id: %s', $productId);
         }
 
@@ -79,7 +79,7 @@ class PurchaseController extends ApiController
         $name        = $this->request->getPost('name');
         $zip         = $this->request->getPost('zip');
 
-        if ( ! $name) {
+        if (!$name) {
             return $this->output(0, 'You must provide a name.');
         }
 
@@ -121,7 +121,7 @@ class PurchaseController extends ApiController
                                                                                                                                                        ($product->price *
                                                                                                                                                         $promo->percent_off), 2), $promo->percent_off, $promo->code);
                 $use_price    = number_format($product->price - ($product->price * $promo->percent_off), 2);
-            } else if ($promo->price) {
+            } elseif ($promo->price) {
                 $promo_method = 'price';
                 $promo        = sprintf("Price marked down from %s to %s using promotional code %s.", number_format($product->price, 2), number_format($promo[ 'price' ], 2), $promo->code);
 
@@ -217,7 +217,7 @@ class PurchaseController extends ApiController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $product) {
+        if (!$product) {
             return $this->output(0, 'No product was found with the Id:' . $productId);
         }
 
@@ -265,11 +265,11 @@ class PurchaseController extends ApiController
     public function doPaypalConfirmAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
-        if ( ! $product) {
+        if (!$product) {
             return $this->output(0, 'Could not complete your transaction. The productId is invalid.');
         }
 
-        if ( ! $productId || $product->hasPurchased() == true) {
+        if (!$productId || $product->hasPurchased() == true) {
             return $this->output(0, 'Product does not exist or has been purchased.');
         }
 
@@ -312,7 +312,7 @@ class PurchaseController extends ApiController
 
         $do = $this->_createPurchase($product, 'Paypal Express Checkout', $transactionID);
 
-        if ( ! $do->result) {
+        if (!$do->result) {
             return $this->output(0, $do->msg);
         }
 
@@ -396,7 +396,7 @@ class PurchaseController extends ApiController
             ],
         ]);
 
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202])) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
             return (object) [
                 'result' => 0,
                 'msg'    => "Course addition: {$product->title} was successful!
@@ -411,5 +411,4 @@ class PurchaseController extends ApiController
             Your should receive an email confirmation shortly to: \" . $user->getEmail());",
         ];
     }
-
 }

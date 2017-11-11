@@ -127,7 +127,7 @@ class Product extends BaseModel
             ],
         ]);
 
-        if ( ! $userPurchase) {
+        if (!$userPurchase) {
             return false;
         }
 

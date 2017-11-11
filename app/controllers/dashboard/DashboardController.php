@@ -63,5 +63,4 @@ class DashboardController extends BaseController
 
         return $this->view->pick("dashboard/dashboard");
     }
-
 }

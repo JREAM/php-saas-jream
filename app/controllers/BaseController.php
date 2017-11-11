@@ -28,7 +28,9 @@ class BaseController extends Controller
     {
         if ($this->session->has('agent')) {
             if ($this->session->get('agent') != $_SERVER['HTTP_USER_AGENT']) {
-                $this->flash->error('Please re-login. For your security, we\'ve detected you\'re using a different browser.');
+                $this->flash->error('
+                    Please re-login. For your security, we\'ve detected you\'re using a different browser.
+                ');
                 $this->response->redirect("user/login");
             }
         }
@@ -119,7 +121,6 @@ class BaseController extends Controller
                 ]
             ],
         ]);
-
     }
 
     // -----------------------------------------------------------------------------
@@ -166,11 +167,9 @@ class BaseController extends Controller
 
         return $this->response->redirect($url, false);
     }
-
 }
 
 // -----------------------------------------------------------------------------
-
 /**
  * Batch Mockup
  * Allows batch inserts
@@ -258,7 +257,7 @@ class Batch
         $valueList = [];
         foreach ($values as $value) {
             if (is_array($value)) {
-                foreach ( (array) $value as $v) {
+                foreach ((array) $value as $v) {
                     $valueList[] = $v;
                 }
             } else {
@@ -328,5 +327,4 @@ class Batch
             }
         }
     }
-
 }

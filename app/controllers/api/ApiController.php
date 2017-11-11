@@ -109,5 +109,4 @@ class ApiController extends Controller
 
         return $outgoing->setData($data)->send();
     }
-
 }

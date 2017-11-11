@@ -15,7 +15,7 @@ class NewsletterTask extends Task
     public function send(int $id)
     {
         $newsletter = \Newsletter::findFirstById($id);
-        if ( ! $newsletter) {
+        if (!$newsletter) {
             die('No result found');
         }
 
@@ -26,7 +26,8 @@ class NewsletterTask extends Task
         ];
         $replace  = [
             $newsletter->body,
-            sprintf("%s/newsletter/unsubscribe", getenv('URL')); ];
+            sprintf("%s/newsletter/unsubscribe", getenv('URL'))
+        ];
 
         $final_email = str_replace($search, $replace, $template);
 
@@ -36,7 +37,6 @@ class NewsletterTask extends Task
             // Add to redis to queue them up
             //$this->redis->add($value->email);
         }
-
     }
 
     // -----------------------------------------------------------------------------
@@ -49,9 +49,8 @@ class NewsletterTask extends Task
     public function snsAction(int $newsletterId)
     {
         $newsletter = \Newsletter::findById($newsletterId);
-        if ( ! $newsletter) {
+        if (!$newsletter) {
             echo 'No Newsletter found with ID: ' . $newsletterId . PHP_EOL;
-
             return false;
         }
 
@@ -102,9 +101,8 @@ class NewsletterTask extends Task
         // @TODO Exclude from newsletter_unsubscribed, remove the row in users.newsletter_subscribed too
         $users = \User::find("is_deleted = 0 AND is_banned = 0");
 
-        if ( ! $users) {
+        if (!$users) {
             echo 'No users found.' . PHP_EOL;
-
             return false;
         }
 
@@ -124,7 +122,7 @@ class NewsletterTask extends Task
             ]);
 
             // Add to Newsletter
-            if ( ! $newsletterSubscriber) {
+            if (!$newsletterSubscriber) {
                 printf("Inserting %s into newsletter_subscription.\n", $user->getEmail());
                 $newsletterSubscriber                = new \NewsletterSubscription();
                 $newsletterSubscriber->is_subscribed = 1;
@@ -172,5 +170,4 @@ class NewsletterTask extends Task
 
         return;
     }
-
 }

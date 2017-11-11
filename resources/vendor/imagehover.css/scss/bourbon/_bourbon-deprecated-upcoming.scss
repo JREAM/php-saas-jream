@@ -87,15 +87,15 @@
     @include simple($b-color, false, $t-size, $pad);
   }
 
-  @else if $type == shiny {
+  @elseif $type == shiny {
     @include shiny($b-color, false, $t-size, $pad);
   }
 
-  @else if $type == pill {
+  @elseif $type == pill {
     @include pill($b-color, false, $t-size, $pad);
   }
 
-  @else if $type == flat {
+  @elseif $type == flat {
     @include flat($b-color, false, $t-size, $pad);
   }
 }

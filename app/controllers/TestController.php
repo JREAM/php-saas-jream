@@ -31,5 +31,4 @@ class TestController extends BaseController
         $hashids = $this->di->get('hashids');
         echo $hashids->encodeHex(2);
     }
-
 }

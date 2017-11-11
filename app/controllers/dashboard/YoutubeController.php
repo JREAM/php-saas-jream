@@ -36,7 +36,7 @@ class YoutubeController extends BaseController
     {
         $video = \Youtube::findFirstById($youtubeId);
 
-        if ( ! $youtubeId) {
+        if (!$youtubeId) {
             $this->flash->error('There is no record of this item.');
 
             return $this->redirect(self::REDIRECT_FAILURE);
@@ -48,5 +48,4 @@ class YoutubeController extends BaseController
 
         return $this->view->pick("dashboard/youtube");
     }
-
 }

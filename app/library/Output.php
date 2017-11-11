@@ -44,7 +44,7 @@ class Output extends DiInjectable
     public function __construct(int $result, $msg = null)
     {
         // Do not allow anything besides string or null
-        if ( ! is_string($msg)) {
+        if (!is_string($msg)) {
             $msg = null;
         }
 
@@ -80,7 +80,7 @@ class Output extends DiInjectable
      */
     public static function getCode(string $name): int
     {
-        if ( ! isset(self::$codes[ $name ])) {
+        if (!isset(self::$codes[ $name ])) {
             throw new \InvalidArgumentException('Invalid Code called for Output.');
         }
 
@@ -126,5 +126,4 @@ class Output extends DiInjectable
     }
 
     // -----------------------------------------------------------------------------
-
 }

@@ -96,7 +96,8 @@ class SessionRoute extends Injectable
             $this->prev->params = $this->router->getParams();
         }
 
-        $fullUrl = \Library\Url::makeFrom(this->prev->controller,
+        $fullUrl = \Library\Url::makeFrom(
+            $this->prev->controller,
             $this->prev->action,
             $this->prev->params
         );
@@ -124,5 +125,4 @@ class SessionRoute extends Injectable
     {
         return $this->getPrev();
     }
-
 }

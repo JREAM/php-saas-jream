@@ -120,9 +120,9 @@ $arguments = [];
 foreach ($argv as $k => $arg) {
     if ($k === 1) {
         $arguments[ 'task' ] = $arg;
-    } else if ($k === 2) {
+    } elseif ($k === 2) {
         $arguments[ 'action' ] = $arg;
-    } else if ($k >= 3) {
+    } elseif ($k >= 3) {
         $arguments[ 'params' ][] = $arg;
     }
 }

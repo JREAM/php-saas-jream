@@ -69,7 +69,7 @@
                             if (!recoverMediaErrorDate || now - recoverMediaErrorDate > 3000) {
                                 recoverMediaErrorDate = performance.now();
                                 hls.recoverMediaError();
-                            } else if (!swapAudioCodecDate || (now - swapAudioCodecDate) > 3000) {
+                            } elseif (!swapAudioCodecDate || (now - swapAudioCodecDate) > 3000) {
                                 swapAudioCodecDate = performance.now();
                                 hls.swapAudioCodec();
                                 hls.recoverMediaError();
@@ -232,7 +232,7 @@
                         // e.g. "Level 1" -> "level1"
                         if (!quality) {
                             quality = player.quality;
-                        } else if (player.qualities.indexOf(quality) < 0) {
+                        } elseif (player.qualities.indexOf(quality) < 0) {
                             quality = "abr";
                         }
                         return quality.toLowerCase().replace(/\ /g, "");
@@ -347,7 +347,7 @@
 
                             if (idx < 0) {
                                 label = q.label || "Auto";
-                            } else if (q.label) {
+                            } elseif (q.label) {
                                 label = q.label;
                             } else {
                                 if (level.width && level.height) {
@@ -644,7 +644,7 @@
                                         lastSelectedLevel = q;
                                     });
 
-                                } else if (conf.poster) {
+                                } elseif (conf.poster) {
                                     // v6 only
                                     // engine too late, poster already removed
                                     // abuse timeupdate to re-instate poster
@@ -739,7 +739,7 @@
                                         if (hlsQualitiesSupport(conf) &&
                                                 !(!coreV6 && player.pluginQualitySelectorEnabled)) {
                                             initQualitySelection(hlsQualitiesConf, hlsUpdatedConf, data);
-                                        } else if (coreV6) {
+                                        } elseif (coreV6) {
                                             delete player.quality;
                                         }
                                         break;
@@ -809,7 +809,7 @@
                                             case ERRORTYPES.NETWORK_ERROR:
                                                 if (hlsUpdatedConf.recoverNetworkError || recover) {
                                                     doRecover(conf, data.type, true);
-                                                } else if (data.frag && data.frag.url) {
+                                                } elseif (data.frag && data.frag.url) {
                                                     errobj.url = data.frag.url;
                                                     fperr = 2;
                                                 } else {
@@ -831,7 +831,7 @@
                                                 errobj = handleError(fperr, src, data.url);
                                                 player.trigger("error", [player, errobj]);
                                             }
-                                        } else if (data.details === ERRORDETAILS.FRAG_LOOP_LOADING_ERROR ||
+                                        } elseif (data.details === ERRORDETAILS.FRAG_LOOP_LOADING_ERROR ||
                                                 data.details === ERRORDETAILS.BUFFER_STALLED_ERROR) {
                                             common.addClass(root, recoveryClass);
                                         }
@@ -960,7 +960,7 @@
     };
     if (typeof module === 'object' && module.exports) {
         module.exports = extension.bind(undefined, require('hls.js'));
-    } else if (window.Hls && window.flowplayer) {
+    } elseif (window.Hls && window.flowplayer) {
         extension(window.Hls, window.flowplayer);
     }
 }());

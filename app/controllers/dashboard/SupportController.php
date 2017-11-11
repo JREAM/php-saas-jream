@@ -43,5 +43,4 @@ class SupportController extends BaseController
 
         return $this->view->pick("dashboard/support");
     }
-
 }

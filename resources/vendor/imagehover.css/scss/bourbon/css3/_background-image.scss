@@ -22,13 +22,13 @@
         $spec-image:   $image;
       }
 
-      @else if $gradient-type == "linear" {
+      @elseif $gradient-type == "linear" {
         $gradients: _linear-gradient-parser($image);
         $webkit-image:  map-get($gradients, webkit-image);
         $spec-image:    map-get($gradients, spec-image);
       }
 
-      @else if $gradient-type == "radial" {
+      @elseif $gradient-type == "radial" {
         $gradients: _radial-gradient-parser($image);
         $webkit-image: map-get($gradients, webkit-image);
         $spec-image:   map-get($gradients, spec-image);

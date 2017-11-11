@@ -5,7 +5,7 @@
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(['jquery'], factory);
-	} else if (typeof module === 'object' && module.exports) {
+	} elseif (typeof module === 'object' && module.exports) {
 		// Node/CommonJS
 		module.exports = function( root, jQuery ) {
 			if ( jQuery === undefined ) {
@@ -236,7 +236,7 @@
 		var opp, temp;
 		if (typeof val === "string") {
 			val = parseInt(val, 10);
-		} else if (typeof val !== "number") {
+		} elseif (typeof val !== "number") {
 			return;
 		}
 		if (isNaN(val)) {
@@ -259,9 +259,9 @@
 	var realign = function(alignment, inner, outer) {
 		if (alignment === "l" || alignment === "t") {
 			return 0;
-		} else if (alignment === "c" || alignment === "m") {
+		} elseif (alignment === "c" || alignment === "m") {
 			return outer / 2 - inner / 2;
-		} else if (alignment === "r" || alignment === "b") {
+		} elseif (alignment === "r" || alignment === "b") {
 			return outer - inner;
 		}
 		throw "Invalid alignment";
@@ -323,12 +323,12 @@
 		args = [];
 		if (hidden && show) {
 			fn = "show";
-		} else if (hidden && !show) {
+		} elseif (hidden && !show) {
 			fn = "hide";
-		} else if (!hidden && show) {
+		} elseif (!hidden && show) {
 			fn = this.options.showAnimation;
 			args.push(this.options.showDuration);
-		} else if (!hidden && !show) {
+		} elseif (!hidden && !show) {
 			fn = this.options.hideAnimation;
 			args.push(this.options.hideDuration);
 		} else {
@@ -352,7 +352,7 @@
 			css[main] = 0;
 			if (align === "middle") {
 				css.top = '45%';
-			} else if (align === "center") {
+			} elseif (align === "center") {
 				css.left = '45%';
 			} else {
 				css[align] = 0;
@@ -419,7 +419,7 @@
 			if (arrowCss) {
 				incr(arrowCss, "left", realign(pAlign, arrowSize, elemIW));
 			}
-		} else if (indexOf.call(hAligns, pMain) >= 0) {
+		} elseif (indexOf.call(hAligns, pMain) >= 0) {
 			incr(css, "top", realign(pAlign, contH, elemH));
 			if (arrowCss) {
 				incr(arrowCss, "top", realign(pAlign, arrowSize, elemIH));
@@ -473,7 +473,7 @@
 		classes = ["base"];
 		if ($.isArray(this.options.className)) {
 			classes = classes.concat(this.options.className);
-		} else if (this.options.className) {
+		} elseif (this.options.className) {
 			classes.push(this.options.className);
 		}
 		style = this.getStyle();
@@ -487,13 +487,13 @@
 		var d, datas, name, type, value;
 		if ($.isPlainObject(options)) {
 			$.extend(this.options, options);
-		} else if ($.type(options) === "string") {
+		} elseif ($.type(options) === "string") {
 			this.options.className = options;
 		}
 		if (this.container && !data) {
 			this.show(false);
 			return;
-		} else if (!this.container && !data) {
+		} elseif (!this.container && !data) {
 			return;
 		}
 		datas = {};

@@ -22,11 +22,11 @@
         // Swap for backwards compatibility
         $degree: _position-flipper(nth($pos, 2));
       }
-      @else if $length == 3 { // eg. to top left
+      @elseif $length == 3 { // eg. to top left
         $corner: nth($pos, 3);
       }
     }
-    @else if $length == 2 { // Older syntax ("top left")
+    @elseif $length == 2 { // Older syntax ("top left")
       $side: _position-flipper(nth($pos, 1));
       $corner: _position-flipper(nth($pos, 2));
     }
@@ -34,18 +34,18 @@
     @if ("#{$side} #{$corner}" == "left top") or ("#{$side} #{$corner}" == "top left") {
       $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
     }
-    @else if ("#{$side} #{$corner}" == "right top") or ("#{$side} #{$corner}" == "top right") {
+    @elseif ("#{$side} #{$corner}" == "right top") or ("#{$side} #{$corner}" == "top right") {
       $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
     }
-    @else if ("#{$side} #{$corner}" == "right bottom") or ("#{$side} #{$corner}" == "bottom right") {
+    @elseif ("#{$side} #{$corner}" == "right bottom") or ("#{$side} #{$corner}" == "bottom right") {
       $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
     }
-    @else if ("#{$side} #{$corner}" == "left bottom") or ("#{$side} #{$corner}" == "bottom left") {
+    @elseif ("#{$side} #{$corner}" == "left bottom") or ("#{$side} #{$corner}" == "bottom left") {
       $degree: _position-flipper(#{$side}) _position-flipper(#{$corner});
     }
     $spec: to $side $corner;
   }
-  @else if $length == 1 {
+  @elseif $length == 1 {
     // Swap for backwards compatibility
     @if $type == string {
       $degree: $pos;

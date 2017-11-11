@@ -30,8 +30,4 @@ class ToolController extends BaseController
     {
         return $this->view->pick('tool/tool');
     }
-
-    // -----------------------------------------------------------------------------
-
-
 }

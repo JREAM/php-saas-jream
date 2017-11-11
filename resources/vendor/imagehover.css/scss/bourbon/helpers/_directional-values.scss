@@ -45,8 +45,8 @@
   @if $d == 0 { $d: 0; }
 
   @if $a == $b and $a == $c and $a == $d { $output: $a;          }
-  @else if $a == $c and $b == $d         { $output: $a $b;       }
-  @else if $b == $d                      { $output: $a $b $c;    }
+  @elseif $a == $c and $b == $d         { $output: $a $b;       }
+  @elseif $b == $d                      { $output: $a $b $c;    }
   @else                                  { $output: $a $b $c $d; }
 
   @return $output;
@@ -93,10 +93,10 @@
     @if length($vals) == 2 {
       @if nth($vals, 1) { #{$bottom}: nth($vals, 1); }
       @if nth($vals, 2) { #{$left}:   nth($vals, 2); }
-    } @else if length($vals) == 3 {
+    } @elseif length($vals) == 3 {
       @if nth($vals, 3) { #{$bottom}: nth($vals, 3); }
       @if nth($vals, 2) { #{$left}:   nth($vals, 2); }
-    } @else if length($vals) == 4 {
+    } @elseif length($vals) == 4 {
       @if nth($vals, 3) { #{$bottom}: nth($vals, 3); }
       @if nth($vals, 4) { #{$left}:   nth($vals, 4); }
     }

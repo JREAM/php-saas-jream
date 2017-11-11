@@ -78,5 +78,4 @@ class PromotionController extends BaseController
         // Array of Items
         $items = $this->input->post('item');
     }
-
 }

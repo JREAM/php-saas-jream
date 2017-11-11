@@ -15,25 +15,24 @@ class Contact extends Controller
     public function sendAction(): Response
     {
         // If Recaptcha fails, Warn and use JS to reload.
-        if ( ! new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
+        if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
             // Retrigger: grecaptcha.reset() in JS
             return $this->output(0, 'Recaptcha is invalid, please try again.');
         }
 
         // Make sure recaptcha called and all
-        if ( ! $this->session->has('recaptcha')) {
+        if (!$this->session->has('recaptcha')) {
             return $this->output(0, 'Recaptcha is required.');
         }
 
-        if ( ! $this->session->get('recaptcha')) {
+        if (!$this->session->get('recaptcha')) {
             return $this->output(0, 'Recaptcha was invalid');
         }
 
         $form = new \Forms\ContactForm();
 
         // Make sure the form is valid
-        if ( ! $form->isValid($_POST)) {
-
+        if (!$form->isValid($_POST)) {
             $errors = [];
             foreach ($form->getMessages() as $message) {
                 $errors[] = $message->getMessage();
@@ -68,7 +67,7 @@ class Contact extends Controller
             ],
         ]);
 
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'Error sending email');
         }
 
@@ -77,5 +76,4 @@ class Contact extends Controller
 
         return $this->output(1, 'Email Sent');
     }
-
 }

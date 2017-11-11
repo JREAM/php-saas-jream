@@ -33,5 +33,4 @@ class NotificationController extends BaseController
 
         return $this->view->pick("dashboard/notification");
     }
-
 }

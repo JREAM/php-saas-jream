@@ -22,7 +22,7 @@ class UserController extends ApiController
     public function updateTimezoneAction(): Response
     {
         $timezone = $this->request->getPost('timezone');
-        if ( ! in_array($timezone, \DateTimeZone::listIdentifiers())) {
+        if (!in_array($timezone, \DateTimeZone::listIdentifiers())) {
             return $this->output(0, 'Invalid Timezone');
         }
 
@@ -47,7 +47,7 @@ class UserController extends ApiController
         $confirm_email = $this->request->getPost('confirm_email');
 
         $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
-        if ( ! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->response(0, $form->getMessages());
         }
 
@@ -67,7 +67,7 @@ class UserController extends ApiController
             'change_url'        => \Library\Url::get('user/doConfirmEmailChange/' . $user->email_change_key),
         ]);
 
-        if ( ! $content) {
+        if (!$content) {
             return $this->output(0, 'An internal error occured, we have been notified about it.');
         }
 
@@ -82,12 +82,12 @@ class UserController extends ApiController
             ],
         ]);
 
-        if ( ! in_array($mail_result->statusCode(), [200, 201, 202], true)) {
+        if (!in_array($mail_result->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 
-        return $this->output(1, "Please verify your email change 
-            from the email sent to ({$user->email}). You have 10 minutes to verify 
+        return $this->output(1, "Please verify your email change
+            from the email sent to ({$user->email}). You have 10 minutes to verify
             until the link expires.");
     }
 
@@ -111,7 +111,7 @@ class UserController extends ApiController
             ],
         ]);
 
-        if ( ! $user) {
+        if (!$user) {
             return $this->output(0, 'Invalid key, or time has expired.');
         }
 
@@ -141,7 +141,7 @@ class UserController extends ApiController
         $alias = (string) $this->request->getPost('alias');
 
         $form = new \Forms\ChangeAliasForm(null, ['alias' => $alias]);
-        if ( ! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->response(0, $form->getMessages());
         }
 
@@ -190,12 +190,12 @@ class UserController extends ApiController
         $confirm_password = $this->request->getPost('confirm_password');
 
         $form = new \Forms\ChangePasswordForm(null, ['confirm_password' => $confirm_password]);
-        if ( ! $form->isValid()) {
+        if (!$form->isValid()) {
             return $this->output(0, $form->getMessages());
         }
 
         $user = \User::findFirstById($this->session->get('id'));
-        if ( ! $this->security->checkHash($current_password, $user->password)) {
+        if (!$this->security->checkHash($current_password, $user->password)) {
             return $this->output(0, 'Your current password is incorrect.');
         }
 
@@ -236,7 +236,7 @@ class UserController extends ApiController
         $user->deleted_at = date('Y-m-d H:i:s', strtotime('now'));
         $result           = $user->save();
 
-        if ( ! $result) {
+        if (!$result) {
             return $this->output(0, "There was a problem processing your request.");
         }
 
@@ -244,5 +244,4 @@ class UserController extends ApiController
         return $this->output(0, "Sorry to see you go!");
         $this->session->destroy(); // @TODO: How to destroy all session?
     }
-
 }

@@ -64,7 +64,7 @@ class ProductController extends BaseController
         $product = \Product::findFirstBySlug($slug);
         Tag::setTitle($product->title . ' | ' . $this->di[ 'config' ][ 'title' ]);
 
-        if ( ! $product) {
+        if (!$product) {
             return $this->redirect('product');
         }
 
@@ -80,7 +80,10 @@ class ProductController extends BaseController
 
                 // this sets the price discount
                 // Security
-                $this->session->set('session_hash', $this->security->hash($this->config->session_hash, $this->session->getId()));
+                $this->session->set('session_hash', $this->security->hash(
+                    $this->config->session_hash,
+                    $this->session->getId()
+                ));
 
                 // Price
                 $discount_price = $product->price * ($percent_off * .1);
@@ -148,14 +151,17 @@ class ProductController extends BaseController
 
         $product       = \Product::findFirstBySlug($productSlug);
         $productCourse = \ProductCourse::findFirstById($courseId);
-        if ( ! $product || ! $productCourse) {
+        if (!$product || ! $productCourse) {
             $this->flash->error('This product and/or course does not exist');
 
             return $this->redirect('product');
         }
 
         if ($productCourse->free_preview == 1) {
-            $rtmpSignedUrl = \ProductCourse::generateStreamUrl($productCourse->getProduct()->path, $productCourse->name);
+            $rtmpSignedUrl = \ProductCourse::generateStreamUrl(
+                $productCourse->getProduct()->path,
+                $productCourse->name
+            );
         } else {
             $error = 'There is no preview for this course, please purchase at the product area.';
         }
@@ -172,5 +178,4 @@ class ProductController extends BaseController
 
         return $this->view->pick('product/preview');
     }
-
 }

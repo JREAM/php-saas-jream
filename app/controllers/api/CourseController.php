@@ -52,5 +52,4 @@ class CourseController extends ApiController
 
         return $this->output(0, $userAction->getMessagesString());
     }
-
 }

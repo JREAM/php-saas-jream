@@ -29,7 +29,7 @@ class QuestionController extends BaseController
     {
         $product = \Product::findFirstById($productId);
 
-        if ( ! $productId || $product->hasPurchased() == false) {
+        if (!$productId || $product->hasPurchased() == false) {
             $this->flash->error('There is no record of your purchase for this item.');
 
             return $this->redirect(\Library\Url::get());
@@ -45,5 +45,4 @@ class QuestionController extends BaseController
 
         return $this->view->pick('dashboard/question');
     }
-
 }

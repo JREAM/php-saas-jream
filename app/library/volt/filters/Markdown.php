@@ -13,13 +13,12 @@ class Markdown
      * @return mixed
      */
     public static function markdown($arg)
-   {
-       $di = Di::getDefault();
-       $markdown = $di->get('markdown');
+    {
+        $di = Di::getDefault();
+        $markdown = $di->get('markdown');
 
-       return $markdown->parse($arg);
-   }
+        return $markdown->parse($arg);
+    }
 
-   // -----------------------------------------------------------------------------
-
+    // -----------------------------------------------------------------------------
 }

@@ -29,10 +29,9 @@ class En extends Base
     public function __construct()
     {
         foreach ($phrase as $key => $value) {
-            $phrase
+            $phrase;
         }
     }
 
     // -----------------------------------------------------------------------------
-
 }

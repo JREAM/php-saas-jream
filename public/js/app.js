@@ -398,7 +398,7 @@ function getDefaultAdapter() {
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
     adapter = __webpack_require__(5);
-  } else if (typeof process !== 'undefined') {
+  } elseif (typeof process !== 'undefined') {
     // For node use HTTP adapter
     adapter = __webpack_require__(5);
   }
@@ -2982,7 +2982,7 @@ if (!Modernizr.svg) {
 
           if (type == LAZY_MAP_FLAG) {
             value = computed;
-          } else if (!computed) {
+          } elseif (!computed) {
             if (type == LAZY_FILTER_FLAG) {
               continue outer;
             } else {
@@ -3876,7 +3876,7 @@ if (!Modernizr.svg) {
         includes = arrayIncludesWith;
         isCommon = false;
       }
-      else if (values.length >= LARGE_ARRAY_SIZE) {
+      elseif (values.length >= LARGE_ARRAY_SIZE) {
         includes = cacheHas;
         isCommon = false;
         values = new SetCache(values);
@@ -3896,7 +3896,7 @@ if (!Modernizr.svg) {
           }
           result.push(value);
         }
-        else if (!includes(values, computed, comparator)) {
+        elseif (!includes(values, computed, comparator)) {
           result.push(value);
         }
       }
@@ -4043,7 +4043,7 @@ if (!Modernizr.svg) {
           } else {
             arrayPush(result, value);
           }
-        } else if (!isStrict) {
+        } elseif (!isStrict) {
           result[result.length] = value;
         }
       }
@@ -4752,14 +4752,14 @@ if (!Modernizr.svg) {
           if (isArray(objValue)) {
             newValue = objValue;
           }
-          else if (isArrayLikeObject(objValue)) {
+          elseif (isArrayLikeObject(objValue)) {
             newValue = copyArray(objValue);
           }
-          else if (isBuff) {
+          elseif (isBuff) {
             isCommon = false;
             newValue = cloneBuffer(srcValue, true);
           }
-          else if (isTyped) {
+          elseif (isTyped) {
             isCommon = false;
             newValue = cloneTypedArray(srcValue, true);
           }
@@ -4767,12 +4767,12 @@ if (!Modernizr.svg) {
             newValue = [];
           }
         }
-        else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+        elseif (isPlainObject(srcValue) || isArguments(srcValue)) {
           newValue = objValue;
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+          elseif (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -5245,13 +5245,13 @@ if (!Modernizr.svg) {
 
         if (valIsNaN) {
           var setLow = retHighest || othIsReflexive;
-        } else if (valIsUndefined) {
+        } elseif (valIsUndefined) {
           setLow = othIsReflexive && (retHighest || othIsDefined);
-        } else if (valIsNull) {
+        } elseif (valIsNull) {
           setLow = othIsReflexive && othIsDefined && (retHighest || !othIsNull);
-        } else if (valIsSymbol) {
+        } elseif (valIsSymbol) {
           setLow = othIsReflexive && othIsDefined && !othIsNull && (retHighest || !othIsSymbol);
-        } else if (othIsNull || othIsSymbol) {
+        } elseif (othIsNull || othIsSymbol) {
           setLow = false;
         } else {
           setLow = retHighest ? (computed <= value) : (computed < value);
@@ -5355,7 +5355,7 @@ if (!Modernizr.svg) {
         isCommon = false;
         includes = arrayIncludesWith;
       }
-      else if (length >= LARGE_ARRAY_SIZE) {
+      elseif (length >= LARGE_ARRAY_SIZE) {
         var set = iteratee ? null : createSet(array);
         if (set) {
           return setToArray(set);
@@ -5385,7 +5385,7 @@ if (!Modernizr.svg) {
           }
           result.push(value);
         }
-        else if (!includes(seen, computed, comparator)) {
+        elseif (!includes(seen, computed, comparator)) {
           if (seen !== result) {
             seen.push(computed);
           }
@@ -6306,7 +6306,7 @@ if (!Modernizr.svg) {
         length = args.length;
         if (argPos) {
           args = reorder(args, argPos);
-        } else if (isFlip && length > 1) {
+        } elseif (isFlip && length > 1) {
           args.reverse();
         }
         if (isAry && ary < length) {
@@ -6654,9 +6654,9 @@ if (!Modernizr.svg) {
       }
       if (!bitmask || bitmask == WRAP_BIND_FLAG) {
         var result = createBind(func, bitmask, thisArg);
-      } else if (bitmask == WRAP_CURRY_FLAG || bitmask == WRAP_CURRY_RIGHT_FLAG) {
+      } elseif (bitmask == WRAP_CURRY_FLAG || bitmask == WRAP_CURRY_RIGHT_FLAG) {
         result = createCurry(func, bitmask, arity);
-      } else if ((bitmask == WRAP_PARTIAL_FLAG || bitmask == (WRAP_BIND_FLAG | WRAP_PARTIAL_FLAG)) && !holders.length) {
+      } elseif ((bitmask == WRAP_PARTIAL_FLAG || bitmask == (WRAP_BIND_FLAG | WRAP_PARTIAL_FLAG)) && !holders.length) {
         result = createPartial(func, bitmask, thisArg, partials);
       } else {
         result = createHybrid.apply(undefined, newData);
@@ -6783,7 +6783,7 @@ if (!Modernizr.svg) {
             result = false;
             break;
           }
-        } else if (!(
+        } elseif (!(
               arrValue === othValue ||
                 equalFunc(arrValue, othValue, bitmask, customizer, stack)
             )) {
@@ -11036,7 +11036,7 @@ if (!Modernizr.svg) {
       var length = iteratees.length;
       if (length > 1 && isIterateeCall(collection, iteratees[0], iteratees[1])) {
         iteratees = [];
-      } else if (length > 2 && isIterateeCall(iteratees[0], iteratees[1], iteratees[2])) {
+      } elseif (length > 2 && isIterateeCall(iteratees[0], iteratees[1], iteratees[2])) {
         iteratees = [iteratees[0]];
       }
       return baseOrderBy(collection, baseFlatten(iteratees, 1), []);
@@ -14859,7 +14859,7 @@ if (!Modernizr.svg) {
         if (isArrLike) {
           accumulator = isArr ? new Ctor : [];
         }
-        else if (isObject(object)) {
+        elseif (isObject(object)) {
           accumulator = isFunction(Ctor) ? baseCreate(getPrototype(object)) : {};
         }
         else {
@@ -15148,7 +15148,7 @@ if (!Modernizr.svg) {
           floating = upper;
           upper = undefined;
         }
-        else if (typeof lower == 'boolean') {
+        elseif (typeof lower == 'boolean') {
           floating = lower;
           lower = undefined;
         }
@@ -15541,7 +15541,7 @@ if (!Modernizr.svg) {
     function parseInt(string, radix, guard) {
       if (guard || radix == null) {
         radix = 0;
-      } else if (radix) {
+      } elseif (radix) {
         radix = +radix;
       }
       return nativeParseInt(toString(string).replace(reTrimStart, ''), radix || 0);
@@ -16177,7 +16177,7 @@ if (!Modernizr.svg) {
           }
           result = result.slice(0, newEnd === undefined ? end : newEnd);
         }
-      } else if (string.indexOf(baseToString(separator), end) != end) {
+      } elseif (string.indexOf(baseToString(separator), end) != end) {
         var index = result.lastIndexOf(separator);
         if (index > -1) {
           result = result.slice(0, index);
@@ -18017,7 +18017,7 @@ if (!Modernizr.svg) {
       }
       if (start < 0) {
         result = result.takeRight(-start);
-      } else if (start) {
+      } elseif (start) {
         result = result.drop(start);
       }
       if (end !== undefined) {
@@ -18158,7 +18158,7 @@ if (!Modernizr.svg) {
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
-  else if (freeModule) {
+  elseif (freeModule) {
     // Export for Node.js.
     (freeModule.exports = _)._ = _;
     // Export for CommonJS support.
@@ -18501,7 +18501,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   var serializedParams;
   if (paramsSerializer) {
     serializedParams = paramsSerializer(params);
-  } else if (utils.isURLSearchParams(params)) {
+  } elseif (utils.isURLSearchParams(params)) {
     serializedParams = params.toString();
   } else {
     var parts = [];
@@ -18522,7 +18522,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
       utils.forEach(val, function parseValue(v) {
         if (utils.isDate(v)) {
           v = v.toISOString();
-        } else if (utils.isObject(v)) {
+        } elseif (utils.isObject(v)) {
           v = JSON.stringify(v);
         }
         parts.push(encode(key) + '=' + encode(v));
@@ -19335,7 +19335,7 @@ var getFocusableElements = function getFocusableElements() {
     b = parseInt(b.getAttribute('tabindex'));
     if (a > b) {
       return 1;
-    } else if (a < b) {
+    } elseif (a < b) {
       return -1;
     }
     return 0;
@@ -19702,9 +19702,9 @@ var setParameters = function setParameters(params) {
       } else {
         content.appendChild(params.html.cloneNode(true));
       }
-    } else if (params.html) {
+    } elseif (params.html) {
       content.innerHTML = params.html;
-    } else if (params.text) {
+    } elseif (params.text) {
       content.textContent = params.text;
     }
     show(content);
@@ -20130,7 +20130,7 @@ var sweetAlert = function sweetAlert() {
           if (params.buttonsStyling) {
             if (targetedConfirm) {
               confirmButton.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.1);
-            } else if (targetedCancel) {
+            } elseif (targetedCancel) {
               cancelButton.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.1);
             }
           }
@@ -20139,7 +20139,7 @@ var sweetAlert = function sweetAlert() {
           if (params.buttonsStyling) {
             if (targetedConfirm) {
               confirmButton.style.backgroundColor = params.confirmButtonColor;
-            } else if (targetedCancel) {
+            } elseif (targetedCancel) {
               cancelButton.style.backgroundColor = params.cancelButtonColor;
             }
           }
@@ -20148,7 +20148,7 @@ var sweetAlert = function sweetAlert() {
           if (params.buttonsStyling) {
             if (targetedConfirm) {
               confirmButton.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.2);
-            } else if (targetedCancel) {
+            } elseif (targetedCancel) {
               cancelButton.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.2);
             }
           }
@@ -20181,7 +20181,7 @@ var sweetAlert = function sweetAlert() {
             }
 
             // Clicked 'cancel'
-          } else if (targetedCancel && sweetAlert.isVisible()) {
+          } elseif (targetedCancel && sweetAlert.isVisible()) {
             sweetAlert.disableButtons();
             sweetAlert.closeModal(params.onClose);
             if (params.useRejections) {
@@ -20251,7 +20251,7 @@ var sweetAlert = function sweetAlert() {
           index = 0;
 
           // go to last item
-        } else if (index === -1) {
+        } elseif (index === -1) {
           index = focusableElements.length - 1;
         }
 
@@ -20296,17 +20296,17 @@ var sweetAlert = function sweetAlert() {
         e.preventDefault();
 
         // ARROWS - switch focus between buttons
-      } else if (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
+      } elseif (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
         // focus Cancel button if Confirm button is currently focused
         if (document.activeElement === confirmButton && isVisible(cancelButton)) {
           cancelButton.focus();
           // and vice versa
-        } else if (document.activeElement === cancelButton && isVisible(confirmButton)) {
+        } elseif (document.activeElement === cancelButton && isVisible(confirmButton)) {
           confirmButton.focus();
         }
 
         // ESC
-      } else if (keyCode === 27 && params.allowEscapeKey === true) {
+      } elseif (keyCode === 27 && params.allowEscapeKey === true) {
         sweetAlert.closeModal(params.onClose);
         if (params.useRejections) {
           reject('esc');
@@ -20628,7 +20628,7 @@ var sweetAlert = function sweetAlert() {
           sweetAlert.hideLoading();
           populateInputOptions(inputOptions);
         });
-      } else if (_typeof(params.inputOptions) === 'object') {
+      } elseif (_typeof(params.inputOptions) === 'object') {
         populateInputOptions(params.inputOptions);
       } else {
         console.error('SweetAlert2: Unexpected type of inputOptions! Expected object or Promise, got ' + _typeof(params.inputOptions));
@@ -20641,9 +20641,9 @@ var sweetAlert = function sweetAlert() {
       if (document.activeElement) {
         document.activeElement.blur();
       }
-    } else if (params.focusCancel && isVisible(cancelButton)) {
+    } elseif (params.focusCancel && isVisible(cancelButton)) {
       cancelButton.focus();
-    } else if (params.focusConfirm && isVisible(confirmButton)) {
+    } elseif (params.focusConfirm && isVisible(confirmButton)) {
       confirmButton.focus();
     } else {
       setFocus(-1, 1);
@@ -21004,11 +21004,11 @@ var scheduleFlush = undefined;
 // Decide what async method to use to triggering processing of queued callbacks:
 if (isNode) {
   scheduleFlush = useNextTick();
-} else if (BrowserMutationObserver) {
+} elseif (BrowserMutationObserver) {
   scheduleFlush = useMutationObserver();
-} else if (isWorker) {
+} elseif (isWorker) {
   scheduleFlush = useMessageChannel();
-} else if (browserWindow === undefined && "function" === 'function') {
+} elseif (browserWindow === undefined && "function" === 'function') {
   scheduleFlush = attemptVertx();
 } else {
   scheduleFlush = useSetTimeout();
@@ -21152,7 +21152,7 @@ function handleForeignThenable(promise, thenable, then$$1) {
 function handleOwnThenable(promise, thenable) {
   if (thenable._state === FULFILLED) {
     fulfill(promise, thenable._result);
-  } else if (thenable._state === REJECTED) {
+  } elseif (thenable._state === REJECTED) {
     reject(promise, thenable._result);
   } else {
     subscribe(thenable, undefined, function (value) {
@@ -21170,9 +21170,9 @@ function handleMaybeThenable(promise, maybeThenable, then$$1) {
     if (then$$1 === GET_THEN_ERROR) {
       reject(promise, GET_THEN_ERROR.error);
       GET_THEN_ERROR.error = null;
-    } else if (then$$1 === undefined) {
+    } elseif (then$$1 === undefined) {
       fulfill(promise, maybeThenable);
-    } else if (isFunction(then$$1)) {
+    } elseif (isFunction(then$$1)) {
       handleForeignThenable(promise, maybeThenable, then$$1);
     } else {
       fulfill(promise, maybeThenable);
@@ -21183,7 +21183,7 @@ function handleMaybeThenable(promise, maybeThenable, then$$1) {
 function resolve(promise, value) {
   if (promise === value) {
     reject(promise, selfFulfillment());
-  } else if (objectOrFunction(value)) {
+  } elseif (objectOrFunction(value)) {
     handleMaybeThenable(promise, value, getThen(value));
   } else {
     fulfill(promise, value);
@@ -21306,13 +21306,13 @@ function invokeCallback(settled, promise, callback, detail) {
 
   if (promise._state !== PENDING) {
     // noop
-  } else if (hasCallback && succeeded) {
+  } elseif (hasCallback && succeeded) {
       resolve(promise, value);
-    } else if (failed) {
+    } elseif (failed) {
       reject(promise, error);
-    } else if (settled === FULFILLED) {
+    } elseif (settled === FULFILLED) {
       fulfill(promise, value);
-    } else if (settled === REJECTED) {
+    } elseif (settled === REJECTED) {
       reject(promise, value);
     }
 }
@@ -21388,10 +21388,10 @@ Enumerator$1.prototype._eachEntry = function (entry, i) {
 
     if (_then === then && entry._state !== PENDING) {
       this._settledAt(entry._state, i, entry._result);
-    } else if (typeof _then !== 'function') {
+    } elseif (typeof _then !== 'function') {
       this._remaining--;
       this._result[i] = entry;
-    } else if (c === Promise$2) {
+    } elseif (c === Promise$2) {
       var promise = new c(noop);
       handleMaybeThenable(promise, entry, _then);
       this._willSettleAt(promise, i);
@@ -21746,7 +21746,7 @@ Promise$2.prototype = {
     The primary way of interacting with a promise is through its `then` method,
     which registers callbacks to receive either a promise's eventual value or the
     reason why the promise cannot be fulfilled.
-  
+
     ```js
     findUser().then(function(user){
       // user is available
@@ -21754,14 +21754,14 @@ Promise$2.prototype = {
       // user is unavailable, and you are given the reason why
     });
     ```
-  
+
     Chaining
     --------
-  
+
     The return value of `then` is itself a promise.  This second, 'downstream'
     promise is resolved with the return value of the first promise's fulfillment
     or rejection handler, or rejected if the handler throws an exception.
-  
+
     ```js
     findUser().then(function (user) {
       return user.name;
@@ -21771,7 +21771,7 @@ Promise$2.prototype = {
       // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
       // will be `'default name'`
     });
-  
+
     findUser().then(function (user) {
       throw new Error('Found user, but still unhappy');
     }, function (reason) {
@@ -21784,7 +21784,7 @@ Promise$2.prototype = {
     });
     ```
     If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
-  
+
     ```js
     findUser().then(function (user) {
       throw new PedagogicalException('Upstream error');
@@ -21796,15 +21796,15 @@ Promise$2.prototype = {
       // The `PedgagocialException` is propagated all the way down to here
     });
     ```
-  
+
     Assimilation
     ------------
-  
+
     Sometimes the value you want to propagate to a downstream promise can only be
     retrieved asynchronously. This can be achieved by returning a promise in the
     fulfillment or rejection handler. The downstream promise will then be pending
     until the returned promise is settled. This is called *assimilation*.
-  
+
     ```js
     findUser().then(function (user) {
       return findCommentsByAuthor(user);
@@ -21812,9 +21812,9 @@ Promise$2.prototype = {
       // The user's comments are now available
     });
     ```
-  
+
     If the assimliated promise rejects, then the downstream promise will also reject.
-  
+
     ```js
     findUser().then(function (user) {
       return findCommentsByAuthor(user);
@@ -21824,15 +21824,15 @@ Promise$2.prototype = {
       // If `findCommentsByAuthor` rejects, we'll have the reason here
     });
     ```
-  
+
     Simple Example
     --------------
-  
+
     Synchronous Example
-  
+
     ```javascript
     let result;
-  
+
     try {
       result = findResult();
       // success
@@ -21840,9 +21840,9 @@ Promise$2.prototype = {
       // failure
     }
     ```
-  
+
     Errback Example
-  
+
     ```js
     findResult(function(result, err){
       if (err) {
@@ -21852,9 +21852,9 @@ Promise$2.prototype = {
       }
     });
     ```
-  
+
     Promise Example;
-  
+
     ```javascript
     findResult().then(function(result){
       // success
@@ -21862,15 +21862,15 @@ Promise$2.prototype = {
       // failure
     });
     ```
-  
+
     Advanced Example
     --------------
-  
+
     Synchronous Example
-  
+
     ```javascript
     let author, books;
-  
+
     try {
       author = findAuthor();
       books  = findBooksByAuthor(author);
@@ -21879,19 +21879,19 @@ Promise$2.prototype = {
       // failure
     }
     ```
-  
+
     Errback Example
-  
+
     ```js
-  
+
     function foundBooks(books) {
-  
+
     }
-  
+
     function failure(reason) {
-  
+
     }
-  
+
     findAuthor(function(author, err){
       if (err) {
         failure(err);
@@ -21916,9 +21916,9 @@ Promise$2.prototype = {
       }
     });
     ```
-  
+
     Promise Example;
-  
+
     ```javascript
     findAuthor().
       then(findBooksByAuthor).
@@ -21928,7 +21928,7 @@ Promise$2.prototype = {
       // something went wrong
     });
     ```
-  
+
     @method then
     @param {Function} onFulfilled
     @param {Function} onRejected
@@ -21940,25 +21940,25 @@ Promise$2.prototype = {
   /**
     `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
     as the catch block of a try/catch statement.
-  
+
     ```js
     function findAuthor(){
       throw new Error('couldn't find that author');
     }
-  
+
     // synchronous
     try {
       findAuthor();
     } catch(reason) {
       // something went wrong
     }
-  
+
     // async with promises
     findAuthor().catch(function(reason){
       // something went wrong
     });
     ```
-  
+
     @method catch
     @param {Function} onRejection
     Useful for tooling.
@@ -21975,7 +21975,7 @@ function polyfill$1() {
 
     if (typeof global !== 'undefined') {
         local = global;
-    } else if (typeof self !== 'undefined') {
+    } elseif (typeof self !== 'undefined') {
         local = self;
     } else {
         try {

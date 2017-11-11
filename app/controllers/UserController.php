@@ -122,7 +122,7 @@ class UserController extends BaseController
             ],
         ]);
 
-        if ( ! $user) {
+        if (!$user) {
             $this->flash->error('Invalid key, or time has expired.');
 
             return $this->redirect('user/login');
@@ -135,5 +135,4 @@ class UserController extends BaseController
 
         return $this->view->pick('user/password-create');
     }
-
 }

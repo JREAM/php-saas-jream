@@ -41,5 +41,4 @@ class NewsletterSubscription extends BaseModel
     }
 
     // -----------------------------------------------------------------------------
-
 }

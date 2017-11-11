@@ -24,7 +24,7 @@
     $gradients: _linear-side-corner-parser($image, $first-val, $prefix, $suffix, $has-multiple-vals);
   }
 
-  @else if $has-single-position != "" {
+  @elseif $has-single-position != "" {
     $pos: unquote($has-single-position + "");
 
     $gradients: (
@@ -33,7 +33,7 @@
     );
   }
 
-  @else if $has-angle {
+  @elseif $has-angle {
     // Rotate degree for webkit
     $gradients: _linear-angle-parser($image, $first-val, $prefix, $suffix);
   }

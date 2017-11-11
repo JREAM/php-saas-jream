@@ -48,6 +48,4 @@ class CheckoutController extends BaseController
 
         return $this->view->pick('checkout/checkout');
     }
-
-
 }

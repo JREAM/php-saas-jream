@@ -35,6 +35,4 @@ class NewsletterController extends BaseController
 
         return $this->view->pick('newsletter/index');
     }
-
-
 }

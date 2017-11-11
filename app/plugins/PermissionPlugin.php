@@ -114,7 +114,7 @@ class PermissionPlugin extends Plugin
 
         // Get the current role, If none is set they are a Guest.
         $currentRole = $this->session->get(self::ACL_SESSION_ID);
-        if ( ! $currentRole) {
+        if (!$currentRole) {
             $currentRole = self::GUEST;
         }
 
@@ -132,7 +132,6 @@ class PermissionPlugin extends Plugin
         // See if they have permission
         // @important Notice we are checking the namespace!
         if ($acl->isAllowed($currentRole, "$namespace:$controller", $action) != Acl::ALLOW) {
-
             if ($this->request->isAjax()) {
                 return (new \Library\Output(0, 'Permission Denied for this area (ACL)'))->send();
             }
@@ -220,9 +219,7 @@ class PermissionPlugin extends Plugin
         }
 
         return $acl;
-
     }
-
     // -----------------------------------------------------------------------------
 
     /**
@@ -266,7 +263,7 @@ class PermissionPlugin extends Plugin
     {
         $validResources = ['publicResources', 'userResources', 'adminResources'];
 
-        if ( ! in_array($applyToResource, $validResources, true)) {
+        if (!in_array($applyToResource, $validResources, true)) {
             throw new \InvalidArgumentException("
                 You setPermissionsFrom (\$applyToResource) and they must be one of: " . explode(',', $validResources));
         }

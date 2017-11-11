@@ -13,8 +13,8 @@ $router->setDefaultController('index');
 $router->setDefaultAction('index');
 $router->setDefaultNamespace('Controllers');
 
-$router ->add('/lab',     ['action' => 'lab'])->setName('lab');
-$router ->add('/terms',   ['action' => 'terms'])->setName('terms');
+$router ->add('/lab', ['action' => 'lab'])->setName('lab');
+$router ->add('/terms', ['action' => 'terms'])->setName('terms');
 $router ->add('/updates', ['action' => 'updates'])->setName('updates');
 
 /**

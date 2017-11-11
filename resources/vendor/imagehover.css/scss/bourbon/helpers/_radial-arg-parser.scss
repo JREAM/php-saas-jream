@@ -22,7 +22,7 @@
           $pos: $pos nth($value, $i);
         }
       }
-      @else if $spec-at-index == 1 {
+      @elseif $spec-at-index == 1 {
         @for $i from ($spec-at-index + 1) through length($value) {
           $pos: $pos nth($value, $i);
         }
@@ -47,7 +47,7 @@
           }
         }
 
-        @else if
+        @elseif
            ($first-val == "ellipse")
         or ($first-val == "circle")
         or ($first-val == "closest-side")
@@ -63,7 +63,7 @@
             $g1: null;
           }
 
-          @else if $value == $g2 {
+          @elseif $value == $g2 {
             $g2: null;
           }
         }

@@ -41,7 +41,7 @@ function formatName($name)
  */
 function formData($name)
 {
-    if ( ! isset($_SESSION)) {
+    if (!isset($_SESSION)) {
         return false;
     }
 
@@ -59,7 +59,7 @@ function formData($name)
  */
 function formDataClear(): bool
 {
-    if ( ! isset($_SESSION)) {
+    if (!isset($_SESSION)) {
         return false;
     }
 
@@ -114,7 +114,7 @@ function getTimeElapsed($datetime, $full = false): string
         }
     }
 
-    if ( ! $full) {
+    if (!$full) {
         $string = array_slice($string, 0, 1);
     }
 
@@ -149,4 +149,3 @@ function vd($data)
     var_dump($data);
     die('</pre>');
 }
-

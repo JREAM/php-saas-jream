@@ -51,5 +51,4 @@ class AccountController extends BaseController
 
         return $this->view->pick("dashboard/account-delete");
     }
-
 }

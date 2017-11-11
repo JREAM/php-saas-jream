@@ -25,7 +25,7 @@ class Url
      */
     public static function getHttpMode(): string
     {
-        if ( ! empty($_SERVER[ 'HTTPS' ]) && $_SERVER[ 'HTTPS' ] !== 'off') {
+        if (!empty($_SERVER[ 'HTTPS' ]) && $_SERVER[ 'HTTPS' ] !== 'off') {
             return 'https';
         }
 
@@ -121,7 +121,5 @@ class Url
         $uri = self::makeFrom($controller, $action, $params);
 
         return self::get($uri);
-
     }
-
 }

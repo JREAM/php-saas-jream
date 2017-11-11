@@ -5,7 +5,7 @@
 */
 /*! (C) WebReflection Mit Style License */
 (function(e){function g(e,t,n,r){for(var i,s=n.slice(),o=w(t,e),u=0,a=s.length;u<a;u++){handler=s[u],typeof handler=="object"&&typeof handler.handleEvent=="function"?handler.handleEvent(o):handler.call(e,o);if(o.stoppedImmediatePropagation)break}return i=!o.stoppedPropagation,r&&i&&e.parentNode?e.parentNode.dispatchEvent(o):!o.defaultPrevented}function y(e,t){return{configurable:!0,get:e,set:t}}function b(e,t,n){var r=f(t||e,n);u(e,"textContent",y(function(){return r.get.call(this)},function(e){r.set.call(this,e)}))}function w(e,t){return e.currentTarget=t,e.eventPhase=e.target===e.currentTarget?2:3,e}function E(e,t){var n=e.length;while(n--&&e[n]!==t);return n}function S(){if(this.tagName==="BR")return"\n";var e=this.firstChild,t=[];while(e)e.nodeType!==8&&e.nodeType!==7&&t.push(e.textContent),e=e.nextSibling;return t.join("")}function x(e){return e.nodeType!==9&&document.documentElement.contains(e)}function T(e){!n&&d.test(document.readyState)&&(n=!n,document.detachEvent(r,T),e=document.createEvent("Event"),e.initEvent(i,!0,!0),document.dispatchEvent(e))}function N(e){var t;while(t=this.lastChild)this.removeChild(t);e!=null&&this.appendChild(document.createTextNode(e))}function C(t,n){return n||(n=e.event),n.target||(n.target=n.srcElement||n.fromElement||document),n.timeStamp||(n.timeStamp=(new Date).getTime()),n}if(document.createEvent)return;var t=!0,n=!1,r="onreadystatechange",i="DOMContentLoaded",s="__IE8__"+Math.random(),o=e.Object,u=o.defineProperty||function(e,t,n){e[t]=n.value},a=o.defineProperties||function(t,n){for(var r in n)if(l.call(n,r))try{u(t,r,n[r])}catch(i){e.console&&console.log(r+" failed on object:",t,i.message)}},f=o.getOwnPropertyDescriptor,l=o.prototype.hasOwnProperty,c=e.Element.prototype,h=e.Text.prototype,p=/^[a-z]+$/,d=/loaded|complete/,v={},m=document.createElement("div");b(e.HTMLCommentElement.prototype,c,"nodeValue"),b(e.HTMLScriptElement.prototype,null,"text"),b(h,null,"nodeValue"),b(e.HTMLTitleElement.prototype,null,"text"),u(e.HTMLStyleElement.prototype,"textContent",function(e){return y(function(){return e.get.call(this.styleSheet)},function(t){e.set.call(this.styleSheet,t)})}(f(e.CSSStyleSheet.prototype,"cssText"))),a(c,{textContent:{get:S,set:N},firstElementChild:{get:function(){for(var e=this.childNodes||[],t=0,n=e.length;t<n;t++)if(e[t].nodeType==1)return e[t]}},lastElementChild:{get:function(){for(var e=this.childNodes||[],t=e.length;t--;)if(e[t].nodeType==1)return e[t]}},previousElementSibling:{get:function(){var e=this.previousSibling;while(e&&e.nodeType!=1)e=e.previousSibling;return e}},nextElementSibling:{get:function(){var e=this.nextSibling;while(e&&e.nodeType!=1)e=e.nextSibling;return e}},childElementCount:{get:function(){for(var e=0,t=this.childNodes||[],n=t.length;n--;e+=t[n].nodeType==1);return e}},addEventListener:{value:function(e,t,n){var r=this,i="on"+e,o=r[s]||u(r,s,{value:{}})[s],a=o[i]||(o[i]={}),f=a.h||(a.h=[]),c;if(!l.call(a,"w")){a.w=function(e){return e[s]||g(r,C(r,e),f,!1)};if(!l.call(v,i))if(p.test(e))try{c=document.createEventObject(),c[s]=!0,r.nodeType!=9&&r.parentNode==null&&m.appendChild(r),r.fireEvent(i,c),v[i]=!0}catch(c){v[i]=!1;while(m.hasChildNodes())m.removeChild(m.firstChild)}else v[i]=!1;(a.n=v[i])&&r.attachEvent(i,a.w)}E(f,t)<0&&f[n?"unshift":"push"](t)}},dispatchEvent:{value:function(e){var t=this,n="on"+e.type,r=t[s],i=r&&r[n],o=!!i,u;return e.target||(e.target=t),o?i.n?t.fireEvent(n,e):g(t,e,i.h,!0):(u=t.parentNode)?u.dispatchEvent(e):!0,!e.defaultPrevented}},removeEventListener:{value:function(e,t,n){var r=this,i="on"+e,o=r[s],u=o&&o[i],a=u&&u.h,f=a?E(a,t):-1;-1<f&&a.splice(f,1)}}}),a(h,{addEventListener:{value:c.addEventListener},dispatchEvent:{value:c.dispatchEvent},removeEventListener:{value:c.removeEventListener}}),a(e.XMLHttpRequest.prototype,{addEventListener:{value:function(e,t,n){var r=this,i="on"+e,o=r[s]||u(r,s,{value:{}})[s],a=o[i]||(o[i]={}),f=a.h||(a.h=[]);E(f,t)<0&&(r[i]||(r[i]=function(){var t=document.createEvent("Event");t.initEvent(e,!0,!0),r.dispatchEvent(t)}),f[n?"unshift":"push"](t))}},dispatchEvent:{value:function(e){var t=this,n="on"+e.type,r=t[s],i=r&&r[n],o=!!i;return o&&(i.n?t.fireEvent(n,e):g(t,e,i.h,!0))}},removeEventListener:{value:c.removeEventListener}}),a(e.Event.prototype,{bubbles:{value:!0,writable:!0},cancelable:{value:!0,writable:!0},preventDefault:{value:function(){this.cancelable&&(this.defaultPrevented=!0,this.returnValue=!1)}},stopPropagation:{value:function(){this.stoppedPropagation=!0,this.cancelBubble=!0}},stopImmediatePropagation:{value:function(){this.stoppedImmediatePropagation=!0,this.stopPropagation()}},initEvent:{value:function(e,t,n){this.type=e,this.bubbles=!!t,this.cancelable=!!n,this.bubbles||this.stopPropagation()}}}),a(e.HTMLDocument.prototype,{textContent:{get:function(){return this.nodeType===11?S.call(this):null},set:function(e){this.nodeType===11&&N.call(this,e)}},addEventListener:{value:function(n,s,o){var u=this;c.addEventListener.call(u,n,s,o),t&&n===i&&!d.test(u.readyState)&&(t=!1,u.attachEvent(r,T),e==top&&function a(e){try{u.documentElement.doScroll("left"),T()}catch(t){setTimeout(a,50)}}())}},dispatchEvent:{value:c.dispatchEvent},removeEventListener:{value:c.removeEventListener},createEvent:{value:function(e){var t;if(e!=="Event")throw new Error("unsupported "+e);return t=document.createEventObject(),t.timeStamp=(new Date).getTime(),t}}}),a(e.Window.prototype,{getComputedStyle:{value:function(){function i(e){this._=e}function s(){}var e=/^(?:[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|))(?!px)[a-z%]+$/,t=/^(top|right|bottom|left)$/,n=/\-([a-z])/g,r=function(e,t){return t.toUpperCase()};return i.prototype.getPropertyValue=function(i){var s=this._,o=s.style,u=s.currentStyle,a=s.runtimeStyle,f,l,c;return i=(i==="float"?"style-float":i).replace(n,r),f=u?u[i]:o[i],e.test(f)&&!t.test(i)&&(l=o.left,c=a&&a.left,c&&(a.left=u.left),o.left=i==="fontSize"?"1em":f,f=o.pixelLeft+"px",o.left=l,c&&(a.left=c)),f==null?f:f+""||"auto"},s.prototype.getPropertyValue=function(){return null},function(e,t){return t?new s(e):new i(e)}}()},addEventListener:{value:function(t,n,r){var i=e,o="on"+t,u;i[o]||(i[o]=function(e){return g(i,C(i,e),u,!1)}),u=i[o][s]||(i[o][s]=[]),E(u,n)<0&&u[r?"unshift":"push"](n)}},dispatchEvent:{value:function(t){var n=e["on"+t.type];return n?n.call(e,t)!==!1&&!t.defaultPrevented:!0}},removeEventListener:{value:function(t,n,r){var i="on"+t,u=(e[i]||o)[s],a=u?E(u,n):-1;-1<a&&u.splice(a,1)}}})})(this);
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.flowplayer=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();elseif("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.flowplayer=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
 var common = module.exports = {},
     ClassList = _dereq_('class-list'),
@@ -85,8 +85,8 @@ common.toggleClass = function(el, cls, flag) {
   if (!el) return;
   var classes = ClassList(el);
   if (typeof flag === 'undefined') classes.toggle(cls);
-  else if (flag) classes.add(cls);
-  else if (!flag) classes.remove(cls);
+  elseif (flag) classes.add(cls);
+  elseif (!flag) classes.remove(cls);
 };
 
 common.addClass = function(el, cls) {
@@ -483,7 +483,7 @@ engineImpl = function flashEngine(player, root) {
             var bgColor = conf.bgcolor || common.css(root, 'background-color') ||'', bg;
             if (bgColor.indexOf('rgb') === 0) {
               bg = toHex(bgColor);
-            } else if (bgColor.indexOf('#') === 0) {
+            } elseif (bgColor.indexOf('#') === 0) {
               bg = toLongHex(bgColor);
             }
 
@@ -572,7 +572,7 @@ engineImpl = function flashEngine(player, root) {
                      if (arg.buffer < video.bytes && !video.buffered) {
                         video.buffer = arg.buffer / video.bytes * video.duration;
                         player.trigger("buffer", video.buffer);
-                     } else if (!video.buffered) {
+                     } elseif (!video.buffered) {
                         video.buffered = true;
                         player.trigger("buffered");
                      }
@@ -583,10 +583,10 @@ engineImpl = function flashEngine(player, root) {
                  event.target = root;
                  bean.fire(root, type, [event]);
                }
-               else if (type != 'buffered' && type !== 'unload') {
+               elseif (type != 'buffered' && type !== 'unload') {
                   // add some delay so that player is truly ready after an event
                   setTimeout(function() { player.trigger(event, [player, arg]); }, 1);
-               } else if (type === 'unload') {
+               } elseif (type === 'unload') {
                  player.trigger(event, [player, arg]);
                }
 
@@ -800,7 +800,7 @@ engine = function(player, root) {
            api = createVideoTag(video);
            common.prepend(container, api);
            created = true;
-         } else if (!api) {
+         } elseif (!api) {
            api = createVideoTag(video, !!video.autoplay || !!conf.autoplay, conf.clip.preload || 'metadata', false);
            common.prepend(container, api);
            created = true;
@@ -961,7 +961,7 @@ engine = function(player, root) {
                         if (round(arg.buffer, 1000) < round(arg.duration, 1000) && !arg.buffered) {
                            player.trigger("buffer", e);
 
-                        } else if (!arg.buffered) {
+                        } elseif (!arg.buffered) {
                            arg.buffered = true;
                            player.trigger("buffer", e).trigger("buffered", e);
                            clearInterval(timer);
@@ -1006,7 +1006,7 @@ engine = function(player, root) {
                   if (api.currentTime > 0 || player.live) {
                      arg = Math.max(api.currentTime, 0);
 
-                  } else if (flow == 'progress') {
+                  } elseif (flow == 'progress') {
                      return;
                   }
                   break;
@@ -1606,7 +1606,7 @@ bean.on(document, "keydown.fp", function(e) {
       // slow motion / fast forward
       if (e.shiftKey) {
          if (key == 39) el.speed(true);
-         else if (key == 37) el.speed(false);
+         elseif (key == 37) el.speed(false);
          return;
       }
 
@@ -1850,7 +1850,7 @@ flowplayer(function(player, root) {
    player.play = function(i) {
       if (i === undefined) return player.resume();
       if (typeof i === 'number' && !player.conf.playlist[i]) return player;
-      else if (typeof i != 'number') return player.load.apply(null, arguments);
+      elseif (typeof i != 'number') return player.load.apply(null, arguments);
       var arg = extend({index: i}, player.conf.playlist[i]);
       if (i === player.video.index) return player.load(arg, function() { player.resume(); });
       player.off('resume.fromfirst'); // Don't start from beginning if clip explicitely chosen
@@ -2397,7 +2397,7 @@ flowplayer(function(p, root) {
        currentPoint = cue.index;
        common.html(wrap, cue.subtitle.text);
        wrapClasses.add('fp-active');
-    } else if (cue.subtitleEnd) {
+    } elseif (cue.subtitleEnd) {
        wrapClasses.remove('fp-active');
        currentPoint = cue.index;
     }
@@ -2415,7 +2415,7 @@ flowplayer(function(p, root) {
       if (entry && currentPoint != cue.index) {
         if (time >= cue.time && (!entry.endTime || time <= entry.endTime)) p.trigger("cuepoint", [p, cue]);
       } // Also handle cuepoints that act as the removal trigger
-      else if (cue.subtitleEnd && time >= cue.time && cue.index == currentPoint + 1) p.trigger("cuepoint", [p, cue]);
+      elseif (cue.subtitleEnd && time >= cue.time && cue.index == currentPoint + 1) p.trigger("cuepoint", [p, cue]);
     });
 
   });
@@ -3139,7 +3139,7 @@ if (typeof window.jQuery !== 'undefined') {
     $.each(['autoplay', 'loop', 'preload', 'poster'], function(i, key) {
       var val = videoTag.attr(key);
       if (val !== undefined && ['autoplay', 'poster'].indexOf(key) !== -1) conf[key] = val ? val : true;
-      else if (val !== undefined) clip[key] = val ? val : true;
+      elseif (val !== undefined) clip[key] = val ? val : true;
     });
     clip.subtitles = videoTag.find('track').map(function() {
       var tr = $(this);
@@ -3545,7 +3545,7 @@ function initializePlayer(element, opts, callback) {
          }).on("volume", function(e, api, level) {
             api.volumeLevel = Math.round(level * 100) / 100;
             if (!api.muted) storage.volume = level;
-            else if (level) api.mute(false);
+            elseif (level) api.mute(false);
 
 
          }).on("beforeseek seek", function(e) {
@@ -3620,7 +3620,7 @@ flowplayer(function(o,r){function n(o){var r=document.createElement("a");return 
   */
 (function (name, context, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition()
-  else if (typeof define == 'function' && define.amd) define(definition)
+  elseif (typeof define == 'function' && define.amd) define(definition)
   else context[name] = definition()
 })('bean', this, function (name, context) {
   name    = name    || 'bean'
@@ -3745,7 +3745,7 @@ flowplayer(function(o,r){function n(o){var r=document.createElement("a");return 
                       if (event.pageX || event.pageY) {
                         newEvent.clientX = event.pageX
                         newEvent.clientY = event.pageY
-                      } else if (event.clientX || event.clientY) {
+                      } elseif (event.clientX || event.clientY) {
                         newEvent.clientX = event.clientX + doc.body.scrollLeft + root.scrollLeft
                         newEvent.clientY = event.clientY + doc.body.scrollTop + root.scrollTop
                       }
@@ -4180,7 +4180,7 @@ flowplayer(function(o,r){function n(o){var r=document.createElement("a");return 
           // off(el) or off(el, t1.ns) or off(el, .ns) or off(el, .ns1.ns2.ns3)
           if (namespaces = isTypeStr && typeSpec.replace(namespaceRegex, '')) namespaces = str2arr(namespaces, '.')
           removeListener(element, type, fn, namespaces)
-        } else if (isFunction(typeSpec)) {
+        } elseif (isFunction(typeSpec)) {
           // off(el, fn)
           removeListener(element, null, typeSpec)
         } else {
@@ -4851,7 +4851,7 @@ flowplayer(function(o,r){function n(o){var r=document.createElement("a");return 
 		define('punycode', function() {
 			return punycode;
 		});
-	} else if (freeExports && !freeExports.nodeType) {
+	} elseif (freeExports && !freeExports.nodeType) {
 		if (freeModule) { // in Node.js or RingoJS v0.8.0+
 			freeModule.exports = punycode;
 		} else { // in Narwhal or RingoJS v0.7.0-
@@ -5028,7 +5028,7 @@ module.exports = computedStyle;
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(factory);
-    } else if (typeof exports === 'object') {
+    } elseif (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
@@ -5140,7 +5140,7 @@ var ES = {
         var n = +num;
         if (isActualNaN(n)) {
             n = 0;
-        } else if (n !== 0 && n !== (1 / 0) && n !== -(1 / 0)) {
+        } elseif (n !== 0 && n !== (1 / 0) && n !== -(1 / 0)) {
             n = (n > 0 || -1) * Math.floor(Math.abs(n));
         }
         return n;
@@ -5816,7 +5816,7 @@ defineProperties(ArrayPrototype, {
                 delete O[k - 1];
                 k -= 1;
             }
-        } else if (itemCount > actualDeleteCount) {
+        } elseif (itemCount > actualDeleteCount) {
             k = len - actualDeleteCount;
             while (k > actualStart) {
                 from = $String(k + actualDeleteCount - 1);
@@ -6655,7 +6655,7 @@ if (
 // then the output array is truncated so that it contains no more than limit
 // elements.
 // "0".split(undefined, 0) -> []
-} else if ('0'.split(void 0, 0).length) {
+} elseif ('0'.split(void 0, 0).length) {
     StringPrototype.split = function split(separator, limit) {
         if (typeof separator === 'undefined' && limit === 0) { return []; }
         return strSplit(this, separator, limit);
@@ -6784,13 +6784,13 @@ if (String(new RangeError('test')) !== 'RangeError: test') {
         var name = this.name;
         if (typeof name === 'undefined') {
             name = 'Error';
-        } else if (typeof name !== 'string') {
+        } elseif (typeof name !== 'string') {
             name = $String(name);
         }
         var msg = this.message;
         if (typeof msg === 'undefined') {
             msg = '';
-        } else if (typeof msg !== 'string') {
+        } elseif (typeof msg !== 'string') {
             msg = $String(msg);
         }
         if (!name) {
@@ -6890,7 +6890,7 @@ module.exports = function isObject(x) {
 
 (function (name, definition) {
   if (typeof module != 'undefined' && module.exports) module.exports = definition()
-  else if (typeof define == 'function' && define.amd) define(definition)
+  elseif (typeof define == 'function' && define.amd) define(definition)
   else this[name] = definition()
 })('$script', function () {
   var doc = document

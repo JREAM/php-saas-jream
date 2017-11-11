@@ -107,7 +107,7 @@ $di->set('cookies', function () {
 $di->setShared('session', function () use ($di) {
     // Start a new Session for every user.
     $session = new SessionFiles();
-    if ( ! $session->isStarted()) {
+    if (!$session->isStarted()) {
         $session->start();
     }
 
@@ -123,7 +123,7 @@ $di->setShared('flash', function (string $mode = 'session') {
 
     $mode       = strtolower(trim($mode));
     $validModes = ['session', 'direct'];
-    if ( ! in_array($mode, $validModes, true)) {
+    if (!in_array($mode, $validModes, true)) {
         throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
                                             implode(',', $validModes));
     }
@@ -508,7 +508,7 @@ $di->setShared('email', function (array $data) use ($di) {
     $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
-    if ( ! in_array($response->statusCode(), [200, 201, 202], true)) {
+    if (!in_array($response->statusCode(), [200, 201, 202], true)) {
         $di->get('sentry')->captureMessage(sprintf("Headers: %s | ErrorCode: %s", $response->headers(), $response->statusCode()));
     }
 
@@ -528,7 +528,7 @@ $di->setShared('hybridAuth', function () use ($api) {
     // Make Absolute URL Paths
     foreach ($api->social_auth->providers as $provider => $data) {
         if (property_exists($data, 'callback')) {
-            $callback                                           = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
+            $callback = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
             $api->social_auth->providers->{$provider}->callback = $callback;
         }
     }
@@ -586,7 +586,7 @@ if (APPLICATION_ENV !== APP_PRODUCTION) {
     $connector->setSourcesBasePath(DOCROOT);
 
     // This will disable the PHP Console Calls regardless of where it is placed.
-    if ( ! getenv('DEBUG_CONSOLE')) {
+    if (!getenv('DEBUG_CONSOLE')) {
         $connector->disable();
     }
     PhpConsole\Helper::register();

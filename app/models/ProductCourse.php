@@ -110,7 +110,8 @@ class ProductCourse extends BaseModel
         $signedUrl = [];
         foreach ($resourceUris as $key => $value) {
             // Note: I can change expires to policy and limit to an IP
-            // But I had trouble getting it running, see: http://docs.aws.amazon.com/aws-sdk-php/guide/latest/service-cloudfront.html
+            // But I had trouble getting it running,
+            // see: http://docs.aws.amazon.com/aws-sdk-php/guide/latest/service-cloudfront.html
             $signedUrl[ $key ] = $cloudfront->getSignedUrl([
                 'url'         => getenv('AWS_CLOUDFRONT_RMTP_URL') . $value,
                 'expires'     => $api->aws->cloudfront->expiration,
@@ -139,7 +140,7 @@ class ProductCourse extends BaseModel
 
         $nextOrPrev = strtolower($nextOrPrev);
 
-        if ( ! in_array($nextOrPrev, ['next', 'prev'], true)) {
+        if (!in_array($nextOrPrev, ['next', 'prev'], true)) {
             throw new \InvalidArgumentException('ProductCourse Model must supply string: next or prev only.');
         }
 
@@ -147,7 +148,7 @@ class ProductCourse extends BaseModel
             ++$try_section;
             ++$try_course;
             $order_mode = 'ASC'; // lowest ID first [Going Forwards]
-        } else if ($nextOrPrev === 'prev') {
+        } elseif ($nextOrPrev === 'prev') {
             --$try_section;
             --$try_course;
             $order_mode = 'DESC'; //highest ID first [Going Backwards]
@@ -196,5 +197,4 @@ class ProductCourse extends BaseModel
     }
 
     // -----------------------------------------------------------------------------
-
 }

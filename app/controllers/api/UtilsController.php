@@ -25,7 +25,7 @@ class UtilsController extends ApiController
      */
     public function markdownAction(): Response
     {
-        if ( ! $this->session->has('id')) {
+        if (!$this->session->has('id')) {
             throw new \DomainException('Only Logged in users can do this.');
         }
 

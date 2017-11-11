@@ -20,13 +20,13 @@
         $spec-border:   $border;
       }
 
-      @else if $gradient-type == "linear" {
+      @elseif $gradient-type == "linear" {
         $gradients: _linear-gradient-parser("#{$border}");
         $webkit-border: map-get($gradients, webkit-image);
         $spec-border:   map-get($gradients, spec-image);
       }
 
-      @else if $gradient-type == "radial" {
+      @elseif $gradient-type == "radial" {
         $gradients: _radial-gradient-parser("#{$border}");
         $webkit-border: map-get($gradients, webkit-image);
         $spec-border:   map-get($gradients, spec-image);

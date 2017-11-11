@@ -36,8 +36,6 @@ class CronTask extends Task
         // Check Redis for Queue
         // I could save the Rendered email in redis?
         // Send Email Rendered..
-
-
     }
 
     // -----------------------------------------------------------------------------
@@ -174,5 +172,4 @@ class CronTask extends Task
     }
 
     // -----------------------------------------------------------------------------
-
 }

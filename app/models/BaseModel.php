@@ -124,7 +124,7 @@ class BaseModel extends Model
      */
     public function getMessagesAsHTML(string $container = 'ul', string $items = 'li')
     {
-        if ( ! $this->getMessages()) {
+        if (!$this->getMessages()) {
             return false;
         }
 
@@ -187,7 +187,7 @@ class BaseModel extends Model
      */
     public function getDateMDY($field = false)
     {
-        if ( ! $field || ! property_exists($this, $field)) {
+        if (!$field || ! property_exists($this, $field)) {
             return false;
         }
 

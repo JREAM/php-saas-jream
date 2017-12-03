@@ -2,7 +2,6 @@
 // Document Ready
 // -----------------------------------------------------------------------------
 $(() => {
-
   // -----------------------------------------------------------------------------
   // Only Apply to proper Page
   // -----------------------------------------------------------------------------
@@ -10,20 +9,19 @@ $(() => {
     return false;
   }
 
-  $("#form-purchase-stripe").submit(function (evt) {
+  $('#form-purchase-stripe').submit(function (evt) {
     evt.preventDefault();
 
-    const url = $(this).attr("action");
+    const url = $(this).attr('action');
 
-    axios.get(url).then(resp => {
+    axios.get(url).then((resp) => {
 
     })
-      .catch(err => {
-        $(this).notify(err.msg, err.type);
+      .catch((err) => {
+        alert(err.msg);
+        // $(this).notify(err.msg, err.type);
       });
-
   });
 
   // -----------------------------------------------------------------------------
-
 });

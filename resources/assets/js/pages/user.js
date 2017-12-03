@@ -2,7 +2,6 @@
 // Document Ready
 // -----------------------------------------------------------------------------
 $(() => {
-
   // -----------------------------------------------------------------------------
   // Only Apply to proper Page
   // -----------------------------------------------------------------------------
@@ -12,107 +11,113 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $('#toggle-timezone').click(evt => {
+  $('#toggle-timezone').click((evt) => {
     evt.preventDefault();
     $('#form-timezone').toggleClass('hide');
   });
 
   // -----------------------------------------------------------------------------
 
-  $('#form-dashboard-account-timezone').submit(function(evt) {
+  $('#form-dashboard-account-timezone').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
   });
 
   // -----------------------------------------------------------------------------
 
-  $('#form-dashboard-account-email').submit(function(evt) {
+  $('#form-dashboard-account-email').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
-
   });
 
   // -----------------------------------------------------------------------------
 
-  $('#form-dashboard-account-password').submit(function(evt) {
+  $('#form-dashboard-account-password').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
-
   });
 
   // -----------------------------------------------------------------------------
 
-  $('#form-dashboard-account-delete').submit(function(evt) {
+  $('#form-dashboard-account-delete').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
-
   });
 
   // -----------------------------------------------------------------------------
 
-  $('#formDashboardAccountNotification').submit(function(evt) {
+  $('#formDashboardAccountNotification').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
-
   });
 
   // -----------------------------------------------------------------------------
 
   // Is this used?
-  $('#form-dashboard-notification').submit(function(evt) {
+  $('#form-dashboard-notification').submit(function (evt) {
     evt.preventDefault();
 
     const url = $(this).attr('action');
     const postData = $(this).serialize();
 
-    axios.post(url, postData).then(response => {
-      $(this).notify(resp.data.msg, resp.data.type);
-    }).catch(function(error) {
-      $(this).notify(err.msg, err.type);
+    axios.post(url, postData).then((response) => {
+      alert(resp.data.msg);
+      // $(this).notify(resp.data.msg, resp.data.type);
+    }).catch((error) => {
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
     });
-
   });
 
   // -----------------------------------------------------------------------------
-
 });

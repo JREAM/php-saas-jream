@@ -2,7 +2,6 @@
 // Document Ready
 // -----------------------------------------------------------------------------
 $(() => {
-
   // -----------------------------------------------------------------------------
   // Only Apply to proper Page
   // -----------------------------------------------------------------------------
@@ -12,40 +11,39 @@ $(() => {
 
   // -----------------------------------------------------------------------------
 
-  $("#form-contact").on('submit', function (evt) {
+  $('#form-contact').on('submit', function (evt) {
     evt.preventDefault();
 
     formUtils.disable(this.id);
-    let url = $(this).attr('action');
-    let postData = $(this).serialize();
+    const url = $(this).attr('action');
+    const postData = $(this).serialize();
 
-    axios.post(url, postData).then(resp => {
+    axios.post(url, postData).then((resp) => {
       swal({
         title: 'Email Dispatched',
         text: resp.msg,
         type: 'success',
         cancelButtonText: 'Close',
         timer: 2000
-      }).then(function () {},
+      }).then(
+() => {},
         // Promise Rejection
-        function (dismiss) {
+        (dismiss) => {
           if (dismiss === 'timer') {
             window.location = '/contact/thanks';
           }
           window.location = '/contact/thanks';
-      });
-
+      }
+);
     }).catch(function (err) {
-
-      $(this).notify(err.msg, err.type);
+      alert(err.msg);
+      // $(this).notify(err.msg, err.type);
 
       // Reset Recaptcha
       grecaptcha.reset();
       formUtils.enable(this.id);
-    })
-
+    });
   });
 
   // -----------------------------------------------------------------------------
-
 });

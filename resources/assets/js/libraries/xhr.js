@@ -6,7 +6,6 @@
 window.Forms = require('../libraries/forms');
 
 class Xhr {
-
   /**
    * Handles a common XHR situation, using jQuery Selectors and Axios POST,
    * this is also dependent on the Axios Interceptors in my other file to handle
@@ -33,7 +32,6 @@ class Xhr {
    *    });
    */
   static stdForm(id, callable = {}) {
-
     // Form Handler for enable/disable
     this.Form = new Forms(id);
     // Only accept strings, cleaner code to change
@@ -54,7 +52,7 @@ class Xhr {
       evt.preventDefault();
 
       // @TODO @DEBUG HERE Why i get no class blah blah error
-      //return false;
+      // return false;
 
       // Run beforeXHR (optional)
       if (_.has(callable, 'beforeSubmit') && _.isFunction(beforeSubmit)) {
@@ -73,11 +71,11 @@ class Xhr {
         return false;
       }
 
-      axios.post(url, postData).then(resp => {
-
+      axios.post(url, postData).then((resp) => {
         if (_.has(resp, 'msg') && resp.msg) {
-          let type = (_.has(resp, 'type') && resp.type) ? resp.type : 'warning';
-          $(id).notify(resp.msg, type);
+          const type = (_.has(resp, 'type') && resp.type) ? resp.type : 'warning';
+          alert(resp.msg);
+          // $(id).notify(resp.msg, type);
         }
 
         // If a redirect is returned in the 'data' from Phalcon
@@ -90,14 +88,14 @@ class Xhr {
         if (_.has(callable, 'success') && _.isFunction(callable.success)) {
           callable.success(resp, evt);
         }
-      }).then(resp => {
+      }).then((resp) => {
         // Aways re-enable the button
         if (!_.has(resp, 'data') && !_.has(resp.data, 'keep_form_disabled' && resp.data.keep_form_disable != true)) {
           this.Form.enable();
         }
-      }).catch(error => {
+      }).catch((error) => {
         if (_.has(error, error.msg)) {
-          $(id).notify(error.msg, error.type);
+          alert(error.msg, error.type);
         }
 
         // (Optional) If Callback
@@ -112,7 +110,6 @@ class Xhr {
       if (_.has(callable, 'afterSubmit') && _.isFunction(callable.afterSubmit)) {
         callable.afterSubmit(evt);
       }
-
     });
   }
 }

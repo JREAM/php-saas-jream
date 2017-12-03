@@ -3,34 +3,11 @@
 // -----------------------------------------------------------------------------
 window._ = require('lodash');
 window.axios = require('axios');
-window.swal = require('sweetalert2');
 window.Promise = require('es6-promise').Promise;
 
 // Custom Libraries
 window.xhr = require('./libraries/xhr');
 window.url = require('./libraries/url');
-
-// -----------------------------------------------------------------------------
-// jQuery Notify (resources/vendor/notify.js)
-// Included from footer (no npm package)
-// -----------------------------------------------------------------------------
-$.notify.defaults({
-  clickToHide: true,  // whether to hide the notification on click
-  autoHide: true, // whether to auto-hide the notification
-  autoHideDelay: 10000, // if autoHide, hide after milliseconds
-  arrowShow: true, // show the arrow pointing at the element
-  arrowSize: 5,
-  // position: '...',
-  // elementPosition: 'bottom middle',
-  // globalPosition: 'top right',
-  style: 'bootstrap',
-  className: 'error',
-  showAnimation: 'slideDown',
-  showDuration: 200,
-  hideAnimation: 'slideUp',
-  hideDuration: 200,
-  gap: 1,
-});
 
 // -----------------------------------------------------------------------------
 // Axios Interceptor
@@ -70,7 +47,6 @@ $(() => {
     'X-Requested-With': 'XMLHttpRequest',
   };
   axios.defaults.responseType = 'json';
-
 });
 
 /**

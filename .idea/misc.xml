@@ -71,15 +71,4 @@
       <textMaps />
     </LinkMapSettings>
   </component>
-  <component name="PhpTestFrameworkVersionCache">
-    <tools_cache>
-      <tool tool_name="PHPUnit">
-        <cache>
-          <versions>
-            <info id="Local" version="6.2.3" />
-          </versions>
-        </cache>
-      </tool>
-    </tools_cache>
-  </component>
 </project>

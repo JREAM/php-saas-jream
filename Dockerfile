@@ -81,8 +81,8 @@ RUN apk update && apk upgrade && \
     && rm -rf /etc/php/php7-fpm.d
 
 # Copy Configs
-COPY dockerconf/php.ini /etc/php7/php.ini
-COPY dockerconf/php-fpm.conf /etc/php7/php-fpm.conf
+COPY resources/docker/dockerconf /etc/php7/php.ini
+COPY resources/docker/dockerconf /etc/php7/php-fpm.conf
 
 
 EXPOSE 8080

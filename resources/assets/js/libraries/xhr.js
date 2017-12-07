@@ -41,8 +41,8 @@ class Xhr {
 
     // Do not bind something non-existant
     this.element = $(id);
-    if (this.element.length != 1) {
-      // console.log(id); // Debug if Missing, problem!
+    if (this.element.length !== 1) {
+      console.log('Problem!' + id); // Debug if Missing, problem!
       return false;
     }
 
@@ -50,7 +50,7 @@ class Xhr {
     // Bind to submit method
     this.element.submit((evt) => {
       evt.preventDefault();
-
+      console.log('submit')
       // @TODO @DEBUG HERE Why i get no class blah blah error
       // return false;
 

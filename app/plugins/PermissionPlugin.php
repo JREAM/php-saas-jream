@@ -220,7 +220,7 @@ class PermissionPlugin extends Plugin
 
         return $acl;
     }
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Loads all API Controllers as Public Resources.

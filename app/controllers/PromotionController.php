@@ -21,7 +21,7 @@ class PromotionController extends BaseController
         Tag::setTitle('Promotions | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return void

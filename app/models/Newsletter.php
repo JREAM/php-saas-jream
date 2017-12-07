@@ -16,7 +16,7 @@ class Newsletter extends BaseModel
     public $body;
     public $is_sent;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Phalcons std initializer when model is ready
@@ -36,5 +36,5 @@ class Newsletter extends BaseModel
         // Some won't have accounts, but if they do associate them with the newsletter.
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

@@ -17,7 +17,7 @@ class ContactController extends BaseController
     const CONTACT_REDIRECT_FAILURE = 'contact';
     const CONTACT_REDIRECT_SUCCESS = 'contact/thanks';
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return void
@@ -28,7 +28,7 @@ class ContactController extends BaseController
         Tag::setTitle('Contact | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return View
@@ -42,7 +42,7 @@ class ContactController extends BaseController
         return $this->view->pick('contact/contact');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return View

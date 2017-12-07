@@ -19,7 +19,7 @@ class AuthController extends ApiController
         parent::initialize();
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return string JSON
@@ -85,7 +85,7 @@ class AuthController extends ApiController
     }
 
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Github Login
@@ -99,7 +99,7 @@ class AuthController extends ApiController
         return $this->socialSignin('GitHub');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Google Logins
@@ -113,7 +113,7 @@ class AuthController extends ApiController
         return $this->socialSignin('Google');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Does the Login via Facebook Auth
@@ -127,7 +127,7 @@ class AuthController extends ApiController
         return $this->socialSignin('Facebook');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     protected function socialSignin(string $network)
     {
@@ -180,7 +180,7 @@ class AuthController extends ApiController
         }
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Registers a Local User (JREAM Account)
@@ -281,7 +281,7 @@ class AuthController extends ApiController
         ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Saves a user to the Database for Local or Social Network
@@ -417,7 +417,7 @@ class AuthController extends ApiController
     }
 
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Delivers welcome email to first time signups
@@ -453,7 +453,7 @@ class AuthController extends ApiController
         return $message;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Delivers linked account email when logging in with social network to existing account.
@@ -489,7 +489,7 @@ class AuthController extends ApiController
         return $message;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return string|Response
@@ -503,7 +503,7 @@ class AuthController extends ApiController
         return $this->response->redirect($this->router->getRouteByName('home'));
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return string JSON
@@ -552,7 +552,7 @@ class AuthController extends ApiController
             password before the link expires.');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return string JSON
@@ -596,7 +596,7 @@ class AuthController extends ApiController
         return $this->output(1, 'Your password has changed, please login.');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Creates a User Session

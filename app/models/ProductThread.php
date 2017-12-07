@@ -22,7 +22,7 @@ class ProductThread extends BaseModel
     public $created_at;
     public $updated_at;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     public function initialize()
     {
@@ -39,7 +39,7 @@ class ProductThread extends BaseModel
         $this->hasMany("id", "ProductThreadReply", "product_thread_id");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     // @Thi is broken
     public function validationX()
@@ -67,5 +67,5 @@ class ProductThread extends BaseModel
         return true;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

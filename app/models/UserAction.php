@@ -22,7 +22,7 @@ class UserAction extends BaseModel
     public $created_at;
     public $updated_at;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Phalcons std initializer when model is ready
@@ -43,7 +43,7 @@ class UserAction extends BaseModel
         $this->hasOne("product_course_id", "ProductCourse", "id");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     public function getAction($action, $userId, $productCourseId)
     {
@@ -61,5 +61,5 @@ class UserAction extends BaseModel
         return $userAction;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

@@ -18,7 +18,7 @@ class QuestionController extends BaseController
         Tag::setTitle('Questions | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $productId

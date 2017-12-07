@@ -19,7 +19,7 @@ class NewsletterSubscription extends BaseModel
     public $is_verified;
     public $is_subscribed;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Phalcons std initializer when model is ready
@@ -40,5 +40,5 @@ class NewsletterSubscription extends BaseModel
         $this->belongsTo("user_id", "User", "id");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

@@ -11,7 +11,7 @@ class MainTask extends Task
         echo '      - Example: php app/cli.php newsletter send' . PHP_EOL;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param array $params

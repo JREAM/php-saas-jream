@@ -20,7 +20,7 @@ class UserReferrer extends BaseModel
     public $created_at;
     public $updated_at;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Phalcons std initializer when model is ready
@@ -33,5 +33,5 @@ class UserReferrer extends BaseModel
         $this->setSource('user_referrer');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

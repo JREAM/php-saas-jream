@@ -10,7 +10,7 @@ class NewsletterTask extends Task
         echo 'This can be used to send emails to all users' . PHP_EOL;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     public function send(int $id)
     {
@@ -39,7 +39,7 @@ class NewsletterTask extends Task
         }
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $newsletterId Id of the newsletter to send
@@ -89,7 +89,7 @@ class NewsletterTask extends Task
         return;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * This creates the initial email list.
@@ -141,7 +141,7 @@ class NewsletterTask extends Task
         return;
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     // @TODO: This is a loop, email everybody..
     // @TODO: Read template from database, update database everytim eemail sent so it doesnt double send.

@@ -19,7 +19,7 @@ class PurchaseController extends ApiController
         parent::initialize();
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return Response
@@ -37,7 +37,7 @@ class PurchaseController extends ApiController
         return '';
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $productId
@@ -59,7 +59,7 @@ class PurchaseController extends ApiController
         return $this->output(0, $do->msg);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return Response
@@ -206,7 +206,7 @@ class PurchaseController extends ApiController
         return $this->output(0, 'Sorry, your Stripe API Payment was not returned as paid.');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $productId
@@ -253,7 +253,7 @@ class PurchaseController extends ApiController
         return $response->redirect();
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @TODO If I change this make sure i change in paypal if i need to
@@ -319,7 +319,7 @@ class PurchaseController extends ApiController
         return $this->output(1, ['redirect' => $product->id]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Create a Purchase Record

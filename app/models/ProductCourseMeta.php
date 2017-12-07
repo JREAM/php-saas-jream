@@ -22,7 +22,7 @@ class ProductCourseMeta extends BaseModel
     public $created_at;
     public $updated_at;
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Phalcons std initializer when model is ready
@@ -42,7 +42,7 @@ class ProductCourseMeta extends BaseModel
         $this->belongsTo("product_course_id", "ProductCourse", "id");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     public function getTypeIcon($type)
     {
@@ -61,5 +61,5 @@ class ProductCourseMeta extends BaseModel
         }
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }

@@ -14,7 +14,7 @@ class CourseController extends BaseController
 
     protected $sectionTitle = 'My Courses';
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return void
@@ -25,7 +25,7 @@ class CourseController extends BaseController
         Tag::setTitle($this->sectionTitle . ' | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $productId
@@ -62,7 +62,7 @@ class CourseController extends BaseController
         return $this->view->pick("dashboard/course");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param int $productId

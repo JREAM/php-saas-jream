@@ -19,7 +19,7 @@ class AccountController extends BaseController
         Tag::setTitle('Account | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return View
@@ -38,7 +38,7 @@ class AccountController extends BaseController
         return $this->view->pick("dashboard/account");
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return View

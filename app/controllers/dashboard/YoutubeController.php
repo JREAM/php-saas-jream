@@ -14,7 +14,7 @@ class YoutubeController extends BaseController
     const REDIRECT_FAILURE        = 'dashboard';
     const REDIRECT_FAILURE_COURSE = 'dashboard';
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return void
@@ -25,7 +25,7 @@ class YoutubeController extends BaseController
         Tag::setTitle('Youtube Videos | ' . $this->di[ 'config' ][ 'title' ]);
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @param mixed $youtubeId

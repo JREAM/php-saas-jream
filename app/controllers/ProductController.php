@@ -25,7 +25,7 @@ class ProductController extends BaseController
         $this->paypal = $this->di->get('paypal');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * @return View
@@ -41,7 +41,7 @@ class ProductController extends BaseController
         return $this->view->pick('product/index');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Displays a Product based on the slug
@@ -134,7 +134,7 @@ class ProductController extends BaseController
         return $this->view->pick('product/course');
     }
 
-    // -----------------------------------------------------------------------------
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Preview a Course (This is loaded via courseAction, to make the route pretty.

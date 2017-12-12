@@ -17,7 +17,7 @@ class Xhr {
    *                              afterSubmit();  // evt
    *                              success();      // resp, evt
    *                              fail();         // resp, evt
-   *                              passback={};     // will passback the values inside to the response
+   *                              passback={};    // will passback the values inside to the response
    *
    * @example: ...
    *    Simple:    xhr.stdForm("#formId");
@@ -42,7 +42,7 @@ class Xhr {
     // Do not bind something non-existant
     this.element = $(id);
     if (this.element.length !== 1) {
-      console.log('Problem!' + id); // Debug if Missing, problem!
+      console.error(`XHR Attachment Problem: ${id} - not found`); // Debug if Missing, problem!
       return false;
     }
 
@@ -50,12 +50,12 @@ class Xhr {
     // Bind to submit method
     this.element.submit((evt) => {
       evt.preventDefault();
-      console.log('submit')
+      console.log('submit');
       // @TODO @DEBUG HERE Why i get no class blah blah error
       // return false;
 
       // Run beforeXHR (optional)
-      if (_.has(callable, 'beforeSubmit') && _.isFunction(beforeSubmit)) {
+      if (_.has(callable, 'beforeSubmit') && _.isFunction('beforeSubmit')) {
         callable.beforeSubmit(evt);
       }
 

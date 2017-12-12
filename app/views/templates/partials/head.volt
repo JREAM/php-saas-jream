@@ -28,6 +28,7 @@
         {# Passed into the main JS files #}
         window.user_id = '{{ jsGlobal['user_id'] }}';
         window.base_url = '{{ jsGlobal['base_url'] }}';
+        window.page_id = $('body').attr('id');
         window.notifications = {
             'error': {{ jsGlobal['notifications']['error'] }},
             'success': {{ jsGlobal['notifications']['success'] }},

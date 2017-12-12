@@ -85,9 +85,9 @@ class ApiController extends Controller
     /**
      * Default output for /api route.
      *
-     * @return Output
+     * @return Output (json)
      */
-    public function indexAction(): Output
+    public function indexAction()
     {
         return $this->output(0, 'Invalid usage of the API.');
     }

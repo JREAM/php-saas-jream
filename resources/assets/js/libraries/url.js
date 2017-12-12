@@ -1,13 +1,14 @@
 class Url {
+
   /**
    * Creates a URL properly
    * @param {string} append
    * @returns {string}
    */
   static create(uri) {
-    let base_url = _.trimEnd(window.base_url, '/');
-    let new_uri = _.trim(uri, '/');
-    return `${base_url}/${new_uri}`;
+    const baseUrl = _.trimEnd(window.baseUrl, '/');
+    const newUri = _.trim(uri, '/');
+    return `${baseUrl}/${newUri}`;
   }
 
   /**
@@ -18,8 +19,8 @@ class Url {
    * @returns {string}
    */
   static redirect(uri) {
-    let new_location = url(uri);
-    return window.location = new_location;
+    const newLocation = url(uri);
+    return window.location = newLocation;
   }
 
   /**
@@ -29,9 +30,8 @@ class Url {
   static hash(hash) {
     if (history.replaceState) {
       history.replaceState(null, null, `#${hash}`);
-    }
-    else {
-      location.hash = `#${hash}`;
+    } else {
+      window.location.hash = `#${hash}`;
     }
   }
 }

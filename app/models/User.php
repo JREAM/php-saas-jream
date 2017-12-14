@@ -259,12 +259,13 @@ class User extends BaseModel
 
         $email   = ($this) ? $this->email : 'none@none.com';
         $default = "";
-        $size    = $size ?: 40;
+        $size    = $size ?: [ 40, 40 ];
         $url     = sprintf(
             'https://www.gravatar.com/avatar/%s?d=%s&s=%s',
             md5(strtolower(trim($email))),
             urlencode($default),
-            $size
+            $size[0],
+            $size[1]
         );
 
         return "<img src='$url' alt='Gravatar' />";

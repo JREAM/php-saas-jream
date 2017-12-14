@@ -252,7 +252,7 @@ class User extends BaseModel
             https://graph.facebook.com/100007975142998/picture?type=small
 
             return sprintf(
-                "<img $size src='https://graph.facebook.com/v2.8/100007975142998/picture?width=150&height=150' alt='facebook' />",
+                "<img $size src='https://graph.facebook.com/v2.11/100007975142998/picture?width=150&height=150' alt='facebook' />",
                 $this->facebook_id
             );
         }

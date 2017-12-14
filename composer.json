@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "aws/aws-sdk-php": "^3.34",
+        "aws/aws-sdk-php": "^3.3",
         "erusev/parsedown": "^1.6",
         "filp/whoops": "^2.1",
         "monolog/monolog": "^1.23",
@@ -33,18 +33,16 @@
         "symfony/var-dumper": "^3.3",
         "php": ">=7.0",
         "ext-phalcon": ">=3.2",
-        "hybridauth/hybridauth": "v3.0.0-beta.2",
+        "hybridauth/hybridauth": "v3.0.0-beta.3",
         "hashids/hashids": "^2.0",
         "fzaninotto/Faker": "^1.7",
-        "gkralik/php-uglifyjs": "^1.0"
+        "gkralik/php-uglifyjs": "^1"
     },
     "require-dev": {
-        "phpmd/phpmd": "^2.6",
         "codeception/codeception": "~2.2",
         "phalcon/ide-stubs": "^3.2",
-        "squizlabs/php_codesniffer": "^2.9",
-        "php-console/php-console": "^3.1",
-        "symfony/process": "^3.3"
+        "php-console/php-console": "^3",
+        "symfony/process": "^3"
     },
     "autoload-dev": {
         "psr-4": {

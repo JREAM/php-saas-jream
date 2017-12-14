@@ -55,18 +55,19 @@ mix.sass('resources/assets/sass/app.scss', 'public/css')
 // -----------------------------------------------------------------------
 mix.copyDirectory('./resources/images', './public/images', false);
 
-// Vendor CSS
+// Vendor JS
 // -----------------------------------------------------------------------
 mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/vendor/jquery.min.js', false)
   .copy('resources/vendor/modernizr-custom.js', 'public/vendor/modernizr-custom.js', false)
   .copy('node_modules/moment/min/moment-with-locales.min.js', 'public/vendor/moment.min.js', false)
-  .copy('node_modules/jquery-expander/jquery.expander.min.js', 'public/vendor/jquery.expander.min.js', false);
+  .copy('node_modules/jquery-expander/jquery.expander.min.js', 'public/vendor/jquery.expander.min.js', false)
+
 
 mix.js('node_modules/waypoints/lib/jquery.waypoints.min.js', 'public/vendor/jquery.waypoints.min.js', false);
-
+mix.js('node_modules/bottlejs/dist/bottle.js', 'public/vendor/bottle.min.js', false);
 // mix.js("node_modules/bootstrap-validator/dist/validator.min.js", "public/vendor/validator.min.js", false);
 
-// Vendor JS
+// Vendor
 // -----------------------------------------------------------------------
 
 // Bootstrap Fonts Added (There is a variable in the app.scss to set the path)

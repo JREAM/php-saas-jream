@@ -22,13 +22,19 @@
     <!-- JS Dependencies (Must Come First) -->
     <script src="{{ url('vendor/modernizr-custom.js') }} "></script>
     <script src="{{ url('vendor/jquery.min.js') }} "></script>
+    <script src="{{ url('vendor/popper.min.js') }} "></script>
+    <script src="{{ url('vendor/bottle.min.js') }} "></script>
 
     <!-- JS Apply to System App -->
     <script>
+        var bottle = new Bottle();
+        bottle.service('settings', function() {
+
+        });
         {# Passed into the main JS files #}
-        window.user_id = '{{ jsGlobal['user_id'] }}';
-        window.base_url = '{{ jsGlobal['base_url'] }}';
-        window.page_id = $('body').attr('id');
+        window.userId = '{{ jsGlobal['user_id'] }}';
+        window.baseUrl = '{{ jsGlobal['base_url'] }}';
+        window.pageId = $('body').attr('id');
         window.notifications = {
             'error': {{ jsGlobal['notifications']['error'] }},
             'success': {{ jsGlobal['notifications']['success'] }},

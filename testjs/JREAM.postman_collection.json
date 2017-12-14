@@ -1,0 +1,388 @@
+{
+	"info": {
+		"name": "JREAM",
+		"_postman_id": "e225c1a8-9970-e52e-d61e-9aa46388b763",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"description": "",
+			"item": [
+				{
+					"name": "api/auth/register (Local Account)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"alias\": \"testbot\",\n\t\"email\": \"testbot@jream.com\",\n\t\"password\": \"fishFry\",\n\t\"confirm_password\": \"fishFry\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/auth/logout",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"efixir\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "api/user/updateTimezone",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"timezone\": \"UTC\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatetimezone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatetimezone"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/updateEmail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test1@test.com\",\n\t\"confirm_email\": \"test1@test.com\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updateemail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updateemail"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/updateAlias",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"alias\": \"testnamenottaken\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatealias",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatealias"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/updateNotifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email_notifications\": 0,\n\t\"system_notifications\": 0,\n\t\"newsletter_subscribe\": 0\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatenotifications",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatenotifications"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/updateNotifications (Revert)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email_notifications\": 1,\n\t\"system_notifications\": 1,\n\t\"newsletter_subscribe\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatenotifications",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatenotifications"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/updatePassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"current_password\": \"fishFry\",\n\t\"password\": \"fishFry2\",\n\t\"confirm_password\": \"fishFry2\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatepassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatepassword"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase",
+			"description": "",
+			"item": [
+				{
+					"name": "api/user/updatePassword copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"current_password\": \"fishFry\",\n\t\"password\": \"fishFry2\",\n\t\"confirm_password\": \"fishFry2\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/updatepassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"updatepassword"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"description": "",
+			"item": [
+				{
+					"name": "api/user/updatePassword copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"contentId\": \"\",\n\t\"productId\": \"\",\n\t\"action\": \"\",\n\t\"value\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/course/updateProgress",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"updateProgress"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"description": "",
+			"item": [
+				{
+					"name": "api/user/deleteaccount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"confirm\": \"on\",\n\t\"understand\": \"on\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/user/deleteaccount",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"deleteaccount"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

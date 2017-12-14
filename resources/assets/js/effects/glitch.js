@@ -52,7 +52,7 @@
     window.onresize = init;
   };
 
-  img.src = `${base_url}images/logo/logo-full.svg`;
+  img.src = `${window.baseUrl}images/logo/logo-full.svg`;
   console.log( img.src );
 
 });

@@ -18,6 +18,7 @@ class QuestionController extends ApiController
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
+     * @TODO: Should just be a post requiring productId
      * @param int $productId
      *
      * @return Response
@@ -80,6 +81,8 @@ class QuestionController extends ApiController
 
     /**
      * Reply Action
+     *
+     * @TODO: Should just be a post requiring productId
      *
      * @param  int $productId
      * @param  int $threadId

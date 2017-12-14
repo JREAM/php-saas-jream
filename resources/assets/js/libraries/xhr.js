@@ -51,7 +51,6 @@ class Xhr {
     this.element.submit((evt) => {
       evt.preventDefault();
       console.log('submit');
-      // @TODO @DEBUG HERE Why i get no class blah blah error
       // return false;
 
       // Run beforeXHR (optional)

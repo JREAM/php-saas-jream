@@ -22,6 +22,10 @@ class PurchaseController extends ApiController
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
+     * Applies promotional code
+     * @method POST
+     *         code <string>
+     *         productId <int>
      * @return Response
      */
     public function applyPromotionAction(): Response
@@ -29,23 +33,30 @@ class PurchaseController extends ApiController
         $code      = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
 
-        $user_id = $this->session->get('user_id');
-
         $promotion = new Promotion();
         $result    = $promotion->check($code, $productId);
 
-        return '';
+        if ($result) {
+            return $this->output(0, 'Promotion not found.');
+        }
+
+        return $this->output(1, 'Promotion Applied.');
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
-     * @param int $productId
+     * Adds free product
+     *
+     * @method POST
+     *         productId <int>
      *
      * @return Response
      */
-    public function freeAction(int $productId): Response
+    public function freeAction(): Response
     {
+        $productId = $this->input->getPost('productId');
+
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
             return $this->output(0, 'Sorry this is an invalid or non-free course.');
@@ -62,6 +73,13 @@ class PurchaseController extends ApiController
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
+     * Handles Stripe Payment Gateway
+     * @method POST
+     *         productId <int>
+     *         stripeToken <string>
+     *         name <string>
+     *         zip <string>
+      *        @TODO This was not handling promotion
      * @return Response
      */
     public function stripeAction($productId): Response
@@ -209,6 +227,11 @@ class PurchaseController extends ApiController
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
+     * Handles PayPal Payment Gateway
+     * @TODO NOT SURE IF I SHOULD GET/POST THIS, DOESNT MATTER BUT PROLYL CHANGE TO PSOT
+     * @method POST
+     *         code <string>
+     *         productId <int>
      * @param int $productId
      *
      * @return Response

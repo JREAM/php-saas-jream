@@ -18,7 +18,7 @@ $(() => {
 
   // ─────────────────────────────────────────────────────────────────────────────
 
-  $('#form-dashboard-account-timezone').submit(function (evt) {
+  $('#form-dashboard-account-timezone').submit((evt) => {
     evt.preventDefault();
 
     const url = $(this).attr('action');

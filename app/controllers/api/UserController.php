@@ -44,7 +44,7 @@ class UserController extends ApiController
     public function updateEmailAction(): Response
     {
         $email         = $this->request->getPost('email');
-        $confirm_email = $this->request->getPost('confirm_email');
+        $confirmEmail = $this->request->getPost('confirm_email');
 
         $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
         if (!$form->isValid()) {
@@ -71,7 +71,7 @@ class UserController extends ApiController
             return $this->output(0, 'An internal error occured, we have been notified about it.');
         }
 
-        $mail_result = $this->di->get('email', [
+        $mailResult = $this->di->get('email', [
             [
                 'to_name'    => $user->getAlias($user->id),
                 'to_email'   => $user->getEmail($user->id),
@@ -82,7 +82,7 @@ class UserController extends ApiController
             ],
         ]);
 
-        if (!in_array($mail_result->statusCode(), [200, 201, 202], true)) {
+        if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'There was a problem sending the email.');
         }
 

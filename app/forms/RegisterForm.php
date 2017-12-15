@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
+use \Phalcon\Di\FactoryDefault as Di;
 
 class RegisterForm extends BaseForm
 {
@@ -15,7 +16,7 @@ class RegisterForm extends BaseForm
     public function initialize(): void
     {
         // Faker Data is used to save time going through areas manually
-        $di        = \Phalcon\Di\FactoryDefault::getDefault();
+        $di        = Di::getDefault();
         $fakerData = $di->get('fakerData');
 
         $alias = new Text('alias', [

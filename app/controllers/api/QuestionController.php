@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 namespace Controllers\Api;
-
 use Phalcon\Http\Response;
 use Product;
 
@@ -60,7 +59,7 @@ class QuestionController extends ApiController
         $content   = $parsedown->parse($content);
 
         // Send an email
-        $mail_result = $this->di->get('email', [
+        $mailResult = $this->di->get('email', [
             [
                 'to_name'    => 'JREAM',
                 'to_email'   => $this->config->email->to_question_address,
@@ -122,7 +121,7 @@ class QuestionController extends ApiController
             'url'           => $url,
         ]);
 
-        $mail_result = $this->di->get('email', [
+        $mailResult = $this->di->get('email', [
             [
                 'to_name'    => 'JREAM',
                 'to_email'   => $this->config->email->to_question_address,

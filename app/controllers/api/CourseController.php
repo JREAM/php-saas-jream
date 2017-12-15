@@ -22,7 +22,7 @@ class CourseController extends ApiController
      */
     public function updateProgressAction(): Response
     {
-        $user_id = $this->session->get('user_id');
+        $userId = $this->session->get('userId');
 
         $productCourseId = (int) $this->request->getPost('contentId');
         $productId       = (int) $this->request->getPost('productId');
@@ -30,7 +30,7 @@ class CourseController extends ApiController
         $value           = (int) $this->request->getPost('value');
 
         $userAction = new UserAction();
-        $userAction = $userAction->getAction($action, $user_id, $productCourseId);
+        $userAction = $userAction->getAction($action, $userId, $productCourseId);
 
         if ($userAction) {
             $userAction->value = (int) $value;
@@ -40,7 +40,7 @@ class CourseController extends ApiController
 
         $userAction                    = new UserAction();
         $userAction->action            = $action;
-        $userAction->user_id           = $user_id;
+        $userAction->userId           = $userId;
         $userAction->product_id        = $productId;
         $userAction->product_course_id = $productCourseId;
         $userAction->value             = $value;

@@ -32,6 +32,17 @@ class Output extends DiInjectable
         'data'   => [],
     ];
 
+    /**
+     * Header Codes
+     *
+     * @var array
+     */
+    private $headerCodes = [
+        "200" => "OK",
+        "201" => "Created",
+        "404" => "Not Found"
+    ];
+
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
@@ -106,23 +117,27 @@ class Output extends DiInjectable
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
+     * Outgoing Data
+     *
+     * @param int $httpSuccessCode  (Default: 200) use 201 for create
      * @return Response
      */
-    public function send(): Response
+    public function send(int $httpSuccessCode = 200): Response
     {
         // Get the DI Response Method
         $response = $this->di->get('response');
 
         // Set the Headers
         $response->setContentType('application/json', 'UTF-8');
-        $response->setStatusCode(200, "OK");
+
+        if ($this->outgoing['result'] == 1) {
+            $response->setStatusCode($httpSuccessCode, "OK");
+        }
+
         $response->setJsonContent($this->outgoing);
 
         // Deliver the response
         return $this->response->send();
-
-        // Kill all other activities
-        exit;
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

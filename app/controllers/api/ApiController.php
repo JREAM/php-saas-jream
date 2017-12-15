@@ -103,10 +103,10 @@ class ApiController extends Controller
      *
      * @return Response JSON
      */
-    protected function output(int $result, $msg, $data = []): Response
+    protected function output(int $result, $msg, $data = [], int $httpSuccessCode = 200): Response
     {
         $outgoing = new Output($result, $msg);
 
-        return $outgoing->setData($data)->send();
+        return $outgoing->setData($data)->send($httpSuccessCode);
     }
 }

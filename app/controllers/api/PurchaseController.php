@@ -62,12 +62,12 @@ class PurchaseController extends ApiController
             return $this->output(0, 'Sorry this is an invalid or non-free course.');
         }
 
-        $do = $this->_createPurchase($product, 'free', 'website');
-        if ($do->result) {
+        $create = $this->createPurchase($product, 'free', 'website');
+        if ($create->result) {
             return $this->output(1, ['redirect' => $product->id]);
         }
 
-        return $this->output(0, $do->msg);
+        return $this->output(0, $create->msg);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -116,10 +116,10 @@ class PurchaseController extends ApiController
 
             // If ProductID is set, ensure they are applying correctly
             if ($promo->product_id && $product->id != $promo->product_id) {
-                $other_product = \Product::getById($promo->product_id);
+                $otherProduct = \Product::getById($promo->product_id);
 
                 return $this->output(0, 'You provided a promotion to the wrong course, this applies to: ' .
-                                        $other_product->title);
+                                        $otherProduct->title);
             }
 
             // Make sure to check this DURING the checkout
@@ -138,23 +138,23 @@ class PurchaseController extends ApiController
                 $promo        = sprintf("Price marked down from %s to %s at %s percent off using promotional code %s.", $product->price, number_format($product->price -
                                                                                                                                                        ($product->price *
                                                                                                                                                         $promo->percent_off), 2), $promo->percent_off, $promo->code);
-                $use_price    = number_format($product->price - ($product->price * $promo->percent_off), 2);
+                $usePrice    = number_format($product->price - ($product->price * $promo->percent_off), 2);
             } elseif ($promo->price) {
                 $promo_method = 'price';
                 $promo        = sprintf("Price marked down from %s to %s using promotional code %s.", number_format($product->price, 2), number_format($promo[ 'price' ], 2), $promo->code);
 
-                $use_price = $promo->price;
+                $usePrice = $promo->price;
             }
         }
 
         $discount  = 0;
-        $use_price = $product->price;
+        $usePrice = $product->price;
 
         $promotion = $this->validatePromotionCode($productId);
         if ($promotion) {
             // use tihs or that... @TODO
         }
-        $amount = number_format($use_price, 2);
+        $amount = number_format($usePrice, 2);
 
         // If a coupon is applied
         // if ($this->session->has('code')) {
@@ -162,19 +162,19 @@ class PurchaseController extends ApiController
         //     $amount = number_format($code['price'], 2);
         // }
 
-        $amount_in_cents   = (int) ($amount * 100);
-        $revert_money_test = money_format("%i", ($amount_in_cents / 100));
+        $amountInCents   = (int) ($amount * 100);
+        $revertMoneyTest = money_format("%i", ($amountInCents / 100));
 
         // Ensure the amount is valid! This is paranoid but lets be safe!
-        if ($amount != $revert_money_test) {
+        if ($amount != $revertMoneyTest) {
             $msg = "We are sorry, a calculation went wrong before charging your card.
                     This is a protective measure to not overcharge anyone before passing it to Stripe.
                     This is a unique error, and it is logged and emailed to JREAM.";
             $this->di->get('sentry')->captureMessage($msg, [
                 'amount'                => $amount,
                 'amount_after_discount' => 1,//$amount_after_discount,
-                'amount_in_cents'       => $amount_in_cents,
-                'revert_money_test'     => $revert_money_test,
+                'amount_in_cents'       => $amountInCents,
+                'revert_money_test'     => $revertMoneyTest,
             ]);
 
             return $this->output(0, $msg);
@@ -183,7 +183,7 @@ class PurchaseController extends ApiController
         try {
             $response = \Stripe\Charge::create([
                 'source'      => $stripeToken,
-                'amount'      => $amount_in_cents,
+                'amount'      => $amountInCents,
                 'currency'    => 'usd',
                 'description' => $product->title,
                 'metadata'    => [
@@ -216,7 +216,7 @@ class PurchaseController extends ApiController
         }
 
         if ((int) $response->paid == 1) {
-            $this->_createPurchase($product, 'Stripe', $response->getLastResponse()->json[ 'id' ]);
+            $this->createPurchase($product, 'Stripe', $response->getLastResponse()->json[ 'id' ]);
 
             return $this->output(1, 'Success.');
         }
@@ -249,14 +249,14 @@ class PurchaseController extends ApiController
         }
 
         // Default Price
-        $use_price = $product->price;
+        $usePrice = $product->price;
 
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
-            $use_price = $this->session->get('discount_price');
+            $usePrice = $this->session->get('discount_price');
         }
 
-        $amount = number_format($use_price, 2);
+        $amount = number_format($usePrice, 2);
 
         // If coupon
         if ($this->session->has('code')) {
@@ -333,7 +333,7 @@ class PurchaseController extends ApiController
             $transactionID = $data[ 'PAYMENTINFO_0_TRANSACTIONID' ];
         }
 
-        $do = $this->_createPurchase($product, 'Paypal Express Checkout', $transactionID);
+        $do = $this->createPurchase($product, 'Paypal Express Checkout', $transactionID);
 
         if (!$do->result) {
             return $this->output(0, $do->msg);
@@ -348,32 +348,32 @@ class PurchaseController extends ApiController
      * Create a Purchase Record
      *
      * @param  \Product $product
-     * @param  mixed    $gateway
-     * @param  mixed    $transaction_id
+     * @param  mixed    $gateway$usePrice
+     * @param  mixed    $transactionId
      *
      * @return object
      */
-    private function _createPurchase(Product $product, $gateway = false, $transaction_id = false)
+    private function createPurchase(Product $product, $gateway = false, $transactionId = false)
     {
         // First create a transaction record
         $transaction                 = new Transaction();
         $transaction->user_id        = $this->session->get('id');
-        $transaction->transaction_id = $transaction_id;
+        $transaction->transaction_id = $transactionId;
         $transaction->type           = 'purchase';
         $transaction->gateway        = strtolower($gateway);
 
         // Default Price
-        $use_price = $product->price;
+        $usePrice = $product->price;
 
         $promo_applied = false;
 
         // Check for discount
         if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
-            $use_price     = $this->session->get('discount_price');
+            $usePrice     = $this->session->get('discount_price');
             $promo_applied = true;
         }
 
-        $transaction->amount = $use_price;
+        $transaction->amount = $usePrice;
 
         $purchased_for = number_format($product->price, 2);
 
@@ -402,7 +402,7 @@ class PurchaseController extends ApiController
             'login_url'      => \URL . '/user/login',
             'product_price'  => $purchased_for,
             'gateway'        => $gateway,
-            'transaction_id' => $transaction_id,
+            'transaction_id' => $transactionId,
         ]);
 
         $user = User::findFirstById($this->session->get('id'));

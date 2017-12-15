@@ -260,9 +260,9 @@ class Batch
                 foreach ((array) $value as $v) {
                     $valueList[] = $v;
                 }
-            } else {
-                $valueList[] = $values;
+                continue;
             }
+            $valueList[] = $values;
         }
         $this->valuesFlattened = $valueList;
         unset($valueList);
@@ -281,13 +281,12 @@ class Batch
      */
     public function insert($ignore = false): void
     {
-        $this->_validate();
+        $this->validate();
 
         // Optional ignore string
+        $insertString = 'INSERT INTO `%s` (%s) VALUES %s';
         if ($ignore) {
             $insertString = 'INSERT IGNORE INTO `%s` (%s) VALUES %s';
-        } else {
-            $insertString = 'INSERT INTO `%s` (%s) VALUES %s';
         }
 
         $query = sprintf(
@@ -309,7 +308,7 @@ class Batch
      *
      * @return void
      */
-    private function _validate(): void
+    private function validate(): void
     {
         if (!$this->table) {
             throw new \Exception('Batch Table must be defined');

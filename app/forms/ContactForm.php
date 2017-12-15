@@ -12,6 +12,11 @@ use Phalcon\Validation\Validator;
 class ContactForm extends BaseForm
 {
 
+    /**
+     * Init Form
+     *
+     * @return void
+     */
     public function initialize(): void
     {
         $name = new Text('name', [

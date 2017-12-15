@@ -127,14 +127,14 @@ class NewsletterController extends ApiController
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
-     * @param integer $user_id
+     * @param integer $userId
      * @param integer $value
      *
      * @return bool
      */
-    protected function updateUserRow(integer $user_id, integer $value): bool
+    protected function updateUserRow(int $userId, int $value): bool
     {
-        $user = User::findFirstById($user_id);
+        $user = User::findFirstById($userId);
         if ($user) {
             $user->newsletter_subscribed = $value;
             $user->save();

@@ -45,7 +45,7 @@ class Contact extends Controller
         $email    = $this->request->getPost('email');
         $message  = $this->request->getPost('message');
         $name     = $this->request->getPost('name');
-        $recatcha = $this->request->getPost('g-recaptcha-response');
+        // $recatcha = $this->request->getPost('g-recaptcha-response');
 
         // if ()
 
@@ -56,10 +56,10 @@ class Contact extends Controller
             'message' => $message,
         ]);
 
-        $mail_result = $this->di->get('email', [
+        $mailResult = $this->di->get('email', [
             [
                 'to_name'    => 'JREAM',
-                'to_email'   => 'hello@jream.com',
+                'to_email'   => 'hello@jream.cmailResultom',
                 'from_name'  => $name,
                 'from_email' => $email,
                 'subject'    => 'JREAM Contact Form',
@@ -67,7 +67,7 @@ class Contact extends Controller
             ],
         ]);
 
-        if (!in_array($mail_result->statusCode(), [200, 201, 202], true)) {
+        if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
             return $this->output(0, 'Error sending email');
         }
 

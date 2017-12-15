@@ -6,6 +6,7 @@ namespace Controllers\Api;
 
 use Phalcon\Exception;
 use Phalcon\Http\Response;
+use Hybridauth\User\Profile;
 use User;
 
 class AuthController extends ApiController
@@ -132,10 +133,10 @@ class AuthController extends ApiController
     protected function socialSignin(string $network)
     {
         // Casing is Important (HybridAuth uses the actual classnames)
-        $accepted_networks = ['Google', 'GitHub', 'Facebook'];
-        if (!in_array($network, $accepted_networks)) {
+        $acceptedNetworks = ['Google', 'GitHub', 'Facebook'];
+        if (!in_array($network, $acceptedNetworks)) {
             throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " .
-                                 implode(', ', $accepted_networks));
+                                 implode(', ', $acceptedNetworks));
         }
 
         try {
@@ -194,11 +195,11 @@ class AuthController extends ApiController
         $alias            = $this->request->getPost('alias');
         $email            = $this->request->getPost('email');
         $password         = $this->request->getPost('password');
-        $confirm_password = $this->request->getPost('confirm_password');
+        $confirmPassword = $this->request->getPost('confirmPassword');
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
-        $form = new \Forms\RegisterForm(null, ['confirm_password' => $confirm_password]);
+        $form = new \Forms\RegisterForm(null, ['confirmPassword' => $confirmPassword]);
         if (!$form->isValid($_POST)) {
             foreach ($form->getMessages() as $msg) {
                 print_r($msg);
@@ -295,7 +296,7 @@ class AuthController extends ApiController
      *
      * @return mixed
      */
-    protected function saveSocialProfile(string $type, \Hybridauth\User\Profile $profile)
+    protected function saveSocialProfile(string $type, Profile $profile)
     {
 
         // Favor verified email over a non-verified
@@ -576,9 +577,9 @@ class AuthController extends ApiController
         }
 
         $password         = $this->request->getPost('password');
-        $confirm_password = $this->request->getPost('confirm_password');
+        $confirmPassword = $this->request->getPost('confirmPassword');
 
-        if ($password != $confirm_password) {
+        if ($password != $confirmPassword) {
             return $this->output(0, 'Your passwords do not match.');
         }
 

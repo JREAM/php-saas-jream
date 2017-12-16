@@ -103,11 +103,11 @@ class Output extends DiInjectable
     /**
      * Apply Data array to the output
      *
-     * @param array $data
+     * @param mixed $data
      *
      * @return Output
      */
-    public function setData(array $data): Output
+    public function setData($data): Output
     {
         $this->outgoing->data = $data;
 
@@ -130,7 +130,7 @@ class Output extends DiInjectable
         // Set the Headers
         $response->setContentType('application/json', 'UTF-8');
 
-        if ($this->outgoing['result'] == 1) {
+        if ($this->outgoing->result == 1) {
             $response->setStatusCode($httpSuccessCode, "OK");
         }
 

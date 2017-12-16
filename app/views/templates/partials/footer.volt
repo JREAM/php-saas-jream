@@ -57,6 +57,7 @@
 <!-- Dependencies -->
 <script src="{{ url('vendor/bootstrap/bootstrap.min.js') }} "></script>
 <script src="{{ url('vendor/jquery.expander.min.js') }} "></script>
+<script src="{{ url('vendor/sweetalert2.min.js') }} "></script>
 
 
 <!-- CDN -->

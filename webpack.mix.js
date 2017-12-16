@@ -40,7 +40,7 @@ mix.sass('resources/assets/sass/app.scss', 'public/css')
       require('postcss-url')(),
       require('postcss-browser-reporter')(),
       require('postcss-reporter')(),
-      require('cssnano')()
+      // require('cssnano')()
     ],
     cleanCss: {
       level: {
@@ -58,10 +58,13 @@ mix.copyDirectory('./resources/images', './public/images', false);
 // Vendor JS
 // -----------------------------------------------------------------------
 mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/vendor/jquery.min.js', false)
+  .copy('node_modules/jquery/dist/jquery.min.map', 'public/vendor/jquery.min.map', false)
   .copy('resources/vendor/modernizr-custom.js', 'public/vendor/modernizr-custom.js', false)
   .copy('node_modules/moment/min/moment-with-locales.min.js', 'public/vendor/moment.min.js', false)
   .copy('node_modules/jquery-expander/jquery.expander.min.js', 'public/vendor/jquery.expander.min.js', false)
 
+mix.copy('node_modules/sweetalert2/dist/sweetalert2.min.js', 'public/vendor/sweetalert2.min.js', false)
+  .copy('node_modules/sweetalert2/dist/sweetalert2.min.css', 'public/vendor/sweetalert2.min.css', false);
 
 mix.js('node_modules/waypoints/lib/jquery.waypoints.min.js', 'public/vendor/jquery.waypoints.min.js', false);
 mix.js('node_modules/bottlejs/dist/bottle.js', 'public/vendor/bottle.min.js', false);

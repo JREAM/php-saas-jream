@@ -15,6 +15,7 @@
 
     <!-- Dependencies App -->
     <link rel="stylesheet" href="{{ url('vendor/fonts.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url('vendor/sweetalert2.min.css') }}" type="text/css">
 
     <!-- App -->
     <link rel="stylesheet" href="{{ url('css/app.css') }}{{ cacheBust }}" type="text/css">
@@ -33,7 +34,12 @@
         {# Passed into the main JS files #}
         window.userId = '{{ jsGlobal['user_id'] }}';
         window.baseUrl = '{{ jsGlobal['base_url'] }}';
-        window.pageId = $('body').attr('id');
+
+        // Wait for DOM to capture
+        $(document).ready(function() {
+            window.pageId = $('body').attr('id');
+        });
+
         window.notifications = {
             'error': {{ jsGlobal['notifications']['error'] }},
             'success': {{ jsGlobal['notifications']['success'] }},

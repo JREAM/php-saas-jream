@@ -46,7 +46,6 @@ class Xhr {
       return false;
     }
 
-
     // Bind to submit method
     this.element.submit((evt) => {
       evt.preventDefault();
@@ -58,22 +57,28 @@ class Xhr {
         callable.beforeSubmit(evt);
       }
 
-      // Disable this when handling XHR
-      this.Form.disable();
-
       const url = $(id).attr('action');
       const postData = $(id).serialize();
 
+      // Disable this when handling XHR
+      // @important Must come AFTER retrieving POST data
+      this.Form.disable();
+
       // Coding Error, My Mistake warn!
       if (!url) {
-        alert('Missing URL for Form!', 'error');
+        swal('Missing URL for Form!', 'error');
+        return false;
+      }
+
+      if (!postData) {
+        swal('Missing postData from form!', 'error');
         return false;
       }
 
       axios.post(url, postData).then((resp) => {
         if (_.has(resp, 'msg') && resp.msg) {
           const type = (_.has(resp, 'type') && resp.type) ? resp.type : 'warning';
-          alert(resp.msg);
+          swal(resp.msg);
           // $(id).notify(resp.msg, type);
         }
 
@@ -94,12 +99,13 @@ class Xhr {
         }
       }).catch((error) => {
         if (_.has(error, error.msg)) {
-          alert(error.msg, error.type);
+          swal(error.msg, error.type);
+          return false;
         }
 
         // (Optional) If Callback
         if (_.has(callable, 'fail') && _.isFunction(callable.fail)) {
-          callable.fail(resp, evt);
+          callable.fail(error, evt);
         }
         // Aways re-enable the button
         this.Form.enable();

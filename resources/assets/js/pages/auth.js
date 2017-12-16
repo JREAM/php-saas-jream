@@ -10,13 +10,14 @@ $(() => {
   // This is Globally Accessible
   // ─────────────────────────────────────────────────────────────────────────────
 
-  if (window.page_id === 'page-user-login') {
+  console.info(window.pageId)
+  if (window.pageId === 'page-user-login') {
     xhr.stdForm('#form-user-login');
   }
-  if (window.page_id === 'page-user-register') {
+  if (window.pageId === 'page-user-register') {
     xhr.stdForm('#form-user-register');
   }
-  if (window.page_id === 'page-user-password') {
+  if (window.pageId === 'page-user-password') {
     xhr.stdForm('#form-user-password-reset-confirm');
   }
 

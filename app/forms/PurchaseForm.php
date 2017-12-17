@@ -19,19 +19,22 @@ class PurchaseForm extends BaseForm
             'class'       => 'form-control',
             'value'       => formData('name'),
         ]);
+        $name->setFilters(['string', 'trim',]);
 
 
-        $card = new Text('password', [
-            'placeholder' => 'New Password',
+        $card = new Text('number', [
+            'placeholder' => 'Card Number',
             'data-stripe' => 'number',
             'class'       => 'form-control',
             'value'       => (\APPLICATION_ENV == \APP_PRODUCTION) ? '' : '4242424242424242',
         ]);
+        $card->setFilters(['int', 'trim',]);
 
         $expires = new Select('expires', [
             'class'       => 'form-control',
             'data-stripe' => 'exp-month',
         ]);
+        $expires->setFilters(['int', 'trim',]);
 
         $this->add($name);
         $this->add($card);

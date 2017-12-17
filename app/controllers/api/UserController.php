@@ -77,7 +77,7 @@ class UserController extends ApiController
                 'to_email'   => $user->getEmail($user->id),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Confirm Email Change',
+                'subject'    => 'JREAM - Confirm Email Change',
                 'content'    => $content,
             ],
         ]);

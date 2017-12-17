@@ -63,6 +63,11 @@
 <!-- CDN -->
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
+<!-- Load on every page for advanced security -->
+<script src="https://js.stripe.com/v3/" type="text/javascript"></script>
+<script>
+Stripe.setPublishableKey('{{ api.stripe.publishableKey }}');
+</script>
 
 <!-- App -->
 <script src="{{ url('js/app.js') }}{{ cacheBust }}"></script>

@@ -65,7 +65,7 @@ class QuestionController extends ApiController
                 'to_email'   => $this->config->email->to_question_address,
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => "JREAM New Question ({$product->title})",
+                'subject'    => "JREAM - New Question ({$product->title})",
                 'content'    => $content,
             ],
         ]);
@@ -127,7 +127,7 @@ class QuestionController extends ApiController
                 'to_email'   => $this->config->email->to_question_address,
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => "JREAM Question Reply ({$product->title})",
+                'subject'    => "JREAM - Question Reply ({$product->title})",
                 'content'    => $content,
             ],
         ]);

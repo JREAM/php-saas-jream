@@ -82,8 +82,10 @@ class PurchaseController extends ApiController
       *        @TODO This was not handling promotion
      * @return Response
      */
-    public function stripeAction($productId): Response
+    public function stripeAction(): Response
     {
+        $productId = (int) $this->request->getPost('product_id');
+
         $product = \Product::findFirstById($productId);
         if (!$product) {
             return $this->output(0, 'No product was found with the Id: %s', $productId);
@@ -228,8 +230,8 @@ class PurchaseController extends ApiController
 
     /**
      * Handles PayPal Payment Gateway
-     * @TODO NOT SURE IF I SHOULD GET/POST THIS, DOESNT MATTER BUT PROLYL CHANGE TO PSOT
-     * @method POST
+     * Redirects to PayPal Checkout and Back to Confirm in "paypalConfirm"
+     * @method GET
      *         code <string>
      *         productId <int>
      * @param int $productId
@@ -266,9 +268,9 @@ class PurchaseController extends ApiController
 
         $response = $this->paypal->purchase([
             'cancelUrl'   => \Library\Url::get('dashboard'),
-            'returnUrl'   => \Library\Url::get('product/dopaypalconfirm/' . $product->id),
+            'returnUrl'   => \Library\Url::get("api/purchase/paypalconfirm/{$product->id}"),
             'amount'      => $amount,
-            'currency'    => 'usd',
+            'currency'    => $this->config->currency,
             'description' => $product->title,
         ])->send();
 
@@ -285,7 +287,7 @@ class PurchaseController extends ApiController
      *
      * @return Response
      */
-    public function doPaypalConfirmAction(int $productId): Response
+    public function paypalConfirmAction(int $productId): Response
     {
         $product = \Product::findFirstById($productId);
         if (!$product) {
@@ -307,7 +309,7 @@ class PurchaseController extends ApiController
         try {
             $response = $this->paypal->completePurchase([
                 'amount'   => $amount,
-                'currency' => 'USD',
+                'currency' => $this->config->currency,
             ])->send();
         } catch (\Exception $e) {
             return $this->output(0, 'Could not complete your transaction. Paypal has had an error.');
@@ -414,7 +416,7 @@ class PurchaseController extends ApiController
                 'to_email'   => $user->getEmail(),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Purchase Confirmation',
+                'subject'    => 'JREAM - Purchase Confirmation',
                 'content'    => $content,
             ],
         ]);

@@ -19,6 +19,7 @@ class LoginForm extends BaseForm
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
+        $email->setFilters(['email', 'trim',]);
 
         $email->addValidators([
             new Validator\PresenceOf([
@@ -33,6 +34,7 @@ class LoginForm extends BaseForm
             'placeholder' => 'Password',
             'class'       => 'form-control input-lg',
         ]);
+        $password->setFilters(['string', 'trim',]);
 
         $password->addValidators([
             new Validator\PresenceOf([

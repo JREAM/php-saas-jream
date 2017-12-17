@@ -34,6 +34,7 @@ class ChangeAliasForm extends BaseForm
                 'message' => 'Your alias can only contain letters.'
             ])
         ]);
+        $alias->setFilters(['string', 'trim',]);
 
         $this->add($alias);
 

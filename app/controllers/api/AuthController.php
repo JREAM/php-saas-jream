@@ -191,17 +191,23 @@ class AuthController extends ApiController
      */
     public function registerAction(): Response
     {
+        if (!$this->request->isPost()) {
+            return $this->output(0, 'Wrong API Call; Use POST.', [], 500);
+        }
+
+        $json = $this->request->getJsonRawBody();
+
         // @TODO use the saveUser method
-        $alias            = $this->request->getPost('alias');
-        $email            = $this->request->getPost('email');
-        $password         = $this->request->getPost('password');
-        $confirmPassword = $this->request->getPost('confirmPassword');
+        $alias           = $json->alias;
+        $email           = $json->email;
+        $password        = $json->password;
+        $confirmPassword = $json->confirm_password;
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
-        $form = new \Forms\RegisterForm(null, ['confirmPassword' => $confirmPassword]);
+        $form = new \Forms\RegisterForm();
 
-        if (!$form->isValid($_POST)) {
+        if (!$form->isValid((array) $json)) {
             $errors = [];
 
             foreach ($form->getMessages() as $msg) {
@@ -253,7 +259,7 @@ class AuthController extends ApiController
                 'to_email'   => $user->getEmail($user->id),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Registration',
+                'subject'    => 'JREAM - Registration',
                 'content'    => $this->component->email->create('register', []),
             ],
         ]);
@@ -433,7 +439,7 @@ class AuthController extends ApiController
                 'to_email'   => $user->getEmail($user->id),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Registration',
+                'subject'    => 'JREAM - Registration',
                 'content'    => $this->component->email->create('register', [
                     'type' => $accountType,
                 ]),
@@ -469,7 +475,7 @@ class AuthController extends ApiController
                 'to_email'   => $user->getEmail($user->id),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Linked Account',
+                'subject'    => 'JREAM - Linked Social Account',
                 'content'    => $this->component->email->create('register_linked', [
                     'type' => ucwords($accountType),
                 ]),
@@ -535,7 +541,7 @@ class AuthController extends ApiController
                 'to_email'   => $user->getEmail($user->id),
                 'from_name'  => $this->config->email->from_name,
                 'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM Password Reset',
+                'subject'    => 'JREAM - Password Reset',
                 'content'    => $content,
             ],
         ]);

@@ -1,31 +1,3 @@
-<script src="https://js.stripe.com/v2/" type="text/javascript"></script>
-<script>
-// @TODO Not sure why this wont load elsewhere
-Stripe.setPublishableKey('{{ api.stripe.publishableKey }}');
-
-$(function() {
-    $('#formPurchase').submit(function(evt) {
-        evt.preventDefault();
-
-        var self = $(this);
-        self.find('input[type=submit]').prop('disabled', true);
-
-        Stripe.card.createToken($(this), function(status, response) {
-            if (response.error) {
-                self.find('.payment-errors').
-                    html('<div class="alert alert-danger">' + response.error.message + '</div>');
-                self.find('input[type=submit]').prop('disabled', false);
-            } else {
-                var token = response.id;
-                // Insert the token into the form so it gets submitted to the server
-                self.append($('<input type="hidden" name="stripeToken" />').val(token));
-                self.get(0).submit();
-            }
-        });
-    });
-});
-</script>
-
 <!-- Used to reference smaller screens href# -->
 <div id="checkout-area"></div>
 
@@ -35,7 +7,7 @@ $(function() {
         <strong>PayPal</strong>
     </div>
     <div class="panel-body text-center">
-        <a href="{{ url('product/dopaypal') }}/{{ product.id }}">
+        <a href="{{ url('api/purchase/paypal') }}/{{ product.id }}">
             <img src="{{ url('images/payments/checkout-with-paypal.jpg') }}" alt="PayPal Checkout" />
         </a>
     </div>
@@ -47,9 +19,9 @@ $(function() {
     </div>
     <div class="panel-body">
         <i class="fa fa-lock"></i> Security
-        <form id="form-purchase-stripe" action="{{ url('product/doStripe') }}/{{ product.id }}" method="post">
+        <form id="form-purchase-stripe" action="{{ url('api/purchase/stripe') }}" method="post">
         <div class="payment-errors"></div>
-
+            <input type="hidden" name="product_id" value="{{ product.id }}">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group">

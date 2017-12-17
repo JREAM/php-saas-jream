@@ -23,6 +23,7 @@ class ContactForm extends BaseForm
             'placeholder' => 'Name',
             'class'       => 'form-control input-lg',
         ]);
+        $name->setFilters(['string', 'trim',]);
 
         $name->addValidators([
             new Validator\PresenceOf([
@@ -39,6 +40,7 @@ class ContactForm extends BaseForm
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
+        $email->setFilters(['email', 'trim',]);
 
         $email->addValidators([
             new Validator\PresenceOf([
@@ -53,6 +55,7 @@ class ContactForm extends BaseForm
             'placeholder' => 'Message',
             'class'       => 'form-control input-lg',
         ]);
+        $msg->setFilters(['string', 'trim',]);
 
         $msg->addValidators([
             new Validator\PresenceOf([

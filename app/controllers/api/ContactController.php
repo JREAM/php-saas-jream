@@ -62,7 +62,7 @@ class Contact extends Controller
                 'to_email'   => 'hello@jream.cmailResultom',
                 'from_name'  => $name,
                 'from_email' => $email,
-                'subject'    => 'JREAM Contact Form',
+                'subject'    => 'JREAM - Contact Form',
                 'content'    => $content,
             ],
         ]);

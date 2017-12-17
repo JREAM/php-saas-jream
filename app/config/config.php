@@ -20,6 +20,8 @@ $config = new \Phalcon\Config([
     'hashids_hash'   => 'Jr34mH4$!-!iD',
     'url_static'     => 'https://d2qmoq5vnrtrov.cloudfront.net/',
 
+    'currency' => 'usd',
+
     'email'       => [
         'from_address'        => getenv('EMAIL_FROM_ADDR'),
         'from_name'           => getenv('EMAIL_FROM_NAME'),

@@ -18,11 +18,13 @@ class ChangePasswordForm extends BaseForm
             'placeholder' => 'Current Password',
             'class'       => 'form-control input-lg',
         ]);
+        $currentPassword->setFilters(['string', 'trim',]);
 
         $password = new Text('password', [
             'placeholder' => 'New Password',
             'class'       => 'form-control input-lg',
         ]);
+        $password->setFilters(['string', 'trim',]);
 
         $password->addValidators([
             new Validator\PresenceOf([
@@ -50,6 +52,7 @@ class ChangePasswordForm extends BaseForm
                 'message'  => 'Your passwords must match.',
             ]),
         ]);
+        $confirmPassword->setFilters(['string', 'trim',]);
 
 
         $this->add($currentPassword);

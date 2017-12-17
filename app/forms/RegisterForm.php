@@ -24,6 +24,7 @@ class RegisterForm extends BaseForm
             'class'       => 'form-control input-lg',
             'value'       => $fakerData->alias,
         ]);
+        $alias->setFilters(['string', 'trim',]);
 
         $alias->addValidators([
             new Validator\StringLength([
@@ -33,7 +34,7 @@ class RegisterForm extends BaseForm
                 "messageMaximum" => "Your alias must be less than or equal to 18 characters.",
             ]),
             new Validator\Alpha([
-                'message' => 'Your name must be alphabetical only',
+                'message' => 'Your alias must be alphabetical only',
             ]),
         ]);
 
@@ -43,6 +44,7 @@ class RegisterForm extends BaseForm
             'class'       => 'form-control input-lg',
             'value'       => $fakerData->email,
         ]);
+        $email->setFilters(['email', 'trim',]);
 
         $email->addValidators([
             new Validator\PresenceOf([
@@ -60,6 +62,7 @@ class RegisterForm extends BaseForm
             'class'       => 'form-control input-lg',
             'value'       => $fakerPassword,
         ]);
+        $password->setFilters(['string', 'trim',]);
 
         $password->addValidators([
             new Validator\PresenceOf([
@@ -78,7 +81,14 @@ class RegisterForm extends BaseForm
             'class'       => 'form-control input-lg',
             'value'       => &$fakerPassword,
         ]);
+        $confirmPassword->setFilters(['string', 'trim',]);
 
+        print_r($this);die;
+        print_r($this->getValue('alias'));
+        print_r($this->getValue('password'));
+
+        echo $this->getUserOption('confirm_password');
+        die;
         $confirmPassword->addValidators([
             new Validator\PresenceOf([
                 'message' => 'Confirm Password is required.',

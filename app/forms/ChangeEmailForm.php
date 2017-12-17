@@ -26,6 +26,7 @@ class ChangeEmailForm extends BaseForm
                 'message' => 'Your email is not valid.',
             ]),
         ]);
+        $email->setFilters(['email', 'trim',]);
 
 
         $confirm_email = new Text('confirm_email', [
@@ -45,6 +46,7 @@ class ChangeEmailForm extends BaseForm
                 'message'  => 'Your confirmation email address must match.',
             ]),
         ]);
+        $confirm_email->setFilters(['email', 'trim',]);
 
         $this->add($email);
         $this->add($confirm_email);

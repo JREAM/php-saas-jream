@@ -17,6 +17,7 @@ class NewsletterForm extends BaseForm
             'placeholder' => 'Email',
             'class'       => 'form-control input-lg',
         ]);
+        $email->setFilters(['email', 'trim',]);
 
         $email->addValidators([
             new Validator\PresenceOf([

@@ -22,6 +22,8 @@ class CourseController extends ApiController
      */
     public function updateProgressAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $userId = $this->session->get('userId');
 
         $productCourseId = (int) $this->request->getPost('contentId');

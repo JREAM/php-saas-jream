@@ -54,6 +54,9 @@ $api = new \Phalcon\Config([
         // password     (env variable)
         // key          (env variable)
     ],
+    'sparkpost' => [
+        // API key in ENV
+    ],
     // For the email List to use JREAM Customers
     'mailchimp'    => [
         // key          (env variable)

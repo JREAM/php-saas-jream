@@ -27,6 +27,8 @@ class AuthController extends ApiController
      */
     public function loginAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         // POST Data
         $email    = $this->request->getPost('email');
         $password = $this->request->getPost('password');
@@ -191,9 +193,7 @@ class AuthController extends ApiController
      */
     public function registerAction(): Response
     {
-        if (!$this->request->isPost()) {
-            return $this->output(0, 'Wrong API Call; Use POST.', [], 500);
-        }
+        $this->apiMethods(['POST']);
 
         $json = $this->request->getJsonRawBody();
 
@@ -301,7 +301,6 @@ class AuthController extends ApiController
      */
     protected function saveSocialProfile(string $type, Profile $profile)
     {
-
         // Favor verified email over a non-verified
         $profile->useEmail = $profile->emailVerified ?: $profile->email;
 
@@ -500,6 +499,8 @@ class AuthController extends ApiController
      */
     public function logoutAction()
     {
+        $this->apiMethods(['GET']);
+
         // @TODO This is broken
         //$this->hybridauth->disconnectAllAdapters();
         $this->session->destroy();
@@ -514,6 +515,8 @@ class AuthController extends ApiController
      */
     public function passwordForgotAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $email = $this->request->getPost('email');
         $user  = User::findFirstByEmail($email);
 
@@ -563,6 +566,8 @@ class AuthController extends ApiController
      */
     public function passwordForgotCreateAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $confirmEmail = $this->request->getPost('email');
         $resetKey     = $this->request->getPost('reset_key');
 

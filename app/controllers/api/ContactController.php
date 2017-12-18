@@ -14,6 +14,8 @@ class Contact extends Controller
      */
     public function sendAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         // If Recaptcha fails, Warn and use JS to reload.
         if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
             // Retrigger: grecaptcha.reset() in JS
@@ -59,7 +61,7 @@ class Contact extends Controller
         $mailResult = $this->di->get('email', [
             [
                 'to_name'    => 'JREAM',
-                'to_email'   => 'hello@jream.cmailResultom',
+                'to_email'   => getenv('EMAIL_FROM_ADDR'), // Sends to me
                 'from_name'  => $name,
                 'from_email' => $email,
                 'subject'    => 'JREAM - Contact Form',

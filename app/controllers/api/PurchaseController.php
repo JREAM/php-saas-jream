@@ -30,6 +30,8 @@ class PurchaseController extends ApiController
      */
     public function applyPromotionAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $code      = $this->input->getPost('code');
         $productId = $this->input->getPost('productId');
 
@@ -55,6 +57,8 @@ class PurchaseController extends ApiController
      */
     public function freeAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $productId = $this->input->getPost('productId');
 
         $product = \Product::findFirstById($productId);
@@ -84,6 +88,8 @@ class PurchaseController extends ApiController
      */
     public function stripeAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $productId = (int) $this->request->getPost('product_id');
 
         $product = \Product::findFirstById($productId);
@@ -240,6 +246,8 @@ class PurchaseController extends ApiController
      */
     public function paypalAction(int $productId): Response
     {
+        $this->apiMethods(['GET']);
+
         $product = \Product::findFirstById($productId);
 
         if (!$product) {
@@ -289,6 +297,8 @@ class PurchaseController extends ApiController
      */
     public function paypalConfirmAction(int $productId): Response
     {
+        $this->apiMethods(['GET']);
+
         $product = \Product::findFirstById($productId);
         if (!$product) {
             return $this->output(0, 'Could not complete your transaction. The productId is invalid.');

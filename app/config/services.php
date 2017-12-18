@@ -515,6 +515,52 @@ $di->setShared('email', function (array $data) use ($di) {
     return $response;
 });
 
+/**
+ * ==============================================================
+ * SparkPost for Email
+ * =============================================================
+ */
+$di->setShared('sparkpost', function (array $data) use ($di) {
+    $httpClient = new Http\Adapter\Guzzle6\Client\GuzzleAdapter(new GuzzleHttp\Client());
+    $sparky = new SparkPost\SparkPost($httpClient, ['key'=> getenv('SPARKPOST') ]);
+    $sparky->setOptions(['async' => false]);
+
+    $promise = $sparky->transmissions->post([
+        'content' => [
+            'from' => [
+                'name' => 'JREAM',
+                'email' => 'notify@jream.com',
+            ],
+            'subject' => $data['subject'],
+            'html' => '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>',
+            'text' => 'Congratulations, {{name}}!! You just sent your very first mailing!',
+        ],
+        'substitution_data' => ['name' => $data['name']],
+        'recipients' => [
+            [
+                'address' => [
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                ],
+            ],
+        ],
+    ]);
+
+    $promise = $sparky->transmissions->get();
+
+    try {
+        $response = $promise->wait();
+        return [
+            'code' => $response->getStatusCode(),
+            'body' => $response->getBody()
+        ];
+    } catch (\Exception $e) {
+        return [
+            'code' => $e->getCode(),
+            'msg' => $e->getMessage()
+        ];
+    }
+});
 
 /**
  * ==============================================================

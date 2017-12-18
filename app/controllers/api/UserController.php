@@ -21,6 +21,8 @@ class UserController extends ApiController
      */
     public function updateTimezoneAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $timezone = $this->request->getPost('timezone');
         if (!in_array($timezone, \DateTimeZone::listIdentifiers())) {
             return $this->output(0, 'Invalid Timezone');
@@ -43,6 +45,8 @@ class UserController extends ApiController
      */
     public function updateEmailAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $email         = $this->request->getPost('email');
         $confirmEmail = $this->request->getPost('confirm_email');
 
@@ -98,6 +102,8 @@ class UserController extends ApiController
      */
     public function updateEmailConfirmAction(string $resetKey): Response
     {
+        $this->apiMethods(['GET']);
+
         //$form = new \Forms\ChangeEmailForm(null, ['email' => $this->request->getPost('email')]);
         //if (!$form->isValid()) {
         //    return $this->output(0, $form->getMessages());
@@ -137,6 +143,8 @@ class UserController extends ApiController
      */
     public function updateAliasAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $user = \User::findFirstById($this->session->get('id'));
         $alias = (string) $this->request->getPost('alias');
 
@@ -163,6 +171,8 @@ class UserController extends ApiController
      */
     public function updateNotificationsAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $user = \User::findFirstById($this->session->get('id'));
 
         $user->email_notifications  = (int) $this->request->getPost('email_notifications');
@@ -185,6 +195,8 @@ class UserController extends ApiController
      */
     public function updatePasswordAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $current_password = $this->request->getPost('current_password');
         $password         = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('confirm_password');
@@ -219,6 +231,8 @@ class UserController extends ApiController
      */
     public function deleteAccountAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $confirm    = $this->request->getPost('confirm');
         $understand = $this->request->getPost('understand');
 

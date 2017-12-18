@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "aws/aws-sdk-php": "^3.3",
+        "aws/aws-sdk-php": "^3.44",
         "erusev/parsedown": "^1.6",
         "filp/whoops": "^2.1",
         "monolog/monolog": "^1.23",
@@ -24,22 +24,23 @@
         "omnipay/paypal": "^2.6",
         "phalcon/incubator": "^v3.2",
         "php-http/guzzle6-adapter": "^1.1",
-        "sendgrid/php-http-client": "^3.7",
+        "sendgrid/php-http-client": "^3.8",
         "sendgrid/sendgrid": "^5.6",
-        "sentry/sentry": "^1.7",
+        "sentry/sentry": "^1.8",
         "stripe/stripe-php": "^v3.23",
         "swiftmailer/swiftmailer": "^5.4",
-        "symfony/dotenv": "^v3.3",
-        "symfony/var-dumper": "^3.3",
+        "symfony/dotenv": "^v3.4",
+        "symfony/var-dumper": "^3.4",
         "php": ">=7.0",
         "ext-phalcon": ">=3.2",
-        "hybridauth/hybridauth": "v3.0.0-beta.3",
+        "hybridauth/hybridauth": "v3.0.0-beta.2",
         "hashids/hashids": "^2.0",
         "fzaninotto/Faker": "^1.7",
-        "gkralik/php-uglifyjs": "^1"
+        "gkralik/php-uglifyjs": "^1.0",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
-        "codeception/codeception": "~2.2",
+        "codeception/codeception": "~2.3",
         "phalcon/ide-stubs": "^3.2",
         "php-console/php-console": "^3",
         "symfony/process": "^3"

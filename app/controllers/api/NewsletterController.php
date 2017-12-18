@@ -23,9 +23,7 @@ class NewsletterController extends ApiController
      */
     public function subscribeAction(): Response
     {
-        if (!$this->request->isPost()) {
-            $this->output(0, "Oh that doesn't work, You must post the form!");
-        }
+        $this->apiMethods(['POST']);
 
         // If Recaptcha fails, Warn and use JS to reload.
         if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
@@ -91,6 +89,8 @@ class NewsletterController extends ApiController
      */
     public function verifyAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $token      = $this->input->getPost('token');
         $newsletter = NewsletterSubscription::findFirstByToken($token);
         if (!$newsletter) {
@@ -109,6 +109,8 @@ class NewsletterController extends ApiController
      */
     public function unsubscribeAction(): Response
     {
+        $this->apiMethods(['POST']);
+
         $email      = $this->input->getPost('email');
         $newsletter = NewsletterSubscription::findFirstByEmail($email);
         if (!$newsletter) {

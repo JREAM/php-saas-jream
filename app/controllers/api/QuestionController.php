@@ -24,6 +24,8 @@ class QuestionController extends ApiController
      */
     public function createAction(int $productId): Response
     {
+        $this->apiMethods(['POST']);
+
         $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
@@ -90,6 +92,8 @@ class QuestionController extends ApiController
      */
     public function replyAction(int $productId, int $threadId): Response
     {
+        $this->apiMethods(['POST']);
+
         $product = \Product::findFirstById($productId);
 
         if (!$productId || $product->hasPurchased() == false) {
@@ -144,6 +148,8 @@ class QuestionController extends ApiController
      */
     public function deleteAction()
     {
+        $this->apiMethods(['DELETE']);
+
         $user_id = $this->session->get('user_id');
 
         return;

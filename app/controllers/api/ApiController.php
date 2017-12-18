@@ -31,6 +31,48 @@ class ApiController extends Controller
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+    protected function apiMethods(array $types) {
+        // Uppercase the Types
+        $types = array_map('strtoupper', $types);
+        if (in_array('POST', $types) && !$this->request->isPost()) {
+            return $this->output(0, 'Wrong API Call; Use POST.', [], 500);
+        }
+        if (in_array('GET', $types) && !$this->request->isGet()) {
+            return $this->output(0, 'Wrong API Call; Use GET.', [], 500);
+        }
+        if (in_array('PUT', $types) && !$this->request->isPut()) {
+            return $this->output(0, 'Wrong API Call; Use PUT.', [], 500);
+        }
+        if (in_array('PATCH', $types) && !$this->request->isPatch()) {
+            return $this->output(0, 'Wrong API Call; Use PATCH.', [], 500);
+        }
+        if (in_array('DELETE', $types) && !$this->request->isDelete()) {
+            return $this->output(0, 'Wrong API Call; Use DELETE.', [], 500);
+        }
+        return true;
+    }
+
+    /**
+     * Require a POST
+     * @return \Phalcon\Http\Response
+     */
+    protected function requireGet(): Response
+    {
+        if (!$this->request->isGet()) {
+            return $this->output(0, 'Wrong API Call; Use GET.', [], 500);
+        }
+    }
+    /**
+     * Require a POST
+     * @return \Phalcon\Http\Response
+     */
+    protected function requirePost(): Response
+    {
+        if (!$this->request->isPost()) {
+            return $this->output(0, 'Wrong API Call; Use POST.', [], 500);
+        }
+    }
+
     /**
      * All Views are Disabled, only Output Text
      */

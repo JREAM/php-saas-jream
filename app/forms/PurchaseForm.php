@@ -12,6 +12,11 @@ use Phalcon\Validation\Validator;
 class PurchaseForm extends BaseForm
 {
 
+    /**
+     * Initialize the Form
+     *
+     * @return void  Handled by Phalcon
+     */
     public function initialize(): void
     {
         $name = new Text('name', [

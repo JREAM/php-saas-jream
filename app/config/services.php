@@ -227,17 +227,6 @@ $di->setShared('hashids', function () use ($config) {
     return $hashids;
 });
 
-
-/**
- * ==============================================================
- * Markdown Parser
- * =============================================================
- */
-$di->setShared('markdown', function () {
-    // $example: $parsedown->parse('#markdown here');
-    return new \Parsedown();
-});
-
 /**
  * ==============================================================
  * View component
@@ -322,9 +311,15 @@ $redis->select(getenv('REDIS_DB'));  // Use Database 10
 
 /**
  * ==============================================================
- * Markdown
+ * Markdown Parser
  * =============================================================
  */
+$di->setShared('markdown', function () {
+    // $example: $parsedown->parse('#markdown here');
+    return new \Parsedown();
+});
+
+
 $di->setShared('filter', function () {
     $filter = new Filter();
     $filter->add('slug', function (string $value) {

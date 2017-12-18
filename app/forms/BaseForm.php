@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Forms;
 
-use Phalcon\Forms\Element;
-use Phalcon\Validation\Validator;
 use Phalcon\Forms\Form;
 use Forms\Traits\GetMessageTrait;
 
-class BaseForm extends \Phalcon\Forms\Form
+class BaseForm extends Form
 {
     use GetMessageTrait;
 
-    /** The ID for the DOM Form */
+    /**
+     * @var string  The ID for the Form DOM
+     */
     protected $_formId;
 
     public function initialize(): void

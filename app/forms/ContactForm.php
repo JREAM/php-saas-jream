@@ -13,9 +13,9 @@ class ContactForm extends BaseForm
 {
 
     /**
-     * Init Form
+     * Initialize the Form
      *
-     * @return void
+     * @return void  Handled by Phalcon
      */
     public function initialize(): void
     {

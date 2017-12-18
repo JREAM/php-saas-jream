@@ -19,6 +19,7 @@ $api = new \Phalcon\Config([
         // secretKey    (env variable)
     ],
     'paypal'       => [
+        // In Services.php
         // username     (env variable)
         // password     (env variable)
         // signature    (env variable)

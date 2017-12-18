@@ -13,6 +13,11 @@ use \Phalcon\Di\FactoryDefault as Di;
 class RegisterForm extends BaseForm
 {
 
+    /**
+     * Initialize the Form
+     *
+     * @return void  Handled by Phalcon
+     */
     public function initialize(): void
     {
         // Faker Data is used to save time going through areas manually

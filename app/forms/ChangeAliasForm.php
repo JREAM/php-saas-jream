@@ -11,6 +11,11 @@ use Phalcon\Validation\Validator;
 class ChangeAliasForm extends BaseForm
 {
 
+    /**
+     * Initialize the Form
+     *
+     * @return void  Handled by Phalcon
+     */
     public function initialize(): void
     {
         $alias = new Text('alias', [

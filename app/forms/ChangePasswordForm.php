@@ -12,6 +12,11 @@ use Phalcon\Validation\Validator;
 class ChangePasswordForm extends BaseForm
 {
 
+    /**
+     * Initialize the Form
+     *
+     * @return void  Handled by Phalcon
+     */
     public function initialize(): void
     {
         $currentPassword = new Text('current_password', [

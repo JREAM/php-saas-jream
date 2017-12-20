@@ -40,6 +40,12 @@
                             {{ form.render('confirm_password') }}
                         </div>
 
+                        <div class="checkbox">
+                            <label>
+                                {{ form.render('newsletter') }} <small>Receive JREAM Newsletter (Unsubscribe Anytime)</small>
+                            </label>
+                        </div>
+
                         <div class="form-group">
                             <div class="form-results"></div>
                         </div>

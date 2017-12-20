@@ -202,18 +202,24 @@ class AuthController extends ApiController
         $email           = $json->email;
         $password        = $json->password;
         $confirmPassword = $json->confirm_password;
+        $newsletter      = (in_array($json->newsletter, ['on', 1])) ? 1 : 0;
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
         $form = new \Forms\RegisterForm();
 
-        if (!$form->isValid((array) $json)) {
+        if (!$form->isValid($json)) {
             $errors = [];
 
-            foreach ($form->getMessages() as $msg) {
-                $errors[] = $msg->getMessage();
+            $errors[0] = ['m'];
+
+            $messages = $form->getMessages();
+            if (count($messages) > 0) {
+                foreach ($form->getMessages() as $msg) {
+                    $errors[] = $msg->getMessage();
+                }
+                return $this->output(0, null, $errors);
             }
-            return $this->output(0, null, $errors);
         }
 
         if (\User::findFirstByAlias($alias)) {
@@ -224,7 +230,7 @@ class AuthController extends ApiController
             return $this->output(0, 'This email is already in use.');
         }
 
-        if (!Swift_Validate::email($email)) {
+        if (!\Swift_Validate::email($email)) {
             return $this->output(0, 'Your email is invalid.');
         }
 
@@ -246,7 +252,7 @@ class AuthController extends ApiController
         // Save them in the mailing list
         $newsletterSubscription                = new \NewsletterSubscription();
         $newsletterSubscription->email         = $email;
-        $newsletterSubscription->is_subscribed = 1; // @TODO is tihs right?
+        $newsletterSubscription->is_subscribed = $newsletter;  // Will be 0 or 1
         $newsletterSubscription->save();
 
         // Where'd they signup from?
@@ -269,7 +275,7 @@ class AuthController extends ApiController
             $message = '
                 You have successfully registered!
                 However, there was a problem sending
-                your welcome email.
+                your welcome email. 
             ';
             $this->flashSession->warning($message);
         } else {

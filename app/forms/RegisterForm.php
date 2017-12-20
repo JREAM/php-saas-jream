@@ -6,6 +6,7 @@ namespace Forms;
 
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Validation\Validator;
 use \Phalcon\Di\FactoryDefault as Di;
@@ -88,12 +89,6 @@ class RegisterForm extends BaseForm
         ]);
         $confirmPassword->setFilters(['string', 'trim',]);
 
-        print_r($this);die;
-        print_r($this->getValue('alias'));
-        print_r($this->getValue('password'));
-
-        echo $this->getUserOption('confirm_password');
-        die;
         $confirmPassword->addValidators([
             new Validator\PresenceOf([
                 'message' => 'Confirm Password is required.',
@@ -104,10 +99,17 @@ class RegisterForm extends BaseForm
             ]),
         ]);
 
+        $newsletter = new Check('newsletter', [
+            'label'       => 'Subscribe to Newsletter',
+            'class'       => '',
+            'checked'     => 'checked'
+        ]);
+
         $this->add($alias);
         $this->add($email);
         $this->add($password);
         $this->add($confirmPassword);
+        $this->add($newsletter);
 //        $this->add($newsletterSubscribe);
 
         $this->add(new Submit('submit', [

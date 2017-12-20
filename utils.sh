@@ -23,6 +23,8 @@ while true; do
     db          Import the schema.sql into Database (jream)
     testdb      Creates a Test Database (jream_unit_test)
     devtools    N/A: Setup Phalcon Devtools to /opt/phalcon-tools
+
+    userrm      Removes the fake testing account on a timer when doing api calls every 10 secs
     q           Quit (or CTRL + C)
 command_list
 
@@ -84,6 +86,13 @@ read -p "Type a Command: " cmd
             echo ""
             echo "====================================================================="
             echo ""
+            ;;
+        userrm)
+            while true; do
+              #delete from user where `alias` = 'testbotone';
+              #delete from newsletter_subscription where email = 'testbot01@jream-ignore.com';
+              sleep 10
+            done
             ;;
         db)
           echo "( + ) Dropping, and Re-creating Database (jream)"

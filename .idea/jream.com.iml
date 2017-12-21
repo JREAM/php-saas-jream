@@ -7,6 +7,8 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/functional" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests/unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/testjs" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.phalcon" />
       <excludeFolder url="file://$MODULE_DIR$/cache" />

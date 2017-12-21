@@ -1,0 +1,23 @@
+{
+  "Source":"Sender Name <sender@example.com>",
+  "Template":"Preferences",
+  "Destinations":[
+    {
+      "Destination":{
+        "ToAddresses":[
+          "anaya.iyengar@example.com"
+        ]
+      },
+      "ReplacementTemplateData":"{\"meta\":{\"userId\":\"51806220607\"},\"contact\":{\"firstName\":\"Anaya\",\"lastName\":\"Iyengar\"},\"subscription\":[{\"interest\":\"Sports\"},{\"interest\":\"Travel\"},{\"interest\":\"Cooking\"}]}"
+      },
+    {
+      "Destination":{
+        "ToAddresses":[
+          "shirley.rodriguez@example.com"
+        ]
+      },
+      "ReplacementTemplateData":"{\"meta\":{\"userId\":\"1981624758263\"},\"contact\":{\"firstName\":\"Shirley\",\"lastName\":\"Rodriguez\"},\"subscription\":[{\"interest\":\"Technology\"},{\"interest\":\"Politics\"}]}"
+    }
+  ],
+  "DefaultTemplateData":"{\"meta\":{\"userId\":\"\"},\"contact\":{\"firstName\":\"Friend\",\"lastName\":\"\"},\"subscription\":[]}"
+}

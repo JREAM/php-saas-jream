@@ -29,7 +29,10 @@
     </workspaceTree>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="" />
+    <list default="true" id="dd6c4458-1e02-4361-acd5-9e54c76f60a4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.sample" afterPath="$PROJECT_DIR$/.env.sample" />
+      <change beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -307,6 +310,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name=".env.sample" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.env.sample">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -321,7 +334,7 @@
         <entry file="file://$PROJECT_DIR$/app/forms/BaseForm.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="202">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -347,11 +360,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegisterForm.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RegisterForm.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/forms/RegisterForm.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
+            <state relative-caret-position="364">
+              <caret line="101" column="47" lean-forward="false" selection-start-line="101" selection-start-column="47" selection-end-line="101" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -447,7 +460,6 @@
         <option value="$PROJECT_DIR$/app/views/partials/payment-checkout.volt" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/.env.sample" />
         <option value="$PROJECT_DIR$/app/controllers/api/ApiController.php" />
         <option value="$PROJECT_DIR$/app/controllers/api/PurchaseController.php" />
         <option value="$PROJECT_DIR$/app/controllers/api/ContactController.php" />
@@ -481,6 +493,7 @@
         <option value="$PROJECT_DIR$/app/controllers/api/AuthController.php" />
         <option value="$PROJECT_DIR$/app/config/config.php" />
         <option value="$PROJECT_DIR$/app/components/EmailComponent.php" />
+        <option value="$PROJECT_DIR$/.env.sample" />
       </list>
     </option>
   </component>
@@ -942,12 +955,12 @@
       <workItem from="1513544503892" duration="14164000" />
       <workItem from="1513731944597" duration="56000" />
       <workItem from="1513732023173" duration="2316000" />
-      <workItem from="1513795793571" duration="4512000" />
+      <workItem from="1513795793571" duration="7713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69598000" />
+    <option name="totallyTimeSpent" value="72799000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -960,6 +973,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="43" width="1920" height="1157" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32683378" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SvgViewer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1076,13 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env.sample">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="96" column="54" lean-forward="false" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -1307,6 +1314,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
           <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1338,7 +1346,7 @@
     <entry file="file://$PROJECT_DIR$/app/forms/BaseForm.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1369,8 +1377,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/forms/RegisterForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
+        <state relative-caret-position="364">
+          <caret line="101" column="47" lean-forward="false" selection-start-line="101" selection-start-column="47" selection-end-line="101" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env.sample">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
         </state>
       </provider>

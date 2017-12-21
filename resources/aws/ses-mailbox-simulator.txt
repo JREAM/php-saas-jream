@@ -1,0 +1,12 @@
+https://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html
+
+This will read from the credentials and send to my given mailbox:
+
+Success: success@simulator.amazonses.com
+Bounce: bounce@simulator.amazonses.com
+Out of the Office (OOTO): ooto@simulator.amazonses.com
+Complaint: complaint@simulator.amazonses.com
+Address on Suppression List: suppressionlist@simulator.amazonses.com
+
+@important: If I send an email to a simulator other then the test addresses, the unlisted will be placed in suppression list.
+

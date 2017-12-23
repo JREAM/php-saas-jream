@@ -23,7 +23,8 @@ class UserController extends ApiController
     {
         $this->apiMethods(['POST']);
 
-        $timezone = $this->request->getPost('timezone');
+        $this->json = $this->request->getJsonRawBody();
+        $timezone = $this->json->timezone;
         if (!in_array($timezone, \DateTimeZone::listIdentifiers())) {
             return $this->output(0, 'Invalid Timezone');
         }
@@ -35,7 +36,9 @@ class UserController extends ApiController
         // Set the timezone!
         $this->session->set('timezone', $timezone);
 
-        return $this->output(1, "Timezone updated");
+        return $this->output(1, "Timezone updated", [
+            'timezone' => $timezone
+        ]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -47,12 +50,15 @@ class UserController extends ApiController
     {
         $this->apiMethods(['POST']);
 
-        $email         = $this->request->getPost('email');
-        $confirmEmail = $this->request->getPost('confirm_email');
+        $this->json = $this->request->getJsonRawBody();
+
+        $email         = $this->json->email;
+        $confirmEmail = $this->json->confirm_email;
 
         $form = new \Forms\ChangeEmailForm(null, ['email' => $email]);
-        if (!$form->isValid()) {
-            return $this->response(0, $form->getMessages());
+
+        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
+            return $this->output(0, $form->getMessages());
         }
 
         $emailExists = \User::findFirstByEmail($email);
@@ -66,33 +72,33 @@ class UserController extends ApiController
         $user->email_change_expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
         $user->save();
 
-        $content = $this->component->email->create('confirm-email-change', [
-            'user_email_change' => $user->email_change,
-            'change_url'        => \Library\Url::get('user/doConfirmEmailChange/' . $user->email_change_key),
-        ]);
+        // @TODO FIX EMAIL, USE FAKE EMAILING SOON
+        //$content = $this->component->email->create('confirm-email-change', [
+        //    'user_email_change' => $user->email_change,
+        //    'change_url'        => \Library\Url::get('user/doConfirmEmailChange/' . $user->email_change_key),
+        //]);
+        //
+        //if (!$content) {
+        //    return $this->output(0, 'An internal error occured, we have been notified about it.');
+        //}
+        //
+        //$mailResult = $this->di->get('email', [
+        //    [
+        //        'to_name'    => $user->getAlias($user->id),
+        //        'to_email'   => $user->getEmail($user->id),
+        //        'from_name'  => $this->config->email->from_name,
+        //        'from_email' => $this->config->email->from_address,
+        //        'subject'    => 'JREAM - Confirm Email Change',
+        //        'content'    => $content,
+        //    ],
+        //]);
+        //
+        //if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
+        //    return $this->output(0, 'There was a problem sending the email.');
+        //}
 
-        if (!$content) {
-            return $this->output(0, 'An internal error occured, we have been notified about it.');
-        }
-
-        $mailResult = $this->di->get('email', [
-            [
-                'to_name'    => $user->getAlias($user->id),
-                'to_email'   => $user->getEmail($user->id),
-                'from_name'  => $this->config->email->from_name,
-                'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM - Confirm Email Change',
-                'content'    => $content,
-            ],
-        ]);
-
-        if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
-            return $this->output(0, 'There was a problem sending the email.');
-        }
-
-        return $this->output(1, "Please verify your email change
-            from the email sent to ({$user->email}). You have 10 minutes to verify
-            until the link expires.");
+        return $this->output(1, "Please verify your email change from the email sent to ({$user->email}). 
+            You have 10 minutes to verify until the link expires.", ['email' => $email]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -103,9 +109,10 @@ class UserController extends ApiController
     public function updateEmailConfirmAction(string $resetKey): Response
     {
         $this->apiMethods(['GET']);
+        $this->json = $this->request->getJsonRawBody();
 
-        //$form = new \Forms\ChangeEmailForm(null, ['email' => $this->request->getPost('email')]);
-        //if (!$form->isValid()) {
+        //$form = new \Forms\ChangeEmailForm(null, ['email' => $this->json->email')]);
+        //if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
         //    return $this->output(0, $form->getMessages());
         //}
 
@@ -128,7 +135,9 @@ class UserController extends ApiController
         $user->save();
 
         if ($user->getMessages() == false) {
-            return $this->output(1, 'Confirmed. Email has been changed, please re-login using your new email.');
+            return $this->output(1, 'Confirmed. Email has been changed, please re-login using your new email.', [
+                'email' => $user->email
+            ]);
         }
 
         return $this->output(0, $user->getMessagesAsHTML());
@@ -144,13 +153,15 @@ class UserController extends ApiController
     public function updateAliasAction(): Response
     {
         $this->apiMethods(['POST']);
+        $this->json = $this->request->getJsonRawBody();
 
         $user = \User::findFirstById($this->session->get('id'));
-        $alias = (string) $this->request->getPost('alias');
+        $alias = (string) $this->json->alias;
 
         $form = new \Forms\ChangeAliasForm(null, ['alias' => $alias]);
-        if (!$form->isValid()) {
-            return $this->response(0, $form->getMessages());
+
+        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
+            return $this->output(0, $form->getMessages());
         }
 
         // @TODO: Add rules, no "Admin, JREAM, special chars, in names, no taken names
@@ -158,7 +169,7 @@ class UserController extends ApiController
         $result = $user->save();
 
         if ($result) {
-            return $this->output(0, 'Your Alias has been updated.');
+            return $this->output(0, 'Your Alias has been updated.', ['alias' => $alias]);
         }
 
         return $this->output(0, $user->getMessagesString());
@@ -173,16 +184,22 @@ class UserController extends ApiController
     {
         $this->apiMethods(['POST']);
 
+        $this->json = $this->request->getJsonRawBody();
+
         $user = \User::findFirstById($this->session->get('id'));
 
-        $user->email_notifications  = (int) $this->request->getPost('email_notifications');
-        $user->system_notifications = (int) $this->request->getPost('system_notifications');
-        $user->newsletter_subscribe = (int) (bool) $this->request->getPost('newsletter_subscribe');
+        $user->email_notifications  = (int) $this->json->email_notifications;
+        $user->system_notifications = (int) $this->json->system_notifications;
+        $user->newsletter_subscribe = (int) (bool) $this->json->newsletter_subscribe;
 
         $result = $user->save();
 
         if ($result) {
-            return $this->output(0, 'Your Email settings have been updated.');
+            return $this->output(0, 'Your Email settings have been updated.', [
+                'email_notifications' => $user->email_notifications,
+                'newsletter_subscribe' => $user->system_notifications,
+                'email_subscribe' => $user->newsletter_subscribe
+            ]);
         }
 
         return $this->output(0, $user->getMessagesString());
@@ -196,13 +213,15 @@ class UserController extends ApiController
     public function updatePasswordAction(): Response
     {
         $this->apiMethods(['POST']);
+        $this->json = $this->request->getJsonRawBody();
 
-        $current_password = $this->request->getPost('current_password');
-        $password         = $this->request->getPost('password');
-        $confirm_password = $this->request->getPost('confirm_password');
+        $current_password = $this->json->current_password;
+        $password         = $this->json->password;
+        $confirm_password = $this->json->confirm_password;
 
         $form = new \Forms\ChangePasswordForm(null, ['confirm_password' => $confirm_password]);
-        if (!$form->isValid()) {
+
+        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
             return $this->output(0, $form->getMessages());
         }
 
@@ -221,7 +240,9 @@ class UserController extends ApiController
             return $this->output(0, $user->getMessagesAsHTML());
         }
 
-        return $this->output(1, 'Your password has been changed');
+        return $this->output(1, 'Your password has been changed', [
+            'password' => '<private>'
+        ]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -232,17 +253,18 @@ class UserController extends ApiController
     public function deleteAccountAction(): Response
     {
         $this->apiMethods(['POST']);
+        $confirm    = $this->json->confirm;
+        $understand = (in_array($this->json->understand, ['on', 1])) ? 1 : 0;
 
-        $confirm    = $this->request->getPost('confirm');
-        $understand = $this->request->getPost('understand');
-
-        if ($understand != 'on') {
+        if (!$understand) {
             return $this->output(0, "You must check off the box for understanding your account removal.");
         }
 
         $user = \User::findFirstById($this->session->get('id'));
 
-        if (strtolower($confirm) != 'delete ' . strtolower($user->getAlias())) {
+        if (strtolower($confirm) !== 'delete') {
+            // @TODO Whats the getAlias attac hed to this for?
+            //if (strtolower($confirm) !== 'delete ' . strtolower($user->getAlias())) {
             return $this->output(0, "To remove your account you must enter the confirmation text.");
         }
 
@@ -255,7 +277,9 @@ class UserController extends ApiController
         }
 
         // Hpw do i want to delete this?
-        return $this->output(0, "Sorry to see you go!");
         $this->session->destroy(); // @TODO: How to destroy all session?
+        return $this->output(0, "Sorry to see you go!", [
+            'id' => $user->id
+        ]);
     }
 }

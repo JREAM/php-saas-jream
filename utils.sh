@@ -24,7 +24,8 @@ while true; do
     testdb      Creates a Test Database (jream_unit_test)
     devtools    N/A: Setup Phalcon Devtools to /opt/phalcon-tools
 
-    userrm      Removes the fake testing account on a timer when doing api calls every 10 secs
+    rmusr      Removes the fake testing account on a timer when doing api calls every 10 secs
+
     q           Quit (or CTRL + C)
 command_list
 
@@ -87,10 +88,14 @@ read -p "Type a Command: " cmd
             echo "====================================================================="
             echo ""
             ;;
-        userrm)
+        rmusr)
+            USER_ID=$(mysql -uroot -proot jream -e "SELECT id FROM user WHERE email = 'testbot01@jream-ignore.com'" | grep -o '[0-9]*');
             while true; do
-              #delete from user where `alias` = 'testbotone';
-              #delete from newsletter_subscription where email = 'testbot01@jream-ignore.com';
+              mysql -uroot -proot jream -e "DELETE FROM \`user\` WHERE \`alias\` = \"testbotone\""
+              mysql -uroot -proot jream -e "DELETE FROM newsletter_subscription WHERE \`email\` = \"testbot01@jream-ignore.com\""
+              mysql -uroot -proot jream -e "DELETE FROM user_purchase  WHERE \`user_id\` = \"${USER_ID}\""
+              mysql -uroot -proot jream -e "DELETE FROM transaction  WHERE \`user_id\` = \"${USER_ID}\""
+              echo "DELETE from user_purchase WHERE user_id = ${USER_ID}"
               sleep 10
             done
             ;;

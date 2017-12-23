@@ -81,12 +81,6 @@ $router->add('/api', [
  * User Routes
  * =============================================================
  */
-$router->add('/logout', [
-    'namespace' => 'Controllers\Api',
-    'controller' => 'Auth',
-    'action' => 'logout'
-]);
-
 $router->add('api/auth/logout')
     ->setName('logout');
 

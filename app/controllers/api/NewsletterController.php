@@ -90,8 +90,8 @@ class NewsletterController extends ApiController
     public function verifyAction(): Response
     {
         $this->apiMethods(['POST']);
+        $token      = $$this->json->token;
 
-        $token      = $this->input->getPost('token');
         $newsletter = NewsletterSubscription::findFirstByToken($token);
         if (!$newsletter) {
             return $this->output(0, 'Token not found.');
@@ -110,8 +110,9 @@ class NewsletterController extends ApiController
     public function unsubscribeAction(): Response
     {
         $this->apiMethods(['POST']);
+        $this->json = $this->request->getJsonRawBody();
+        $email      = $$this->json->email;
 
-        $email      = $this->input->getPost('email');
         $newsletter = NewsletterSubscription::findFirstByEmail($email);
         if (!$newsletter) {
             return $this->output(0, 'Subscription not found.');

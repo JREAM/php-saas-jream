@@ -20,6 +20,11 @@ class ApiController extends Controller
     ];
 
     /**
+     * The passed JSON data for sub-controllers
+     */
+    protected $json;
+
+    /**
      * Hybrid Auth Social Sign-in
      */
     protected $hybridauth;
@@ -53,27 +58,6 @@ class ApiController extends Controller
     }
 
     /**
-     * Require a POST
-     * @return \Phalcon\Http\Response
-     */
-    protected function requireGet(): Response
-    {
-        if (!$this->request->isGet()) {
-            return $this->output(0, 'Wrong API Call; Use GET.', [], 500);
-        }
-    }
-    /**
-     * Require a POST
-     * @return \Phalcon\Http\Response
-     */
-    protected function requirePost(): Response
-    {
-        if (!$this->request->isPost()) {
-            return $this->output(0, 'Wrong API Call; Use POST.', [], 500);
-        }
-    }
-
-    /**
      * All Views are Disabled, only Output Text
      */
     public function initialize(): void
@@ -82,6 +66,7 @@ class ApiController extends Controller
         $this->view->disable();
         $this->tokenManager = new TokenManager();
         $this->hybridauth   = $this->di->get('hybridAuth');
+        $this->json = $this->request->getJsonRawBody();
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -32,7 +32,7 @@ class UtilsController extends ApiController
         }
 
         $markdown = $this->di->get('markdown');
-        $content   = trim($this->request->getPost('content'));
+        $content   = trim($json->content);
 
         if ($content) {
             $content = $markdown->parse($content);

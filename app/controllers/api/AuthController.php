@@ -30,8 +30,8 @@ class AuthController extends ApiController
         $this->apiMethods(['POST']);
 
         // POST Data
-        $email    = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        $email    = $this->json->email;
+        $password = $this->json->password;
 
         // Cannot have Empty Fields
         if (!$email || ! $password) {
@@ -172,14 +172,10 @@ class AuthController extends ApiController
             $adapter->disconnect();
 
             // JavaScript will redirect us (Based on the Xhr class I wrote)
-            return $this->response->redirect(\Library\Url::get('dashboard'), false);
+            return $this->output(1, \Library\Url::get('dashboard'));
         } catch (\Exception $e) {
             // Display a generic error view
-            $this->view->setVars([
-                'message' => $e->getMessage(),
-            ]);
-
-            return $this->view->pick('error/generic');
+            return $this->output(0, $e->getMessage());
         }
     }
 
@@ -195,31 +191,23 @@ class AuthController extends ApiController
     {
         $this->apiMethods(['POST']);
 
-        $json = $this->request->getJsonRawBody();
-
         // @TODO use the saveUser method
-        $alias           = $json->alias;
-        $email           = $json->email;
-        $password        = $json->password;
-        $confirmPassword = $json->confirm_password;
-        $newsletter      = (in_array($json->newsletter, ['on', 1])) ? 1 : 0;
+        $alias           = $this->json->alias;
+        $email           = $this->json->email;
+        $password        = $this->json->password;
+        $confirmPassword = $this->json->confirm_password;
+        $newsletter      = (in_array($this->json->newsletter, ['on', 1])) ? 1 : 0;
 
         // GOTTA TEST THIS
         // @TODO this is NOT VALID but its not working
         $form = new \Forms\RegisterForm();
 
-        if (!$form->isValid($json)) {
+        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
             $errors = [];
-
-            $errors[0] = ['m'];
-
-            $messages = $form->getMessages();
-            if (count($messages) > 0) {
-                foreach ($form->getMessages() as $msg) {
-                    $errors[] = $msg->getMessage();
-                }
-                return $this->output(0, null, $errors);
+            foreach ($form->getMessages() as $msg) {
+                $errors[] = $msg->getMessage();
             }
+            return $this->output(0, null, $errors);
         }
 
         if (\User::findFirstByAlias($alias)) {
@@ -258,34 +246,35 @@ class AuthController extends ApiController
         // Where'd they signup from?
         $user->saveReferrer($user->id, $this->request);
 
-        // Send an email!
-        $mail_result = $this->di->get('email', [
-            [
-                'to_name'    => $user->getAlias($user->id),
-                'to_email'   => $user->getEmail($user->id),
-                'from_name'  => $this->config->email->from_name,
-                'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM - Registration',
-                'content'    => $this->component->email->create('register', []),
-            ],
-        ]);
-
-        // If email error, oh well still success
-        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
-            $message = '
-                You have successfully registered!
-                However, there was a problem sending
-                your welcome email. 
-            ';
-            $this->flashSession->warning($message);
-        } else {
-            $message = 'You have successfully registered!';
-            $this->flashSession->success($message);
-        }
+        // @TODO Would like to use a Queue instead of this
+        //// Send an email!
+        //$mail_result = $this->di->get('email', [
+        //    [
+        //        'to_name'    => $user->getAlias($user->id),
+        //        'to_email'   => $user->getEmail($user->id),
+        //        'from_name'  => $this->config->email->from_name,
+        //        'from_email' => $this->config->email->from_address,
+        //        'subject'    => 'JREAM - Registration',
+        //        'content'    => $this->component->email->create('register', []),
+        //    ],
+        //]);
+        //
+        //// If email error, oh well still success
+        //if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+        //    $message = '
+        //        You have successfully registered!
+        //        However, there was a problem sending
+        //        your welcome email.
+        //    ';
+        //    $this->flashSession->warning($message);
+        //} else {
+        //    $message = 'You have successfully registered!';
+        //    $this->flashSession->success($message);
+        //}
 
         // Create the User Session
         $this->createSession($user, 'jream');
-        $this->output(1, 'Registration Success', [
+        return $this->output(1, 'Registration Success', [
             'redirect' => \Library\Url::get('dashboard/'),
             'form_keep_disabled' => true
         ]);
@@ -438,6 +427,8 @@ class AuthController extends ApiController
      */
     protected function sendWelcomeEmail(\User $user, string $accountType)
     {
+        // @TODO: FIX THIS AT A POINT
+        return true;
         $mail_result = $this->di->get('email', [
             [
                 'to_name'    => $user->getAlias($user->id),
@@ -474,6 +465,8 @@ class AuthController extends ApiController
      */
     protected function sendLinkedAccountEmail(\User $user, string $accountType): string
     {
+        return true;
+        // @TODO FIX AT SOME POINT
         $mail_result = $this->di->get('email', [
             [
                 'to_name'    => $user->getAlias($user->id),
@@ -507,11 +500,15 @@ class AuthController extends ApiController
     {
         $this->apiMethods(['GET']);
 
+        if (!$this->session->has('id')) {
+            return $this->output(0, 'There is no session to log out of.');
+        }
+
         // @TODO This is broken
         //$this->hybridauth->disconnectAllAdapters();
         $this->session->destroy();
 
-        return $this->response->redirect($this->router->getRouteByName('home'));
+        return $this->output(1, 'logging out', [ 'redirect' => '/']);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -522,8 +519,7 @@ class AuthController extends ApiController
     public function passwordForgotAction(): Response
     {
         $this->apiMethods(['POST']);
-
-        $email = $this->request->getPost('email');
+        $email = $this->json->email;
         $user  = User::findFirstByEmail($email);
 
         if (!$user) {
@@ -573,9 +569,8 @@ class AuthController extends ApiController
     public function passwordForgotCreateAction(): Response
     {
         $this->apiMethods(['POST']);
-
-        $confirmEmail = $this->request->getPost('email');
-        $resetKey     = $this->request->getPost('reset_key');
+        $confirmEmail = $this->json->email;
+        $resetKey     = $this->json->reset_key;
 
         $user = User::findFirst([
             "email = :email: AND password_reset_key = :key: AND password_reset_expires_at > :date:",
@@ -590,8 +585,8 @@ class AuthController extends ApiController
             return $this->output(0, 'Invalid email and key combo, or time has expired.');
         }
 
-        $password         = $this->request->getPost('password');
-        $confirmPassword = $this->request->getPost('confirmPassword');
+        $password         = $this->json->password;
+        $confirmPassword = $this->json->confirmPassword;
 
         if ($password != $confirmPassword) {
             return $this->output(0, 'Your passwords do not match.');

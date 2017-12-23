@@ -31,18 +31,19 @@ class PurchaseController extends ApiController
     public function applyPromotionAction(): Response
     {
         $this->apiMethods(['POST']);
+        $this->json = $this->request->getJsonRawBody();
 
-        $code      = $this->input->getPost('code');
-        $productId = $this->input->getPost('productId');
+        $code      = $this->json->code;
+        $productId = $this->json->productId;
 
         $promotion = new Promotion();
         $result    = $promotion->check($code, $productId);
 
         if ($result) {
-            return $this->output(0, 'Promotion not found.');
+            return $this->output(0, 'Promotion not found.', ['code' => $code]);
         }
 
-        return $this->output(1, 'Promotion Applied.');
+        return $this->output(1, 'Promotion Applied.', ['code' => $code]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -59,7 +60,7 @@ class PurchaseController extends ApiController
     {
         $this->apiMethods(['POST']);
 
-        $productId = $this->input->getPost('productId');
+        $productId = $this->json->product_id;
 
         $product = \Product::findFirstById($productId);
         if (!$product || $product->price != 0) {
@@ -68,7 +69,7 @@ class PurchaseController extends ApiController
 
         $create = $this->createPurchase($product, 'free', 'website');
         if ($create->result) {
-            return $this->output(1, ['redirect' => $product->id]);
+            return $this->output(1, 'Free course added.', ['free_course' => $product->title, 'id' => $productId]);
         }
 
         return $this->output(0, $create->msg);
@@ -98,7 +99,7 @@ class PurchaseController extends ApiController
         }
 
         if ($product->hasPurchased() == true) {
-            return $this->output->response(0, 'You have already purchased this');
+            return $this->output(0, 'You have already purchased this');
         }
 
         $stripeToken = $this->request->getPost('stripeToken');
@@ -283,7 +284,7 @@ class PurchaseController extends ApiController
         ])->send();
 
         // How to handle this? @TODO
-        return $response->redirect();
+        return $this->output(1, 'redirecting to paypal', ['redirect' => $response->redirect()]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -351,7 +352,7 @@ class PurchaseController extends ApiController
             return $this->output(0, $do->msg);
         }
 
-        return $this->output(1, ['redirect' => $product->id]);
+        return $this->output(1, null, ['redirect' => $product->id]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -380,14 +381,17 @@ class PurchaseController extends ApiController
         $promo_applied = false;
 
         // Check for discount
-        if ($this->security->checkHash($this->config->hash, $this->session->getId())) {
+        if ($this->security->checkHash($this->config->session_hash, $this->session->getId())) {
             $usePrice     = $this->session->get('discount_price');
             $promo_applied = true;
         }
 
+
+
         $transaction->amount = $usePrice;
 
-        $purchased_for = number_format($product->price, 2);
+
+        $purchased_for = number_format((float) $product->price, 2);
 
         // If coupon
         if ($this->session->has('code')) {
@@ -408,42 +412,44 @@ class PurchaseController extends ApiController
         }
         $userPurchase->save();
 
-        $content = $this->component->email->create('purchase', [
-            'product_title'  => $product->title,
-            'product_img'    => $product->img_sm,
-            'login_url'      => \URL . '/user/login',
-            'product_price'  => $purchased_for,
-            'gateway'        => $gateway,
-            'transaction_id' => $transactionId,
-        ]);
+        //$content = $this->component->email->create('purchase', [
+        //    'product_title'  => $product->title,
+        //    'product_img'    => $product->img_sm,
+        //    'login_url'      => \URL . '/user/login',
+        //    'product_price'  => $purchased_for,
+        //    'gateway'        => $gateway,
+        //    'transaction_id' => $transactionId,
+        //]);
 
         $user = User::findFirstById($this->session->get('id'));
+        $userEmail = $user->getEmail();
 
-        // Send email regarding purchase
-        $mail_result = $this->di->get('email', [
-            [
-                'to_name'    => $user->getAlias(),
-                'to_email'   => $user->getEmail(),
-                'from_name'  => $this->config->email->from_name,
-                'from_email' => $this->config->email->from_address,
-                'subject'    => 'JREAM - Purchase Confirmation',
-                'content'    => $content,
-            ],
-        ]);
-
-        if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
-            return (object) [
-                'result' => 0,
-                'msg'    => "Course addition: {$product->title} was successful!
-                    However, there was a problem sending an email to: " . $user->getEmail() . " -
-                    Don't worry! The course is in your account!",
-            ];
-        }
+        // @TODO FIX THIS LATER
+        //// Send email regarding purchase
+        //$mail_result = $this->di->get('email', [
+        //    [
+        //        'to_name'    => $user->getAlias(),
+        //        'to_email'   => $user->getEmail(),
+        //        'from_name'  => $this->config->email->from_name,
+        //        'from_email' => $this->config->email->from_address,
+        //        'subject'    => 'JREAM - Purchase Confirmation',
+        //        'content'    => $content,
+        //    ],
+        //]);
+        //
+        //if (!in_array($mail_result->statusCode(), [200, 201, 202])) {
+        //    return (object) [
+        //        'result' => 0,
+        //        'msg'    => "Course addition: {$product->title} was successful!
+        //            However, there was a problem sending an email to: " . $user->getEmail() . " -
+        //            Don't worry! The course is in your account!",
+        //    ];
+        //}
 
         return (object) [
             'result' => 1,
             'msg'    => "Course addition: {$product->title} was successful!
-            Your should receive an email confirmation shortly to: \" . $user->getEmail());",
+            Your should receive an email confirmation shortly to: \" . $userEmail);",
         ];
     }
 }

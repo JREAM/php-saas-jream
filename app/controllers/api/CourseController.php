@@ -23,13 +23,12 @@ class CourseController extends ApiController
     public function updateProgressAction(): Response
     {
         $this->apiMethods(['POST']);
+        $userId = $this->session->get('id');
 
-        $userId = $this->session->get('userId');
-
-        $productCourseId = (int) $this->request->getPost('contentId');
-        $productId       = (int) $this->request->getPost('productId');
-        $action          = $this->request->getPost('action');
-        $value           = (int) $this->request->getPost('value');
+        $productCourseId = (int) $this->json->contentId;
+        $productId       = (int) $this->json->productId;
+        $action          = $this->json->action;
+        $value           = (int) $this->json->value;
 
         $userAction = new UserAction();
         $userAction = $userAction->getAction($action, $userId, $productCourseId);
@@ -37,19 +36,19 @@ class CourseController extends ApiController
         if ($userAction) {
             $userAction->value = (int) $value;
             $userAction->save();
-            $this->output(1, ['value' => $value]);
+            return $this->output(1, 'updated', ['value' => $value]);
         }
 
         $userAction                    = new UserAction();
         $userAction->action            = $action;
-        $userAction->userId           = $userId;
+        $userAction->user_id           = $userId;
         $userAction->product_id        = $productId;
         $userAction->product_course_id = $productCourseId;
         $userAction->value             = $value;
         $userAction->save();
 
         if ($userAction->getMessages() == false) {
-            return $this->output(1, ['value' => $value]);
+            return $this->output(1, 'updated', ['value' => $value]);
         }
 
         return $this->output(0, $userAction->getMessagesString());

@@ -15,12 +15,12 @@ class Contact extends Controller
     public function sendAction(): Response
     {
         $this->apiMethods(['POST']);
-
         // If Recaptcha fails, Warn and use JS to reload.
-        if (!new Recaptcha($this->session, $this->request->getPost('g-recaptcha-response'))) {
-            // Retrigger: grecaptcha.reset() in JS
-            return $this->output(0, 'Recaptcha is invalid, please try again.');
-        }
+        // @TODO How to get the recaptcha var?
+        //if (!new Recaptcha($this->session, $this->json->g-recaptcha-response'))) {
+        //    // Retrigger: grecaptcha.reset() in JS
+        //    return $this->output(0, 'Recaptcha is invalid, please try again.');
+        //}
 
         // Make sure recaptcha called and all
         if (!$this->session->has('recaptcha')) {
@@ -34,7 +34,7 @@ class Contact extends Controller
         $form = new \Forms\ContactForm();
 
         // Make sure the form is valid
-        if (!$form->isValid($_POST)) {
+        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
             $errors = [];
             foreach ($form->getMessages() as $message) {
                 $errors[] = $message->getMessage();
@@ -44,10 +44,10 @@ class Contact extends Controller
         }
 
         // Gather the POST stuff
-        $email    = $this->request->getPost('email');
-        $message  = $this->request->getPost('message');
-        $name     = $this->request->getPost('name');
-        // $recatcha = $this->request->getPost('g-recaptcha-response');
+        $email    = $this->json->email;
+        $message  = $this->json->message;
+        $name     = $this->json->name;
+        // $recatcha = $this->json->g-recaptcha-response');
 
         // if ()
 

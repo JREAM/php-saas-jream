@@ -18,20 +18,21 @@
 	"dependencies": {
 		"animate-sass": "^0.8",
 		"axios": "^0.17",
-		"bootstrap-sass": "^3.3.7",
 		"bootstrap": "3.3.7",
+		"bootstrap-sass": "^3.3.7",
 		"bottlejs": "^1.6.3",
 		"caniuse-lite": "^1.0.30000783",
 		"file-loader": "^1.1.6",
-		"jquery-expander": "^1.7",
 		"jquery": "^3.2",
+		"jquery-expander": "^1.7",
 		"lodash": "^4.17.4",
 		"moment": "^2.19",
 		"simple-line-icons": "^2.4",
 		"tether": "^1.4",
 		"typescript": "^2.6",
 		"url-loader": "^0.6.2",
-		"vue": "^2.5.13"
+		"vue": "^2.5.13",
+		"vue-router": "^3.0.1"
 	},
 	"devDependencies": {
 		"autoprefixer": "^7.1",

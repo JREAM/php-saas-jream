@@ -26,6 +26,7 @@ Icon?
 mix-manifest.json
 node_modules
 npm-debug.log
+yarn-error.log
 package-json.lock
 public/sass/.sass-cache*
 tests/_output/

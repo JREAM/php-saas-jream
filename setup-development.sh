@@ -8,7 +8,8 @@ echo ""
 
 composer global require phpmd/phpmd
 composer install
-npm i
+yarn
+
 if [[ ! -f .env ]]; then
   cp .env.sample .env
   echo 'Edit the .env file'

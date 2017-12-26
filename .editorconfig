@@ -7,7 +7,7 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 4
+indent_size = 2
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
@@ -16,17 +16,18 @@ insert_final_newline = true
 ## ------------------------------------------- ##
 ## Language
 ## ------------------------------------------- ##
-[*.{py,php,json}]
+[*.{php}]
+indent_size=4
 max_line_length = 120
 
-[*.rb]
+[*.{py,rb}]
 indent_size=2
 
 
 ## ------------------------------------------- ##
 ## Stylesheets
 ## ------------------------------------------- ##
-[*.{css,sass,scss,less}]
+[*.{css,sass,scss,less,,json}]
 indent_size = 2
 
 
@@ -34,7 +35,6 @@ indent_size = 2
 ## JavaScripts
 ## ------------------------------------------- ##
 [*.{cs,coffee,es,es6,ls,js,jsx,ts,vue}]
-indent_style = space
 indent_size = 2
 
 
@@ -46,7 +46,6 @@ indent_style = space
 indent_size = 2
 
 [*.{htm,html,j2,jinj{a,a2},]
-indent_style = space
 indent_size = 2
 
 [**.blade.php]
@@ -84,16 +83,9 @@ insert_final_newline = ignore
 
 
 ## ------------------------------------------- ##
-## Makefiles always use tabs for indentation
+## Bash/Bat and Makefil Files
 ## ------------------------------------------- ##
-[Makefile]
-indent_style = tab
-
-
-## ------------------------------------------- ##
-## Bash/Bat Files
-## ------------------------------------------- ##
-[*.bat]
+[*.bat,Makefile]
 indent_style = tab  # These always use tabs (Windows)
 
 [*.{bash,sh,zsh}]

@@ -94,7 +94,7 @@ class PermissionPlugin extends Plugin
     public function initialize()
     {
         $config            = $this->di->get('config');
-        $this->saveAclFile = $config->get('securityDir') . 'acl.data';
+        $this->saveAclFile = $config->application->securityDir . 'acl.data';
     }
 
     // ----------------------------------------------------------------------------
@@ -233,7 +233,7 @@ class PermissionPlugin extends Plugin
         $di     = \Phalcon\Di::getDefault();
         $config = $di->get('config');
 
-        $dir = new \DirectoryIterator($config->controllersDir . 'api/');
+        $dir = new \DirectoryIterator($config->application->controllersDir . 'api/');
 
         // Iterate the API Controllers
         foreach ($dir as $file) {
@@ -271,7 +271,7 @@ class PermissionPlugin extends Plugin
         $di     = \Phalcon\Di::getDefault();
         $config = $di->get('config');
 
-        $dir = new \DirectoryIterator($config->controllersDir . strtolower($namespace) . '/');
+        $dir = new \DirectoryIterator($config->application->controllersDir . strtolower($namespace) . '/');
 
         // Iterate the API Controllers
         foreach ($dir as $file) {

@@ -51,7 +51,7 @@ $di->setShared('eventsManager', $eventsManager);
 $di->setShared('logger', function () use ($config) {
 
     $log = new Logger('error_log');
-    $log->pushHandler(new StreamHandler($config->get('logsDir') . '/error.log', Logger::WARNING));
+    $log->pushHandler(new StreamHandler($config->application->logsDir . '/error.log', Logger::WARNING));
 
     return $log;
 });
@@ -160,7 +160,7 @@ $di->setShared('api', function () use ($api) {
  * =============================================================
  */
 $di->setShared('router', function () use ($config) {
-    return require $config->get('configDir') . 'routes.php';
+    return require $config->application->configDir . 'routes.php';
 });
 
 
@@ -234,12 +234,12 @@ $di->setShared('hashids', function () use ($config) {
  */
 $di->setShared('view', function () use ($config, $di) {
     $view = new View();
-    $view->setViewsDir($config->get('viewsDir'));
+    $view->setViewsDir($config->application->viewsDir);
     $view->registerEngines([
         '.volt'  => function (View $view, DiInterface $di) use ($config) {
 
             // APP_TEST is set from the TEST environment
-            $path = APPLICATION_ENV === APP_TEST ? DOCROOT . 'tests/_cache/' : $config->get('cacheDir');
+            $path = APPLICATION_ENV === APP_TEST ? DOCROOT . 'tests/_cache/' : $config->application->cacheDir;
 
             // ------------------------------------------------
             // Volt Template Engine
@@ -617,7 +617,7 @@ $di->setShared('paypal', function () {
 if (APPLICATION_ENV !== APP_PRODUCTION) {
     // Storage: Logs Debugging as it may become convoluted with Phalcons custom $_SESSION.
     // @important: This must come before the getInstance()
-    $storage = new PhpConsole\Storage\File($config->logsDir . 'phpconsole.data');
+    $storage = new PhpConsole\Storage\File($config->application->logsDir . 'phpconsole.data');
     PhpConsole\Connector::setPostponeStorage($storage);
 
     // Register PhpConsole as PC::debug($foo), PC::tag($bar), PC::debug('msg')

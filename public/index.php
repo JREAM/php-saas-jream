@@ -24,7 +24,7 @@ try {
      * =============================================================
      */
     $config = require_once APP_PATH . "config/config.php";
-    $api    = require_once $config->get('configDir') . "api.php";
+    $api    = require_once $config->application->configDir . "api.php";
 
 
     /**
@@ -42,7 +42,7 @@ try {
      * This uses the config.php
      * =============================================================
      */
-    require_once $config->get('configDir') . "loader.php";
+    require_once $config->application->configDir . "loader.php";
 
 
     /**
@@ -50,7 +50,7 @@ try {
      * Read services
      * =============================================================
      */
-    require_once $config->get('configDir') . "services.php";
+    require_once $config->application->configDir . "services.php";
 
     /**
      * ==============================================================

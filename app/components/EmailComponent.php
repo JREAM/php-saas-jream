@@ -52,7 +52,7 @@ class EmailComponent extends Component
     {
         $config = $this->di->get('config');
 
-        $filename = $config->get('emailsDir') . basename($template) . '.php';
+        $filename = $config->application->emailsDir . basename($template) . '.php';
 
         if (file_exists($filename) && is_readable($filename)) {
             return file_get_contents($filename);

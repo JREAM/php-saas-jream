@@ -50,24 +50,27 @@ $config = new \Phalcon\Config([
      * Directories
      * These must ALWAYS have a trailing "/"
      */
-    'cacheDir'       => DOCROOT . 'cache/',
-    'componentsDir'  => APP_PATH . 'components/',
-    'configDir'      => APP_PATH . 'config/',
-    'controllersDir' => APP_PATH . 'controllers/',
-    'formsDir'       => APP_PATH . 'forms/',
-    'logsDir'        => DOCROOT . 'logs/',
-    'libraryDir'     => APP_PATH . 'library/',
-    'migrationsDir'  => APP_PATH . 'migrations/',
-    'middlewareDir'  => APP_PATH . 'middleware/',
-    'modelsDir'      => APP_PATH . 'models/',
-    'pluginsDir'     => APP_PATH . 'plugins/',
-    'securityDir'    => APP_PATH . 'security/',
-    'resourcesDir'   => DOCROOT . 'resources/',
-    'emailsDir'      => DOCROOT . 'resources/emails/',
-    'tasksDir'       => APP_PATH . 'tasks/',
-    'testsDir'       => DOCROOT . 'tests/',
-    'viewsDir'       => APP_PATH . 'views/',
-
+    'application' => [
+      'cacheDir'       => DOCROOT . 'cache/',
+      'componentsDir'  => APP_PATH . 'components/',
+      'configDir'      => APP_PATH . 'config/',
+      'controllersDir' => APP_PATH . 'controllers/',
+      'formsDir'       => APP_PATH . 'forms/',
+      'logsDir'        => DOCROOT . 'logs/',
+      'libraryDir'     => APP_PATH . 'library/',
+      'migrationsDir'  => APP_PATH . 'migrations/',
+      'middlewareDir'  => APP_PATH . 'middleware/',
+      'modelsDir'      => APP_PATH . 'models/',
+      'pluginsDir'     => APP_PATH . 'plugins/',
+      'securityDir'    => APP_PATH . 'security/',
+      'resourcesDir'   => DOCROOT . 'resources/',
+      'emailsDir'      => DOCROOT . 'resources/emails/',
+      'tasksDir'       => APP_PATH . 'tasks/',
+      'testsDir'       => DOCROOT . 'tests/',
+      'viewsDir'       => APP_PATH . 'views/',
+    ]
 ]);
+
+
 
 return $config;

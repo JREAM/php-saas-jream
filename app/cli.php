@@ -22,7 +22,7 @@ require_once realpath(dirname(__DIR__)) . '/app/config/env.php';
  * =============================================================
  */
 $config = require APP_PATH . "/config/config.php";
-$api    = require $config->get('configDir') . "api.php";
+$api    = require $config->application->configDir . "api.php";
 
 /**
  * ==============================================================
@@ -30,7 +30,7 @@ $api    = require $config->get('configDir') . "api.php";
  * This uses the config.php
  * =============================================================
  */
-require_once $config->get('configDir') . "loader.php";
+require_once $config->application->configDir . "loader.php";
 
 /**
  * ==============================================================

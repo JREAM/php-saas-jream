@@ -17,6 +17,22 @@ class CourseController extends ApiController
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+    public function get($courseId)
+    {
+        $this->apiMethods(['GET']);
+
+        if ($courseId) {
+            $course = \Course::findById($courseId);
+            if ($course) {
+                return $this->output(1, 'course found', $course);
+            }
+            return $this->output(0, 'course not found');
+        }
+        return $this->output(1, \Course::find(['deleted' => 0]));
+    }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
     /**
      * @return Response
      */

@@ -9,9 +9,6 @@ use Controllers\BaseController;
 
 class CourseController extends BaseController
 {
-    const REDIRECT_FAILURE        = 'dashboard';
-    const REDIRECT_FAILURE_COURSE = 'course/index/';
-
     protected $sectionTitle = 'My Courses';
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -164,8 +164,7 @@ class UserController extends ApiController
             return $this->output(0, $form->getMessages());
         }
 
-        // @TODO: Add rules, no "Admin, JREAM, special chars, in names, no taken names
-        $user->alias = (string) $alias;
+        $user->alias = (string) strtolower($alias);
         $result = $user->save();
 
         if ($result) {
@@ -188,8 +187,8 @@ class UserController extends ApiController
 
         $user = \User::findFirstById($this->session->get('id'));
 
-        $user->email_notifications  = (int) $this->json->email_notifications;
-        $user->system_notifications = (int) $this->json->system_notifications;
+        $user->email_notifications  = (int) (bool) $this->json->email_notifications;
+        $user->system_notifications = (int) (bool) $this->json->system_notifications;
         $user->newsletter_subscribe = (int) (bool) $this->json->newsletter_subscribe;
 
         $result = $user->save();

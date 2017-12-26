@@ -46,4 +46,10 @@ class WebhookController extends BaseController
         // Hit by SQS and then updates DB.
         echo "SQS";
     }
+
+    public function SESAction()
+    {
+        // Hit by SQS and then updates DB.
+        echo "SES";
+    }
 }

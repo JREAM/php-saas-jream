@@ -71,11 +71,4 @@ class PromotionController extends BaseController
         $this->view->pick('promotion/promotion');
     }
 
-    public function selectItemAction(): void
-    {
-        $this->view->disable();
-
-        // Array of Items
-        $items = $this->input->post('item');
-    }
 }

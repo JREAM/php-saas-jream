@@ -25,9 +25,10 @@ class ChangeAliasForm extends BaseForm
             'class'       => 'form-control input-lg',
         ]);
 
+
         $alias->addValidators([
             new Validator\PresenceOf([
-                'message' => 'Your email is required.',
+                'message' => 'An Alias is required.',
             ]),
             new Validator\StringLength([
                 'min'        => 4,
@@ -37,6 +38,11 @@ class ChangeAliasForm extends BaseForm
             ]),
             new Validator\Alpha([
                 'message' => 'Your alias can only contain letters.'
+            ]),
+            new Validator\Regex([
+                'message' => 'You cannot use the alias you provided.',
+                'pattern' => '/[^!@#$%^&*]*(admin|jream|jesseboyer|sysadmin|asshole|fuck|shit|nigger|bitch)[^!@#$%^&*]*/i',
+                'allowEmpty' => false
             ])
         ]);
         $alias->setFilters(['string', 'trim',]);

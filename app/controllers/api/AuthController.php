@@ -81,10 +81,10 @@ class AuthController extends ApiController
         // Track the login attempts
         // @TODO should i save in session?
         ++$user->login_attempt;
-        $user->login_attempt_at = date('Y-m-d H:i:s', strtotime('now'));
+        $user->login_attempt_at = date('Y-m-d H:i:s');
         $user->save();
 
-        return $this->output(0, 'Incorrect Credentials');
+        return $this->output(0, 'Sorry, Incorrect Account Credentials.');
     }
 
 
@@ -99,7 +99,11 @@ class AuthController extends ApiController
      */
     public function githubAction()
     {
-        return $this->socialSignin('GitHub');
+        try {
+            return $this->socialSignin('GitHub');
+        } catch (\Exception $e) {
+            return $this->output(0, $e->getMessage());
+        }
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -113,7 +117,11 @@ class AuthController extends ApiController
      */
     public function googleAction()
     {
-        return $this->socialSignin('Google');
+        try {
+            return $this->socialSignin('Google');
+        } catch (\Exception $e) {
+            return $this->output(0, $e->getMessage());
+        }
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -127,7 +135,11 @@ class AuthController extends ApiController
      */
     public function facebookAction()
     {
-        return $this->socialSignin('Facebook');
+        try {
+            return $this->socialSignin('Facebook');
+        } catch (\Exception $e) {
+            return $this->output(0, $e->getMessage());
+        }
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -137,8 +149,8 @@ class AuthController extends ApiController
         // Casing is Important (HybridAuth uses the actual classnames)
         $acceptedNetworks = ['Google', 'GitHub', 'Facebook'];
         if (!in_array($network, $acceptedNetworks)) {
-            throw new \Exception("The network '$network' is not in the accepted networks (Case-Sensitive): " .
-                                 implode(', ', $acceptedNetworks));
+            $acceptedNetworksString = implode(', ', $acceptedNetworks));
+            return $this->output(0, "The network '$network' is not in the accepted networks (Case-Sensitive): $acceptedNetworksString");
         }
 
         try {

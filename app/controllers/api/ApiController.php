@@ -36,6 +36,13 @@ class ApiController extends Controller
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+    /**
+     * Allow methods to run only certain types of methods.
+     *
+     * @param array $types  Example: $this->>apiMethods['POST', 'GET']); only allows these two methods
+     *
+     * @return bool|\Phalcon\Http\Response
+     */
     protected function apiMethods(array $types) {
         // Uppercase the Types
         $types = array_map('strtoupper', $types);
@@ -64,9 +71,15 @@ class ApiController extends Controller
     {
         // No views are used in API, all JSON calls
         $this->view->disable();
-        $this->tokenManager = new TokenManager();
-        $this->hybridauth   = $this->di->get('hybridAuth');
+
+        // JSON Used Everywhere
         $this->json = $this->request->getJsonRawBody();
+
+        // CSRF Protection
+        $this->tokenManager = new TokenManager();
+
+        // Social Login
+        $this->hybridauth   = $this->di->get('hybridAuth');
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -116,7 +129,7 @@ class ApiController extends Controller
      */
     public function indexAction()
     {
-        return $this->output(0, 'Invalid usage of the API.');
+        return $this->output(0, 'Invalid API Endpoint.');
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -133,7 +146,6 @@ class ApiController extends Controller
     protected function output(int $result, $msg, $data = [], int $httpSuccessCode = 200): Response
     {
         $outgoing = new Output($result, $msg);
-
         return $outgoing->setData($data)->send($httpSuccessCode);
     }
 }

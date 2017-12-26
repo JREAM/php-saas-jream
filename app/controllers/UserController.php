@@ -43,7 +43,7 @@ class UserController extends BaseController
     public function loginAction(): View
     {
         if ($this->session->has('id')) {
-            $this->redirectToDashboard();
+            return $this->redirect('dashboard');
         }
 
         Tag::setTitle('Login | ' . $this->di[ 'config' ][ 'title' ]);
@@ -53,16 +53,6 @@ class UserController extends BaseController
         ]);
 
         return $this->view->pick('user/login');
-    }
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-    /**
-     * @return \Phalcon\Http\Response
-     */
-    protected function redirectToDashboard(): Response
-    {
-        return $this->redirect('dashboard');
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

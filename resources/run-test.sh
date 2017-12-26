@@ -8,7 +8,7 @@
 # ---------------------------------
 # codecept run --steps
 # codecept run --steps --coverage
-
+cd ..
 while true; do
     cat <<- command_list
     CMD         PROCESS

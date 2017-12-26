@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "aws/aws-sdk-php": "^3.44",
+        "aws/aws-sdk-php": "^3.48",
         "erusev/parsedown": "^1.6",
         "filp/whoops": "^2.1",
         "monolog/monolog": "^1.23",
@@ -29,11 +29,11 @@
         "sentry/sentry": "^1.8",
         "stripe/stripe-php": "^v3.23",
         "swiftmailer/swiftmailer": "^5.4",
-        "symfony/dotenv": "^v3.4",
-        "symfony/var-dumper": "^3.4",
+        "symfony/dotenv": "^v4.0",
+        "symfony/var-dumper": "^4.0",
         "php": ">=7.0",
         "ext-phalcon": ">=3.2",
-        "hybridauth/hybridauth": "v3.0.0-beta.2",
+        "hybridauth/hybridauth": "v3.0.0-beta.4",
         "hashids/hashids": "^2.0",
         "fzaninotto/Faker": "^1.7",
         "gkralik/php-uglifyjs": "^1.0",

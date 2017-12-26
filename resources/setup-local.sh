@@ -6,6 +6,7 @@ echo ""
 echo "====================================================================="
 echo ""
 
+cd ..
 composer global require phpmd/phpmd
 composer install
 yarn

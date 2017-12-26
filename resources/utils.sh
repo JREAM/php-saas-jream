@@ -8,6 +8,7 @@ echo ""
 echo "====================================================================="
 echo ""
 
+cd ..
 CACHE_PATH=$PWD/cache/
 ACL_DATA_FILE=$PWD/app/security/acl.data
 
@@ -38,7 +39,7 @@ read -p "Type a Command: " cmd
     case $cmd in
         phpcs)
           echo "( + ) Running PHP Code Sniffer"
-          ./vendor/bin/phpcsW
+          ./vendor/bin/phpcs
           echo "( + ) Finished"
           echo ""
           echo "====================================================================="

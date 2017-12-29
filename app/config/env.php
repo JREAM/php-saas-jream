@@ -38,7 +38,8 @@ try {
     $dotenv = new Symfony\Component\Dotenv\Dotenv();
     $dotenv->load(DOCROOT . DIRECTORY_SEPARATOR . '.env');
 } catch (Exception $e) {
-    die('Missing required .env file.');
+    print_r($e->getMessage());
+    die('Missing required .env file. in the Project ROOT.');
 }
 
 /**

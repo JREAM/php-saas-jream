@@ -1,5 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <title>Site Load Error</title>
+  <link href="public/css/app.css" rel="stylesheet">
+</head>
+<body>
 <?php
 // Use is not intended to be here. This were only if mod_rewrite were off
 ?>
 
-Error, you must enable mod_rewrite and correct your path.
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Site Load Error</h1>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <p>
+      <b>Error</b>: You may need to enable <code>mod_rewrite</code> and correct your path in your <code>environment</code>.
+    </p>
+
+    <p>
+      <b>Otherwise:</b> In Development, Ensure you load the <code>/etc/hosts</code> file.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
+
+

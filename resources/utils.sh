@@ -90,10 +90,13 @@ read -p "Type a Command: " cmd
             echo ""
             ;;
         rmusr)
-            USER_ID=$(mysql -uroot -proot jream -e "SELECT id FROM user WHERE email = 'testbot01@jream-ignore.com'" | grep -o '[0-9]*');
+            #USER_ID=$(mysql -uroot -proot jream -e "SELECT id FROM user WHERE email = 'testbotA@jream.com' OR email = 'testbotZ@jream.com' OR alias = 'testBotA' or alias = 'testBotZ'" | grep -o '[0-9]*');
+            USER_ID=9999999
+            echo "USER_ID: ${USER_ID}"
             while true; do
-              mysql -uroot -proot jream -e "DELETE FROM \`user\` WHERE \`alias\` = \"testbotone\" OR \"email\"='testbot01@jream-ignore.com'"
-              mysql -uroot -proot jream -e "DELETE FROM newsletter_subscription WHERE \`email\` = \"testbot01@jream-ignore.com\""
+              mysql -uroot -proot jream -e "DELETE FROM \`user\` WHERE \`id\` =\"${USER_ID}\""
+              mysql -uroot -proot jream -e "DELETE FROM \`user_action\` WHERE \`user_id\` = \"${USER_ID}\""
+              mysql -uroot -proot jream -e "DELETE FROM newsletter_subscription WHERE \`user_id\` = \"${USER_ID}\""
               if [ -z $USER_ID ]; then
                 mysql -uroot -proot jream -e "DELETE FROM user_purchase  WHERE \`user_id\` = \"${USER_ID}\""
                 mysql -uroot -proot jream -e "DELETE FROM transaction  WHERE \`user_id\` = \"${USER_ID}\""

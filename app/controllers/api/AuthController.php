@@ -149,7 +149,7 @@ class AuthController extends ApiController
         // Casing is Important (HybridAuth uses the actual classnames)
         $acceptedNetworks = ['Google', 'GitHub', 'Facebook'];
         if (!in_array($network, $acceptedNetworks)) {
-            $acceptedNetworksString = implode(', ', $acceptedNetworks));
+            $acceptedNetworksString = implode(', ', $acceptedNetworks);
             return $this->output(0, "The network '$network' is not in the accepted networks (Case-Sensitive): $acceptedNetworksString");
         }
 
@@ -223,11 +223,11 @@ class AuthController extends ApiController
         }
 
         if (\User::findFirstByAlias($alias)) {
-            return $this->output(0, 'Your alias cannot be used.');
+            return $this->output(0, 'Your chosen alias is taken.');
         }
 
         if (\User::findFirstByEmail($email)) {
-            return $this->output(0, 'This email is already in use.');
+            return $this->output(0, 'Your email is already in use.');
         }
 
         if (!\Swift_Validate::email($email)) {
@@ -235,6 +235,12 @@ class AuthController extends ApiController
         }
 
         $user               = new \User();
+
+        // For Testing API Calls, set a re-usable ID to add/delete
+        if (property_exists($this->json, 'api_testing') && $this->json->api_testing == 'winter') {
+            $user->id         = 9999999;
+        }
+
         $user->role         = 'user';
         $user->account_type = 'default';
         $user->alias        = $alias;
@@ -249,14 +255,14 @@ class AuthController extends ApiController
             return $this->output(0, $user->getMessagesAsHTML());
         }
 
-        // Save them in the mailing list
+          // Save them in the mailing list
         $newsletterSubscription                = new \NewsletterSubscription();
+        if ($user->id) {
+            $newsletterSubscription->user_id       = $user->id;
+        }
         $newsletterSubscription->email         = $email;
         $newsletterSubscription->is_subscribed = $newsletter;  // Will be 0 or 1
         $newsletterSubscription->save();
-
-        // Where'd they signup from?
-        $user->saveReferrer($user->id, $this->request);
 
         // @TODO Would like to use a Queue instead of this
         //// Send an email!

@@ -93,7 +93,6 @@ class User extends BaseModel
         $this->hasMany('id', 'UserPurchase', 'user_id', ['alias' => 'purchase']);
         $this->hasMany("id", "UserSocial", "user_id", ['alias' => 'social']);
         $this->hasMany('id', 'UserSupport', 'user_id', ['alias' => 'support']);
-        $this->hasOne('id', 'UserReferrer', 'user_id', ['alias' => 'referrer']);
         $this->hasOne('id', 'ForumThread', 'user_id', ['alias' => 'forumthread']);
         $this->hasOne('id', 'Newsletter', 'user_id', ['alias' => 'newsletter']);
     }
@@ -273,33 +272,6 @@ class User extends BaseModel
         }
 
         return false;
-    }
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-    /**
-     * Captures where the user signed up from
-     *
-     * @return int $user_id
-     * @return Phalcon\Http\Request $request
-     */
-    public function saveReferrer($user_id, $request)
-    {
-        $referrer           = new \UserReferrer();
-        $referrer->user_id  = $user_id;
-        $referrer->referrer = $request->getHTTPReferer();
-        $referrer->data     = json_encode([
-            'page'           => basename($_SERVER[ 'PHP_SELF' ]),
-            'query_string'   => $request->getQuery(),
-            'is_ajax'        => $request->isAjax(),
-            'is_ssl'         => $request->isSecure(),
-            'server_address' => $request->getServerAddress(),
-            'server_name'    => $request->getServerName(),
-            'http_host'      => $request->getHttpHost(),
-            'client_address' => $request->getClientAddress(),
-        ]);
-
-        return $referrer->save();
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

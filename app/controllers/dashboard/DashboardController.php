@@ -54,7 +54,6 @@ class DashboardController extends BaseController
         $this->view->setVars([
             'user'          => $user,
             'products'      => $products,
-            'youtube'       => \Youtube::find(),
             'productStatus' => $productStatus,
             'userPurchases' => $userPurchases,
             'hasPurchase'   => (count($userPurchases)) ? true : false,

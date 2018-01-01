@@ -92,8 +92,6 @@ class User extends BaseModel
         $this->hasMany('id', 'UserAction', 'user_id', ['alias' => 'action']);
         $this->hasMany('id', 'UserPurchase', 'user_id', ['alias' => 'purchase']);
         $this->hasMany("id", "UserSocial", "user_id", ['alias' => 'social']);
-        $this->hasMany('id', 'UserSupport', 'user_id', ['alias' => 'support']);
-        $this->hasOne('id', 'ForumThread', 'user_id', ['alias' => 'forumthread']);
         $this->hasOne('id', 'Newsletter', 'user_id', ['alias' => 'newsletter']);
     }
 

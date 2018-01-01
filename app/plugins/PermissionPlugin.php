@@ -77,7 +77,6 @@ class PermissionPlugin extends Plugin
         'Controllers\Dashboard:notification' => ['*'],
         'Controllers\Dashboard:support'      => ['*'],
         'Controllers\Dashboard:question'     => ['*'],
-        'Controllers\Dashboard:youtube'      => ['*'],
     ];
 
     /**

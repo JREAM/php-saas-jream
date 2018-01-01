@@ -1,11 +1,13 @@
 /* TEAM */
 Developer:  Jesse Boyer
-Site:       http://jream.com
-Twitter:    jreamdesign
-YouTube:    jreamdesign
-Location:   FL, USA.
+Site:        https://jream.com
+HireMe:      https://jream.studio
+Facebook:    jream
+Twitter:     jreamdev
+YouTube:     jream
+Location:    FL, USA.
 
 /* SITE */
-Standards: PHP 5.5, NodeJS, MySQL, HTML5, CSS3, JavaScript
-Components: PhalconPHP, AWS (RDS, S3, CloudFront + RTMP), Composer, jQuery, BS3, SASS
-Software: Ubuntu OS, SublimeText 3, HeidiSQL
+Standards: PHP 7.x, Node 8.x, MySQL, HTML5, CSS3, JavaScript (ES6)
+Components: Phalcon, AWS (RDS, S3, CloudFront + RTMP), Composer, jQuery, BS3, SASS
+Software: Ubuntu OS, Visual Studio Code, PHP Storm, SublimeText 3, HeidiSQL, MySQL Workbench, Adobe Photoshop, Adobe Illustrator

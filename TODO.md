@@ -10,6 +10,7 @@
 - Check the TODO items eg in jetbrains ( some in views, {# @TODO Move JS to File #} )
     I want to put all global items into JS, anything else comes from the window.set from php like dropzone i did
 
+- For Questions: Add Marked JS live preview: https://vuejs.org/v2/examples/
 - fix qustion page loading?
 - [X] fix product page not loading?
 - make sure is_free is listing correctly.

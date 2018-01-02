@@ -2,10 +2,18 @@ const mix = require('laravel-mix');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+mix.version();
+
 mix.options({
   processCssUrls: false, // Process/optimize relative stylesheet url()'s. Set to false, if you don't want them touched.
   publicPath: 'public'
 });
+
+// Use source maps NOT in production
+// Keep sourcemaps in git ignore
+if (!mix.inProduction()) {
+  mix.sourceMaps();
+}
 
 mix.webpackConfig({
   plugins: [
@@ -30,14 +38,13 @@ mix.webpackConfig({
  | file for your application, as well as bundling up your JS files.
  |
  */
-
-mix.js('resources/assets/js/app.js', 'public/js')
-  .sourceMaps();
+mix.js('resources/assets/js/app.js', 'public/js');
 
 mix.sass('resources/assets/sass/app.scss', 'public/css')
-  .sourceMaps()
   .options({
     postCss: [
+      require('postcss-sorting')(),
+      require('postcss-image-set-polyfill')(),
       require('postcss-url')(),
       require('postcss-browser-reporter')(),
       require('postcss-reporter')(),
@@ -67,7 +74,6 @@ mix.copy('node_modules/jquery/dist/jquery.min.js', 'public/vendor/jquery.min.js'
 mix.copy('node_modules/sweetalert2/dist/sweetalert2.min.js', 'public/vendor/sweetalert2.min.js', false)
   .copy('node_modules/sweetalert2/dist/sweetalert2.min.css', 'public/vendor/sweetalert2.min.css', false);
 
-mix.js('node_modules/waypoints/lib/jquery.waypoints.min.js', 'public/vendor/jquery.waypoints.min.js', false);
 mix.js('node_modules/bottlejs/dist/bottle.js', 'public/vendor/bottle.min.js', false);
 // mix.js("node_modules/bootstrap-validator/dist/validator.min.js", "public/vendor/validator.min.js", false);
 

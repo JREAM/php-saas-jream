@@ -20,10 +20,6 @@
     <li><a href="{{ url('product/course') }}/{{ product.slug }}">{{ product.title }}</a></li>
     <li class="active">{{ courseName }}</li>
 </ol>
-
-<div class="social-share">
-{% include 'templates/partials/addthis.volt' %}
-</div>
 {% endblock %}
 
 {% block content %}

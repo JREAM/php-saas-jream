@@ -20,44 +20,11 @@
     <div class="panel-body">
         <i class="fa fa-lock"></i> Security
         <form id="form-purchase-stripe" action="{{ url('api/purchase/stripe') }}" method="post">
-        <div class="payment-errors"></div>
             <input type="hidden" name="product_id" value="{{ product.id }}">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="cc-name">Name on Card</label>
-                        <input type="text" name="name" class="form-control" placeholder="Name on Card" value="<?=formData('name')?>" id="cc-name">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
-                        <label for="cc-number">Card Number</label>
-                        <input data-stripe="number" class="form-control" placeholder="Card Number" value="" id="cc-number">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="form-group">
-                        <label for="cc-exp-month">Exp. Month</label>
-                        <select data-stripe="exp-month" class="form-control" id="cc-exp-month">
-                            {% for number, name in months %}
-                                <option {% if date('m') == number %}selected="selected"{% endif %} value="{{ number }}">{{ name }} - {{ number }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="form-group">
-                        <label for="cc-exp-year">Exp. Year</label>
-                        <select data-stripe="exp-year" class="form-control" id="cc-exp-year">
-                            {% for year in years %}
-                            <option>{{ year }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    <div id="stripe-card-element"></div>
+                    <div id="stripe-card-errors" role="alert"></div>
                 </div>
             </div>
             <div class="row">

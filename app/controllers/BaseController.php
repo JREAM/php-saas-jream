@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Controllers;
 
@@ -79,41 +79,41 @@ class BaseController extends Controller
 
 
         // Set the CSRF for every request (It uses a unique key/pair token per user session)
-        $hashid     = $this->di->get('hashids');
+        $hashid = $this->di->get('hashids');
 
         // Token Data
-        $tokenData  = $this->tokenManager->getTokens();
-        $tokenKey   = $tokenData['tokenKey'];
-        $token      = $tokenData['token'];
+        $tokenData = $this->tokenManager->getTokens();
+        $tokenKey = $tokenData['tokenKey'];
+        $token = $tokenData['token'];
 
         $this->view->setVars([
             // This is for JS to pickup
             'tokenKey' => $tokenKey,
-            'token'    => $token,
+            'token' => $token,
             'jsGlobal' => [
-                'user_id'       => $hashid->encodeHex($this->session->get('id')),
-                'base_url'      => \Library\Url::get(),
-                'csrf'          => [
+                'user_id' => $hashid->encodeHex($this->session->get('id')),
+                'base_url' => \Library\Url::get(),
+                'csrf' => [
                     $tokenKey,
                     $token,
                 ],
                 'notifications' => [
-                    'error'   => Output::getCode('error'),
+                    'error' => Output::getCode('error'),
                     'success' => Output::getCode('success'),
-                    'info'    => Output::getCode('info'),
-                    'warn'    => Output::getCode('warn'),
+                    'info' => Output::getCode('info'),
+                    'warn' => Output::getCode('warn'),
                 ],
                 'routes' => [
                     'prev' => [
-                        'controller' => null,
-                        'action' => null,
+                        'controller' => 'false', // Leave as false strings for JS
+                        'action' => 'false',
                         'params' => json_encode([]),
-                        'paramsStr' => null,
-                        'full' => null,
+                        'paramsStr' => 'false',
+                        'full' => 'false',
                     ],
                     'current' => [
-                        'controller' => (string) $this->router->getControllerName(),
-                        'action' => (string) $this->router->getActionName(),
+                        'controller' => (string)$this->router->getControllerName(),
+                        'action' => (string)$this->router->getActionName(),
                         'params' => json_encode([]),
                         'paramsStr' => '',
                         'full' => \Library\Url::getCurrent(),
@@ -130,7 +130,7 @@ class BaseController extends Controller
      *
      * @return string
      */
-    protected function generateBodyPageId(): string
+    protected function generateBodyPageId() : string
     {
         $pageId = $this->di->get('router')->getControllerName();
         $action_name = $this->di->get('router')->getActionName();
@@ -154,7 +154,7 @@ class BaseController extends Controller
      *
      * @return Response
      */
-    public function redirect($append): Response
+    public function redirect($append) : Response
     {
         $config = $this->di->get('config');
         $url = rtrim($config->baseUri, '/');
@@ -217,7 +217,7 @@ class Batch
      *
      * @return Batch
      */
-    public function setRows($rows): Batch
+    public function setRows($rows) : Batch
     {
         $this->rows = $rows;
         $this->rowsString = sprintf('`%s`', implode('`,`', $this->rows));
@@ -236,7 +236,7 @@ class Batch
      *
      * @return Batch
      */
-    public function setValues($values): Batch
+    public function setValues($values) : Batch
     {
         if (!$this->rows) {
             throw new \Exception('You must setRows() before setValues');
@@ -257,7 +257,7 @@ class Batch
         $valueList = [];
         foreach ($values as $value) {
             if (is_array($value)) {
-                foreach ((array) $value as $v) {
+                foreach ((array)$value as $v) {
                     $valueList[] = $v;
                 }
                 continue;
@@ -279,7 +279,7 @@ class Batch
      *
      * @return void
      */
-    public function insert($ignore = false): void
+    public function insert($ignore = false) : void
     {
         $this->validate();
 
@@ -308,7 +308,7 @@ class Batch
      *
      * @return void
      */
-    private function validate(): void
+    private function validate() : void
     {
         if (!$this->table) {
             throw new \Exception('Batch Table must be defined');

@@ -21,10 +21,6 @@
     <li><a href="{{ url() }}">Home</a></li>
     <li class="active">Products</li>
 </ol>
-
-<div class="social-share">
-{% include 'templates/partials/addthis.volt' %}
-</div>
 {% endblock %}
 
 {% block content %}

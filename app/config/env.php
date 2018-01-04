@@ -17,10 +17,12 @@ error_reporting(E_ALL);
  */
 define('DOCROOT', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR);
 
-if (!file_exists(DOCROOT . 'vendor/autoload.php')) {
+$autoloader = DOCROOT . 'vendor/autoload.php';
+
+if (!file_exists($autoloader)) {
     throw new \RuntimeException(
-        'Unable to locate autoloader.' .
-        'Install dependencies from the project root directory to run test suite: `composer install`.'
+        "Unable to locate autoloader @ $autoloader . " .
+        'This Project requires dependencies from the project root directory to run test suite: `composer install`.'
     );
 }
 

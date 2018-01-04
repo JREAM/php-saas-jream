@@ -25,10 +25,6 @@
     <li><a href="{{ url('promotion') }}">Promotions</a></li>
     <li class="active">-TITLE-</li>
 </ol>
-
-<div class="social-share">
-{% include 'templates/partials/addthis.volt' %}
-</div>
 {% endblock %}
 
 {% block content %}

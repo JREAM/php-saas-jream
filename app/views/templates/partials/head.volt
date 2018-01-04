@@ -40,19 +40,22 @@
             window.pageId = $('body').attr('id');
         });
 
+        window.api = {
+          stripe: '{{ api.stripe.publishableKey }}'
+        };
         window.notifications = {
-            'error': {{ jsGlobal['notifications']['error'] }},
-            'success': {{ jsGlobal['notifications']['success'] }},
-            'info': {{ jsGlobal['notifications']['info'] }},
-            'warn': {{ jsGlobal['notifications']['warn'] }}
-        },
+            'error': '{{ jsGlobal['notifications']['error'] }}',
+            'success': '{{ jsGlobal['notifications']['success'] }}',
+            'info': '{{ jsGlobal['notifications']['info'] }}',
+            'warn': '{{ jsGlobal['notifications']['warn'] }}'
+        };
         window.routes = {
             'prev': {
-                'controller': '{{ jsGlobal['routes']['prev']['controller'] }}',
-                'action': '{{ jsGlobal['routes']['prev']['action'] }}',
+                'controller': {{ jsGlobal['routes']['prev']['controller'] }},
+                'action': {{ jsGlobal['routes']['prev']['action'] }},
                 'params': {{ jsGlobal['routes']['prev']['params'] }},
-                'params_str': '{{ jsGlobal['routes']['prev']['paramsStr'] }}',
-                'full': '{{ jsGlobal['routes']['prev']['full'] }}',
+                'params_str': {{ jsGlobal['routes']['prev']['paramsStr'] }},
+                'full': {{ jsGlobal['routes']['prev']['full'] }},
             },
             'current': {
                 'controller': '{{ jsGlobal['routes']['current']['controller'] }}',
@@ -61,5 +64,5 @@
                 'params_str': '{{ jsGlobal['routes']['current']['paramsStr'] }}',
                 'full': '{{ jsGlobal['routes']['current']['full'] }}',
             }
-        }
+        };
     </script>

@@ -39,6 +39,6 @@ insert_final_newline = ignore
 
 
 [**.php,*.{php}]
-indent_size=4
+indent_size = 4
 max_line_length = 180
 

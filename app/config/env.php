@@ -1,10 +1,20 @@
 <?php
+
 /**
  * ==============================================================
  * Error Reporting
  * =============================================================
  */
 error_reporting(E_ALL);
+
+/**
+ * ==============================================================
+ * Prevent CLI from looping HTTP_HOST (etc) it is only browser based
+ * ==============================================================
+ */
+$_SERVER['HTTP_HOST'] = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'cli';
+$_SERVER['REQUEST_URI'] = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'cli';
+
 
 /**
  * ==============================================================
@@ -20,10 +30,10 @@ define('DOCROOT', dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR);
 $autoloader = DOCROOT . 'vendor/autoload.php';
 
 if (!file_exists($autoloader)) {
-    throw new \RuntimeException(
-        "Unable to locate autoloader @ $autoloader . " .
-        'This Project requires dependencies from the project root directory to run test suite: `composer install`.'
-    );
+  throw new \RuntimeException(
+    "Unable to locate autoloader @ $autoloader . " .
+      'This Project requires dependencies from the project root directory to run test suite: `composer install`.'
+  );
 }
 
 /**
@@ -37,11 +47,11 @@ require_once DOCROOT . 'vendor/autoload.php';
  * =============================================================
  */
 try {
-    $dotenv = new Symfony\Component\Dotenv\Dotenv();
-    $dotenv->load(DOCROOT . DIRECTORY_SEPARATOR . '.env');
+  $dotenv = new Symfony\Component\Dotenv\Dotenv();
+  $dotenv->load(DOCROOT . DIRECTORY_SEPARATOR . '.env');
 } catch (Exception $e) {
-    print_r($e->getMessage());
-    die('Missing required .env file. in the Project ROOT.');
+  print_r($e->getMessage());
+  die('Missing required .env file. in the Project ROOT.');
 }
 
 /**
@@ -59,7 +69,7 @@ define('APP_PATH', DOCROOT . 'app' . DIRECTORY_SEPARATOR);
  * Ensure APPLICATION_ENV is set, much relies on having things accurate with ith.
  */
 if (!getenv('APPLICATION_ENV')) {
-    throw new Exception('APPLICATION_ENV is required, it MUST be set in the configuration.');
+  throw new Exception('APPLICATION_ENV is required, it MUST be set in the configuration.');
 }
 
 /**
@@ -116,14 +126,14 @@ date_default_timezone_set('UTC');
  * Set the MB extension encoding to the same character set
  */
 if (function_exists('mb_internal_encoding')) {
-    mb_internal_encoding('utf-8');
+  mb_internal_encoding('utf-8');
 }
 
 /**
  * Set the mb_substitute_character to "none"
  */
 if (function_exists('mb_substitute_character')) {
-    mb_substitute_character('none');
+  mb_substitute_character('none');
 }
 
 /**
@@ -131,10 +141,10 @@ if (function_exists('mb_substitute_character')) {
  * Highly recommends use at least XDebug 2.2.3 for a better compatibility with Phalcon
  */
 if (APPLICATION_ENV != APP_PRODUCTION && extension_loaded('xdebug')) {
-    ini_set('xdebug.collect_vars', 'on');
-    ini_set('xdebug.collect_params', 4);
-    ini_set('xdebug.dump_globals', 'on');
-    ini_set('xdebug.show_local_vars', 'on');
-    ini_set('xdebug.max_nesting_level', 100);
-    ini_set('xdebug.var_display_max_depth', 4);
+  ini_set('xdebug.collect_vars', 'on');
+  ini_set('xdebug.collect_params', 4);
+  ini_set('xdebug.dump_globals', 'on');
+  ini_set('xdebug.show_local_vars', 'on');
+  ini_set('xdebug.max_nesting_level', 100);
+  ini_set('xdebug.var_display_max_depth', 4);
 }

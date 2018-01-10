@@ -9,12 +9,12 @@ use Library\Recaptcha;
 class Contact extends Controller
 {
 
-    /**
-     * @return Response
-     */
-    public function sendAction(): Response
-    {
-        $this->apiMethods(['POST']);
+  /**
+   * @return Response
+   */
+  public function sendAction() : Response
+  {
+    $this->apiMethods(['POST']);
         // If Recaptcha fails, Warn and use JS to reload.
         // @TODO How to get the recaptcha var?
         //if (!new Recaptcha($this->session, $this->json->g-recaptcha-response'))) {
@@ -23,59 +23,59 @@ class Contact extends Controller
         //}
 
         // Make sure recaptcha called and all
-        if (!$this->session->has('recaptcha')) {
-            return $this->output(0, 'Recaptcha is required.');
-        }
+    if (!$this->session->has('recaptcha')) {
+      return $this->output(0, 'Recaptcha is required.');
+    }
 
-        if (!$this->session->get('recaptcha')) {
-            return $this->output(0, 'Recaptcha was invalid');
-        }
+    if (!$this->session->get('recaptcha')) {
+      return $this->output(0, 'Recaptcha was invalid');
+    }
 
-        $form = new \Forms\ContactForm();
+    $form = new \Forms\ContactForm();
 
         // Make sure the form is valid
-        if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
-            $errors = [];
-            foreach ($form->getMessages() as $message) {
-                $errors[] = $message->getMessage();
-            }
+    if (!$form->isValid($this->json) && count($form->getMessages()) > 0) {
+      $errors = [];
+      foreach ($form->getMessages() as $message) {
+        $errors[] = $message->getMessage();
+      }
 
-            return $this->output(0, $errors);
-        }
+      return $this->output(0, $errors);
+    }
 
         // Gather the POST stuff
-        $email    = $this->json->email;
-        $message  = $this->json->message;
-        $name     = $this->json->name;
+    $email = $this->json->email;
+    $message = $this->json->message;
+    $name = $this->json->name;
         // $recatcha = $this->json->g-recaptcha-response');
 
         // if ()
 
         // Create the Message from a template
-        $content = $this->component->email->create('contact', [
-            'name'    => $name,
-            'email'   => $email,
-            'message' => $message,
-        ]);
+    $content = $this->component->email->create('contact', [
+      'name' => $name,
+      'email' => $email,
+      'message' => $message,
+    ]);
 
-        $mailResult = $this->di->get('email', [
-            [
-                'to_name'    => 'JREAM',
-                'to_email'   => getenv('EMAIL_FROM_ADDR'), // Sends to me
-                'from_name'  => $name,
-                'from_email' => $email,
-                'subject'    => 'JREAM - Contact Form',
-                'content'    => $content,
-            ],
-        ]);
+    $mailResult = $this->di->get('email', [
+      [
+        'to_name' => 'JREAM',
+        'to_email' => $this->config->from_address, // Sends to me
+        'from_name' => $name,
+        'from_email' => $email,
+        'subject' => 'JREAM - Contact Form',
+        'content' => $content,
+      ],
+    ]);
 
-        if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
-            return $this->output(0, 'Error sending email');
-        }
+    if (!in_array($mailResult->statusCode(), [200, 201, 202], true)) {
+      return $this->output(0, 'Error sending email');
+    }
 
         // Succcess
-        $this->session->set('recaptcha', 0);
+    $this->session->set('recaptcha', 0);
 
-        return $this->output(1, 'Email Sent');
-    }
+    return $this->output(1, 'Email Sent');
+  }
 }

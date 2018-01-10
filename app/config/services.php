@@ -21,12 +21,12 @@ use Monolog\Handler\StreamHandler;
  * Validate Correct Mode
  * =============================================================
  */
-if (APPLICATION_ENV === APP_PRODUCTION && (strpos(getenv('STRIPE_KEY'), 'test') !== false)) {
-    throw new Exception('In PRODUCTION < Stripe > is in the wrong MODE.');
+if (APPLICATION_ENV === APP_PRODUCTION && (strpos($api->stripe->publishableKey, 'test') !== false)) {
+  throw new Exception('In PRODUCTION < Stripe > is in the wrong MODE.');
 }
 
-if (APPLICATION_ENV === APP_PRODUCTION && getenv('PAYPAL_TESTMODE') == 1) {
-    throw new Exception('In PRODUCTION < Paypal > is in the wrong MODE.');
+if (APPLICATION_ENV === APP_PRODUCTION && $api->paypal->testMode) {
+  throw new Exception('In PRODUCTION < Paypal > is in the wrong MODE.');
 }
 
 /**
@@ -50,10 +50,10 @@ $di->setShared('eventsManager', $eventsManager);
  */
 $di->setShared('logger', function () use ($config) {
 
-    $log = new Logger('error_log');
-    $log->pushHandler(new StreamHandler($config->application->logsDir . '/error.log', Logger::WARNING));
+  $log = new Logger('error_log');
+  $log->pushHandler(new StreamHandler($config->application->logsDir . '/error.log', Logger::WARNING));
 
-    return $log;
+  return $log;
 });
 
 
@@ -65,10 +65,10 @@ $di->setShared('logger', function () use ($config) {
  * =============================================================
  */
 $di->setShared('security', function () {
-    $security = new Security();
-    $security->setWorkFactor(12);
+  $security = new Security();
+  $security->setWorkFactor(12);
 
-    return $security;
+  return $security;
 });
 
 
@@ -78,10 +78,10 @@ $di->setShared('security', function () {
  * =============================================================
  */
 $di->set('crypt', function () use ($config) {
-    $crypt = new Crypt();
-    $crypt->setKey($config->get('cookie_hash'));
+  $crypt = new Crypt();
+  $crypt->setKey($config->get('cookie_hash'));
 
-    return $crypt;
+  return $crypt;
 });
 
 
@@ -92,10 +92,10 @@ $di->set('crypt', function () use ($config) {
  * =============================================================
  */
 $di->set('cookies', function () {
-    $cookies = new Cookies();
-    $cookies->useEncryption(true);
+  $cookies = new Cookies();
+  $cookies->useEncryption(true);
 
-    return $cookies;
+  return $cookies;
 });
 
 
@@ -106,12 +106,12 @@ $di->set('cookies', function () {
  */
 $di->setShared('session', function () use ($di) {
     // Start a new Session for every user.
-    $session = new SessionFiles();
-    if (!$session->isStarted()) {
-        $session->start();
-    }
+  $session = new SessionFiles();
+  if (!$session->isStarted()) {
+    $session->start();
+  }
 
-    return $session;
+  return $session;
 });
 
 /**
@@ -121,22 +121,22 @@ $di->setShared('session', function () use ($di) {
  */
 $di->setShared('flash', function (string $mode = 'session') {
 
-    $mode       = strtolower(trim($mode));
-    $validModes = ['session', 'direct'];
-    if (!in_array($mode, $validModes, true)) {
-        throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
-                                            implode(',', $validModes));
-    }
+  $mode = strtolower(trim($mode));
+  $validModes = ['session', 'direct'];
+  if (!in_array($mode, $validModes, true)) {
+    throw new \InvalidArgumentException('Flash Message Error, tried using $mode, must use: ' .
+      implode(',', $validModes));
+  }
 
     // There is a Direct, and a Session
-    $flash = new Flash([
-        'error'   => 'alert alert-danger',
-        'success' => 'alert alert-success',
-        'notice'  => 'alert alert-info',
-        'warning' => 'alert alert-warning',
-    ]);
+  $flash = new Flash([
+    'error' => 'alert alert-danger',
+    'success' => 'alert alert-success',
+    'notice' => 'alert alert-info',
+    'warning' => 'alert alert-warning',
+  ]);
 
-    return $flash;
+  return $flash;
 });
 
 
@@ -146,11 +146,11 @@ $di->setShared('flash', function (string $mode = 'session') {
  * =============================================================
  */
 $di->setShared('config', function () use ($config) {
-    return $config;
+  return $config;
 });
 
 $di->setShared('api', function () use ($api) {
-    return $api;
+  return $api;
 });
 
 
@@ -160,7 +160,7 @@ $di->setShared('api', function () use ($api) {
  * =============================================================
  */
 $di->setShared('router', function () use ($config) {
-    return require $config->application->configDir . 'routes.php';
+  return require $config->application->configDir . 'routes.php';
 });
 
 
@@ -171,10 +171,10 @@ $di->setShared('router', function () use ($config) {
  * =============================================================
  */
 $di->setShared('url', function () use ($config) {
-    $url = new \Phalcon\Mvc\Url();
-    $url->setBaseUri($config->get('baseUri'));
+  $url = new \Phalcon\Mvc\Url();
+  $url->setBaseUri($config->get('baseUri'));
 
-    return $url;
+  return $url;
 });
 
 
@@ -185,13 +185,13 @@ $di->setShared('url', function () use ($config) {
  */
 $di->setShared('dispatcher', function () use ($di, $eventsManager) {
 
-    $eventsManager->attach('dispatch', new Plugins\PermissionPlugin());
-    $eventsManager->attach('dispatch', new Middleware\Dispatch());
+  $eventsManager->attach('dispatch', new Plugins\PermissionPlugin());
+  $eventsManager->attach('dispatch', new Middleware\Dispatch());
 
-    $dispatcher = new Dispatcher();
-    $dispatcher->setEventsManager($eventsManager);
+  $dispatcher = new Dispatcher();
+  $dispatcher->setEventsManager($eventsManager);
 
-    return $dispatcher;
+  return $dispatcher;
 });
 
 
@@ -201,10 +201,10 @@ $di->setShared('dispatcher', function () use ($di, $eventsManager) {
  * =============================================================
  */
 $di->setShared('component', function () {
-    $obj        = new \stdClass();
-    $obj->email = new EmailComponent();
+  $obj = new \stdClass();
+  $obj->email = new EmailComponent();
 
-    return $obj;
+  return $obj;
 });
 
 
@@ -219,12 +219,13 @@ $di->setShared('hashids', function () use ($config) {
     // decode(value), decode(hex_value)
 
     // Passing a unique string makes items unique
-    $hashids = new Hashids\Hashids($config->get('hashids_hash'),
-        6,
-        'abcdefghijklmnopqrstuvwxyz'
-    );
+  $hashids = new Hashids\Hashids(
+    $config->get('hashids_hash'),
+    6,
+    'abcdefghijklmnopqrstuvwxyz'
+  );
 
-    return $hashids;
+  return $hashids;
 });
 
 /**
@@ -233,55 +234,55 @@ $di->setShared('hashids', function () use ($config) {
  * =============================================================
  */
 $di->setShared('view', function () use ($config, $di) {
-    $view = new View();
-    $view->setViewsDir($config->application->viewsDir);
-    $view->registerEngines([
-        '.volt'  => function (View $view, DiInterface $di) use ($config) {
+  $view = new View();
+  $view->setViewsDir($config->application->viewsDir);
+  $view->registerEngines([
+    '.volt' => function (View $view, DiInterface $di) use ($config) {
 
             // APP_TEST is set from the TEST environment
-            $path = APPLICATION_ENV === APP_TEST ? DOCROOT . 'tests/_cache/' : $config->application->cacheDir;
+      $path = APPLICATION_ENV === APP_TEST ? DOCROOT . 'tests/_cache/' : $config->application->cacheDir;
 
             // ------------------------------------------------
             // Volt Template Engine
             // ------------------------------------------------
-            $volt = new VoltEngine($view, $di);
+      $volt = new VoltEngine($view, $di);
 
-            $volt->setOptions([
-                'compiledPath'      => $path,
-                'compiledSeparator' => '_',
-                'compileAlways'     => APPLICATION_ENV !== APP_PRODUCTION,
-            ]);
+      $volt->setOptions([
+        'compiledPath' => $path,
+        'compiledSeparator' => '_',
+        'compileAlways' => APPLICATION_ENV !== APP_PRODUCTION,
+      ]);
 
-            $compiler = $volt->getCompiler();
+      $compiler = $volt->getCompiler();
 
             // @Functions
             // @example {{ function(item) }}
-            $compiler->addFunction('strtotime', 'strtotime');
-            $compiler->addFunction('sprintf', 'sprintf');
-            $compiler->addFunction('str_replace', 'str_replace');
-            $compiler->addFunction('is_a', 'is_a');
-            $compiler->addFunction('pageid', function ($str, $expr) {
-                return str_replace('-page', '', $str);
-            });
+      $compiler->addFunction('strtotime', 'strtotime');
+      $compiler->addFunction('sprintf', 'sprintf');
+      $compiler->addFunction('str_replace', 'str_replace');
+      $compiler->addFunction('is_a', 'is_a');
+      $compiler->addFunction('pageid', function ($str, $expr) {
+        return str_replace('-page', '', $str);
+      });
 
             // @Markdown
             // @example {{ item|filter }}
-            $compiler->addFilter('markdown', function ($resolvedArgs, $exprArgs) {
-                return '\\Plugins\\VoltFilters::markdown(' . $resolvedArgs . ');';
-            });
+      $compiler->addFilter('markdown', function ($resolvedArgs, $exprArgs) {
+        return '\\Plugins\\VoltFilters::markdown(' . $resolvedArgs . ');';
+      });
 
-            return $volt;
-        },
+      return $volt;
+    },
         // --------------------------------------------------------------------
         // The Default Templating (However, VOLT is cleaner)
         // --------------------------------------------------------------------
-        '.phtml' => '\Phalcon\Mvc\View\Engine\Php',
-    ]);
+    '.phtml' => '\Phalcon\Mvc\View\Engine\Php',
+  ]);
 
     // Used for global variables (See: middleware/afterExecuteRoute)
-    $view->setVar('version', \Phalcon\Version::get());
+  $view->setVar('version', \Phalcon\Version::get());
 
-    return $view;
+  return $view;
 });
 
 
@@ -291,12 +292,12 @@ $di->setShared('view', function () use ($config, $di) {
  * =============================================================
  */
 $di->set('db', function () use ($di, $config, $eventsManager) {
-    $eventsManager->attach('db', new Middleware\Database());
+  $eventsManager->attach('db', new Middleware\Database());
 
-    $database = new MySQL((array) $config->get('database'));
-    $database->setEventsManager($eventsManager);
+  $database = new MySQL((array)$config->get('database'));
+  $database->setEventsManager($eventsManager);
 
-    return $database;
+  return $database;
 });
 
 
@@ -306,8 +307,11 @@ $di->set('db', function () use ($di, $config, $eventsManager) {
  * =============================================================
  */
 $redis = new \Redis();
-$redis->connect("localhost", getenv('REDIS_PORT'));
-$redis->select(getenv('REDIS_DB'));  // Use Database 10
+$redis->connect(
+  $this->api->memory->redis->host,
+  $this->api->memory->redis->port
+);
+$redis->select($this->api->memory->redis->db);  // Use Database 10
 
 /**
  * ==============================================================
@@ -316,17 +320,17 @@ $redis->select(getenv('REDIS_DB'));  // Use Database 10
  */
 $di->setShared('markdown', function () {
     // $example: $parsedown->parse('#markdown here');
-    return new \Parsedown();
+  return new \Parsedown();
 });
 
 
 $di->setShared('filter', function () {
-    $filter = new Filter();
-    $filter->add('slug', function (string $value) {
-        return new Phalcon\Utils\Slug($value);
-    });
+  $filter = new Filter();
+  $filter->add('slug', function (string $value) {
+    return new Phalcon\Utils\Slug($value);
+  });
 
-    return $filter;
+  return $filter;
 });
 
 /**
@@ -335,9 +339,8 @@ $di->setShared('filter', function () {
  * =============================================================
  */
 $di->set('modelsManager', function () {
-    \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
-
-    return new \Phalcon\Mvc\Model\Manager();
+  \Phalcon\Mvc\Model::setup(['ignoreUnknownColumns' => true]);
+  return new \Phalcon\Mvc\Model\Manager();
 });
 
 
@@ -347,10 +350,10 @@ $di->set('modelsManager', function () {
  * =============================================================
  */
 $di->set('modelsMetadata', function () use ($redis) {
-    return new \Phalcon\Mvc\Model\MetaData\Redis([
-        "lifetime" => 3600,
-        "redis"    => $redis,
-    ]);
+  return new \Phalcon\Mvc\Model\MetaData\Redis([
+    "lifetime" => 3600,
+    "redis" => $redis,
+  ]);
 });
 
 
@@ -363,16 +366,16 @@ $di->set('modelsCache', function () use ($redis) {
 
     // Cache data for one day by default
     // It's cleared using fabfile for a deploy
-    $frontCache = new \Phalcon\Cache\Frontend\Data([
-        "lifetime" => 86400,
-    ]);
+  $frontCache = new \Phalcon\Cache\Frontend\Data([
+    "lifetime" => 86400,
+  ]);
 
     // Redis connection settings
-    $cache = new \Phalcon\Cache\Backend\Redis($frontCache, [
-        "redis" => $redis,
-    ]);
+  $cache = new \Phalcon\Cache\Backend\Redis($frontCache, [
+    "redis" => $redis,
+  ]);
 
-    return $cache;
+  return $cache;
 });
 
 
@@ -382,7 +385,7 @@ $di->set('modelsCache', function () use ($redis) {
  * =============================================================
  */
 $di->setShared('sentry', function () use ($api) {
-    return (new Raven_Client(getenv('GET_SENTRY')))->install();
+  return (new Raven_Client(getenv('GET_SENTRY')))->install();
 });
 
 /**
@@ -393,24 +396,24 @@ $di->setShared('sentry', function () use ($api) {
 if (\APPLICATION_ENV !== \APP_PRODUCTION) {
     // This is ONLY used locally
 
-    $whoops = new \Whoops\Run();
+  $whoops = new \Whoops\Run();
 
     // This is so it is accessible in the global Middleware Dispatcher
-    $di->setShared('whoops', function () use ($whoops) {
-        return $whoops;
-    });
+  $di->setShared('whoops', function () use ($whoops) {
+    return $whoops;
+  });
 
     // The default page handler
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+  $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 
     // Push another handler if it is an AJAX call for JSON responses.
-    if (\Whoops\Util\Misc::isAjaxRequest()) {
-        $jsonHandler = new \Whoops\Handler\JsonResponseHandler();
-        $jsonHandler->setJsonApi(true);
-        $whoops->pushHandler($jsonHandler);
-    }
+  if (\Whoops\Util\Misc::isAjaxRequest()) {
+    $jsonHandler = new \Whoops\Handler\JsonResponseHandler();
+    $jsonHandler->setJsonApi(true);
+    $whoops->pushHandler($jsonHandler);
+  }
 
-    $whoops->register();
+  $whoops->register();
 
 }
 
@@ -421,14 +424,14 @@ if (\APPLICATION_ENV !== \APP_PRODUCTION) {
  * =============================================================
  */
 $di->setShared('s3', function () {
-    return new Aws\S3\S3Client([
-        'version'     => getenv('AWS_S3_VERSION'),
-        'region'      => getenv('AWS_S3_REGION'),
-        'credentials' => [
-            'key'    => getenv('AWS_S3_ACCESS_KEY'),
-            'secret' => getenv('AWS_S3_ACCESS_SECRET_KEY='),
-        ],
-    ]);
+  return new Aws\S3\S3Client([
+    'version' => getenv('AWS_S3_VERSION'),
+    'region' => getenv('AWS_S3_REGION'),
+    'credentials' => [
+      'key' => getenv('AWS_S3_ACCESS_KEY'),
+      'secret' => getenv('AWS_S3_ACCESS_SECRET_KEY='),
+    ],
+  ]);
 });
 
 
@@ -439,40 +442,40 @@ $di->setShared('s3', function () {
  * =============================================================
  */
 $di->set('faker', function () {
-    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
-        return \Faker\Factory::create();
-    }
+  if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+    return \Faker\Factory::create();
+  }
 
-    return false;
+  return false;
 });
 
 $di->set('fakerData', function () {
     // Allows me to get data and have it empty if I like with one rule check
-    $faker = false;
-    if (\APPLICATION_ENV !== \APP_PRODUCTION) {
-        $faker = \Faker\Factory::create();
-    }
+  $faker = false;
+  if (\APPLICATION_ENV !== \APP_PRODUCTION) {
+    $faker = \Faker\Factory::create();
+  }
 
-    return (object) [
-        'NOTE'           => 'This is ALL completely FAKE data for TESTING.',
-        'alias'          => $faker ? sprintf('faker%s%s%s', str_replace('.', '', $faker->title), $faker->firstName, $faker->lastName) : null,
-        'email'          => $faker ? 'faker_' . $faker->safeEmail : null,
-        'password'       => $faker ? $faker->password : null,
-        'firstName'      => $faker ? $faker->firstName : null,
-        'lastName'       => $faker ? $faker->lastName : null,
-        'question'       => $faker ? $faker->sentence(random_int(15, 35)) : null,
-        'questionReply'  => $faker ? $faker->sentence(random_int(5, 15)) : null,
-        'address'        => $faker ? $faker->streetAddress : null,
-        'city'           => $faker ? $faker->city : null,
-        'zip'            => $faker ? $faker->postcode : null,
-        'country'        => $faker ? $faker->country : null,
-        'phone'          => $faker ? $faker->phoneNumber : null,
-        'ccType'         => $faker ? $faker->creditCardType : null,
-        'ccNumber'       => $faker ? $faker->creditCardNumber : null,
-        'ccNumberStripe' => $faker ? '4242424242424242' : null,
-        'ccExpMonth'     => $faker ? 12 : null,
-        'ccExpYear'      => $faker ? date('Y', strtotime('+2 years')) : null,
-    ];
+  return (object)[
+    'NOTE' => 'This is ALL completely FAKE data for TESTING.',
+    'alias' => $faker ? sprintf('faker%s%s%s', str_replace('.', '', $faker->title), $faker->firstName, $faker->lastName) : null,
+    'email' => $faker ? 'faker_' . $faker->safeEmail : null,
+    'password' => $faker ? $faker->password : null,
+    'firstName' => $faker ? $faker->firstName : null,
+    'lastName' => $faker ? $faker->lastName : null,
+    'question' => $faker ? $faker->sentence(random_int(15, 35)) : null,
+    'questionReply' => $faker ? $faker->sentence(random_int(5, 15)) : null,
+    'address' => $faker ? $faker->streetAddress : null,
+    'city' => $faker ? $faker->city : null,
+    'zip' => $faker ? $faker->postcode : null,
+    'country' => $faker ? $faker->country : null,
+    'phone' => $faker ? $faker->phoneNumber : null,
+    'ccType' => $faker ? $faker->creditCardType : null,
+    'ccNumber' => $faker ? $faker->creditCardNumber : null,
+    'ccNumberStripe' => $faker ? '4242424242424242' : null,
+    'ccExpMonth' => $faker ? 12 : null,
+    'ccExpYear' => $faker ? date('Y', strtotime('+2 years')) : null,
+  ];
 });
 
 /**
@@ -483,31 +486,31 @@ $di->set('fakerData', function () {
 $di->setShared('email', function (array $data) use ($di) {
 
     // For Debugging
-    if (\APPLICATION_ENV !== \APP_PRODUCTION && getenv('DEBUG_EMAIL')) {
-        $transport = (new Swift_SmtpTransport('localhost', 1025));
-        $mailer    = new Swift_Mailer($transport);
+  if (\APPLICATION_ENV !== \APP_PRODUCTION && getenv('DEBUG_EMAIL')) {
+    $transport = (new Swift_SmtpTransport('localhost', 1025));
+    $mailer = new Swift_Mailer($transport);
 
         // Create a message
-        $message = (new Swift_Message($data[ 'subject' ]))->setFrom([$data[ 'from_email' ] => $data[ 'from_name' ]])->setTo([$data[ 'to_email' ] => $data[ 'to_name' ]])->setBody($data[ 'content' ]);
+    $message = (new Swift_Message($data['subject']))->setFrom([$data['from_email'] => $data['from_name']])->setTo([$data['to_email'] => $data['to_name']])->setBody($data['content']);
 
-        return $mailer->send($message);
-    }
+    return $mailer->send($message);
+  }
 
-    $to      = new \SendGrid\Email($data[ 'to_name' ], $data[ 'to_email' ]);
-    $from    = new \SendGrid\Email($data[ 'from_name' ], $data[ 'from_email' ]);
-    $content = new \SendGrid\Content("text/html", $data[ 'content' ]);
+  $to = new \SendGrid\Email($data['to_name'], $data['to_email']);
+  $from = new \SendGrid\Email($data['from_name'], $data['from_email']);
+  $content = new \SendGrid\Content("text/html", $data['content']);
 
-    $mail = new \SendGrid\Mail($from, $data[ 'subject' ], $to, $content);
+  $mail = new \SendGrid\Mail($from, $data['subject'], $to, $content);
 
-    $sg       = new \SendGrid(getenv('SENDGRID_KEY'));
-    $response = $sg->client->mail()->send()->post($mail);
+  $sg = new \SendGrid(getenv('SENDGRID_KEY'));
+  $response = $sg->client->mail()->send()->post($mail);
 
     // Catch a Non 200 Error
-    if (!in_array($response->statusCode(), [200, 201, 202], true)) {
-        $di->get('sentry')->captureMessage(sprintf("Headers: %s | ErrorCode: %s", $response->headers(), $response->statusCode()));
-    }
+  if (!in_array($response->statusCode(), [200, 201, 202], true)) {
+    $di->get('sentry')->captureMessage(sprintf("Headers: %s | ErrorCode: %s", $response->headers(), $response->statusCode()));
+  }
 
-    return $response;
+  return $response;
 });
 
 /**
@@ -516,45 +519,45 @@ $di->setShared('email', function (array $data) use ($di) {
  * =============================================================
  */
 $di->setShared('sparkpost', function (array $data) use ($di) {
-    $httpClient = new Http\Adapter\Guzzle6\Client\GuzzleAdapter(new GuzzleHttp\Client());
-    $sparky = new SparkPost\SparkPost($httpClient, ['key'=> getenv('SPARKPOST') ]);
-    $sparky->setOptions(['async' => false]);
+  $httpClient = new Http\Adapter\Guzzle6\Client\GuzzleAdapter(new GuzzleHttp\Client());
+  $sparky = new SparkPost\SparkPost($httpClient, ['key' => getenv('SPARKPOST')]);
+  $sparky->setOptions(['async' => false]);
 
-    $promise = $sparky->transmissions->post([
-        'content' => [
-            'from' => [
-                'name' => 'JREAM',
-                'email' => 'notify@jream.com',
-            ],
-            'subject' => $data['subject'],
-            'html' => '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>',
-            'text' => 'Congratulations, {{name}}!! You just sent your very first mailing!',
+  $promise = $sparky->transmissions->post([
+    'content' => [
+      'from' => [
+        'name' => 'JREAM',
+        'email' => 'notify@jream.com',
+      ],
+      'subject' => $data['subject'],
+      'html' => '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>',
+      'text' => 'Congratulations, {{name}}!! You just sent your very first mailing!',
+    ],
+    'substitution_data' => ['name' => $data['name']],
+    'recipients' => [
+      [
+        'address' => [
+          'name' => $data['name'],
+          'email' => $data['email'],
         ],
-        'substitution_data' => ['name' => $data['name']],
-        'recipients' => [
-            [
-                'address' => [
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                ],
-            ],
-        ],
-    ]);
+      ],
+    ],
+  ]);
 
-    $promise = $sparky->transmissions->get();
+  $promise = $sparky->transmissions->get();
 
-    try {
-        $response = $promise->wait();
-        return [
-            'code' => $response->getStatusCode(),
-            'body' => $response->getBody()
-        ];
-    } catch (\Exception $e) {
-        return [
-            'code' => $e->getCode(),
-            'msg' => $e->getMessage()
-        ];
-    }
+  try {
+    $response = $promise->wait();
+    return [
+      'code' => $response->getStatusCode(),
+      'body' => $response->getBody()
+    ];
+  } catch (\Exception $e) {
+    return [
+      'code' => $e->getCode(),
+      'msg' => $e->getMessage()
+    ];
+  }
 });
 
 /**
@@ -567,14 +570,14 @@ $di->setShared('sparkpost', function (array $data) use ($di) {
 $di->setShared('hybridAuth', function () use ($api) {
 
     // Make Absolute URL Paths
-    foreach ($api->social_auth->providers as $provider => $data) {
-        if (property_exists($data, 'callback')) {
-            $callback = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
-            $api->social_auth->providers->{$provider}->callback = $callback;
-        }
+  foreach ($api->social_auth->providers as $provider => $data) {
+    if (property_exists($data, 'callback')) {
+      $callback = \Library\Url::get($api->social_auth->providers->{$provider}->callback);
+      $api->social_auth->providers->{$provider}->callback = $callback;
     }
+  }
 
-    return new \Hybridauth\Hybridauth(objectToArray($api->social_auth));
+  return new \Hybridauth\Hybridauth(objectToArray($api->social_auth));
 });
 
 
@@ -590,19 +593,19 @@ $di->setShared('hybridAuth', function () use ($api) {
  * API: Paypal
  * =============================================================
  */
-$di->setShared('paypal', function () {
+$di->setShared('paypal', function () use ($api) {
     // Paypal Express
     // @source  https://omnipay.thephpleague.com/gateways/configuring/
-    $paypal = Omnipay\Omnipay::create('PayPal_Express');
-    $paypal->setUsername(getenv('PAYPAL_USERNAME'));
-    $paypal->setPassword(getenv('PAYPAL_PASSWORD'));
-    $paypal->setSignature(getenv('PAYPAL_SIGNATURE'));
+  $paypal = Omnipay\Omnipay::create('PayPal_Express');
+  $paypal->setUsername(getenv($api->paypal->username));
+  $paypal->setPassword(getenv($api->paypal->password));
+  $paypal->setSignature(getenv($api->paypal->signature));
 
-    if (getenv('PAYPAL_TESTMODE')) {
-        $paypal->setTestMode(true);
-    }
+  if ($api->paypal->testMode) {
+    $paypal->setTestMode(true);
+  }
 
-    return $paypal;
+  return $paypal;
 });
 
 
@@ -617,20 +620,20 @@ $di->setShared('paypal', function () {
 if (APPLICATION_ENV !== APP_PRODUCTION) {
     // Storage: Logs Debugging as it may become convoluted with Phalcons custom $_SESSION.
     // @important: This must come before the getInstance()
-    $storage = new PhpConsole\Storage\File($config->application->logsDir . 'phpconsole.data');
-    PhpConsole\Connector::setPostponeStorage($storage);
+  $storage = new PhpConsole\Storage\File($config->application->logsDir . 'phpconsole.data');
+  PhpConsole\Connector::setPostponeStorage($storage);
 
     // Register PhpConsole as PC::debug($foo), PC::tag($bar), PC::debug('msg')
-    $connector = PhpConsole\Connector::getInstance();
+  $connector = PhpConsole\Connector::getInstance();
 
     // Shorter Logging for Paths
-    $connector->setSourcesBasePath(DOCROOT);
+  $connector->setSourcesBasePath(DOCROOT);
 
     // This will disable the PHP Console Calls regardless of where it is placed.
-    if (!getenv('DEBUG_CONSOLE')) {
-        $connector->disable();
-    }
-    PhpConsole\Helper::register();
+  if (!getenv('DEBUG_CONSOLE')) {
+    $connector->disable();
+  }
+  PhpConsole\Helper::register();
 }
 
 /**

@@ -45,10 +45,10 @@ $api = new \Phalcon\Config([
       'keyPairId' => getenv('AWS_CLOUDFRONT_KEYPAIR_ID')
     ],
     'sns' => [
-      'version' => $di->api->aws->sns->version,
-      'region' => $di->api->aws->sns->region,
-      'accessKey' => $di->api->aws->sns->accessKey,
-      'secretKey' => $di->api->aws->sns->secretKey,
+      'version' => getenv('AWS_SNS_VERSION'),
+      'region' => getenv('AWS_SNS_REGION'),
+      'accessKey' => getenv('AWS_SNS_ACCESS_KEY'),
+      'secretKey' => getenv('AWS_SNS_SECRET_KEY'),
       'arn' => [
         'bounce' => 'arn:aws:sns:us-east-1:950584027081:ses-bounce-topic',
         'complaint' => 'arn:aws:sns:us-east-1:950584027081:ses-complaint-topic',

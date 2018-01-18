@@ -8,11 +8,12 @@ use Phalcon\Http\Response;
 use User;
 use UserPurchase;
 use Promotion;
-use Transaction;
 use Product;
 
 class PurchaseController extends ApiController
 {
+
+    const PROMO_KEY = 'promo_code';
 
     public function onConstruct()
     {
@@ -33,17 +34,18 @@ class PurchaseController extends ApiController
         $this->apiMethods(['POST']);
         $this->json = $this->request->getJsonRawBody();
 
-        $code      = $this->json->code;
-        $productId = $this->json->productId;
+        $promoCode = $this->json->promo_code;
+        $productId = $this->json->product_id;
 
         $promotion = new Promotion();
-        $result    = $promotion->check($code, $productId);
+        $promotionResult = $promotion->check($promoCode, $productId);
 
-        if ($result) {
-            return $this->output(0, 'Promotion not found.', ['code' => $code]);
+        if ($promotionResult) {
+            return $this->output(0, 'Sorry, Promotion code was not found.', ['promo_code' => $promoCode]);
         }
 
-        return $this->output(1, 'Promotion Applied.', ['code' => $code]);
+        $this->session->set('promo_code', $promoCode);
+        return $this->output(1, 'Promotion Applied.', ['promo_code' => $promoCode]);
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -270,9 +272,9 @@ class PurchaseController extends ApiController
         $amount = number_format($usePrice, 2);
 
         // If coupon
-        if ($this->session->has('code')) {
-            $code   = $this->session->get('code');
-            $amount = number_format($code[ 'price' ], 2);
+        if ($this->session->has(self::PROMO_KEY)) {
+            $code = $this->session->get(self::PROMO_KEY);
+            $amount = number_format($code['price'], 2);
         }
 
         $response = $this->paypal->purchase([
@@ -340,13 +342,13 @@ class PurchaseController extends ApiController
             return $this->output(0, 'Payment was unsuccessful.');
         }
 
-        $transactionID = false;
+        $transactionId = false;
 
         if (isset($data[ 'PAYMENTINFO_0_TRANSACTIONID' ])) {
-            $transactionID = $data[ 'PAYMENTINFO_0_TRANSACTIONID' ];
+            $transactionId = $data[ 'PAYMENTINFO_0_TRANSACTIONID' ];
         }
 
-        $do = $this->createPurchase($product, 'Paypal Express Checkout', $transactionID);
+        $do = $this->createPurchase($product, 'Paypal Express Checkout', $transactionId);
 
         if (!$do->result) {
             return $this->output(0, $do->msg);
@@ -369,45 +371,52 @@ class PurchaseController extends ApiController
     private function createPurchase(Product $product, $gateway = false, $transactionId = false)
     {
         // First create a transaction record
-        $transaction                 = new Transaction();
-        $transaction->user_id        = $this->session->get('id');
-        $transaction->transaction_id = $transactionId;
-        $transaction->type           = 'purchase';
-        $transaction->gateway        = strtolower($gateway);
+        //$transaction                 = new Transaction();
+        //$transaction->user_id        = $this->session->get('id');
+
+        $userPurchase = new UserPurchase();
+        $userPurchase->user_id = $this->session->get('id');
+        $userPurchase->product_id = 1;
+        $userPurchase->promotion_id = 1; // Code is stored in the promotion table
+        $userPurchase->type = 'purchase';
+
+        // Gateway Related
+        $userPurchase->transaction_id = $transactionId;
+        $userPurchase->gateway = strtolower($gateway);
+
+        // Calculate the Amount Below
 
         // Default Price
         $usePrice = $product->price;
 
-        $promo_applied = false;
+        $wasPromoApplied = false;
 
         // Check for discount
         if ($this->security->checkHash($this->config->session_hash, $this->session->getId())) {
             $usePrice     = $this->session->get('discount_price');
-            $promo_applied = true;
+            $wasPromoApplied = true;
         }
 
+        // Set the default Price
+        $userPurchase->amount = $usePrice;
 
-
-        $transaction->amount = $usePrice;
-
-
-        $purchased_for = number_format((float) $product->price, 2);
+        $purchasedFor = number_format((float) $product->price, 2);
 
         // If coupon
         if ($this->session->has('code')) {
             $code                               = $this->session->get('code');
-            $transaction->amount_after_discount = number_format($code[ 'price' ], 2);
-            $purchased_for                      = number_format($code[ 'price' ], 2);
+            $userPurchase->amount_after_discount = number_format($code[ 'price' ], 2);
+            $purchasedFor = $userPurchase->amount_after_discount;
         }
 
-        $transaction->save();
+        $userPurchase->save();
 
         // Insert the user record
         $userPurchase                 = new UserPurchase();
         $userPurchase->user_id        = $this->session->get('id');
         $userPurchase->product_id     = $product->id;
-        $userPurchase->transaction_id = $transaction->id;
-        if ($promo_applied) {
+
+        if ($wasPromoApplied) {
             $userPurchase->promotion_code = $this->promotion_code;
         }
         $userPurchase->save();
@@ -416,7 +425,7 @@ class PurchaseController extends ApiController
         //    'product_title'  => $product->title,
         //    'product_img'    => $product->img_sm,
         //    'login_url'      => \URL . '/user/login',
-        //    'product_price'  => $purchased_for,
+        //    'product_price'  => $purchasedFor,
         //    'gateway'        => $gateway,
         //    'transaction_id' => $transactionId,
         //]);

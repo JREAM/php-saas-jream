@@ -308,10 +308,10 @@ $di->set('db', function () use ($di, $config, $eventsManager) {
  */
 $redis = new \Redis();
 $redis->connect(
-  $this->api->memory->redis->host,
-  $this->api->memory->redis->port
+  $config->memory->redis->host,
+  $config->memory->redis->port
 );
-$redis->select($this->api->memory->redis->db);  // Use Database 10
+$redis->select($config->memory->redis->db);  // Use Database 10
 
 /**
  * ==============================================================

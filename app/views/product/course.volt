@@ -58,7 +58,7 @@
                 <form id="formProductPromotionCode" class="form-inline pull-right" method="post" action="{{ url('auth/purchase/applyPromotion') }}/{{ product.slug }}">
                     <div class="form-group">
                         <input type="hidden" name="product_id" value="{{ product.id }}">
-                        <input type="text" name="promotion_code" class="form-control input-sm" placeholder="Promo Code" {% if promotion_code %}value="{{ promotion_code }}"{% endif %}>
+                        <input type="text" name="promo_code" class="form-control input-sm" placeholder="Promo Code" {% if promotion_code %}value="{{ promotion_code }}"{% endif %}>
                         <input type="submit" class="btn btn-default btn-sm" value="Apply">
                     </div>
                 </form>

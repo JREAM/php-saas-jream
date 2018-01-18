@@ -40,10 +40,9 @@ $config = new \Phalcon\Config([
     'redis' => [
       'host' => getenv('REDIS_HOST'),
       'port' => getenv('REDIS_PORT'),
-      'db' => getenv('REDIS_DB'),
-      'db' => getenv('REDIS_DB'),
+      'db' => getenv('REDIS_DB')
     ]
-  ]
+  ],
 
   /**
    * URL Settings

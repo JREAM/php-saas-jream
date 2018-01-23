@@ -281,4 +281,61 @@ class UserController extends ApiController
             'id' => $user->id
         ]);
     }
+
+  /**
+   * This is for testing, it is only available locally.
+   * Particularly for running PostMan or NewMan
+   */
+    public function deleteBotAccountAction() {
+      // Local Only
+      if (APPLICATION_ENV !== APP_DEVELOPMENT) {
+        return $this->output(0, sprintf("App can only run this command in development, currently in: %s", APPLICATION_ENV), [
+          'APPLICATION_ENV' => APPLICATION_ENV,
+          'APP_DEVELOPMENT' => APP_DEVELOPMENT
+        ]);
+      }
+
+      $this->apiMethods(['GET']);
+
+      $wasDeleted = "%s Successfully DELETED.";
+      $wasNotDeleted = "%s was NOT deleted.";
+
+      // Starting Data
+      $bots = [
+        [
+          'alias' => 'testBotA',
+          'result' => 0,
+          'msg' => sprintf($wasNotDeleted, 'testBotA')
+        ],
+        [
+          'alias' => 'testBotB',
+          'result' => 0,
+          'msg' => sprintf($wasNotDeleted, 'testBotB')
+        ]
+      ];
+
+      $user = \User::findFirstByAlias($bots[0]['alias']);
+      if ($user) {
+        $result = $user->delete();
+        $bots[0]['result'] = ($result) ? 1 : 0;
+        if ($result) {
+          $bots[1]['msg'] = sprintf($wasDeleted, $bots[0]['alias']);
+        }
+      }
+
+      $user = \User::findFirstByAlias($bots[1]['alias']);
+      if ($user) {
+        $result = $user->delete();
+        $bots[1]['result'] = ($result) ? 1 : 0;
+        if ($result) {
+          $bots[1]['msg'] = sprintf($wasDeleted, $bots[1]['alias']);
+        }
+      }
+
+      $finalResult = 0;
+      if ($bots[0]['result'] || $bots[1]['result']) {
+        $finalResult = 1;
+      }
+      return $this->output($finalResult, sprintf("%s & %s", $bots[0]['msg'], $bots[1]['msg']), $bots);
+    }
 }

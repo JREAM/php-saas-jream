@@ -11,18 +11,95 @@
 			"description": "",
 			"item": [
 				{
+					"name": "api/user/deletebotaccount [Development]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2bdf5e-642f-4bad-b266-6bfe49f50315",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/user/deletebotaccount",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"deletebotaccount"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "api/auth/register (Local Account)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "054109ec-878d-4ed7-96fc-2dc15d39685d",
+								"type": "text/javascript",
+								"exec": [
+									"pm.globals.set(\"alias\", \"testBotA\");",
+									"pm.globals.set(\"email\", \"testbotA@jream.com\");",
+									"pm.globals.set(\"password\", \"fishFry1\");",
+									"",
+									"// For Change Tests",
+									"pm.globals.set(\"aliasChange\", \"testBotB\");",
+									"pm.globals.set(\"emailChange\", \"testbotB@jream.com\");",
+									"pm.globals.set(\"passwordChange\", \"fishFry2\");",
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9e80746-5e0b-4395-9db6-7d33d6248edd",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"alias\": \"testbot\",\n\t\"email\": \"testbot@jream.com\",\n\t\"password\": \"fishFry\",\n\t\"confirm_password\": \"fishFry\"\n}"
+							"raw": "{\n\t\"alias\": \"{{alias}}\",\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\",\n\t\"confirm_password\": \"{{password}}\",\n\t\"newsletter\": \"on\",\n\t\"api_testing\": \"winter\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/auth/register",
@@ -41,6 +118,20 @@
 				},
 				{
 					"name": "api/auth/logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ea6a4a8e-8ba2-4931-8737-8a64fe28680e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -70,6 +161,20 @@
 				},
 				{
 					"name": "api/auth/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0adf9529-5c7c-4c4a-b029-8e8aa3932ad1",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -80,7 +185,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"efixir\"\n}"
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/auth/login",
@@ -134,6 +239,20 @@
 				},
 				{
 					"name": "api/user/updateEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7777f175-91d3-4281-9e94-b0c90a5feabf",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -144,7 +263,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test1@test.com\",\n\t\"confirm_email\": \"test1@test.com\"\n}"
+							"raw": "{\n\t\"email\": \"{{emailChange}}\",\n\t\"confirm_email\": \"{{emailChange}}\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/user/updateemail",
@@ -163,6 +282,20 @@
 				},
 				{
 					"name": "api/user/updateAlias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "445424f6-f200-4778-ba44-f3ca942194c5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -173,7 +306,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"alias\": \"testnamenottaken\"\n}"
+							"raw": "{\n\t\"alias\": \"{{aliasChange}}\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/user/updatealias",
@@ -192,6 +325,20 @@
 				},
 				{
 					"name": "api/user/updateNotifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe7b1bf8-567c-4485-bcce-bf9765ead6a4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -221,6 +368,20 @@
 				},
 				{
 					"name": "api/user/updateNotifications (Revert)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16dbb742-2ace-4f9f-8063-b95ddc251234",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -247,35 +408,6 @@
 						"description": ""
 					},
 					"response": []
-				},
-				{
-					"name": "api/user/updatePassword",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"current_password\": \"fishFry\",\n\t\"password\": \"fishFry2\",\n\t\"confirm_password\": \"fishFry2\"\n}"
-						},
-						"url": {
-							"raw": "{{url}}/api/user/updatepassword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"updatepassword"
-							]
-						},
-						"description": ""
-					},
-					"response": []
 				}
 			]
 		},
@@ -284,7 +416,21 @@
 			"description": "",
 			"item": [
 				{
-					"name": "api/user/updatePassword copy",
+					"name": "api/purchase/free",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "392ba3b3-9dfe-43b9-8d26-a54a0d71b5dc",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -295,17 +441,60 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"current_password\": \"fishFry\",\n\t\"password\": \"fishFry2\",\n\t\"confirm_password\": \"fishFry2\"\n}"
+							"raw": "{\n\t\"product_id\": 10\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/user/updatepassword",
+							"raw": "{{url}}/api/purchase/free",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"user",
-								"updatepassword"
+								"purchase",
+								"free"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/product/purchase/free (Test API Stripe)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34ec9972-efac-4711-b580-7a75f1e8933a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"product_id\": 1\t\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/purchase/free",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"purchase",
+								"free"
 							]
 						},
 						"description": ""
@@ -319,7 +508,21 @@
 			"description": "",
 			"item": [
 				{
-					"name": "api/user/updatePassword copy",
+					"name": "api/course/updateProgress",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "271eb42a-51fe-433d-9b07-a83ef27b62b9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -330,7 +533,50 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\n\t\"contentId\": \"\",\n\t\"productId\": \"\",\n\t\"action\": \"\",\n\t\"value\": \"\"\n}"
+							"raw": "{\n\t\"contentId\": 6,\n\t\"productId\": 1,\n\t\"action\": 5,\n\t\"value\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/course/updateProgress",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"course",
+								"updateProgress"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/course/updateProgress (Revert)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "865a708a-00a3-4197-a384-11cc83703c53",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"contentId\": 6,\n\t\"productId\": 1,\n\t\"action\": 5,\n\t\"value\": 0\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/course/updateProgress",
@@ -355,6 +601,20 @@
 			"item": [
 				{
 					"name": "api/user/deleteaccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "03164460-b96e-460e-b5cc-a1529f3bcad0",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -365,7 +625,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"confirm\": \"on\",\n\t\"understand\": \"on\"\n}"
+							"raw": "{\n\t\"confirm\": \"delete\",\n\t\"understand\": \"on\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/user/deleteaccount",
@@ -376,6 +636,50 @@
 								"api",
 								"user",
 								"deleteaccount"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "api/user/deletebotaccount [Development]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c77444e-32ee-471b-9688-0d9994c841c3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/user/deletebotaccount",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"deletebotaccount"
 							]
 						},
 						"description": ""

@@ -33,8 +33,8 @@ $api = new \Phalcon\Config([
   ],
   'aws' => [
     'cloudfront' => [
-      'url' => 'http://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
-      'rtmpUrl' => 'rtmp://sce0kcw2h3nxo.cloudfront.net/', // KEEP TRAILING SLASH
+      'url' => getenv('AWS_CLOUDFRONT_URL'), // KEEP TRAILING SLASH
+      'rtmpUrl' => getenv('AWS_CLOUDFRONT_RMTP_URL'), // KEEP TRAILING SLASH
       // constants.php is loaded first, so CONFIG_DIR will be set dynamically.
       'privateKeyLocation' => $config->application->configDir . 'keys/aws-cloudfront-pk.pem',
       'expiration' => strtotime(getenv('AWS_CLOUDFRONT_EXPIRATION')),
@@ -50,16 +50,16 @@ $api = new \Phalcon\Config([
       'accessKey' => getenv('AWS_SNS_ACCESS_KEY'),
       'secretKey' => getenv('AWS_SNS_SECRET_KEY'),
       'arn' => [
-        'bounce' => 'arn:aws:sns:us-east-1:950584027081:ses-bounce-topic',
-        'complaint' => 'arn:aws:sns:us-east-1:950584027081:ses-complaint-topic',
-        'delivery' => 'arn:aws:sns:us-east-1:950584027081:ses-delivery-topic',
+        'bounce' => getenv('AWS_SNS_ARN_BOUNCE'),
+        'complaint' => getenv('AWS_SNS_ARN_COMPLAINT'),
+        'delivery' => getenv('AWS_SNS_ARN_DELIVERY'),
       ]
     ],
     'ses' => [
-            // host        (env variable)
-            // username    (env variable)
-            // password    (env variable)
-            // port        (env variable)
+      'host' => getenv('AWS_SES_HOST'),
+      'username' => getenv('AWS_SES_USERNAME'),
+      'password' => getenv('AWS_SES_PASSWORD'),
+      'port' => getenv('AWS_SES_PORT'),
     ],
     'sqs' => [
       'version' => getenv('AWS_SQS_VERSION'),
@@ -71,8 +71,11 @@ $api = new \Phalcon\Config([
   'google' => [
     'recaptchaSecret' => getenv('GOOGLE_RECAPTCHA_SECRET')
   ],
+  'sparkpost' => [
+    'key' => getenv('SPARKPOST_KEY')
+  ],
   'sendgrid' => [
-    'key' => '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'
+    'key' => getenv('SENDGRID_KEY'),
         // Credentials In: .env / .env.sample
         // ----------------------------------
         // host         (env variable)
@@ -95,28 +98,28 @@ $api = new \Phalcon\Config([
     'providers' => [
       'google' => [
         'enabled' => true,
-        'callback' => 'api/auth/google',
+        'callback' => $inDevelopment ? getenv('DEV_GOOGLE_CALLBACK_URL') : getenv('GOOGLE_CALLBACK_URL'),
         'keys' => [
-          'id' => $inDevelopment ? getenv('GOOGLE_CLIENT_ID_DEV') : getenv('GOOGLE_CLIENT_ID'),
-          'secret' => $inDevelopment ? getenv('GOOGLE_CLIENT_SECRET_DEV') : getenv('GOOGLE_CLIENT_SECRET'),
+          'id' => $inDevelopment ? getenv('DEV_GOOGLE_CLIENT_ID') : getenv('GOOGLE_CLIENT_ID'),
+          'secret' => $inDevelopment ? getenv('DEV_GOOGLE_CLIENT_SECRET') : getenv('GOOGLE_CLIENT_SECRET'),
         ],
                 // 'scope' => '', // Using Default Provided
       ],
       'facebook' => [
         'enabled' => true,
-        'callback' => 'api/auth/facebook',
+        'callback' => $inDevelopment ? getenv('DEV_FACEBOOK_CALLBACK_URL') : getenv('FACEBOOK_CALLBACK_URL'),
         'keys' => [
-          'id' => $inDevelopment ? getenv('FACEBOOK_APP_ID_DEV') : getenv('FACEBOOK_APP_ID'),
-          'secret' => $inDevelopment ? getenv('FACEBOOK_APP_SECRET_DEV') : getenv('FACEBOOK_APP_SECRET'),
+          'id' => $inDevelopment ? getenv('DEV_FACEBOOK_APP_ID') : getenv('FACEBOOK_APP_ID'),
+          'secret' => $inDevelopment ? getenv('DEV_FACEBOOK_APP_SECRET') : getenv('FACEBOOK_APP_SECRET'),
         ],
                 // 'scope' => '', // Using Default Provided
       ],
       'github' => [
         'enabled' => true,
-        'callback' => 'api/auth/github',
+        'callback' => $inDevelopment ? getenv('DEV_GITHUB_CALLBACK_URL') : getenv('GITHUB_CALLBACK_URL'),
         'keys' => [
-          'id' => $inDevelopment ? getenv('GITHUB_CLIENT_ID_DEV') : getenv('GITHUB_CLIENT_ID'),
-          'secret' => $inDevelopment ? getenv('GITHUB_CLIENT_SECRET_DEV') : getenv('GITHUB_CLIENT_SECRET'),
+          'id' => $inDevelopment ? getenv('DEV_GITHUB_CLIENT_ID') : getenv('GITHUB_CLIENT_ID'),
+          'secret' => $inDevelopment ? getenv('DEV_GITHUB_CLIENT_SECRET') : getenv('GITHUB_CLIENT_SECRET'),
         ],
                 // 'scope' => '', // Using Default Provided
       ],

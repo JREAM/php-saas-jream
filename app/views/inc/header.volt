@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url() }}">
-                    <img id="logo" src="{{ config.url_static }}img/logo-md.png" alt="JREAM">
+                    <img id="logo" src="{{ config.url_static }}img/logo-sm.png" alt="JREAM" style="height: 40px"><!-- tmp fix-->
                     <img id="logo-ico" class="hide" src="{{ config.url_static }}img/jream-ico.png" alt="JREAM">
                 </a>
             </div>

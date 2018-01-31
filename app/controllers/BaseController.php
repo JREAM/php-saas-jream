@@ -9,7 +9,7 @@ class BaseController extends \Phalcon\Mvc\Controller
      *
      * @return void
      */
-    protected function initialize()
+    public function initialize()
     {
         getBaseUrl('/');
         if ($this->session->has('agent'))

@@ -1,5 +1,6 @@
+
     <meta charset="utf-8">
-    <meta name="google-site-verification" content="dwKdmkj79fk1i7bjLXbYlCLiFLF-iOa7xu0g-s0yypw" />
+    <meta name="google-site-verification" content="OwyLkMsH9jv5qjWXoHjuS21Vhrcuz1qy1GstT02l8Sg" />
     {{ get_title() }}
     <link rel="icon" href="{{ url('img/favicon.png') }}" type="image/png">
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>

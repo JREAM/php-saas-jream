@@ -3,7 +3,7 @@
  * This is generated into constants in public/index.php
  * Its created this way so it can be overwritten if needed
  */
-$constants = new \Phalcon\Config([
+$constants = new Phalcon\Config([
 
     // --------------------------------------------------------------
     // Timezone

@@ -16,6 +16,11 @@
 <ol class="breadcrumb">
     <li class="active">Dashboard</li>
 </ol>
+
+
+{% include "inc/section/discount.volt" %}
+<div class="spacer-40"></div>
+
 {% endblock %}
 
 
@@ -80,7 +85,12 @@
                             {% elseif product.status == constant('\Product::STATUS_PLANNED') %}
                                 Planned
                             {% elseif product.price != 0 and product.status != constant('\Product::STATUS_DEVELOPMENT') %}
-                                <sup>$</sup>{{ product.price }}
+                                {% if product.price_current !=0 and product.price_current != NULL %}
+                                  <sup>$</sup>{{ product.price_current }}
+                                  <sup>$</sup>{{ product.price }}
+                                {% else %}
+                                  <sup>$</sup>{{ product.price }}
+                                {% endif %}
                             {% else %}
                                 Free
                             {% endif %}

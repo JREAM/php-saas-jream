@@ -20,9 +20,10 @@
     <li class="active">{{ courseName }}</li>
 </ol>
 
-<div class="social-share">
-{% include 'inc/addthis.volt' %}
-</div>
+
+{% include "inc/section/discount.volt" %}
+<div class="spacer-40"></div>
+
 {% endblock %}
 
 {% block content %}

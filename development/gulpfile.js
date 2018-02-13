@@ -12,7 +12,6 @@ var gulp            = require("gulp"),
     sourcemaps      = require("gulp-sourcemaps"),
     notify          = require("gulp-notify"),
     imagemin        = require("gulp-imagemin"),
-    jshint          = require("gulp-jshint"),
     gutil           = require("gulp-util"),
     postcss         = require("gulp-postcss"),
     autoprefixer    = require("autoprefixer"),
@@ -127,8 +126,6 @@ gulp.task('js', function() {
         .pipe(plumber({
             errorHandler: onError
         }))
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
         .pipe(uglify())
         .pipe(concat(output.min_js))
         .pipe(sourcemaps.init())

@@ -7,11 +7,5 @@
             <li>Re-usable token(s) are <strong>never</strong> stored on JREAM server(s), it's a one time charge.</li>
             <li>You will receive a receipt for your purchase from JREAM and Stripe (You are only charged once).</li>
         </ul>
-    <li><strong>PayPal Purchases</strong>
-        <ul>
-            <li>Personal Paypal information is <strong>never</strong> stored to JREAM server(s). However, we do store the alphanumeric Transaction ID to reference your purchase.</li>
-            <li>You will be taken to a <strong>PayPal Express Checkout</strong> to purchase.</li>
-            <li>Always ensure the <strong>PayPal SSL Certificate</strong> and site originates from PayPal.com.</li>
-            <li>All PayPal security is managed by <a href="https://paypal.com" target="_blank">PayPal Inc</a>.</li>
-        </ul>
+      </li>
 </ul>

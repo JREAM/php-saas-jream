@@ -28,17 +28,6 @@ $(function() {
 <!-- Used to reference smaller screens href# -->
 <div id="checkout-area"></div>
 
-<div class="panel panel-default panel-primary checkout-purchase-paypal">
-    <div class="panel-heading">
-        <strong>Buy Now with Paypal</strong>
-    </div>
-    <div class="panel-body text-center">
-        <a href="{{ url('product/dopaypal') }}/{{ product.id }}">
-            <img src="{{ url('img/payment/checkout-with-paypal.jpg') }}" alt="Paypal Checkout" />
-        </a>
-    </div>
-</div>
-
 <div class="panel panel-default panel-primary checkout-purchase-card">
     <div class="panel-heading">
         <strong>Buy Now with Card</strong>

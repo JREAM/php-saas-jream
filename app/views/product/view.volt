@@ -210,14 +210,8 @@ $(function() {
 
     {% else %}
     $(".checkout-purchase-card").hide();
-    $(".checkout-purchase-paypal").hide();
 
-    // $(".checkout-purchase-card, .checkout-purchase-paypal").css('opacity', 0.5);
         $(".checkout-purchase-card").find('input, select').prop('disabled', true);
-        $(".checkout-purchase-paypal").find('a').css('cursor', 'default');
-        $(".checkout-purchase-paypal").find('a').click(function(evt) {
-            evt.preventDefault();
-        });
     {% endif %}
 })
 </script>

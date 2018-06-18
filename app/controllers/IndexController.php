@@ -35,16 +35,6 @@ class IndexController extends \BaseController
   /**
    * @return void
    */
-  public function indexAction()
-  {
-    $this->view->pick('index/donate');
-  }
-
-    // --------------------------------------------------------------
-
-  /**
-   * @return void
-   */
   public function labAction()
   {
     Tag::setTitle('Lab | ' . $this->di['config']['title']);

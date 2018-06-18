@@ -18,7 +18,6 @@
 </ol>
 
 
-{% include "inc/section/discount.volt" %}
 <div class="spacer-40"></div>
 
 {% endblock %}

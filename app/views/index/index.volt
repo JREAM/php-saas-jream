@@ -37,8 +37,6 @@
 {% block content %}
 <div class="spacer-20"></div>
 
-{% include "inc/section/discount.volt" %}
-
 <div class="container container-fluid">
     <div class="row">
         <div class="col-sm-12">

@@ -1,10 +1,19 @@
 # JREAM 7.0 
-This is the website of JREAM LLC for streaming media and training courses SASS.
-(C) 2017 JREAM LLC.
+This is the website I built for JREAM LLC several years ago.  
+This remains for a portfolio piece of code. This document is not conclusive. The code was written by me and for me.
 
-JREAM (Jesus Rules Everything Around Me) is a website for streaming videos I've made over the years.
-The system is built to serve people content on the fly after they purchase a product. Reliablity
-is important since JREAM LLC provides a serve. To solve this, AWS is utilized for fall-back servers, Redundant Storage, Geolocalized CDN, and Multi A-Z DB.
+- **Overview**
+- Built in Phalcon PHP
+- Hosted on Ubuntu Server (Linode)
+- Purpose was an SaaS/LMS.
+- Dependncies Hosted through AWS 
+  - Redundant Storage (S3)
+  - Geolocated CDN (CloudFront)
+  - Multi A-Z MySQL Database
+  - Streaming Video
+- Paid Members for Full Courses (Stripe API)
+- API Keys are Rolled and No Longer Active.
+
 
 ## Dev Subdomain
 

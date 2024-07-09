@@ -12,6 +12,8 @@
 .buildpath
 .DS_Store
 .env
+.idea
+.vscode
 .phpintel
 .project
 .settings

@@ -1,5 +1,5 @@
-# JREAM 7.0 
-This is the website I built for JREAM LLC several years ago.  
+# JREAM 7.0
+This is the website I built for JREAM LLC several years ago.
 This remains for a portfolio piece of code. This document is not conclusive. The code was written by me and for me. :-)
 
 - **Overview**
@@ -9,11 +9,15 @@ This remains for a portfolio piece of code. This document is not conclusive. The
   - Apache 2
   - WebPack for Assets
     - SaaS
-    - Misc Images 
-- Developed at a paid SaaS/LMS.
-- Features Hosted through AWS: 
+    - Misc Images
+  - Ruby Mailcatcher for Testing Emails
+  - PHP Codeception for Tests
+  - Python Fabric for Basic Deployment Tasks
+  - Bash `cli.sh` for Phalcon Based `app/Tasks`
+- Developed as a paid SaaS/LMS for courses I recorded.
+- Features Hosted through AWS:
   - Multi A-Z MySQL Database.
-    - AWS MySQL RDB (Upfront). 
+    - AWS MySQL RDB (Upfront).
   - Streaming Video and Images:
     - AWS S3 Storage.
     - AWS CloudFront for RMTP Streaming.
@@ -55,12 +59,12 @@ htpasswd -cB dev_jream.htpasswd jesse
     AllowOverride All
     #Require all granted
 
-    # Path to the generated .htpasswd    
+    # Path to the generated .htpasswd
     AuthUserFile /etc/apache2/htpasswd/dev_jream.htpasswd
     AuthType Basic
     AuthName "Develop Area"
     Require valid-user
-    
+
     Order Allow,Deny
     Deny from All
 
@@ -103,7 +107,7 @@ vendor/bin/codecept run
 
 - Make sure the application/cache folder is writable.
 - If setting up a `/dev` path it would also be required there.
-  
+
 ```bash
 chown -R www-data:www-data /var/www/jream.com
 usermod -a -G www-data jesse
@@ -113,7 +117,7 @@ chmod 770 -R /var/www/jream.com
 ### PayPal Test Credentials
 
 - Get the PayPal credentials from the API.
-  
+
 ```yaml
 Paypal Test: username-facilitator@gmail.com
 ```
@@ -229,7 +233,7 @@ If the servers go haywire these things must be done:
 
 - Make sure MySQL has access to the `HOST IP` (_Using AWS RDB_)
 - Check the `DNS` in `AWS RDB`, Look at `Health Check`
-- Make sure `Composer` is Updated 
+- Make sure `Composer` is Updated
 - Check `/var/logs/apache2/error.log`
 
 

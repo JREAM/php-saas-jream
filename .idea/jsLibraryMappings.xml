@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{jream.com/node_modules}" />
-    <file url="PROJECT" libraries="{angular-DefinitelyTyped, jquery-DefinitelyTyped, jream.com/node_modules, lodash-DefinitelyTyped, react-DefinitelyTyped}" />
-    <includedPredefinedLibrary name="Node.js Core" />
-  </component>
-</project>

@@ -10,11 +10,14 @@ This remains for a portfolio piece of code. This document is not conclusive. The
   - WebPack for Assets
     - SaaS
     - Misc Images
+    - Webpack Mix
+    - _Packages are out of date of course :)_
   - Ruby Mailcatcher for Testing Emails
   - PHP Codeception for Tests
   - Python Fabric for Basic Deployment Tasks
   - Bash `cli.sh` for Phalcon Based `app/Tasks`
 - Developed as a paid SaaS/LMS for courses I recorded.
+- Blog Submodule, however `.gitmodules` of `jream/blog` is no longer available.
 - Features Hosted through AWS:
   - Multi A-Z MySQL Database.
     - AWS MySQL RDB (Upfront).
